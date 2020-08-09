@@ -2,7 +2,7 @@ if @user
   json.code 0
   json.message 'success'
   json.data do
-    json.user @user.to_builder.target!
+    json.user @user.to_builder.attributes!
   end
 else
   json.code 0

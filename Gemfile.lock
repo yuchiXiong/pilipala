@@ -108,6 +108,8 @@ GEM
     public_suffix (4.0.5)
     puma (3.12.6)
     rack (2.2.3)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.4.3)
@@ -202,6 +204,7 @@ DEPENDENCIES
   jwt (~> 2.2, >= 2.2.1)
   listen (>= 3.0.5, < 3.2)
   puma (~> 3.11)
+  rack-cors
   rails (~> 5.2.4, >= 5.2.4.3)
   sass-rails (~> 5.0)
   selenium-webdriver

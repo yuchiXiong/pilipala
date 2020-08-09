@@ -7,6 +7,9 @@ ruby '2.5.7'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.10'
 
+# * cors
+gem 'rack-cors'
+
 # * password hash
 gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 
