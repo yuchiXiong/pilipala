@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_09_060327) do
+ActiveRecord::Schema.define(version: 2020_08_09_084843) do
+
+  create_table "blogs", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", default: ""
+    t.text "content", default: ""
+    t.string "cover"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_blogs_on_title"
+    t.index ["user_id"], name: "index_blogs_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string "account"
-    t.string "password_hash"
-    t.text "nick_name"
+    t.string "account", null: false
+    t.string "password_hash", null: false
+    t.text "nick_name", default: ""
     t.string "email"
     t.string "avatar"
-    t.integer "sex"
-    t.text "description"
+    t.integer "sex", default: 0
+    t.text "description", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account"], name: "index_users_on_account", unique: true

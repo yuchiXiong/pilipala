@@ -3,6 +3,7 @@ require 'jwt'
 
 class User < ApplicationRecord
   include BCrypt
+  has_many :blogs
 
   enum sex: [:'保密', :'男', :'女']
 

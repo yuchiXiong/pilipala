@@ -7,5 +7,5 @@ if @user
 else
   json.code 0
   json.message '用户名与密码不匹配'
-  json.data {}
+  json.data nil
 end
