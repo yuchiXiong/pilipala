@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+success:
+  account: yuchi.xiong@foxmail.com
+  password_hash: $2a$12$ADpMH2v2Rl6gApCecrMvdeu4c.KdCI9HTjwK0QZwsOqqiUwqP4hpa
+  nick_name: yuchi
+  email: yuchi.xiong@foxmail.com
+  avatar: ''
+  sex: 1
+  description: ''
+
