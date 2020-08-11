@@ -6,10 +6,11 @@ module Api
       def index
         page = params[:page].to_i || 1
 
-        if page.to_i <= 1
-          @blogs = Blog.limit(20)
-        end
-        @blogs = Blog.offset((page -1) * 20).limit(20)
+        @blogs = if page.to_i <= 0
+                   Blog.limit(20)
+                 else
+                   Blog.offset((page -1) * 20).limit(20)
+                 end
       end
 
       # * GET /api/v1/blog/:id
