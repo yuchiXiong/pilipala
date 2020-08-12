@@ -3,7 +3,7 @@ class Blog < ApplicationRecord
 
   def to_builder
     Jbuilder.new do |blog|
-      blog.(self, :title, :description, :content, :cover)
+      blog.(self, :id, :title, :description, :content, :cover)
     end
   end
 
