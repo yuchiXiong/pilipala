@@ -16,11 +16,17 @@ class User < ApplicationRecord
     self.password_hash = @password
   end
 
-  def to_builder
+  def self.user_valid!(user_token)
+    hmac_secret = Rails.application.credentials[:jwt_hmac_secret]
+    decode = JWT.decode user_token, hmac_secret, true, {algorithm: 'HS256'}
+    User.find_by_account(decode[0]['account'])
+  end
 
+  def to_builder
+    # * 登录有效期 7 天
     exp = Time.current.to_i + 7 * 24 * 3600
     exp_payload = {account: account, exp: exp}
-    hmac_secret = '11111111111'
+    hmac_secret = Rails.application.credentials[:jwt_hmac_secret]
 
     Jbuilder.new do |user|
       user.nickName nick_name
@@ -28,4 +34,6 @@ class User < ApplicationRecord
       user.(self, :id, :email, :avatar, :sex, :description)
     end
   end
+
+
 end

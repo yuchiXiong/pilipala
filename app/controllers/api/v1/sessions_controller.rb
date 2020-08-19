@@ -1,14 +1,14 @@
 module Api
   module V1
-    class SessionsController < ApiController
+    class SessionsController < ApplicationController
+      skip_before_action :authenticate_with_user_token
 
       def create
         account = params[:account]
         password = params[:password]
-
         @user = User.find_by_account(account)
         unless @user && @user.password == password
-          @user = nil
+          raise AccountValidError
         end
       end
 

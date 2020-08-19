@@ -1,11 +1,11 @@
 module Api
   module V1
-    class BlogsController < ApiController
+    class BlogsController < ApplicationController
+      skip_before_action :authenticate_with_user_token, only: [:index, :show]
 
       # * GET /api/v1/blogs
       def index
         page = params[:page].to_i || 1
-
         @blogs = if page.to_i <= 0
                    Blog.limit(20)
                  else
@@ -21,6 +21,7 @@ module Api
       # * POST /api/v1/blog
       def create
         @blog = Blog.new(blog_params)
+        @blog.user_id = @current_user.id
         unless @blog.save
           @errors = @blog.errors
         end
