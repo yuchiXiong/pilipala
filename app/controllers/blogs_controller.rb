@@ -3,11 +3,11 @@ class BlogsController < ApplicationController
 
   # * GET /api/v1/blogs
   def index
-    page = params[:page].to_i || 1
-    @blogs = if page.to_i <= 0
+    @page = params[:page].to_i || 1
+    @blogs = if @page.to_i <= 0
                Blog.limit(20)
              else
-               Blog.offset((page -1) * 20).limit(20)
+               Blog.offset((@page - 1) * 20).limit(20)
              end
   end
 
