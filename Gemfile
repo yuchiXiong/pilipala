@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.5.7'
 
+# * auto deploy
+gem 'mina'
+
 # * database
 gem 'pg'
 
