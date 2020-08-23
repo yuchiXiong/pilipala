@@ -4,7 +4,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.7'
 
 # * auto deploy
-gem 'mina'
+gem 'mina', '~> 1.2', '>= 1.2.3'
+gem 'mina-logs', '~> 1.1'
+gem 'mina-ng-puma', '~> 1.4'
+gem 'mina-multistage', '~> 1.0', '>= 1.0.3'
 
 # * database
 gem 'pg'
