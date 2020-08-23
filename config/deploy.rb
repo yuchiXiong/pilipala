@@ -24,7 +24,7 @@ set :rails_env, 'production'
 
 # * file settings
 set :puma_config, -> { "#{fetch(:current_path)}/config/puma.rb" }
-set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/master.key')
+set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/credentials.yml.enc')
 
 task :remote_environment do
   invoke :'rvm:use', 'ruby-2.5.7'

@@ -21,3 +21,7 @@ end
 
 **MiniTest && TDD**
 项目第不知道多少天，重新梳理了一遍，发现漏掉了好多逻辑，处理了csrf和api关系下的验证机制
+
+### 2020/08/23
+项目不知道第多少天，加入自动化部署，发现rvm_use_path必要指定的是scripts/rvm而不是bin/rvm。
+另外如何有效率的配置authorized_keys，使用ssh-copy-id比手动复制更靠谱。
