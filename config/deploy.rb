@@ -62,6 +62,7 @@ task :deploy do
 
     on :launch do
       in_path(fetch(:current_path)) do
+        invoke :'rvm:use', 'ruby-2.5.7'
         invoke :'puma:phased_restart'
       end
     end
