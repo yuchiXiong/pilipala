@@ -1,13 +1,15 @@
 class BlogsController < ApplicationController
   skip_before_action :authenticate_with_user_token, only: [:index, :show]
 
+  Single_Page_Data_num = 10
+
   # * GET /api/v1/blogs
   def index
     @page = params[:page].to_i || 1
     @blogs = if @page.to_i <= 0
-               Blog.limit(20)
+               Blog.limit(Single_Page_Data_num)
              else
-               Blog.offset((@page - 1) * 20).limit(20)
+               Blog.offset((@page - 1) * Single_Page_Data_num).limit(Single_Page_Data_num)
              end
   end
 
