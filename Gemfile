@@ -25,6 +25,10 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 # * jwt validate
 gem 'jwt', '~> 2.2', '>= 2.2.1'
 
+# * oss && file uploader
+gem 'carrierwave', '~> 2.0'
+gem 'aliyun-sdk', '~> 0.6.0'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 # Use sqlite3 as the database for Active Record
