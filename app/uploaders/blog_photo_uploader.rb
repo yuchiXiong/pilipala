@@ -29,7 +29,6 @@ class BlogPhotoUploader < CarrierWave::Uploader::Base
     bucket = client.get_bucket('assets-blog-xiongyuchi')
     bucket.put_object("#{self.store_dir}/#{self.filename}", :file => self.path)
     File.delete(self.path)
-    1
   end
 
   # * 记录文件cache id
@@ -46,6 +45,11 @@ class BlogPhotoUploader < CarrierWave::Uploader::Base
 
   # * 自定义文件名
   def filename
-    "#{Time.current.to_i}.png" if original_filename
+    @name ||= "#{timestamp}-#{super}" if original_filename.present? and super.present?
+  end
+
+  def timestamp
+    var = :"@#{mounted_as}_timestamp"
+    model.instance_variable_get(var) or model.instance_variable_set(var, Time.current.to_i)
   end
 end
