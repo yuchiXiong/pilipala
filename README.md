@@ -130,3 +130,5 @@ Please visit https://rvm.io/integration/gnome-terminal/ for an example.
 ~~~ shell script
 ssh-copy-id -i ./id_rsa.pub account@domain_or_server_ip
 ~~~
+
+### 4. 如何使用minitest测试带有时间属性的接口&&如何测试文件上传
