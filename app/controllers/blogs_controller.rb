@@ -6,10 +6,11 @@ class BlogsController < ApplicationController
   # * GET /api/v1/blogs
   def index
     @page = params[:page].to_i || 1
+    blogs = Blog.order("created_at desc")
     @blogs = if @page.to_i <= 0
-               Blog.limit(Single_Page_Data_num)
+               blogs.limit(Single_Page_Data_num)
              else
-               Blog.offset((@page - 1) * Single_Page_Data_num).limit(Single_Page_Data_num)
+               blogs.offset((@page - 1) * Single_Page_Data_num).limit(Single_Page_Data_num)
              end
   end
 
