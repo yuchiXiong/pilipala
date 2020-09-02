@@ -80,7 +80,18 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     assert_equal JSON.parse(@response.body)['code'], Code::Unauthorized_Error
   end
 
-  test 'should login state timeout' do
+  test 'should login state expired' do
+    user_token = ''
+
+    # * travel_to 代码块模拟了在8天前进行登录，并获取了对应的token用于验证token过期时是否能够得到合理的响应
+    travel_to Time.current - 8.days do
+      post sessions_url, params: {
+          account: users(:success).account,
+          password: '123456'
+      }, headers: {'Accept': 'application/json'}
+      user_token = JSON.parse(@response.body)['data']['user']['userToken']
+    end
+
     post blogs_url, params: {
         blog: {
             title: '写好测试至少没那么多bug',
@@ -89,11 +100,13 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
             user_id: 1
         }
     }, headers: {
-        'User-Token': @user_token,
+        'User-Token': user_token,
         'Accept': 'application/json'
     }
+
     assert_response :unauthorized
     assert_equal JSON.parse(@response.body)['code'], Code::Unauthorized_Expired
+
   end
 
   test 'should blog author is current user' do
@@ -143,8 +156,20 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'show login state expired' do
+
+    user_token = ''
+
+    # * travel_to 代码块模拟了在8天前进行登录，并获取了对应的token用于验证token过期时是否能够得到合理的响应
+    travel_to Time.current - 8.days do
+      post sessions_url, params: {
+          account: users(:success).account,
+          password: '123456'
+      }, headers: {'Accept': 'application/json'}
+      user_token = JSON.parse(@response.body)['data']['user']['userToken']
+    end
+
     current_blog_id = blogs(:success).id
-    delete blog_url(current_blog_id), headers: {'User-Token': @user_token, 'Accept': 'application/json'}
+    delete blog_url(current_blog_id), headers: {'User-Token': user_token, 'Accept': 'application/json'}
     assert_response :unauthorized
     assert_equal Code::Unauthorized_Expired, JSON.parse(@response.body)['code']
   end

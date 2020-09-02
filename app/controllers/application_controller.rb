@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
 
   class AccessDeniedError < StandardError; end
 
+  class FormatNotSupport < StandardError; end
+
   def authenticate_with_user_token
     user_token = request.headers['User-Token']
     @current_user = User.user_valid! user_token
@@ -23,6 +25,11 @@ class ApplicationController < ActionController::Base
     render json: {code: Code::Unauthorized_Expired, message: '登录已失效，请重新登录', data: nil}, status: :unauthorized
   rescue JWT::DecodeError
     render json: {code: Code::Unauthorized_Error, message: '身份验证异常', data: nil}, status: :unauthorized
+  end
+
+  rescue_from(FormatNotSupport) do
+    logger.warn "不支持的图片格式: #{params[:file].content_type}"
+    render json: {code: Code::Photo_Format_Not_Support, message: '暂仅支持gif/jpg/jpeg/png图片格式！'}, status: :bad_request
   end
 
   rescue_from(AccessDeniedError) do

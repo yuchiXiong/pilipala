@@ -3,9 +3,13 @@ require 'ali/oss'
 class BlogPhotosController < ApplicationController
 
   def create
-    uploader = BlogPhotoUploader.new(params[:id])
+    @blog = Blog.find(params[:blogId])
+    unless %w[image/gif image/jpeg image/png].include? params[:file].content_type
+      raise FormatNotSupport
+    end
+    uploader = BlogPhotoUploader.new(params[:blogId])
     uploader.store!(params[:file])
-    @url = Ali::Oss.new.client.get_bucket('assets-blog-xiongyuchi').object_url(uploader.to_s[1..-1])
+    @url = uploader.to_s
   end
 
 end
