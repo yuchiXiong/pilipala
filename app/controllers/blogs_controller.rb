@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
 
   Single_Page_Data_num = 10
 
-  # * GET /api/v1/blogs
+  # * GET /blogs
   def index
     @page = params[:page].to_i || 1
     blogs = Blog.order(created_at: :desc)
@@ -14,12 +14,12 @@ class BlogsController < ApplicationController
              end
   end
 
-  # * GET /api/v1/blog/:id
+  # * GET /blogs/:id
   def show
     @blog = Blog.find(params[:id])
   end
 
-  # * POST /api/v1/blog
+  # * POST /blogs
   def create
     @blog = Blog.new(blog_params)
     @blog.user_id = @current_user.id
@@ -28,7 +28,7 @@ class BlogsController < ApplicationController
     end
   end
 
-  # * DELETE /api/v1/blog/:id
+  # * DELETE /blogs/:id
   def destroy
     @blog = Blog.find(params[:id])
     unless @blog.user_id == @current_user.id
