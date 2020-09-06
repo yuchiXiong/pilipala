@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BlogsControllerTest < ActionDispatch::IntegrationTest
 
-  # * 登录
+  # * 部分接口需要先登录
   setup do
     post sessions_url, params: {
         account: users(:success).account,
@@ -11,7 +11,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     @user_token = JSON.parse(@response.body)['data']['user']['userToken']
   end
 
-  # * Get /api/v1/blogs
+  # * Get /blogs
   # * 拉取博客列表
   # * 1. 应该拉取博客列表
   test 'should get blog list' do
@@ -25,7 +25,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   end
 
 
-  # * Get /api/v1/blogs/:id
+  # * Get blogs/:id
   # * 拉取指定博客
   # * 1. 应该拉取指定博客
   # * 2. 指定博客不存在时应该提示不存在
@@ -43,7 +43,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   end
 
 
-  # * Post /api/v1/blogs
+  # * Post /blogs
   # * 创建博客
   # * 1. 应该创建blog
   # * 2. 未登录时应该提示未登录
@@ -126,7 +126,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   end
 
 
-  # * Delete /api/v1/blogs/:id
+  # * Delete /blogs/:id
   # * 删除指定博客
   # * 1. 应该删除指定的博客
   # * 2. 指定博客不存在应该提示
