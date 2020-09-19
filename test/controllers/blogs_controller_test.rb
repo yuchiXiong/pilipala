@@ -15,7 +15,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * Get /blogs
   # * 拉取博客列表
   # * 1. 应该拉取博客列表
-  test 'should get blog list' do
+  test 'get blog list' do
     get blogs_url, params: {
       format: 'application/json',
       page:   1
@@ -29,15 +29,22 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * 拉取指定博客
   # * 1. 应该拉取指定博客
   # * 2. 指定博客不存在时应该提示不存在
-  test 'should get blog' do
+  # * 3. 指定博客存在但未发布时提示不存在
+  test 'get blog' do
     get blog_url(blogs(:success).id), headers: { 'Accept': 'application/json' }
     assert_response :success
     assert_equal JSON.parse(@response.body)['message'], 'success'
     assert_not_nil JSON.parse(@response.body)['data']['blog']
   end
 
-  test 'blog not found so not show' do
+  test 'return not found if blog not exist' do
     get blog_url('not_present_id'), headers: { 'Accept': 'application/json' }
+    assert_response :not_found
+    assert_equal JSON.parse(@response.body)['message'], '资源未找到'
+  end
+
+  test 'return not found if blog not released' do
+    get blog_url(blogs(:released_blog).id), headers: { 'Accept': 'application/json' }
     assert_response :not_found
     assert_equal JSON.parse(@response.body)['message'], '资源未找到'
   end

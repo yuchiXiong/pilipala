@@ -18,16 +18,16 @@ class User < ApplicationRecord
 
   def self.user_valid!(user_token)
     hmac_secret = Rails.application.credentials[:jwt_hmac_secret]
-    decode = JWT.decode user_token, hmac_secret, true, {algorithm: 'HS256'}
+    decode = JWT.decode user_token, hmac_secret, true, { algorithm: 'HS256' }
     User.find_by_account(decode[0]['account'])
   end
 
   def jwt
     # * 登录有效期 7 天
-    exp = Time.current.to_i + 7 * 24 * 3600
-    exp_payload = {account: account, exp: exp}
+    exp         = Time.current.to_i + 7 * 24 * 3600
+    exp_payload = { account: account, exp: exp }
     hmac_secret = Rails.application.credentials[:jwt_hmac_secret]
-    JWT::encode(exp_payload, hmac_secret, 'HS256')
+    JWT.encode(exp_payload, hmac_secret, 'HS256')
   end
 
 end

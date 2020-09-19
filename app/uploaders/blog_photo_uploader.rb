@@ -23,21 +23,21 @@ class BlogPhotoUploader < CarrierWave::Uploader::Base
   end
 
   # * 将文件上传至OSS
-  def save_to_ali_oss
+  def save_to_ali_oss(file)
     oss    = Ali::Oss.new
     client = oss.client
     bucket = client.get_bucket('assets-blog-xiongyuchi')
-    bucket.put_object("#{self.store_dir}/#{self.filename}", :file => self.path)
-    File.delete(self.path)
+    bucket.put_object("#{store_dir}/#{filename}", file: path)
+    File.delete(path)
   end
 
   # * 记录文件cache id
-  def remember_cache_id
+  def remember_cache_id(new_file)
     @cache_id_was = cache_id
   end
 
   # * 删除文件cache
-  def delete_tmp_dir
+  def delete_tmp_dir(new_file)
     if @cache_id_was.present? && @cache_id_was =~ /\A[\d]+\-[\d]+(\-[\d]{4})?\-[\d]{4}\z/
       FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
     end
@@ -45,11 +45,12 @@ class BlogPhotoUploader < CarrierWave::Uploader::Base
 
   # * 自定义文件名
   def filename
-    @name ||= "#{timestamp}-#{super}" if original_filename.present? and super.present?
+    @name ||= "#{timestamp}-#{super}" if original_filename.present? && super.present?
   end
 
   def timestamp
     var = :"@#{mounted_as}_timestamp"
-    model.instance_variable_get(var) or model.instance_variable_set(var, Time.current.to_i)
+    model.instance_variable_get(var) ||
+      model.instance_variable_set(var, Time.current.to_i)
   end
 end

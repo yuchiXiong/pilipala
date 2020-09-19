@@ -6,10 +6,12 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
   # * 登录
   setup do
     post sessions_url, params: {
-        account: users(:success).account,
-        password: '123456'
-    }, headers: {'Accept': 'application/json'}
-    @user_token = JSON.parse(@response.body)['data']['user']['userToken']
+      account:  users(:success).account,
+      password: '123456'
+    }, headers:                {
+      'Accept': 'application/json'
+    }
+    @user_token   = JSON.parse(@response.body)['data']['user']['userToken']
     @photo_domain = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com'.freeze
   end
 
@@ -22,11 +24,11 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
   # * 4. 未登录时提示未登录
   test 'should upload success when blog exist' do
     post blog_photos_url, params: {
-        blogId: blogs(:success).id,
-        file: fixture_file_upload('/test_file.png', 'image/png')
-    }, headers: {
-        'Accept': 'application/json',
-        'User-Token': @user_token
+      blogId: blogs(:success).id,
+      file:   fixture_file_upload('/test_file.png', 'image/png')
+    }, headers:                   {
+      'Accept':     'application/json',
+      'User-Token': @user_token
     }
 
     assert_response :success
@@ -37,11 +39,11 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'should return blog not found' do
     post blog_photos_url, params: {
-        blogId: blogs(:success).id + 1,
-        file: fixture_file_upload('/test_file.png', 'image/png')
-    }, headers: {
-        'Accept': 'application/json',
-        'User-Token': @user_token
+      blogId: 'not found',
+      file:   fixture_file_upload('/test_file.png', 'image/png')
+    }, headers:                   {
+      'Accept':     'application/json',
+      'User-Token': @user_token
     }
 
     assert_response :not_found
@@ -51,11 +53,11 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'should upload only image file' do
     post blog_photos_url, params: {
-        blogId: blogs(:success).id,
-        file: fixture_file_upload('/error_format_file.txt')
-    }, headers: {
-        'Accept': 'application/json',
-        'User-Token': @user_token
+      blogId: blogs(:success).id,
+      file:   fixture_file_upload('/error_format_file.txt')
+    }, headers:                   {
+      'Accept':     'application/json',
+      'User-Token': @user_token
     }
 
     assert_response :bad_request
@@ -65,10 +67,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'not login should not upload' do
     post blog_photos_url, params: {
-        blogId: blogs(:success).id,
-        file: fixture_file_upload('/test_file.png', 'image/png')
-    }, headers: {
-        'Accept': 'application/json',
+      blogId: blogs(:success).id,
+      file:   fixture_file_upload('/test_file.png', 'image/png')
+    }, headers:                   {
+      'Accept': 'application/json',
     }
 
     assert_response :unauthorized
@@ -83,18 +85,20 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
     # * travel_to 代码块模拟了在8天前进行登录，并获取了对应的token用于验证token过期时是否能够得到合理的响应
     travel_to Time.current - 8.days do
       post sessions_url, params: {
-          account: users(:success).account,
-          password: '123456'
-      }, headers: {'Accept': 'application/json'}
+        account:  users(:success).account,
+        password: '123456'
+      }, headers:                {
+        'Accept': 'application/json'
+      }
       user_token = JSON.parse(@response.body)['data']['user']['userToken']
     end
 
     post blog_photos_url, params: {
-        blogId: blogs(:success).id,
-        file: fixture_file_upload('/test_file.png', 'image/png')
-    }, headers: {
-        'Accept': 'application/json',
-        'User-Token': user_token
+      blogId: blogs(:success).id,
+      file:   fixture_file_upload('/test_file.png', 'image/png')
+    }, headers:                   {
+      'Accept':     'application/json',
+      'User-Token': user_token
     }
 
     assert_response :unauthorized

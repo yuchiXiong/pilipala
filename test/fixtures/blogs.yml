@@ -7,6 +7,7 @@ success:
   description: MyText
   content: MyText
   cover: MyString
+  released: true
 
 other_blog:
   id: 2
@@ -15,3 +16,13 @@ other_blog:
   description: 用户2的一篇博客
   content: 用户2的一篇博客
   cover: 用户2的一篇博客
+  released: true
+
+released_blog:
+  id: 3
+  user_id: 2
+  title: 用户2的一篇博客
+  description: 用户2的一篇博客
+  content: 用户2的一篇博客
+  cover: 用户2的一篇博客
+  released: false
