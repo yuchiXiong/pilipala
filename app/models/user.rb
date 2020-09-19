@@ -5,7 +5,7 @@ class User < ApplicationRecord
   include BCrypt
   has_many :blogs
 
-  enum sex: [:'保密', :'男', :'女']
+  enum sex: %i[保密 男 女]
 
   def password
     @password ||= Password.new(password_hash)

@@ -22,31 +22,31 @@ class ApplicationController < ActionController::Base
     user_token = request.headers['User-Token']
     @current_user = User.user_valid! user_token
   rescue JWT::ExpiredSignature
-    render json: {code: Code::Unauthorized_Expired, message: '登录已失效，请重新登录', data: nil}, status: :unauthorized
+    render json: { code: Code::Unauthorized_Expired, message: '登录已失效，请重新登录', data: nil }, status: :unauthorized
   rescue JWT::DecodeError
-    render json: {code: Code::Unauthorized_Error, message: '身份验证异常', data: nil}, status: :unauthorized
+    render json: { code: Code::Unauthorized_Error, message: '身份验证异常', data: nil }, status: :unauthorized
   end
 
   rescue_from(FormatNotSupport) do
     logger.warn "不支持的图片格式: #{params[:file].content_type}"
-    render json: {code: Code::Photo_Format_Not_Support, message: '暂仅支持gif/jpg/jpeg/png图片格式！'}, status: :bad_request
+    render json: { code: Code::Photo_Format_Not_Support, message: '暂仅支持gif/jpg/jpeg/png图片格式！' }, status: :bad_request
   end
 
   rescue_from(AccessDeniedError) do
     logger.error "#{controller_name}_#{action_name}:无权访问！"
-    render json: {code: Code::Access_Denied, message: '无权访问！'}, status: :forbidden
+    render json: { code: Code::Access_Denied, message: '无权访问！' }, status: :forbidden
   end
 
   rescue_from(ActionController::ParameterMissing) do
     logger.error "#{controller_name}_#{action_name}:参数异常或缺失！"
-    render json: {code: Code::Parameter_Missing, message: '参数异常或缺失！'}, status: :bad_request
+    render json: { code: Code::Parameter_Missing, message: '参数异常或缺失！' }, status: :bad_request
   end
 
   rescue_from(AccountValidError) do
-    render json: {code: Code::Account_Or_Password_Not_Match, message: '用户名或密码不匹配！'}, status: :bad_request
+    render json: { code: Code::Account_Or_Password_Not_Match, message: '用户名或密码不匹配！' }, status: :bad_request
   end
 
   rescue_from(ActiveRecord::RecordNotFound || ResourcesNotFound) do
-    render json: {code: Code::Resource_Not_Found, message: '资源未找到'}, status: :not_found
+    render json: { code: Code::Resource_Not_Found, message: '资源未找到' }, status: :not_found
   end
 end

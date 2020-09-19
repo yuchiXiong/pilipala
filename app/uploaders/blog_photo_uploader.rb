@@ -23,8 +23,8 @@ class BlogPhotoUploader < CarrierWave::Uploader::Base
   end
 
   # * 将文件上传至OSS
-  def save_to_ali_oss(file)
-    oss = Ali::Oss.new
+  def save_to_ali_oss
+    oss    = Ali::Oss.new
     client = oss.client
     bucket = client.get_bucket('assets-blog-xiongyuchi')
     bucket.put_object("#{self.store_dir}/#{self.filename}", :file => self.path)
@@ -32,12 +32,12 @@ class BlogPhotoUploader < CarrierWave::Uploader::Base
   end
 
   # * 记录文件cache id
-  def remember_cache_id(new_file)
+  def remember_cache_id
     @cache_id_was = cache_id
   end
 
   # * 删除文件cache
-  def delete_tmp_dir(new_file)
+  def delete_tmp_dir
     if @cache_id_was.present? && @cache_id_was =~ /\A[\d]+\-[\d]+(\-[\d]{4})?\-[\d]{4}\z/
       FileUtils.rm_rf(File.join(root, cache_dir, @cache_id_was))
     end
