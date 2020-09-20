@@ -12,7 +12,7 @@ json.data do
     end
   end
   json.total do
-    json.count Blog.count
+    json.count @all_released_blogs.count
     json.current @page.to_i <= 0 ? 1 : @page
   end
 end

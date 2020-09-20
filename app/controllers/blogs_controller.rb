@@ -6,13 +6,13 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    @page  = params[:page].to_i || 1
-    blogs  = Blog.where(released: true).order(created_at: :desc)
-    @blogs = if @page.to_i <= 0
-               blogs.limit(SINGLE_PAGE_DATA_NUM)
-             else
-               blogs.offset((@page - 1) * SINGLE_PAGE_DATA_NUM).limit(SINGLE_PAGE_DATA_NUM)
-             end
+    @page               = params[:page].to_i || 1
+    @all_released_blogs = Blog.where(released: true).order(created_at: :desc)
+    @blogs              = if @page.to_i <= 0
+                            @all_released_blogs.limit(SINGLE_PAGE_DATA_NUM)
+                          else
+                            @all_released_blogs.offset((@page - 1) * SINGLE_PAGE_DATA_NUM).limit(SINGLE_PAGE_DATA_NUM)
+                          end
   end
 
   # * GET /blogs/:id

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   def create
     account = params[:account]
     password = params[:password]
-    @user = User.find_by_account(account)
+    @user   = User.find_by_account(account)
     unless @user && @user.password == password
       raise AccountValidError
     end
