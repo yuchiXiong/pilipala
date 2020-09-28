@@ -7,7 +7,7 @@ class BlogsController < ApplicationController
   # * GET /blogs
   def index
     @page               = params[:page].to_i || 1
-    @all_released_blogs = Blog.where(released: true).order(updated_at: :desc)
+    @all_released_blogs = Blog.kept.where(released: true).order(updated_at: :desc)
     @blogs              = if @page.to_i <= 0
                             @all_released_blogs.limit(SINGLE_PAGE_DATA_NUM)
                           else
@@ -36,7 +36,7 @@ class BlogsController < ApplicationController
   # * DELETE /blogs/:id
   def destroy
     raise AccessDeniedError unless @blog.user_id == @current_user.id
-    @errors = @blog.errors unless @blog.delete
+    @errors = @blog.errors unless @blog.discard
   end
 
   private

@@ -26,3 +26,13 @@ released_blog:
   content: 用户2的一篇博客
   cover: 用户2的一篇博客
   released: false
+
+discard_blog:
+  id: 4
+  user_id: 2
+  title: 用户2的一篇博客
+  description: 用户2的一篇博客
+  content: 用户2的一篇博客
+  cover: 用户2的一篇博客
+  released: true
+  discarded_at: 2020-09-28 13:33:26.044512

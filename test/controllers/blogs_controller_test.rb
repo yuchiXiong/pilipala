@@ -15,6 +15,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * Get /blogs
   # * 拉取博客列表
   # * 1. 应该拉取博客列表
+  # * 2. 拉取的博客不应该被标记为废弃
   test 'get blog list' do
     get blogs_url, params: {
       format: 'application/json',
@@ -23,6 +24,18 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_equal JSON.parse(@response.body)['message'], 'success'
     assert_instance_of Array, JSON.parse(@response.body)['data']['blogs']
+  end
+
+  test 'get blog all kept blog list' do
+    get blogs_url, params: {
+      format: 'application/json',
+      page:   1
+    }, headers:            { 'Accept': 'application/json' }
+    assert_response :success
+    assert_equal JSON.parse(@response.body)['message'], 'success'
+    assert_instance_of Array, JSON.parse(@response.body)['data']['blogs']
+    ids = JSON.parse(@response.body)['data']['blogs'].map { |item| item['id'] }
+    assert_equal 0, Blog.find(ids).map(&:kept?).reject { |item| item }.count
   end
 
   # * Get blogs/:id
@@ -136,8 +149,13 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   end
 
   # * Delete /blogs/:id
-  # * 删除指定博客
-  # * 1. 应该删除指定的博客
+  # * [已废弃] 删除指定博客
+  # * [已废弃] 1. 应该删除指定的博客
+  # * [已废弃] 2. 指定博客不存在应该提示
+  # * [已废弃] 3. 未登录时提示登录
+  # * [已废弃] 4. 登录状态超时时应该提示过期
+  #除指定博客（仅将博客标记为已删除）
+  # * 1. 应该软删除指定的博客，博客被标记为已删除但不会真删除
   # * 2. 指定博客不存在应该提示
   # * 3. 未登录时提示登录
   # * 4. 登录状态超时时应该提示过期
@@ -149,7 +167,8 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     }
     assert_response :success
     assert_equal JSON.parse(@response.body)['message'], 'success'
-    assert_nil Blog.find_by(id: current_blog_id)
+    assert_not_nil Blog.find_by(id: current_blog_id)
+    assert_equal false, Blog.find_by(id: current_blog_id).kept?
   end
 
   test 'blog not found so not delete' do
