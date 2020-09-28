@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   # * Get /users/:id/blogs
   def blogs
     user = User.find(params[:id])
-    @blogs = user.blogs.order(updated_at: :desc)
+    @blogs = user.blogs.kept.order(updated_at: :desc)
   end
 
 end
