@@ -7,7 +7,7 @@ class BlogsController < ApplicationController
   # * GET /blogs
   def index
     @page               = params[:page].to_i || 1
-    @all_released_blogs = Blog.kept.where(released: true).order(updated_at: :desc)
+    @all_released_blogs = Blog.kept.where(released: true).order(updated_at: :desc).includes(:user)
     @blogs              = if @page.to_i <= 0
                             @all_released_blogs.limit(SINGLE_PAGE_DATA_NUM)
                           else

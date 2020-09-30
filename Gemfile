@@ -26,14 +26,18 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 gem 'jwt', '~> 2.2', '>= 2.2.1'
 
 # * oss && file uploader
-gem 'carrierwave', '~> 2.0'
 gem 'aliyun-sdk', '~> 0.6.0'
+gem 'carrierwave', '~> 2.0'
 
 # * console
 gem 'pry-rails', '~> 0.3.9'
 
 # * soft delete
 gem 'discard', '~> 1.2'
+
+# * font end
+gem 'bootstrap', '~> 4.5', '>= 4.5.2'
+gem 'slim'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
