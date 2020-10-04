@@ -3,14 +3,17 @@
 <head>
   <title>Blog</title>
   <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= render 'shared/header' %>
-    <%= yield %>
-  </body>
+<body>
+<%= render 'shared/header' %>
+<div class="container body">
+  <%= yield %>
+</div>
+<%= render 'shared/footer' %>
+</body>
 </html>

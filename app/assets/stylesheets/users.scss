@@ -1,0 +1,15 @@
+@import "mixin";
+
+.user {
+  @include flex-row;
+
+  .avatar {
+    @include flex-row;
+    align-items: center;
+    margin-right: 12px;
+  }
+
+  .info {
+    @include flex-col;
+  }
+}

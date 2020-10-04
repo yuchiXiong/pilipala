@@ -36,7 +36,9 @@ gem 'pry-rails', '~> 0.3.9'
 gem 'discard', '~> 1.2'
 
 # * font end
-gem 'bootstrap', '~> 4.5', '>= 4.5.2'
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+gem 'jquery-rails'
+gem 'redcarpet'
 gem 'slim'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

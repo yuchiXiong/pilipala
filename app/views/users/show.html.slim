@@ -1,0 +1,83 @@
+.container
+  .row
+    .col-sm-9.blog-main
+      .user
+        .avatar
+          = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
+        .info
+          h3.nick_name
+            = @current_user.nick_name
+            | &nbsp;
+            small
+              | Web搬瓦工
+          p.count
+            ruby:
+              @count = %w[博客 评论 点赞 关注 粉丝]
+            - @count.each_with_index do |count, index|
+              span
+                = index == 0 ? '' : ' '
+                = count
+                | &nbsp;
+                = rand(1_000..9_999)
+                | &nbsp;
+                = index == @count.count - 1 ? '' : '|'
+
+
+      ul.nav.nav-tabs[role="tablist"]
+        li.active[role="presentation"]
+          a[href="#article" aria-controls="home" role="tab" data-toggle="tab"]
+            | Ta的博文
+        li[role="presentation"]
+          a[href="#set" aria-controls="profile" role="tab" data-toggle="tab"]
+            | Ta的文集
+
+      .tab-content
+        #article.tab-pane.fade.in.active[role="tabpanel"]
+          - @user_blogs.map do |user_blog|
+            .blog-post
+              h2.blog-post-title
+                = user_blog.title
+              p.blog-post-meta
+                = user_blog.created_at
+                | &nbsp;by&nbsp;
+                a[href="#"]
+                  = user_blog.user.nick_name
+              = sanitize render_strip_down(user_blog.content)[0..200]
+              | ...
+              hr
+
+        #set.tab-pane.fade[role="tabpanel"]
+          | ...
+
+      hr
+
+
+        / .col-sm-3.blog-sidebar
+        /   .sidebar-module.sidebar-module-inset
+        /     h4
+        /       | About
+        /     p
+        /       | 这个人很懒……什么都没留下
+        /   / = @content.html_safe
+        /   .sidebar-module
+        /     h4
+        /       | Ta的文集
+        /     ol.list-unstyled
+        /       - %w[Ruby JavaScript Linux PostgreSQL].map do |set|
+        /         li
+        /           a[href="#"]
+        /             = set
+        /
+        /   .sidebar-module
+        /     h4
+        /       | 社交主页
+        /     ol.list-unstyled
+        /       li
+        /         a[href="#"]
+        /           | GitHub
+        /       li
+        /         a[href="#"]
+        /           | Twitter
+        /       li
+        /         a[href="#"]
+        /           | Facebook

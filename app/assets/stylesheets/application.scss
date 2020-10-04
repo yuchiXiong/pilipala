@@ -15,3 +15,26 @@
  */
 
 @import "bootstrap";
+@import "mixin";
+
+body {
+  @include flex-col;
+  height: 100vh;
+
+  header {
+
+  }
+
+  .body {
+    margin-top: 72px;
+    margin-bottom: 22px;
+    flex: 1;
+  }
+
+  footer {
+    @include flex-col;
+    align-items: center;
+    background-color: #e7e7e7;
+    padding: 24px;
+  }
+}
