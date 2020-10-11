@@ -14,5 +14,7 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+import $ from 'jquery';
+import 'bootstrap';
 
-console.log('Hello World from Webpacker')
+console.log('Hello sWorsld from Webpacker');

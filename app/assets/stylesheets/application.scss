@@ -14,8 +14,8 @@
  *= require_self
  */
 
-@import "bootstrap";
 @import "mixin";
+@import "bootstrap/dist/css/bootstrap";
 
 body {
   @include flex-col;

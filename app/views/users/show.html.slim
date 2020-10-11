@@ -1,83 +1,88 @@
-.container
+main.container[role="main"]
   .row
-    .col-sm-9.blog-main
-      .user
-        .avatar
-          = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
-        .info
-          h3.nick_name
-            = @current_user.nick_name
-            | &nbsp;
-            small
-              | Web搬瓦工
-          p.count
-            ruby:
-              @count = %w[博客 评论 点赞 关注 粉丝]
-            - @count.each_with_index do |count, index|
-              span
-                = index == 0 ? '' : ' '
-                = count
+    .col-md-9.blog-main
+      .row
+        .col-sm-12.blog-main
+          .user
+            .avatar
+              = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
+            .info
+              h3.nick_name
+                = @current_user.nick_name
                 | &nbsp;
-                = rand(1_000..9_999)
-                | &nbsp;
-                = index == @count.count - 1 ? '' : '|'
+                small
+                  | Web搬瓦工
+              p.count
+                ruby:
+                  @count = %w[关注 粉丝 博客 评论 点赞]
+                - @count.each_with_index do |count, index|
+                  span
+                    = index == 0 ? '' : ' '
+                    = count
+                    | &nbsp;
+                    = rand(1_000..9_999)
+                    | &nbsp;
+                    = index == @count.count - 1 ? '' : '|'
+
+          ul#myTab.nav.nav-tabs[role="tablist"]
+            li.nav-item[role="presentation"]
+              a#article-tab.nav-link.active[data-toggle="tab" href="#article" role="tab" aria-controls="home" aria-selected="true"]
+                | 文章
+            / li.nav-item[role="presentation"]
+            /   a#message-tab.nav-link[data-toggle="tab" href="#message" role="tab" aria-controls="profile" aria-selected="false"]
+            /     | 动态
+            / li.nav-item[role="presentation"]
+            /   a#comment-tab.nav-link[data-toggle="tab" href="#comment" role="tab" aria-controls="contact" aria-selected="false"]
+            /     | 最新评论
+            li.nav-item[role="presentation"]
+              a#hot-tab.nav-link[data-toggle="tab" href="#hot" role="tab" aria-controls="contact" aria-selected="false"]
+                | 热门
+          #myTabContent.tab-content
+            #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
+              - @user_blogs.map do |user_blog|
+                .blog-post
+                  h2.blog-post-title
+                    = user_blog.title
+                  p.blog-post-meta
+                    = user_blog.created_at
+                    | &nbsp;by&nbsp;
+                    a[href="#"]
+                      = user_blog.user.nick_name
+                  = sanitize render_strip_down(user_blog.content)[0..200]
+                  | ...
+                  hr
+            / #message.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
+            /   | 动态
+            / #comment.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+            /   | 最新评论
+            #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+              - @user_blogs.map do |user_blog|
+                .blog-post
+                  h2.blog-post-title
+                    = user_blog.title
+                  p.blog-post-meta
+                    = user_blog.created_at
+                    | &nbsp;by&nbsp;
+                    a[href="#"]
+                      = user_blog.user.nick_name
+                  = sanitize render_strip_down(user_blog.content)[0..200]
+                  | ...
+                  hr
+
+    aside.col-md-3.blog-sidebar
+      .p-4.mb-3.bg-light.rounded
+        h4.font-italic
+          | 个人介绍
+        p.mb-0
+          | 目前正在将博客迁移至个人站
+          = link_to "https://www.xiongyuchi.top", "https://www.xiongyuchi.top"
+      .p-4
+        h4.font-italic
+          | 我的文集
+        ol.list-unstyled.mb-0
+          - %w[工作日记 Ruby_On_Rails 工作和学习之旅 无聊的很（做点小东西） 坎坷合集 Web小白自学之路 象牙塔 脑洞比较大 垃圾教程].map do |blog_set|
+            li
+              a[href="#"]
+                = blog_set
 
 
-      ul.nav.nav-tabs[role="tablist"]
-        li.active[role="presentation"]
-          a[href="#article" aria-controls="home" role="tab" data-toggle="tab"]
-            | Ta的博文
-        li[role="presentation"]
-          a[href="#set" aria-controls="profile" role="tab" data-toggle="tab"]
-            | Ta的文集
-
-      .tab-content
-        #article.tab-pane.fade.in.active[role="tabpanel"]
-          - @user_blogs.map do |user_blog|
-            .blog-post
-              h2.blog-post-title
-                = user_blog.title
-              p.blog-post-meta
-                = user_blog.created_at
-                | &nbsp;by&nbsp;
-                a[href="#"]
-                  = user_blog.user.nick_name
-              = sanitize render_strip_down(user_blog.content)[0..200]
-              | ...
-              hr
-
-        #set.tab-pane.fade[role="tabpanel"]
-          | ...
-
-      hr
-
-
-        / .col-sm-3.blog-sidebar
-        /   .sidebar-module.sidebar-module-inset
-        /     h4
-        /       | About
-        /     p
-        /       | 这个人很懒……什么都没留下
-        /   / = @content.html_safe
-        /   .sidebar-module
-        /     h4
-        /       | Ta的文集
-        /     ol.list-unstyled
-        /       - %w[Ruby JavaScript Linux PostgreSQL].map do |set|
-        /         li
-        /           a[href="#"]
-        /             = set
-        /
-        /   .sidebar-module
-        /     h4
-        /       | 社交主页
-        /     ol.list-unstyled
-        /       li
-        /         a[href="#"]
-        /           | GitHub
-        /       li
-        /         a[href="#"]
-        /           | Twitter
-        /       li
-        /         a[href="#"]
-        /           | Facebook

@@ -36,8 +36,6 @@ gem 'pry-rails', '~> 0.3.9'
 gem 'discard', '~> 1.2'
 
 # * font end
-gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
-gem 'jquery-rails'
 gem 'redcarpet'
 gem 'slim'
 gem 'webpacker'
