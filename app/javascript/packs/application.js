@@ -17,4 +17,6 @@
 import $ from 'jquery';
 import 'bootstrap';
 
+import '../page_js/users';
+
 console.log('Hello sWorsld from Webpacker');

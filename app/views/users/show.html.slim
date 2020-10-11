@@ -11,29 +11,18 @@ main.container[role="main"]
                 = @current_user.nick_name
                 | &nbsp;
                 small
-                  | Web搬瓦工
+                  = @current_user.sex
               p.count
-                ruby:
-                  @count = %w[关注 粉丝 博客 评论 点赞]
-                - @count.each_with_index do |count, index|
-                  span
-                    = index == 0 ? '' : ' '
-                    = count
-                    | &nbsp;
-                    = rand(1_000..9_999)
-                    | &nbsp;
-                    = index == @count.count - 1 ? '' : '|'
+                span
+                  | 博客
+                  | &nbsp;
+                  = @current_user.blogs.count
+                  | &nbsp;
 
           ul#myTab.nav.nav-tabs[role="tablist"]
             li.nav-item[role="presentation"]
               a#article-tab.nav-link.active[data-toggle="tab" href="#article" role="tab" aria-controls="home" aria-selected="true"]
                 | 文章
-            / li.nav-item[role="presentation"]
-            /   a#message-tab.nav-link[data-toggle="tab" href="#message" role="tab" aria-controls="profile" aria-selected="false"]
-            /     | 动态
-            / li.nav-item[role="presentation"]
-            /   a#comment-tab.nav-link[data-toggle="tab" href="#comment" role="tab" aria-controls="contact" aria-selected="false"]
-            /     | 最新评论
             li.nav-item[role="presentation"]
               a#hot-tab.nav-link[data-toggle="tab" href="#hot" role="tab" aria-controls="contact" aria-selected="false"]
                 | 热门
@@ -44,27 +33,21 @@ main.container[role="main"]
                   h2.blog-post-title
                     = user_blog.title
                   p.blog-post-meta
-                    = user_blog.created_at
-                    | &nbsp;by&nbsp;
-                    a[href="#"]
-                      = user_blog.user.nick_name
+                    | 发布于&nbsp;
+                    span.format_date
+                      = user_blog.created_at
                   = sanitize render_strip_down(user_blog.content)[0..200]
                   | ...
                   hr
-            / #message.tab-pane.fade[role="tabpanel" aria-labelledby="profile-tab"]
-            /   | 动态
-            / #comment.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
-            /   | 最新评论
             #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
               - @user_blogs.map do |user_blog|
                 .blog-post
                   h2.blog-post-title
                     = user_blog.title
                   p.blog-post-meta
-                    = user_blog.created_at
-                    | &nbsp;by&nbsp;
-                    a[href="#"]
-                      = user_blog.user.nick_name
+                    | 发布于&nbsp;
+                    span.format_date
+                      = user_blog.created_at
                   = sanitize render_strip_down(user_blog.content)[0..200]
                   | ...
                   hr
@@ -74,15 +57,12 @@ main.container[role="main"]
         h4.font-italic
           | 个人介绍
         p.mb-0
-          | 目前正在将博客迁移至个人站
-          = link_to "https://www.xiongyuchi.top", "https://www.xiongyuchi.top"
-      .p-4
-        h4.font-italic
-          | 我的文集
-        ol.list-unstyled.mb-0
-          - %w[工作日记 Ruby_On_Rails 工作和学习之旅 无聊的很（做点小东西） 坎坷合集 Web小白自学之路 象牙塔 脑洞比较大 垃圾教程].map do |blog_set|
-            li
-              a[href="#"]
-                = blog_set
-
-
+          = @current_user.description
+            / .p-4
+            /   h4.font-italic
+            /     | 我的文集
+            /   ol.list-unstyled.mb-0
+            /     - %w[工作日记 Ruby_On_Rails 工作和学习之旅 无聊的很（做点小东西） 坎坷合集 Web小白自学之路 象牙塔 脑洞比较大 垃圾教程].map do |blog_set|
+            /       li
+            /         a[href="#"]
+            /           = blog_set
