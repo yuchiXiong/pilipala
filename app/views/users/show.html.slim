@@ -1,3 +1,5 @@
+= provide :title, "#{@be_visited_user.nick_name} 的个人主页 - SmallBook"
+
 main.container[role="main"]
   .row
     .col-md-9.blog-main
@@ -8,15 +10,15 @@ main.container[role="main"]
               = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
             .info
               h3.nick_name
-                = @current_user.nick_name
+                = @be_visited_user.nick_name
                 | &nbsp;
                 small
-                  = @current_user.sex
+                  = @be_visited_user.sex
               p.count
                 span
                   | 博客
                   | &nbsp;
-                  = @current_user.blogs.count
+                  = @be_visited_user.blogs.count
                   | &nbsp;
 
           ul#myTab.nav.nav-tabs[role="tablist"]
@@ -57,8 +59,8 @@ main.container[role="main"]
         h4.font-italic
           | 个人介绍
         p.mb-0
-          = @current_user.description
-            / .p-4
+          = @be_visited_user.description
+          / .p-4
             /   h4.font-italic
             /     | 我的文集
             /   ol.list-unstyled.mb-0

@@ -1,4 +1,4 @@
-@import "mixin";
+@import "mixins";
 
 .user {
   @include flex-row;
@@ -7,6 +7,12 @@
     @include flex-row;
     align-items: center;
     margin-right: 12px;
+
+    img {
+      height: 72px;
+      width: 72px;
+      border-radius: 36px;
+    }
   }
 
   .info {
