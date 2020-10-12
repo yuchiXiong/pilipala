@@ -1,4 +1,13 @@
+@import "vars";
+
 svg {
-  width: 24px;
-  height: 24px;
+  vertical-align: text-bottom;
+  height: 18px;
+  width: 18px;
+  fill: $font_color;
+}
+
+a,
+.btn-link:hover {
+  text-decoration: none;
 }

@@ -2,6 +2,7 @@
 
 .user {
   @include flex-row;
+  margin-bottom: 24px;
 
   .avatar {
     @include flex-row;
@@ -15,7 +16,88 @@
     }
   }
 
+  #sex {
+    svg {
+      vertical-align: text-bottom;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
   .info {
     @include flex-col;
+    justify-content: center;
+
+    .count {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#tab {
+  margin-bottom: 24px;
+
+  .nav-item {
+    .nav-link {
+      color: $font_color;
+
+      svg > path {
+        fill: $font_color;
+      }
+    }
+
+    .nav-link.active {
+      border-bottom: 2px solid $theme_color;
+      color: $theme_color;
+
+      svg > path {
+        fill: $theme_color !important;
+      }
+    }
+  }
+}
+
+#article {
+  .blog-post-title {
+    color: $font_color;
+
+    &:hover {
+      color: $theme_color;
+    }
+  }
+
+  .blog-post-meta {
+    font-size: 14px;
+    color: #888888;
+  }
+
+  .blog-post-data {
+
+    .like, .comment, .star {
+      cursor: pointer;
+      display: inline-block;
+      width: 48px;
+      text-align: center;
+      font-size: 18px;
+
+      &:hover {
+        color: $theme_color;
+
+        svg {
+          fill: $theme_color;
+        }
+      }
+    }
+
+    .comment {
+      svg {
+        vertical-align: middle;
+      }
+    }
+
+    .publiced_at {
+      margin-left: 16px;
+      font-size: 14px;
+    }
   }
 }

@@ -9,49 +9,92 @@ main.container[role="main"]
             .avatar
               = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
             .info
-              h3.nick_name
+              h5.nick_name.font-weight-bold
                 = @be_visited_user.nick_name
                 | &nbsp;
-                small
-                  = @be_visited_user.sex
+                small#sex
+                  ruby:
+                    case User.sexes[@be_visited_user.sex]
+                    when 0
+                      icon = 'icons/xu_icon'
+                    when 1
+                      icon = 'icons/male_icon'
+                    when 2
+                      icon = 'icons/female_icon'
+                    end
+                  = render icon
+
               p.count
                 span
-                  | 博客
-                  | &nbsp;
+                  | 博客&nbsp;
                   = @be_visited_user.blogs.count
-                  | &nbsp;
+                | &nbsp;|&nbsp;
+                span
+                  | 关注&nbsp;--&nbsp;
+                | &nbsp;|&nbsp;
+                span
+                  | 粉丝&nbsp;--&nbsp;
+                | &nbsp;|&nbsp;
+                span
+                  | 收获赞&nbsp;--&nbsp;
 
-          ul#myTab.nav.nav-tabs[role="tablist"]
+          ul#tab.nav[role="tablist"]
             li.nav-item[role="presentation"]
               a#article-tab.nav-link.active[data-toggle="tab" href="#article" role="tab" aria-controls="home" aria-selected="true"]
-                | 文章
+                = render 'icons/article_icon'
+                | &nbsp;文章
             li.nav-item[role="presentation"]
               a#hot-tab.nav-link[data-toggle="tab" href="#hot" role="tab" aria-controls="contact" aria-selected="false"]
-                | 热门
-          #myTabContent.tab-content
+                = render 'icons/hot_icon'
+                | &nbsp;热门
+          #tab_content.tab-content
             #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
               - @user_blogs.map do |user_blog|
                 .blog-post
-                  h2.blog-post-title
-                    = user_blog.title
+                  = link_to '#', class: 'btn-link' do
+                    h5.blog-post-title
+                      = user_blog.title
                   p.blog-post-meta
-                    | 发布于&nbsp;
-                    span.format_date
-                      = user_blog.created_at
-                  = sanitize render_strip_down(user_blog.content)[0..200]
-                  | ...
+                    = sanitize render_strip_down(user_blog.content)[0..200]
+                    | ...
+                  p.blog-post-data
+                    span.like
+                      = render 'icons/like_icon'
+                      | &nbsp;--&nbsp;
+                    span.comment
+                      = render 'icons/comment_icon'
+                      | &nbsp;--&nbsp;
+                    span.star
+                      = render 'icons/star_icon'
+                      | &nbsp;--&nbsp;
+                    span.publiced_at
+                      | 发布于
+                      span.format_date
+                        = user_blog.created_at
                   hr
             #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
               - @user_blogs.map do |user_blog|
                 .blog-post
-                  h2.blog-post-title
-                    = user_blog.title
+                  = link_to '#', class: 'btn-link' do
+                    h5.blog-post-title
+                      = user_blog.title
                   p.blog-post-meta
-                    | 发布于&nbsp;
-                    span.format_date
-                      = user_blog.created_at
-                  = sanitize render_strip_down(user_blog.content)[0..200]
-                  | ...
+                    = sanitize render_strip_down(user_blog.content)[0..200]
+                    | ...
+                  p.blog-post-data
+                    span.like
+                      = render 'icons/like_icon'
+                      | &nbsp;--&nbsp;
+                    span.comment
+                      = render 'icons/comment_icon'
+                      | &nbsp;--&nbsp;
+                    span.star
+                      = render 'icons/star_icon'
+                      | &nbsp;--&nbsp;
+                    span.publiced_at
+                      | 发布于
+                      span.format_date
+                        = user_blog.created_at
                   hr
 
     aside.col-md-3.blog-sidebar

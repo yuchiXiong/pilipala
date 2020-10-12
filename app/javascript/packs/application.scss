@@ -11,12 +11,8 @@ body {
   @include flex-col;
   height: 100vh;
 
-  header {
-
-  }
-
   .body {
-    margin-top: 72px;
+    margin-top: 96px;
     margin-bottom: 22px;
     flex: 1;
   }
