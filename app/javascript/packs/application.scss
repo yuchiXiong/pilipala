@@ -1,11 +1,7 @@
 @import "../page_css/mixins";
 @import "../page_css/bootstrap_custom";
 @import "~bootstrap/scss/bootstrap";
-
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/regular';
+@import "../page_css/reset";
 
 @import "../page_css/header";
 @import "../page_css/home";

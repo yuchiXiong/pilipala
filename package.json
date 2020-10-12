@@ -5,7 +5,6 @@
     "dev": "./bin/webpack-dev-server"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.1",
     "@rails/webpacker": "5.2.1",
     "bootstrap": "^4.5.2",
     "dayjs": "^1.9.1",

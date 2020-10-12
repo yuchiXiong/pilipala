@@ -1,8 +1,46 @@
 @import "vars";
+@import "mixins";
 
 nav {
   #logo {
     color: $theme-color;
     font-size: 24px;
   }
+
+  #header_fork_nav {
+    svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: text-bottom;
+    }
+  }
+
+  #header_notice_nav {
+    svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: text-bottom;
+    }
+  }
+
+  #search {
+    margin: 0 24px;
+    border: none;
+    outline: none;
+    width: 300px;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  #new_article_btn {
+    background-color: $theme-color;
+    color: #fff;
+    border-radius: 20px;
+    width: 100px;
+    text-align: center;
+    margin-left: 16px;
+  }
+
 }
