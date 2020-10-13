@@ -1,5 +1,7 @@
 = provide :title, "#{@be_visited_user.nick_name} 的个人主页 - SmallBook"
 
+= render 'shared/to_top_btn'
+
 main.container[role="main"]
   .row
     .col-md-9.blog-main
@@ -49,65 +51,18 @@ main.container[role="main"]
                 | &nbsp;热门
           #tab_content.tab-content
             #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
-              - @user_blogs.map do |user_blog|
-                .blog-post
-                  = link_to '#', class: 'btn-link' do
-                    h5.blog-post-title
-                      = user_blog.title
-                  p.blog-post-meta
-                    = sanitize render_strip_down(user_blog.content)[0..200]
-                    | ...
-                  p.blog-post-data
-                    span.like
-                      = render 'icons/like_icon'
-                      | &nbsp;--&nbsp;
-                    span.comment
-                      = render 'icons/comment_icon'
-                      | &nbsp;--&nbsp;
-                    span.star
-                      = render 'icons/star_icon'
-                      | &nbsp;--&nbsp;
-                    span.publiced_at
-                      | 发布于
-                      span.format_date
-                        = user_blog.created_at
-                  hr
+              = render @user_blogs
             #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
-              - @user_blogs.map do |user_blog|
-                .blog-post
-                  = link_to '#', class: 'btn-link' do
-                    h5.blog-post-title
-                      = user_blog.title
-                  p.blog-post-meta
-                    = sanitize render_strip_down(user_blog.content)[0..200]
-                    | ...
-                  p.blog-post-data
-                    span.like
-                      = render 'icons/like_icon'
-                      | &nbsp;--&nbsp;
-                    span.comment
-                      = render 'icons/comment_icon'
-                      | &nbsp;--&nbsp;
-                    span.star
-                      = render 'icons/star_icon'
-                      | &nbsp;--&nbsp;
-                    span.publiced_at
-                      | 发布于
-                      span.format_date
-                        = user_blog.created_at
-                  hr
+              = render @user_blogs
 
     aside.col-md-3.blog-sidebar
-      .p-4.mb-3.bg-light.rounded
-        h4.font-italic
+      .p-4.mb-3.rounded#user_introduce
+        span.tag
           | 个人介绍
-        p.mb-0
+        p.mb-0.mt-2
           = @be_visited_user.description
-          / .p-4
-            /   h4.font-italic
-            /     | 我的文集
-            /   ol.list-unstyled.mb-0
-            /     - %w[工作日记 Ruby_On_Rails 工作和学习之旅 无聊的很（做点小东西） 坎坷合集 Web小白自学之路 象牙塔 脑洞比较大 垃圾教程].map do |blog_set|
-            /       li
-            /         a[href="#"]
-            /           = blog_set
+      .p-4.mb-3.rounded#blog_sets
+        span.tag
+          | 我的文集
+        p.mb-0.mt-2
+          | 暂不支持文集

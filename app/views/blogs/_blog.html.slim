@@ -1,0 +1,22 @@
+.blog-post
+  = link_to '#', class: 'btn-link' do
+    h5.blog-post-title
+      = blog.title
+  p.blog-post-meta
+    = sanitize render_strip_down(blog.content)[0..200]
+    | ...
+  p.blog-post-data
+    span.like
+      = render 'icons/like_icon'
+      | &nbsp;--&nbsp;
+    span.comment
+      = render 'icons/comment_icon'
+      | &nbsp;--&nbsp;
+    span.star
+      = render 'icons/star_icon'
+      | &nbsp;--&nbsp;
+    span.publiced_at
+      | 发布于
+      span.format_date
+        = blog.created_at
+  hr

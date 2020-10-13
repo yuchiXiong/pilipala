@@ -1,0 +1,10 @@
+@import "vars";
+@import "mixins";
+
+footer {
+  @include flex-col;
+
+  span {
+    margin-right: 12px;
+  }
+}

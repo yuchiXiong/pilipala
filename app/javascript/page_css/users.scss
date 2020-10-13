@@ -57,7 +57,7 @@
   }
 }
 
-#article {
+#article, #hot {
   .blog-post-title {
     color: $font_color;
 
@@ -99,5 +99,17 @@
       margin-left: 16px;
       font-size: 14px;
     }
+  }
+}
+
+#user_introduce, #blog_sets {
+  .tag {
+    font-size: $tag_font_size;
+    border-bottom: 2px solid $theme_color;
+    padding-bottom: 4px;
+  }
+
+  p {
+    font-size: 14px;
   }
 }
