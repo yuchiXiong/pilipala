@@ -17,14 +17,6 @@ class BlogsController < ApplicationController
 
   # * GET /blogs/:id
   def show
-    @test1 = <<-EOF
-    | 1 | 2 | 3 |  4| 5 |
-    | --- | --- | --- | --- | --- |
-    | q | w | e | r | t |
-    | a | s | d | f | g |
-    | z | x | c | v | b |
-    EOF
-    @test2 = '_111_'
     raise ActiveRecord::RecordNotFound unless @blog.released
   end
 

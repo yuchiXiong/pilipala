@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show]
+  before_action :set_user, only: %i[show blogs]
 
   # * Get /users/:id
   def show
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   # * Get /users/:id/blogs
   def blogs
-    raise AccessDeniedError if @be_visitesd_user.id != @current_user.id
+    raise AccessDeniedError if @be_visited_user.id != @current_user.id
     @blogs = @be_visited_user.blogs.kept.order(updated_at: :desc)
   end
 
