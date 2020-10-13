@@ -1,5 +1,5 @@
 .blog-post
-  = link_to '#', class: 'btn-link' do
+  = link_to blog_url(blog.id), class: 'btn-link' do
     h5.blog-post-title
       = blog.title
   p.blog-post-meta

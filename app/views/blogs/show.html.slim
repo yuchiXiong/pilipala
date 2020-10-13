@@ -1,0 +1,7 @@
+.container
+  h1
+    = @blog.title
+
+  = sanitize render_markdown(@test1)
+  = sanitize render_markdown(@test2)
+  = sanitize render_markdown(@blog.content)

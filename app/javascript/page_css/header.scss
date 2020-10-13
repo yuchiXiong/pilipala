@@ -5,6 +5,10 @@ nav {
   #logo {
     color: $theme_color;
     font-size: 24px;
+
+    .nav-link {
+      font-size: 24px;
+    }
   }
 
   #header_home_nav {
@@ -34,5 +38,23 @@ nav {
     text-align: center;
     margin-left: 16px;
   }
+
+  #user_avatar {
+    .avatar {
+      height: 42px;
+      width: 42px;
+      border-radius: 21px;
+      margin-right: 12px;
+    }
+
+    a {
+      color: $font_color;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
 
 }
