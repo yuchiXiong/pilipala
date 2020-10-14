@@ -17,12 +17,13 @@ module BlogsHelper
     lax_spacing:                  true,
     space_after_headers:          true,
     disable_indented_code_blocks: true,
-    no_intra_emphasis:            true
+    no_intra_emphasis:            true,
+    quote:                        true
   }
 
   def render_markdown(content)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, DEFAULT_OPTIONS)
-    markdown.render(content)
+    "<div class='markdown-body'>#{markdown.render(content)}</div>"
   end
 
   def render_strip_down(content)

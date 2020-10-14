@@ -39,10 +39,10 @@
 
   .nav-item {
     .nav-link {
-      color: $font_color;
+      color: $normal_font_color;
 
       svg > path {
-        fill: $font_color;
+        fill: $normal_font_color;
       }
     }
 
@@ -59,7 +59,7 @@
 
 #article, #hot {
   .blog-post-title {
-    color: $font_color;
+    color: $normal_font_color;
 
     &:hover {
       color: $theme_color;

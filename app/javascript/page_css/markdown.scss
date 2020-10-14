@@ -1,0 +1,67 @@
+@import "vars";
+
+.markdown-body {
+  h1 {
+
+  }
+
+  del {
+    color: $gray_font_color;
+  }
+
+  hr {
+    border: 1px solid $dim_theme_color;
+  }
+
+  blockquote {
+    border-left: 4px solid $dim_theme_color;
+    background-color: #f0f0f0;
+    padding: 24px 12px;
+  }
+
+  table {
+    width: 100%;
+    text-align: center;
+
+    th, td {
+      padding: 4px;
+    }
+
+    th {
+      background-color: $theme_color;
+      color: #fff;
+      //border: 2px solid #fff;
+    }
+
+    tr {
+      border: 2px solid $theme_color;
+    }
+
+    td {
+      border: 2px solid $theme_color;
+    }
+
+
+  }
+
+  img {
+    width: 80%;
+    margin: 0 10%;
+  }
+
+  a,
+  .a:hover {
+    text-decoration: none;
+  }
+
+  pre {
+    background-color: #2d2d2d;
+    padding: 12px;
+
+    code {
+      width: 100%;
+      color: $gray_font_color;
+    }
+  }
+}
+

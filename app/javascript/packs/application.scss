@@ -10,6 +10,8 @@
 @import "../page_css/blogs";
 @import "../page_css/users";
 
+@import "~highlight.js/styles/atom-one-dark";
+
 body {
   @include flex-col;
   height: 100vh;
