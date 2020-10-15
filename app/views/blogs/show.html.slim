@@ -11,7 +11,7 @@
           = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
         .info
           h6.nick_names
-            = @blog.user.nick_name
+            = link_to @blog.user.nick_name, user_url(@blog.user.id)
             | &nbsp;
             small#sex
               ruby:
@@ -30,11 +30,7 @@
               small.format_date
                 = @blog.created_at
             small
-              | &nbsp;博客&nbsp;
-              = @blog.user.blogs.count
-            | &nbsp;|&nbsp;
-            small
-              | 阅读&nbsp;--&nbsp;
+              | &nbsp;阅读&nbsp;--&nbsp;
             | &nbsp;|&nbsp;
             small
               | 评论&nbsp;--&nbsp;
