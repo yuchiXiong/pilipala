@@ -1,6 +1,55 @@
-#blog_show.container
-  h1
-    = @blog.title
-  article
-    = sanitize render_markdown(@blog.content)
+= render 'shared/to_top_btn'
+
+#blog_show
+  .container.row
+    .col-9
+      h1.blog_title
+        = @blog.title
+
+      .user
+        .avatar
+          = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
+        .info
+          h6.nick_names
+            = @blog.user.nick_name
+            | &nbsp;
+            small#sex
+              ruby:
+                case User.sexes[@blog.user.sex]
+                when 0
+                  icon = 'icons/xu_icon'
+                when 1
+                  icon = 'icons/male_icon'
+                when 2
+                  icon = 'icons/female_icon'
+                end
+              = render icon
+          p.count
+            small.create_at
+              | 发布于
+              small.format_date
+                = @blog.created_at
+            small
+              | &nbsp;博客&nbsp;
+              = @blog.user.blogs.count
+            | &nbsp;|&nbsp;
+            small
+              | 阅读&nbsp;--&nbsp;
+            | &nbsp;|&nbsp;
+            small
+              | 评论&nbsp;--&nbsp;
+            | &nbsp;|&nbsp;
+            small
+              | 收获赞&nbsp;--&nbsp;
+
+        button.fork
+          | 关注
+      article
+        = sanitize render_markdown(@blog.content)
+
+    .col-3
+      #toc_sider
+        h4
+          | 目录
+        #toc
 
