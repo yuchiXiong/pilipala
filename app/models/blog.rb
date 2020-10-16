@@ -1,4 +1,36 @@
+require 'ali/content_scan'
+
 class Blog < ApplicationRecord
   include Discard::Model
   belongs_to :user
+
+  # * 审核结果
+  enum scan_result: { pass: 0, review: 1, block: 2 }
+
+  scope :page, ->(page) {
+    if page.to_i <= 0
+      limit(10)
+    else
+      offset((page - 1) * 10).limit(10)
+    end
+  }
+  scope :released, -> { where(released: true) }
+  default_scope { order(updated_at: :desc) }
+
+  # * 自动审核并进行标识
+  # before_save :content_scan
+
+  private
+
+  # * 内容审核
+  def content_scan
+    text   = title + content
+    result = []
+    (1..((text.size / 9000) + 1)).map do |i|
+      result.push(Ali::ContentScan.new.scan_text(text[(i - 1) * 9000...i * 9000]))
+    end
+    self.scan_result = 'pass' if result.include? 'pass'
+    self.scan_result = 'review' if result.include? 'review'
+    self.scan_result = 'pass' if result.include? 'block'
+  end
 end

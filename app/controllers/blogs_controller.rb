@@ -1,18 +1,15 @@
+require 'ali/content_scan'
+
 class BlogsController < ApplicationController
   skip_before_action :authenticate_with_user_token, only: %i[index show]
   before_action :set_blog, only: %i[show update destroy]
 
-  SINGLE_PAGE_DATA_NUM = 10
 
   # * GET /blogs
   def index
-    @page               = params[:page].to_i || 1
-    @all_released_blogs = Blog.kept.where(released: true).order(updated_at: :desc).includes(:user)
-    @blogs              = if @page.to_i <= 0
-                            @all_released_blogs.limit(SINGLE_PAGE_DATA_NUM)
-                          else
-                            @all_released_blogs.offset((@page - 1) * SINGLE_PAGE_DATA_NUM).limit(SINGLE_PAGE_DATA_NUM)
-                          end
+    page               = params[:page].to_i || 1
+    all_released_blogs = Blog.kept.released.includes(:user)
+    @blogs             = all_released_blogs.page(page)
   end
 
   # * GET /blogs/:id
@@ -48,4 +45,5 @@ class BlogsController < ApplicationController
   def blog_params
     params.require(:blog).permit(:title, :content, :description, :cover, :released)
   end
+
 end

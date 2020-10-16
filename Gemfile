@@ -25,8 +25,11 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.15'
 # * jwt validate
 gem 'jwt', '~> 2.2', '>= 2.2.1'
 
-# * oss && file uploader
+# * oss
 gem 'aliyun-sdk', '~> 0.6.0'
+gem 'aliyunsdkcore'
+
+# * file uploader
 gem 'carrierwave', '~> 2.0'
 
 # * console

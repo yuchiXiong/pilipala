@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_28_110611) do
+ActiveRecord::Schema.define(version: 2020_10_16_133225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,9 @@ ActiveRecord::Schema.define(version: 2020_09_28_110611) do
     t.datetime "updated_at", null: false
     t.boolean "released", default: false, comment: "博客发布状态"
     t.datetime "discarded_at"
+    t.integer "scan_result"
     t.index ["discarded_at"], name: "index_blogs_on_discarded_at"
+    t.index ["scan_result"], name: "index_blogs_on_scan_result"
     t.index ["title"], name: "index_blogs_on_title"
     t.index ["user_id"], name: "index_blogs_on_user_id"
   end
