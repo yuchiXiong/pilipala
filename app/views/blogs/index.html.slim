@@ -3,20 +3,21 @@
 main.container[role="main"]
   .row
     .col-md-8.blog-main
-      h3.pb-4.mb-4.font-italic.border-bottom
-        |  From the Firehose 
+      / h3.pb-4.mb-4.font-italic.border-bottom
+      /   |  From the Firehose
       .blog-post
-        - @blogs.map do |blog|
-          .blog-post
-            h2.blog-post-title
-              = blog.title
-            p.blog-post-meta
-              | 发布于&nbsp;
-              span.format_date
-                = blog.created_at
-            = sanitize render_strip_down(blog.content)[0..200]
-            | ...
-            hr
+        = render @blogs, show_author: true
+    / - @blogs.map do |blog|
+    /   .blog-post
+    /     h2.blog-post-title
+    /       = blog.title
+    /     p.blog-post-meta
+    /       | 发布于&nbsp;
+    /       span.format_date
+    /         = blog.created_at
+    /     = sanitize render_strip_down(blog.content)[0..200]
+    /     | ...
+    /     hr
 
     aside.col-md-4.blog-sidebar
       .p-4.mb-3.bg-light.rounded

@@ -16,7 +16,9 @@ $(document).on("turbolinks:load", () => {
     const formatDateContainer = $('.format_date');
     for (let i = 0; i < formatDateContainer.length; i++) {
         const current = $(formatDateContainer[i]);
-        current.text(dayjs(current.text()).fromNow());
+        const formatDate = dayjs(current.text());
+        current.attr({title: formatDate.fromNow()});
+        current.text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
     }
 
     // * 生成目录并添加锚点

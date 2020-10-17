@@ -1,4 +1,4 @@
-= provide :title, "#{@be_visited_user.nick_name} 的个人主页 - SmallBook"
+= provide :title, "#{@be_visited_user.nick_name}的个人主页 - SmallBook"
 
 = render 'shared/to_top_btn'
 
@@ -44,9 +44,9 @@ main.container[role="main"]
                 | &nbsp;热门
           #tab_content.tab-content
             #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
-              = render @user_blogs
+              = render @user_blogs, show_author: false
             #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
-              = render @user_blogs
+              = render @user_blogs, show_author: false
 
     aside.col-md-3.blog-sidebar
       .p-4.mb-3.rounded#user_introduce

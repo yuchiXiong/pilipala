@@ -57,12 +57,24 @@
   }
 }
 
-#article, #hot {
+.blog-post {
   .blog-post-title {
     color: $normal_font_color;
 
     &:hover {
       color: $theme_color;
+    }
+  }
+
+  .author_info {
+    //@include flex-row;
+    //align-items: center;
+
+    img.avatar {
+      height: 24px;
+      width: 24px;
+      border-radius: 12px;
+      margin-right: 6px;
     }
   }
 
@@ -72,6 +84,7 @@
   }
 
   .blog-post-data {
+    @include flex-row;
 
     .like, .comment, .star {
       cursor: pointer;
@@ -89,6 +102,19 @@
       }
     }
 
+    .author_info {
+      line-height: 27px;
+      font-size: 14px;
+
+      a {
+        color: #888888
+      }
+
+      a:hover {
+        color: $theme_color;
+      }
+    }
+
     .comment {
       svg {
         vertical-align: middle;
@@ -96,8 +122,10 @@
     }
 
     .publiced_at {
-      margin-left: 16px;
+      margin-left: auto;
       font-size: 14px;
+      line-height: 27px;
+      color: #888888;
     }
   }
 }
