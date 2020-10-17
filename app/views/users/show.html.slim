@@ -15,16 +15,9 @@ main.container[role="main"]
                 = @be_visited_user.nick_name
                 | &nbsp;
                 small#sex
-                  ruby:
-                    case User.sexes[@be_visited_user.sex]
-                    when 0
-                      icon = 'icons/xu_icon'
-                    when 1
-                      icon = 'icons/male_icon'
-                    when 2
-                      icon = 'icons/female_icon'
-                    end
-                  = render icon
+                  = sex_secret_icon if User.sexes[@be_visited_user.sex] == 0
+                  = male_icon if User.sexes[@be_visited_user.sex] == 1
+                  = female_icon if User.sexes[@be_visited_user.sex] == 2
 
               p.count
                 span
@@ -43,11 +36,11 @@ main.container[role="main"]
           ul#tab.nav[role="tablist"]
             li.nav-item[role="presentation"]
               a#article-tab.nav-link.active[data-toggle="tab" href="#article" role="tab" aria-controls="home" aria-selected="true"]
-                = render 'icons/article_icon'
+                = article_icon
                 | &nbsp;文章
             li.nav-item[role="presentation"]
               a#hot-tab.nav-link[data-toggle="tab" href="#hot" role="tab" aria-controls="contact" aria-selected="false"]
-                = render 'icons/hot_icon'
+                = hot_icon
                 | &nbsp;热门
           #tab_content.tab-content
             #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]

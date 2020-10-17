@@ -8,15 +8,15 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
       ul.navbar-nav.mr-auto
         li.nav-item.active#header_home_nav
           = link_to root_path, class: 'nav-link' do
-            = render 'icons/books_icon'
+            = home_icon
             | 首页
         li.nav-item.active
           = link_to "#", class: 'nav-link' do
-            = render 'icons/star_icon'
+            = fork_icon
             | 关注
         li.nav-item.active
           = link_to "#", class: 'nav-link' do
-            = render 'icons/notice_icon'
+            = notice_icon
             | 消息
         form.form-inline.my-2.my-lg-0
           input#search.form-control.mr-sm-2[type="search" placeholder="搜点什么……" aria-label="Search"]
