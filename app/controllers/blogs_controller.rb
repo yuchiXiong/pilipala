@@ -7,9 +7,14 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    page               = params[:page].to_i || 1
+    @page              = params[:page].to_i <= 0 ? 1 : params[:page].to_i
     all_released_blogs = Blog.kept.released.includes(:user)
-    @blogs             = all_released_blogs.page(page)
+    @blogs             = all_released_blogs.page(@page)
+    respond_to do |format|
+      format.html
+      format.js
+      format.json
+    end
   end
 
   # * GET /blogs/:id

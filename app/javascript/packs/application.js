@@ -17,7 +17,16 @@
 import $ from 'jquery';
 import 'bootstrap';
 
+require("@rails/ujs").start();
+import Turbolinks from 'turbolinks';
+
+require("@rails/activestorage").start();
+require("channels");
+
 import '../page_js/users';
 import '../page_js/blogs';
+
+global.$ = $;
+Turbolinks.start();
 
 console.log('Hello World from Webpacker');

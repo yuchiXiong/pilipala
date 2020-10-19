@@ -1,0 +1,11 @@
+var loadMoreBtn = $('#load_more');
+loadMoreBtn.data('page', loadMoreBtn.data('page') + 1)
+           .attr('href', `${'<%= blogs_url %>'}?page=${loadMoreBtn.data('page')}`);
+<%- if @blogs.count.zero? %>
+loadMoreBtn.attr({href: "#"})
+           .text('已经没有更多内容了')
+           .click(e => e.preventDefault())
+           .attr('data-remote', false);
+<%- else %>
+$("<%= escape_javascript(render @blogs, show_author: true)%>").appendTo(".blogs");
+<%- end %>
