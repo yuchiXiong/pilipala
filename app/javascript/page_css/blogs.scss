@@ -16,6 +16,11 @@
     display: inline-block;
     color: $gray_font_color;
   }
+
+  .notice {
+    position: fixed;
+    width: 479.952px;
+  }
 }
 
 #blog_show {

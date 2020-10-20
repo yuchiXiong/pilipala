@@ -10,7 +10,7 @@ loadMoreBtn.attr({href: "#", 'data-remote': false})
 $("<%= escape_javascript(render @blogs, show_author: true)%>").appendTo(".blogs");
 <%- end %>
 // * .format_date为后端created_at格式时间，自动将其格式化
-const formatDateContainer = $('.format_date');
+var formatDateContainer = $('.format_date');
 for (let i = 0; i < formatDateContainer.length; i++) {
     const current = $(formatDateContainer[i]);
     const formatDate = dayjs(current.text());

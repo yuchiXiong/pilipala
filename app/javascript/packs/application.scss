@@ -43,15 +43,15 @@ body {
   border: 1px solid $theme_color;
   transition: all 300ms;
 
-  svg {
+  svg > path {
     fill: $theme_color;
   }
 
   &:hover {
     border: 1px solid #fff;
-    background-color: $theme_color;
+    background-color: $theme_color !important;
 
-    svg {
+    svg > path {
       fill: #fff;
     }
   }
