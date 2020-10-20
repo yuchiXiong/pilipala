@@ -16,24 +16,12 @@ $(document).on("turbolinks:load", () => {
     })
 
     if ($("#blogs__index")) {
-        // let page = 1;
-        // $(document).scroll(() => {
-        //     if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
-        //         $.ajax({
-        //             url: `/blogs?&page=${page + 1}`,
-        //             success: res => {
-        //                 const data = res.data;
-        //                 page = data.total.current;
-        //                 if (data.blogs.length === 0) {
-        //                     $(document).unbind('scroll');
-        //                     // $()
-        //                 }
-        //                 console.log(page);
-        //                 // console.log(data.total.current)
-        //             }
-        //         })
-        //     }
-        // })
+        $(document).scroll(() => {
+            if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
+                const loadMoreBtn = $('#load_more');
+                document.querySelector('#load_more').click();
+            }
+        })
     }
 
     if ($("#blogs__show")) {

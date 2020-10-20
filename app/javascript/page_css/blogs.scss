@@ -3,6 +3,21 @@
 @import "vars";
 @import "mixins";
 
+#blogs__index {
+  #load_more {
+    text-align: center;
+    @include flex-row;
+    width: 100%;
+    justify-content: center;
+    display: none;
+  }
+
+  #load_more.none_more {
+    display: inline-block;
+    color: $gray_font_color;
+  }
+}
+
 #blog_show {
   .blog_title {
     margin-bottom: 12px;

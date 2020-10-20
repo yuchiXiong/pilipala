@@ -9,7 +9,7 @@ class BlogsController < ApplicationController
   def index
     @page              = params[:page].to_i <= 0 ? 1 : params[:page].to_i
     all_released_blogs = Blog.kept.released.includes(:user)
-    @blogs             = all_released_blogs.page(@page)
+    @blogs = all_released_blogs.page(@page).per(10)
     respond_to do |format|
       format.html
       format.js

@@ -109,6 +109,18 @@ GEM
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jwt (2.2.2)
+    kaminari (1.2.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.1)
+      kaminari-activerecord (= 1.2.1)
+      kaminari-core (= 1.2.1)
+    kaminari-actionview (1.2.1)
+      actionview
+      kaminari-core (= 1.2.1)
+    kaminari-activerecord (1.2.1)
+      activerecord
+      kaminari-core (= 1.2.1)
+    kaminari-core (1.2.1)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -274,6 +286,7 @@ DEPENDENCIES
   discard (~> 1.2)
   jbuilder (~> 2.10)
   jwt (~> 2.2, >= 2.2.1)
+  kaminari
   listen (>= 3.0.5, < 3.2)
   mina (~> 1.2, >= 1.2.3)
   mina-logs (~> 1.1)

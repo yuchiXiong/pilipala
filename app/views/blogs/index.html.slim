@@ -10,6 +10,7 @@ main.container[role="main"]
       .blogs
         = render @blogs, show_author: true
       = link_to '加载更多文章', blogs_url + "?page=#{@page <= 1 ? 2 : @page}", remote: true, id: 'load_more', 'data-page': @page <= 1 ? 2 : @page
+      = paginate @blogs, class: 'hidden_paginate'
 
     aside.col-md-4.blog-sidebar
       .p-4.mb-3.bg-light.rounded

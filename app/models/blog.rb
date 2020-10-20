@@ -7,13 +7,6 @@ class Blog < ApplicationRecord
   # * 审核结果
   enum scan_result: { pass: 0, review: 1, block: 2 }
 
-  scope :page, ->(page) {
-    if page.to_i <= 0
-      limit(10)
-    else
-      offset((page - 1) * 10).limit(10)
-    end
-  }
   scope :released, -> { where(released: true) }
   default_scope { order(updated_at: :desc) }
 
