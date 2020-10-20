@@ -49,4 +49,8 @@ class ApplicationController < ActionController::Base
   rescue_from(ActiveRecord::RecordNotFound || ResourcesNotFound) do
     render json: { code: Code::Resource_Not_Found, message: '资源未找到' }, status: :not_found
   end
+
+  def default_url_options(options = {})
+    { protocol: Rails.env.production? ? 'https' : 'http' }
+  end
 end
