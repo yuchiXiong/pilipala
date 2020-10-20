@@ -28,14 +28,14 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
             = image_tag "https://xiongyuchi.top/img/avatar.jpg", class: "avatar"
             = link_to @current_user.nick_name, user_url(@current_user.id)
         - else
+          / li.nav-item.active
+          /   a.nav-link[href="#"]
+          /     | 登陆
+          /   li.nav-item.active
+          /     a.nav-link[href="#"]
+          /       | 注册
+          / li.nav-item.active
+          /   a#new_article_btn.nav-link[href="#"]
+          /     | 写文章
           li.nav-item.active
             | 登陆注册即将开放，尽情期待！
-              / li.nav-item.active
-              /   a.nav-link[href="#"]
-              /     | 登陆
-              /   li.nav-item.active
-              /     a.nav-link[href="#"]
-              /       | 注册
-              / li.nav-item.active
-              /   a#new_article_btn.nav-link[href="#"]
-              /     | 写文章

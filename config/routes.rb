@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :blogs
 
+  # get :editor, to: 'editor#index'
+
   resources :users do
     member do
       get 'blogs'

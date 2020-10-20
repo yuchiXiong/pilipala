@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title><%= yield :title %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body id="<%= "#{controller_name}__#{action_name}" %>">
+<iframe src="http://preview.xiongyuchi.top/blog/new" height="100%" width="100%" frameborder="0"></iframe>
+</body>
+</html>
