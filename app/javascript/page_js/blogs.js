@@ -2,13 +2,6 @@ import hljs from 'highlight.js';
 
 $(document).on("turbolinks:load", () => {
 
-    $("#toc > a").each((index, item) => {
-        $(item).click(e => {
-            e.preventDefault();
-            $('html, body').animate({scrollTop: $($(item).attr('href')).offset().top - 80}, 450);
-        })
-    })
-
     if ($("#blogs__index")) {
         $(document).scroll(() => {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
@@ -53,5 +46,13 @@ $(document).on("turbolinks:load", () => {
         });
 
     }
+
+    $("#toc > a").each((index, item) => {
+        console.log(index)
+        $(item).click(e => {
+            e.preventDefault();
+            $('html, body').animate({scrollTop: $($(item).attr('href')).offset().top - 80}, 450);
+        })
+    })
 
 });
