@@ -6,7 +6,10 @@ $(document).on("turbolinks:load", () => {
         $(document).scroll(() => {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                 const loadMoreBtn = $('#load_more');
-                document.querySelector('#load_more').click();
+                if ( !loadMoreBtn.data('loading')) {
+                    document.querySelector('#load_more').click();
+                    loadMoreBtn.data('loading', true);
+                }
             }
         })
     }
@@ -48,7 +51,6 @@ $(document).on("turbolinks:load", () => {
     }
 
     $("#toc > a").each((index, item) => {
-        console.log(index)
         $(item).click(e => {
             e.preventDefault();
             $('html, body').animate({scrollTop: $($(item).attr('href')).offset().top - 80}, 450);

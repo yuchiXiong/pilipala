@@ -2,6 +2,9 @@
 <html lang="cn">
 <head>
   <title><%= yield :title %></title>
+  <%#- if "#{controller_name}__#{action_name}" == 'blogs_index' %>
+  <!--    <meta name="turbolinks-cache-control" content="no-cache">-->
+  <%#- end %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 

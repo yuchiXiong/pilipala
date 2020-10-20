@@ -1,5 +1,8 @@
 var loadMoreBtn = $('#load_more');
-loadMoreBtn.data('page', loadMoreBtn.data('page') + 1)
+loadMoreBtn.data({
+    'page': loadMoreBtn.data('page') + 1,
+    'loading': false
+})
            .attr('href', `${'<%= blogs_url %>'}?page=${loadMoreBtn.data('page')}`);
 <%- if @blogs.count.zero? %>
 loadMoreBtn.attr({href: "#", 'data-remote': false})
