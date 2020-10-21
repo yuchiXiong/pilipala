@@ -4,6 +4,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.2]
   def self.up
 
     remove_columns :users, :account, :password_hash
+    change_column :users, :nick_name, :string, default: "SmallBook#{SecureRandom.hex(4)}"
 
     change_table :users do |t|
       ## Database authenticatable

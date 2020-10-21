@@ -23,19 +23,16 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
       / button.btn.btn-outline-success.my-2.my-sm-0[type="submit"]
       /   | Search
       ul.navbar-nav.ml-auto
-        - if @current_user
+        - if current_user
           li.nav-item#user_avatar
-            = image_tag "https://xiongyuchi.top/img/avatar.jpg", class: "avatar"
-            = link_to @current_user.nick_name, user_url(@current_user.id)
+            = link_to user_url(current_user.id) do
+              = image_tag current_user.avatar, class: "avatar"
+              = current_user.nick_name.empty? ? 'Small Book用户' : current_user.nick_name
         - else
-          / li.nav-item.active
-          /   a.nav-link[href="#"]
-          /     | 登陆
-          /   li.nav-item.active
-          /     a.nav-link[href="#"]
-          /       | 注册
-          / li.nav-item.active
-          /   a#new_article_btn.nav-link[href="#"]
-          /     | 写文章
           li.nav-item.active
-            | 登陆注册即将开放，尽情期待！
+            = link_to '登陆', new_user_session_url, class: 'nav-link'
+          li.nav-item.active
+            = link_to '注册', new_user_registration_url, class: 'nav-link'
+        li.nav-item.active
+          a#new_article_btn.nav-link[href="#"]
+            | 即将上线
