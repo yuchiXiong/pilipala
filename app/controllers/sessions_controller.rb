@@ -1,5 +1,4 @@
 class SessionsController < ApplicationController
-  skip_before_action :authenticate_with_user_token
 
   # * POST /sessions
   def create

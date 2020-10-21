@@ -19,9 +19,6 @@ gem 'jbuilder', '~> 2.10'
 # * cors
 gem 'rack-cors'
 
-# * password hash
-gem 'bcrypt', '~> 3.1', '>= 3.1.15'
-
 # * jwt validate
 gem 'jwt', '~> 2.2', '>= 2.2.1'
 
@@ -43,6 +40,9 @@ gem 'kaminari'
 gem 'redcarpet'
 gem 'slim'
 gem 'webpacker'
+
+# * account system
+gem 'devise'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'

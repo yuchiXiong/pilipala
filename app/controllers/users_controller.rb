@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show blogs]
+  skip_before_action :authenticate_user!, only: %i[show]
 
   # * Get /users/:id
   def show

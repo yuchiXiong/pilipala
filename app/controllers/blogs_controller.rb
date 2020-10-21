@@ -1,9 +1,8 @@
 require 'ali/content_scan'
 
 class BlogsController < ApplicationController
-  skip_before_action :authenticate_with_user_token, only: %i[index show]
   before_action :set_blog, only: %i[show update destroy]
-
+  skip_before_action :authenticate_user!, only: %i[index show]
 
   # * GET /blogs
   def index

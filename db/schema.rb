@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_16_133225) do
+ActiveRecord::Schema.define(version: 2020_10_21_110024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,8 +33,6 @@ ActiveRecord::Schema.define(version: 2020_10_16_133225) do
   end
 
   create_table "users", comment: "用户表", force: :cascade do |t|
-    t.string "account", null: false, comment: "用户名"
-    t.string "password_hash", null: false, comment: "密码密文"
     t.text "nick_name", default: "", comment: "昵称"
     t.string "email", comment: "邮箱"
     t.string "avatar", comment: "头像"
@@ -42,8 +40,12 @@ ActiveRecord::Schema.define(version: 2020_10_16_133225) do
     t.text "description", default: "", comment: "简介"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account"], name: "index_users_on_account", unique: true
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

@@ -1,0 +1,27 @@
+css:
+    nav.navbar {
+        display: none;
+    }
+
+.card
+  h4.mb-3
+    | 登陆
+
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .field.input-group.mb-3
+      = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
+
+    .field.input-group.mb-3
+      = f.password_field :password, autocomplete: "current-password", placeholder: '请输入您的密码', class: 'form-control'
+
+    - if devise_mapping.rememberable?
+      .input-group.mb-3
+        .input-group-prepend
+          .input-group-text
+            = f.check_box :remember_me
+        = f.label :remember_me, '记住我', class: 'form-control'
+
+    .actions.mb-3
+      = f.submit "登陆", class: 'btn btn-primary btn-block'
+
+  = render "devise/shared/links"

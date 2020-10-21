@@ -1,0 +1,24 @@
+@import "mixins";
+@import "vars";
+
+#sessions__new,
+#registrations__new {
+  background-color: $gray_bg_color;
+
+  .body {
+    @include flex-col;
+    align-items: center;
+
+    .card {
+      width: 40%;
+      padding: 24px;
+      background-color: #fff;
+
+      h4 {
+        color: $theme_color;
+      }
+    }
+  }
+
+
+}

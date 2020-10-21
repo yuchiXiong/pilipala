@@ -3,8 +3,8 @@ class ApplicationController < ActionController::Base
   # * jbuilder/slim同时提供了html与json的renderer
   # * 当controller渲染html时，需要进行csrf认证
   # * 当controller渲染json时，需要进行登录认证
-  before_action :authenticate_with_user_token, if: :json_request?
   skip_before_action :verify_authenticity_token, if: :json_request?
+  before_action :authenticate_user!
 
   def json_request?
     request.format.json?
@@ -17,15 +17,6 @@ class ApplicationController < ActionController::Base
   class AccessDeniedError < StandardError; end
 
   class FormatNotSupport < StandardError; end
-
-  def authenticate_with_user_token
-    user_token = request.headers['User-Token']
-    @current_user = User.user_valid! user_token
-  rescue JWT::ExpiredSignature
-    render json: { code: Code::Unauthorized_Expired, message: '登录已失效，请重新登录', data: nil }, status: :unauthorized
-  rescue JWT::DecodeError
-    render json: { code: Code::Unauthorized_Error, message: '身份验证异常', data: nil }, status: :unauthorized
-  end
 
   rescue_from(FormatNotSupport) do
     logger.warn "不支持的图片格式: #{params[:file].content_type}"
