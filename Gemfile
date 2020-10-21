@@ -19,9 +19,6 @@ gem 'jbuilder', '~> 2.10'
 # * cors
 gem 'rack-cors'
 
-# * jwt validate
-gem 'jwt', '~> 2.2', '>= 2.2.1'
-
 # * oss
 gem 'aliyun-sdk', '~> 0.6.0'
 gem 'aliyunsdkcore'
