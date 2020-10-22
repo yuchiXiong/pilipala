@@ -25,9 +25,18 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
       ul.navbar-nav.ml-auto
         - if current_user
           li.nav-item#user_avatar
-            = link_to user_url(current_user.id) do
-              = image_tag current_user.avatar, class: "avatar"
-              = current_user.nick_name.empty? ? 'Small Book用户' : current_user.nick_name
+            .btn-group
+              button type="button" class="dropdown-toggle user_info_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                - if current_user.avatar.nil?
+                  = current_user.nick_name.empty? ? 'Small Book用户' : current_user.nick_name
+                - else
+                  = image_tag current_user.avatar, class: "avatar"
+              .dropdown-menu
+                = link_to '我的主页', user_url(current_user.id), class: 'dropdown-item'
+                = link_to '修改个人信息', edit_user_registration_url, class: 'dropdown-item'
+                .dropdown-divider
+                = link_to '注销', destroy_user_session_url, class: 'dropdown-item', method: :delete
+
         - else
           li.nav-item.active
             = link_to '登陆', new_user_session_url, class: 'nav-link'

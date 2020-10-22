@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   # * 当controller渲染json时，需要进行登录认证
   skip_before_action :verify_authenticity_token, if: :json_request?
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   def json_request?
     request.format.json?
@@ -43,5 +44,11 @@ class ApplicationController < ActionController::Base
 
   def default_url_options(options = {})
     { protocol: Rails.env.production? ? 'https' : 'http' }
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update, keys: [:nick_name, :description, :avatar])
   end
 end

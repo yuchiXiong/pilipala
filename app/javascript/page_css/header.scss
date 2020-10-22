@@ -41,11 +41,18 @@ nav {
   }
 
   #user_avatar {
+    .user_info_btn {
+      border: none;
+      outline: none;
+      background: none;
+      height: 40px;
+    }
+
     .avatar {
       height: 42px;
       width: 42px;
       border-radius: 21px;
-      margin-right: 12px;
+      //margin-right: 12px;
     }
 
     a {
