@@ -6,20 +6,20 @@
     = sanitize render_strip_down(blog.content)[0..200]
     | ...
   p.blog-post-data
-    span.like
-      = like_icon
-      | &nbsp;--&nbsp;
-    span.comment
-      = comment_icon
-      | &nbsp;--&nbsp;
-    span.star
-      = star_icon
-      | &nbsp;--&nbsp;
+    / span.like
+    /   = like_icon
+    /   | &nbsp;--&nbsp;
+    / span.comment
+    /   = comment_icon
+    /   | &nbsp;--&nbsp;
+    / span.star
+    /   = star_icon
+    /   | &nbsp;--&nbsp;
     - if show_author
       span.author_info
         / = image_tag blog.user.avatar, class: 'avatar'
         = link_to blog.user.nick_name, user_url(blog.user.id)
-          / = blog.user.nick_name
+        / = blog.user.nick_name
     span.publiced_at
       / | 发布于
       span.format_date[data-toggle="tooltip" data-placement="top" title="Tooltip on top"]

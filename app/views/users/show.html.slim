@@ -23,30 +23,30 @@ main.container[role="main"]
                 span
                   | 博客&nbsp;
                   = @be_visited_user.blogs.count
-                | &nbsp;|&nbsp;
-                span
-                  | 关注&nbsp;--&nbsp;
-                | &nbsp;|&nbsp;
-                span
-                  | 粉丝&nbsp;--&nbsp;
-                | &nbsp;|&nbsp;
-                span
-                  | 收获赞&nbsp;--&nbsp;
+          / | &nbsp;|&nbsp;
+          / span
+          /   | 关注&nbsp;--&nbsp;
+          / | &nbsp;|&nbsp;
+          / span
+          /   | 粉丝&nbsp;--&nbsp;
+          / | &nbsp;|&nbsp;
+          / span
+          /   | 收获赞&nbsp;--&nbsp;
 
           ul#tab.nav[role="tablist"]
             li.nav-item[role="presentation"]
               a#article-tab.nav-link.active[data-toggle="tab" href="#article" role="tab" aria-controls="home" aria-selected="true"]
                 = article_icon
                 | &nbsp;文章
-            li.nav-item[role="presentation"]
-              a#hot-tab.nav-link[data-toggle="tab" href="#hot" role="tab" aria-controls="contact" aria-selected="false"]
-                = hot_icon
-                | &nbsp;热门
+          / li.nav-item[role="presentation"]
+          /   a#hot-tab.nav-link[data-toggle="tab" href="#hot" role="tab" aria-controls="contact" aria-selected="false"]
+          /     = hot_icon
+          /     | &nbsp;热门
           #tab_content.tab-content
             #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
               = render @user_blogs, show_author: false
-            #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
-              = render @user_blogs, show_author: false
+    / #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+    /   = render @user_blogs, show_author: false
 
     aside.col-md-3.blog-sidebar
       .p-4.mb-3.rounded#user_introduce
@@ -58,4 +58,4 @@ main.container[role="main"]
         span.tag
           | 我的文集
         p.mb-0.mt-2
-          | 暂不支持文集
+          | 敬请期待
