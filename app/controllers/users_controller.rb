@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   # * Get /users/:id/blogs
   def blogs
-    raise AccessDeniedError if @be_visited_user.id != @current_user.id
+    raise AccessDeniedError if @be_visited_user.id != current_user.id
     @blogs = @be_visited_user.blogs.kept.order(updated_at: :desc)
   end
 

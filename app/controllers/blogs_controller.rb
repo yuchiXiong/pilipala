@@ -24,19 +24,19 @@ class BlogsController < ApplicationController
   # * POST /blogs
   def create
     @blog         = Blog.new(blog_params)
-    @blog.user_id = @current_user.id
+    @blog.user_id = current_user.id
     @errors       = @blog.errors unless @blog.save
   end
 
   # * PUT/PATCH /blogs/:id
   def update
-    raise AccessDeniedError unless @blog.user_id == @current_user.id
+    raise AccessDeniedError unless @blog.user_id == current_user.id
     @errors = @blog.errors unless @blog.update(blog_params)
   end
 
   # * DELETE /blogs/:id
   def destroy
-    raise AccessDeniedError unless @blog.user_id == @current_user.id
+    raise AccessDeniedError unless @blog.user_id == current_user.id
     @errors = @blog.errors unless @blog.discard
   end
 

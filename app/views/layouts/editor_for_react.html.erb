@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>文章管理 | Small Book</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= include_gon %>
+  <%= stylesheet_pack_tag 'editor_for_react', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body id="editor_for_react">
+<%= javascript_pack_tag 'editor_for_react', 'data-turbolinks-track': 'reload' %>
+</body>
+</html>

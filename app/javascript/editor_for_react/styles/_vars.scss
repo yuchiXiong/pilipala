@@ -1,0 +1,23 @@
+$lime-color: (1: #fcffe6,
+        2: #f4ffb8,
+        3: #eaff8f,
+        4: #d3f261,
+        5: #bae637,
+        6: #a0d911,
+        7: #7cb305,
+        8: #5b8c00,
+        9: #3f6600,
+        10: #254000);
+
+
+// $primary-color: map-get($lime-color, 8);
+// $primary-color: #434137;
+$primary-color: #0084ff;
+
+// $text-color: map-get($lime-color, 10);
+$text-color: #434137;
+
+$block-color: map-get($lime-color, 4);
+$container-width: 1200px;
+// $background-color: map-get($lime-color, 1);
+$background-color: rgba(229, 229, 229, 0.4)

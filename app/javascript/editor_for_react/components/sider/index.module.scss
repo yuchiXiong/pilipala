@@ -1,0 +1,71 @@
+@import '../../styles/vars';
+@import '../../styles/mixins';
+
+:global(.ant-layout-sider-children) {
+  height: 100vh !important;
+  overflow-y: scroll !important;
+
+  @include scroll-reset();
+}
+
+.sider-menu {
+  border-bottom: 1px solid #eee;
+}
+
+.sider-item {
+  height: 72px !important;
+  padding-left: 24px !important;
+  display: flex !important;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin: 0 !important;
+
+  &:last-child {
+    margin-bottom: 48px !important;
+  }
+
+  .sider-item-title {
+    font-size: 18px;
+    width: 200px;
+  }
+
+  span {
+    line-height: 20px !important;
+    height: 20px !important;
+  }
+
+}
+
+.return-home-btn {
+  display: flex !important;
+  justify-content: flex-start;
+  align-items: center;
+  position: fixed !important;
+  background-color: #fff;
+  width: 296px !important;
+  z-index: 100;
+  margin-top: 0 !important;
+  border-bottom: 1px solid #eee;
+  top: 0;
+
+  h4 {
+    margin-bottom: 0 !important;
+  }
+}
+
+.add-blog-set {
+  margin-top: 48px !important;
+}
+
+.new-blog-btn {
+  padding-left: 16px !important;
+  position: fixed !important;
+  bottom: 0;
+  background: #fff;
+  z-index: 100;
+  width: 296px !important;
+  border-top: 1px solid #eee;
+  margin-bottom: 0 !important;
+}

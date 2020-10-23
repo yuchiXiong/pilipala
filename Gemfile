@@ -33,6 +33,7 @@ gem 'pry-rails', '~> 0.3.9'
 gem 'discard', '~> 1.2'
 
 # * font end
+gem 'gon'
 gem 'kaminari'
 gem 'redcarpet'
 gem 'slim'

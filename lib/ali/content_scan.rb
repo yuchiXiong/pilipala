@@ -46,7 +46,6 @@ module Ali
           method: 'POST'
         }
       )
-      puts response
       response['Data']['Elements'][0]['Results'][0]['Suggestion']
     end
   end

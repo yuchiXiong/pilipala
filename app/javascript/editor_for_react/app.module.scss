@@ -1,0 +1,25 @@
+:global(.tui-editor-defaultUI-toolbar) {
+  display: flex;
+}
+
+:global(.te-preview) {
+  background: #fff;
+}
+
+:global(.tui-scrollsync.active),
+:global(.tui-editor-defaultUI-toolbar .tui-toolbar-divider:nth-of-type(6)) {
+  display: none !important;
+}
+
+.sider {
+  $width: 300px;
+  flex: 0 0 $width !important;
+  max-width: $width !important;
+  min-width: $width !important;
+  width: $width !important;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
