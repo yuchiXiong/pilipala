@@ -43,5 +43,4 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
           li.nav-item.active
             = link_to '注册', new_user_registration_url, class: 'nav-link'
         li.nav-item.active
-          a#new_article_btn.nav-link[href="#"]
-            | 即将上线
+          = link_to '写文章', editor_url, id: 'new_article_btn', class: 'nav-link', target: '_blank'

@@ -1,4 +1,5 @@
 import React from 'react';
+import Turbolinks from 'turbolinks';
 import { Menu, Typography, Button, Dropdown } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
@@ -9,6 +10,8 @@ import styles from './index.module.scss';
 
 const {SubMenu} = Menu;
 const {Title, Text} = Typography;
+
+Turbolinks.start();
 
 class UserBlogsSider extends React.Component {
 
@@ -23,7 +26,7 @@ class UserBlogsSider extends React.Component {
 
     handleClick(e) {
         if (e.key === 'return-home') {
-            // history.push('/');
+            Turbolinks.visit('/');
         } else if (e.key === 'add-blog-set') {
         } else if (e.key === 'new-blog-btn') {
             Blogs.create({

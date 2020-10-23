@@ -1,8 +1,8 @@
-import React from 'react';
-import { Layout } from 'antd';
+import React, { Suspense } from 'react';
+import { Layout, Spin } from 'antd';
 
-import UserBlogsSider from './components/sider';
-import BlogEditor from './components/editor';
+const UserBlogsSider = React.lazy(() => import('./components/sider'))
+const BlogEditor = React.lazy(() => import('./components/editor'))
 
 import { Users, Blogs } from './utils/api';
 
@@ -11,6 +11,13 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from './app.module.scss';
 
 const {Sider, Content} = Layout;
+
+const Loading = () => {
+    return <div
+        style={{height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Spin/>
+    </div>
+}
 
 class App extends React.Component {
     constructor(props) {
@@ -37,7 +44,6 @@ class App extends React.Component {
     componentDidMount() {
         if (this.userInfo) {
             Users.userBlogs(this.userInfo.id).then(res => {
-                console.log(res);
                 this.setState({
                     blogs: res.data.blogs
                 });
@@ -86,7 +92,7 @@ class App extends React.Component {
     }
 
     render() {
-        return <>
+        return <Suspense fallback={<Loading/>}>
             <Layout>
                 <Sider
                     className={styles['sider']}
@@ -104,7 +110,7 @@ class App extends React.Component {
                     />
                 </Content>
             </Layout>
-        </>;
+        </Suspense>;
     }
 }
 
