@@ -54,8 +54,11 @@ class ApplicationController < ActionController::Base
   end
 
   def valify_rucaptcha!
-    unless verify_rucaptcha?
-      render plain: '验证码错误', status: 401
+    case "#{controller_name}__#{action_name}"
+    when 'sessions__create'
+      render plain: '验证码错误', status: 401 unless verify_rucaptcha?
+    when 'registrations__create'
+      flash[:captcha] = '验证码错误' unless verify_rucaptcha?
     end
   end
 end

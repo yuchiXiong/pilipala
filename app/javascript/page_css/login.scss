@@ -2,7 +2,9 @@
 @import "vars";
 
 #sessions__new,
-#registrations__new {
+#sessions__create,
+#registrations__new,
+#registrations__create {
   background-color: $gray_bg_color;
 
   .body {
