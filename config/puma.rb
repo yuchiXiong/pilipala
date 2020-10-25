@@ -1,6 +1,6 @@
 port 3000
 
-if %w[production1].include? ENV['RAILS_ENV']
+if %w[production].include? ENV['RAILS_ENV']
   app_root = '/home/yuchi/yuchi.xiong.top.rails/shared'
   pidfile "#{app_root}/tmp/pids/puma.pid"
   state_path "#{app_root}/tmp/pids/puma.state"
