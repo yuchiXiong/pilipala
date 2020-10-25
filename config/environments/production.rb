@@ -21,6 +21,7 @@ Rails.application.configure do
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = true
+  config.action_controller.asset_host      = 'assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com'
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -64,6 +65,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "yuchi_xiong_top_rails_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = { :host => 'blog.xiongyuchi.top', protocol: 'https' }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
