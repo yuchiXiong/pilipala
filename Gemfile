@@ -19,7 +19,7 @@ gem 'jbuilder', '~> 2.10'
 # * cors
 gem 'rack-cors'
 
-# * oss
+# * oss server
 gem 'aliyun-sdk', '~> 0.6.0'
 gem 'aliyunsdkcore'
 
@@ -36,11 +36,17 @@ gem 'discard', '~> 1.2'
 gem 'gon'
 gem 'kaminari'
 gem 'redcarpet'
+gem 'rucaptcha'
 gem 'slim'
 gem 'webpacker'
 
 # * account system
 gem 'devise'
+
+# * memo cache
+gem 'redis'
+gem 'redis-rails'
+gem 'redis-store'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token, if: :json_request?
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :valify_rucaptcha!, if: :devise_controller?, only: :create
 
   def json_request?
     request.format.json?
@@ -50,5 +51,11 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:account_update, keys: [:nick_name, :description, :avatar])
+  end
+
+  def valify_rucaptcha!
+    unless verify_rucaptcha?
+      render plain: '验证码错误', status: 401
+    end
   end
 end

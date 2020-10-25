@@ -25,6 +25,10 @@ css:
     .field.input-group.mb-3
       = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: '请再次输入', class: 'form-control'
 
+    .field.input-group.mb-3
+      = rucaptcha_input_tag(class: 'form-control', placeholder: '请输入验证码')
+      = rucaptcha_image_tag(class: 'captcha', alt: '验证码')
+
     .actions.mb-3
       = f.submit "注册", class: 'btn btn-success btn-block'
 

@@ -5,11 +5,21 @@ css:
         display: none;
     }
 
+.alert.alert-danger.alert-dismissible.fade.fixed-top role="alert"
+  strong
+    | 登录失败:
+  ul.login_errors
+
+  button type="button" class="close"
+    span aria-hidden="true"
+      | &times;
+
 .card
+
   h4.mb-3
     | 登陆
 
-  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f|
     .field.input-group.mb-3
       = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
 
@@ -23,7 +33,21 @@ css:
             = f.check_box :remember_me
         = f.label :remember_me, '记住我', class: 'form-control'
 
+    .field.input-group.mb-3
+      = rucaptcha_input_tag(class: 'form-control', placeholder: '请输入验证码')
+      = rucaptcha_image_tag(class: 'captcha', alt: '验证码')
+
     .actions.mb-3
       = f.submit "登陆", class: 'btn btn-primary btn-block'
 
   = render "devise/shared/links"
+
+javascript:
+    $('.close').click(() => {
+        $('.alert').removeClass('show');
+    });
+    $('#sessions__new').on('ajax:error', event => {
+        const responseText = event.detail.pop().responseText;
+        $('.login_errors').text('').append(`<li>${responseText}</li>`);
+        $('.alert').addClass('show');
+    });
