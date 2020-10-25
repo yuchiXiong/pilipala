@@ -9,6 +9,21 @@ Bundler.require(*Rails.groups)
 module YuchiXiongTopRails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+
+    config.action_mailer.default_url_options = { :host => 'localhost:4000' }
+    config.action_mailer.delivery_method     = :smtp
+    config.action_mailer.smtp_settings       = {
+      address:              'smtpdm.aliyun.com',
+      port:                 465,
+      domain:               'example.com',
+      user_name:            Rails.application.credentials[:ali][:mail],
+      password:             Rails.application.credentials[:ali][:password],
+      authentication:       'plain',
+      enable_starttls_auto: true,
+      ssl:                  true
+    }
+
+
     config.load_defaults 5.2
     config.after_initialize do
       %w(table th tr td).each do |tag|
