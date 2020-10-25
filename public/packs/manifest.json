@@ -1,0 +1,32 @@
+{
+  "application.css": "/packs/css/application-cf41e6b2.css",
+  "application.js": "/packs/js/application-0f013efb109fe238c5d4.js",
+  "application.js.map": "/packs/js/application-0f013efb109fe238c5d4.js.map",
+  "editor_for_react.css": "/packs/css/editor_for_react-90a32dcb.css",
+  "editor_for_react.js": "/packs/js/editor_for_react-7a80d42f4a44ac644977.js",
+  "editor_for_react.js.map": "/packs/js/editor_for_react-7a80d42f4a44ac644977.js.map",
+  "entrypoints": {
+    "application": {
+      "css": [
+        "/packs/css/application-cf41e6b2.css"
+      ],
+      "js": [
+        "/packs/js/application-0f013efb109fe238c5d4.js"
+      ],
+      "js.map": [
+        "/packs/js/application-0f013efb109fe238c5d4.js.map"
+      ]
+    },
+    "editor_for_react": {
+      "css": [
+        "/packs/css/editor_for_react-90a32dcb.css"
+      ],
+      "js": [
+        "/packs/js/editor_for_react-7a80d42f4a44ac644977.js"
+      ],
+      "js.map": [
+        "/packs/js/editor_for_react-7a80d42f4a44ac644977.js.map"
+      ]
+    }
+  }
+}
