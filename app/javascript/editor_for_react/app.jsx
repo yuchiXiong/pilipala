@@ -1,23 +1,15 @@
 import React, { Suspense } from 'react';
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 
-const UserBlogsSider = React.lazy(() => import('./components/sider'))
-const BlogEditor = React.lazy(() => import('./components/editor'))
+const AppSider = React.lazy(() => import('./components/sider'));
+const AppEditor = React.lazy(() => import('./components/editor'));
+import Loading from './components/loading';
 
 import { Users, Blogs } from './utils/api';
 
-import 'codemirror/lib/codemirror.css';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import styles from './app.module.scss';
 
 const {Sider, Content} = Layout;
-
-const Loading = () => {
-    return <div
-        style={{height: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-        <Spin/>
-    </div>
-}
 
 class App extends React.Component {
     constructor(props) {
@@ -25,7 +17,7 @@ class App extends React.Component {
         this.userInfo = gon.currentUser;
         this.state = {
             // * 当前编辑器里的博客对象
-            currentBlog: {
+            current: {
                 userId: -1,
                 title: "",
                 content: "",
@@ -35,8 +27,9 @@ class App extends React.Component {
             // * 当前用户的博客列表
             blogs: []
         };
-        this.toggleBlog = this.toggleBlog.bind(this);
-        this.handleBlogUpdate = this.handleBlogUpdate.bind(this);
+        this.onToggle = this.onToggle.bind(this);
+        this.onCreate = this.onCreate.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
         this.onDelete = this.onDelete.bind(this);
     }
 
@@ -45,33 +38,32 @@ class App extends React.Component {
         if (this.userInfo) {
             Users.userBlogs(this.userInfo.id).then(res => {
                 this.setState({
-                    blogs: res.data.blogs
+                    blogs: res.data.blogs,
+                    current: res.data.blogs[0]
                 });
-                this.setState({currentBlog: res.data.blogs[0]});
             });
         }
     }
 
     // * 点击左侧sider切换右侧显示的博客内容
-    // ! 当点击的按钮是添加博客时传递过来的是博客对象
-    toggleBlog(id) {
-        if (typeof id !== 'object') {
-            const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
-            this.setState({currentBlog: selectedBlog});
-        } else {
-            const blog = id;
-            this.setState({
-                currentBlog: blog,
-                blogs: [
-                    blog,
-                    ...this.state.blogs
-                ]
-            });
-        }
+    onToggle(id) {
+        const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
+        this.setState({current: selectedBlog});
+    }
+
+    // * 添加一篇新的博客
+    onCreate(blog) {
+        this.setState({
+            current: blog,
+            blogs: [
+                blog,
+                ...this.state.blogs
+            ]
+        });
     }
 
     // * 将修改后的博客上传至服务器
-    handleBlogUpdate(blog) {
+    onUpdate(blog) {
         Blogs.update(blog.id, {
             blog
         }).then(res => {
@@ -80,11 +72,12 @@ class App extends React.Component {
                     res.data.blog,
                     ...this.state.blogs.filter(item => item.id.toString() !== blog.id.toString())
                 ],
-                currentBlog: {...res.data.blog}
+                current: {...res.data.blog}
             });
         });
     }
 
+    // * 请求服务器删除一篇博客并更新客户端博客列表
     onDelete(id) {
         this.setState({
             blogs: [...this.state.blogs.filter(item => item.id.toString() !== id.toString())]
@@ -97,17 +90,17 @@ class App extends React.Component {
                 <Sider
                     className={styles['sider']}
                     theme="light">
-                    <UserBlogsSider
+                    <AppSider
                         dataSource={this.state.blogs}
                         onDelete={this.onDelete}
-                        onClick={this.toggleBlog}/>
+                        onToggle={this.onToggle}
+                        onCreate={this.onCreate}
+                    />
                 </Sider>
                 <Content className={styles['content']}>
-                    <BlogEditor
-                        blog={this.state.currentBlog}
-                        onBlogUpdate={this.handleBlogUpdate}
-                        key={this.state.currentBlog.id + this.state.currentBlog.released.toString()}
-                    />
+                    <AppEditor
+                        blog={this.state.current}
+                        onUpdate={this.onUpdate}/>
                 </Content>
             </Layout>
         </Suspense>;

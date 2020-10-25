@@ -6,6 +6,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from "../editor_for_react/app";
 
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
+
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
         <App/>,

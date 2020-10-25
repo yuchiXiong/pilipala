@@ -13,36 +13,40 @@ const {Title, Text} = Typography;
 
 Turbolinks.start();
 
-class UserBlogsSider extends React.Component {
+class AppSider extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             selected: -1
         };
-        this.handleClick = this.handleClick.bind(this);
-        this.onDeleteClick = this.onDeleteClick.bind(this);
+        this.onDelete = this.onDelete.bind(this);
+        this.handleMenuClick = this.handleMenuClick.bind(this);
     }
 
-    handleClick(e) {
-        if (e.key === 'return-home') {
-            Turbolinks.visit('/');
-        } else if (e.key === 'add-blog-set') {
-        } else if (e.key === 'new-blog-btn') {
-            Blogs.create({
-                title: dayjs(new Date()).format('YYYY年MM月DD日'),
-                content: ''
-            }).then(res => {
-                this.props.onClick(res.data.blog);
-            });
-        } else {
-            this.props.onClick(e.key);
-            window.scrollTo(0, 0);
+    handleMenuClick(e) {
+        switch (e.key) {
+            case 'return-home':
+                Turbolinks.visit('/');
+                break;
+            case 'add-blog-set':
+                break;
+            case 'new-blog-btn':
+                Blogs.create({
+                    title: dayjs(new Date()).format('YYYY年MM月DD日'),
+                    content: ''
+                }).then(res => {
+                    this.props.onCreate(res.data.blog);
+                });
+                break;
+            default:
+                this.props.onToggle(e.key);
+                break;
         }
     };
 
-    onDeleteClick(id) {
-        Blogs.destory(id).then(res => {
+    onDelete(id) {
+        Blogs.destory(id).then(() => {
             this.props.onDelete(id);
         });
     }
@@ -50,7 +54,7 @@ class UserBlogsSider extends React.Component {
     render() {
         return (
             <Menu
-                onClick={this.handleClick}
+                onClick={this.handleMenuClick}
                 defaultSelectedKeys={[]}
                 defaultOpenKeys={['default-blog-set']}
                 mode="inline"
@@ -75,13 +79,16 @@ class UserBlogsSider extends React.Component {
                                 key={item.id}>
                                 <Text level={4} ellipsis className={styles['sider-item-title']}>{item.title}</Text>
                                 {
-                                    this.state.selected === index && <Dropdown overlay={<Menu>
-                                        <Menu.Item>
-                                            <Button onClick={() => this.onDeleteClick(item.id)}>
-                                                删除博客
-                                            </Button>
-                                        </Menu.Item>
-                                    </Menu>}>
+                                    this.state.selected === index &&
+                                    <Dropdown overlay={
+                                        <Menu>
+                                            <Menu.Item>
+                                                <Button onClick={() => this.onDelete(item.id)}>
+                                                    删除博客
+                                                </Button>
+                                            </Menu.Item>
+                                        </Menu>
+                                    }>
                                         <SettingOutlined
                                             // onClick={() => console.log(item.id)}
                                             style={{fontSize: '18px'}}/>
@@ -103,4 +110,4 @@ class UserBlogsSider extends React.Component {
     }
 }
 
-export default UserBlogsSider;
+export default AppSider;
