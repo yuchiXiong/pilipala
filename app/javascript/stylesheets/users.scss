@@ -1,0 +1,173 @@
+@import "vars";
+@import "mixins";
+
+// * user's header card
+.user {
+  @include flex-row;
+  margin-bottom: 24px;
+
+  .avatar {
+    @include flex-row;
+    align-items: center;
+    margin-right: 12px;
+
+    img {
+      height: 72px;
+      width: 72px;
+      border-radius: 36px;
+    }
+  }
+
+  #sex {
+    svg {
+      vertical-align: text-bottom;
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  .info {
+    @include flex-col;
+    justify-content: center;
+
+    .count {
+      margin-bottom: 0;
+    }
+  }
+}
+
+#users__show {
+  background-color: $gray_bg_color;
+
+  .blog-main {
+    background-color: #fff;
+    padding: 24px;
+    @include block;
+
+    #tab {
+      margin-bottom: 24px;
+
+      .nav-item {
+        .nav-link {
+          color: $normal_font_color;
+
+          svg > path {
+            fill: $normal_font_color;
+          }
+        }
+
+        .nav-link.active {
+          border-bottom: 2px solid $theme_color;
+          color: $theme_color;
+
+          svg > path {
+            fill: $theme_color !important;
+          }
+        }
+      }
+    }
+
+    .blog-post {
+      .blog-post-title {
+        color: $normal_font_color;
+
+        &:hover {
+          color: $theme_color;
+        }
+      }
+
+      .author_info {
+        //@include flex-row;
+        //align-items: center;
+
+        img.avatar {
+          height: 24px;
+          width: 24px;
+          border-radius: 12px;
+          margin-right: 6px;
+        }
+      }
+
+      .blog-post-meta {
+        font-size: 14px;
+        color: #888888;
+      }
+
+      .blog-post-data {
+        @include flex-row;
+
+        .like, .comment, .star {
+          cursor: pointer;
+          display: inline-block;
+          width: 48px;
+          text-align: center;
+          font-size: 18px;
+
+          &:hover {
+            color: $theme_color;
+
+            svg {
+              fill: $theme_color;
+            }
+          }
+        }
+
+        .author_info {
+          line-height: 27px;
+          font-size: 14px;
+
+          a {
+            color: #888888
+          }
+
+          a:hover {
+            color: $theme_color;
+          }
+        }
+
+        .comment {
+          svg {
+            vertical-align: middle;
+          }
+        }
+
+        .publiced_at {
+          margin-left: auto;
+          font-size: 14px;
+          line-height: 27px;
+          color: #888888;
+        }
+      }
+    }
+
+  }
+
+  .blog-sidebar {
+
+    .user_other_info {
+      position: fixed;
+      background-color: #fff;
+      padding: 24px;
+      width: 280px;
+      @include block;
+
+      #user_introduce, #blog_sets {
+        margin-bottom: 32px;
+
+        .tag {
+          font-size: $tag_font_size;
+          border-bottom: 2px solid $theme_color;
+          padding-bottom: 4px;
+        }
+
+        p {
+          font-size: 14px;
+          margin-top: 6px;
+        }
+      }
+    }
+
+  }
+
+}
+

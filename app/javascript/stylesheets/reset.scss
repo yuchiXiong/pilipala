@@ -12,3 +12,8 @@ a,
   text-decoration: none !important;
   color: $normal_font_color;
 }
+
+[class*="col-"] {
+  padding-left: 6px !important;
+  padding-right: 6px;
+}

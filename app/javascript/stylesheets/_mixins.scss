@@ -1,3 +1,17 @@
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin block {
+  border-radius: 5px;
+}
+
 @import './vars.scss';
 
 @mixin scroll-reset {
@@ -11,10 +25,8 @@
   &::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/
     border-radius: 4px;
-    background: $primary-color;
-    // background: $primary-color;
-    scrollbar-arrow-color: $primary-color;
-    // scrollbar-arrow-color: $primary-color;
+    background: $theme_color;
+    scrollbar-arrow-color: $theme_color;
   }
 
   &::-webkit-scrollbar-track {

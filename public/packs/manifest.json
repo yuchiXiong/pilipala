@@ -1,31 +1,39 @@
 {
-  "application.css": "/packs/css/application-cf41e6b2.css",
-  "application.js": "/packs/js/application-0f013efb109fe238c5d4.js",
-  "application.js.map": "/packs/js/application-0f013efb109fe238c5d4.js.map",
-  "editor_for_react.css": "/packs/css/editor_for_react-90a32dcb.css",
-  "editor_for_react.js": "/packs/js/editor_for_react-7a80d42f4a44ac644977.js",
-  "editor_for_react.js.map": "/packs/js/editor_for_react-7a80d42f4a44ac644977.js.map",
+  "application.css": "/packs/css/application-6ce6a8b9.css",
+  "application.css.map": "/packs/css/application-6ce6a8b9.css.map",
+  "application.js": "/packs/js/application-fa7405240cde32efbe75.js",
+  "application.js.map": "/packs/js/application-fa7405240cde32efbe75.js.map",
+  "editor_for_react.css": "/packs/css/editor_for_react-d0e12cff.css",
+  "editor_for_react.css.map": "/packs/css/editor_for_react-d0e12cff.css.map",
+  "editor_for_react.js": "/packs/js/editor_for_react-4af6c7c70dd84d3a01b4.js",
+  "editor_for_react.js.map": "/packs/js/editor_for_react-4af6c7c70dd84d3a01b4.js.map",
   "entrypoints": {
     "application": {
       "css": [
-        "/packs/css/application-cf41e6b2.css"
+        "/packs/css/application-6ce6a8b9.css"
       ],
       "js": [
-        "/packs/js/application-0f013efb109fe238c5d4.js"
+        "/packs/js/application-fa7405240cde32efbe75.js"
+      ],
+      "css.map": [
+        "/packs/css/application-6ce6a8b9.css.map"
       ],
       "js.map": [
-        "/packs/js/application-0f013efb109fe238c5d4.js.map"
+        "/packs/js/application-fa7405240cde32efbe75.js.map"
       ]
     },
     "editor_for_react": {
       "css": [
-        "/packs/css/editor_for_react-90a32dcb.css"
+        "/packs/css/editor_for_react-d0e12cff.css"
       ],
       "js": [
-        "/packs/js/editor_for_react-7a80d42f4a44ac644977.js"
+        "/packs/js/editor_for_react-4af6c7c70dd84d3a01b4.js"
+      ],
+      "css.map": [
+        "/packs/css/editor_for_react-d0e12cff.css.map"
       ],
       "js.map": [
-        "/packs/js/editor_for_react-7a80d42f4a44ac644977.js.map"
+        "/packs/js/editor_for_react-4af6c7c70dd84d3a01b4.js.map"
       ]
     }
   }

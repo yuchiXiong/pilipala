@@ -1,15 +1,15 @@
-@import "../page_css/mixins";
-@import "../page_css/bootstrap_custom";
+@import "../stylesheets/mixins";
+@import "../stylesheets/bootstrap_custom";
 @import "~bootstrap/scss/bootstrap";
-@import "../page_css/reset";
+@import "../stylesheets/reset";
 
-@import "../page_css/header";
-@import "../page_css/footer";
+@import "../stylesheets/header";
+@import "../stylesheets/footer";
 
-@import "../page_css/home";
-@import "../page_css/blogs";
-@import "../page_css/users";
-@import "../page_css/login";
+@import "../stylesheets/home";
+@import "../stylesheets/blogs";
+@import "../stylesheets/users";
+@import "../stylesheets/login";
 
 @import "~highlight.js/styles/atom-one-dark";
 
