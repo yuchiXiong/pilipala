@@ -4,15 +4,14 @@ meta name="turbolinks-cache-control" content="no-cache"
 
 main.container[role="main"]
   .row
-    .col-md-8.blog-main
-      / h3.pb-4.mb-4.font-italic.border-bottom
-      /   |  From the Firehose
-      .blogs
-        = render @blogs, show_author: true
-      = link_to '加载更多文章', blogs_url + "?page=#{@page <= 1 ? 2 : @page}", remote: true, id: 'load_more', 'data-page': @page <= 1 ? 2 : @page
-      = paginate @blogs, class: 'hidden_paginate'
+    .col-md-9
+      .blog-main
+        .blogs
+          = render @blogs, show_author: true
+        = link_to '加载更多文章', blogs_url + "?page=#{@page <= 1 ? 2 : @page}", remote: true, id: 'load_more', 'data-page': @page <= 1 ? 2 : @page
+        = paginate @blogs, class: 'hidden_paginate'
 
-    aside.col-md-4.blog-sidebar
+    aside.col-md-3.blog-sidebar
       .p-4.bg-light.rounded.notice
         h4.font-italic
           | 发布日志

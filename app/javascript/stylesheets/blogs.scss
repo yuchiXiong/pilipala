@@ -4,6 +4,8 @@
 @import "mixins";
 
 #blogs__index {
+  background-color: $gray_bg_color;
+
   #load_more {
     text-align: center;
     @include flex-row;
@@ -20,6 +22,11 @@
   .notice {
     position: fixed;
     width: 350px;
+  }
+
+  .blog-main {
+    background-color: #fff;
+    padding: 24px;
   }
 }
 
