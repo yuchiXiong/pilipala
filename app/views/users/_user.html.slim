@@ -3,7 +3,7 @@
     = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
   .info
     h5.nick_name.font-weight-bold
-      = be_visited_user.nick_name
+      = link_to be_visited_user.nick_name, user_url(be_visited_user.id)
       | &nbsp;
       small#sex
         = male_icon if User.sexes[be_visited_user.sex] == 1

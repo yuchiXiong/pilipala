@@ -4,13 +4,26 @@
 
 .container.row
   .col-9
-    h1.blog_title
-      = @blog.title
+    .blog_detail
+      .blog_title
+        h1
+          = @blog.title
+        p.count
+          small.create_at
+            | 发布于
+            small.format_date
+              = @blog.created_at
 
-    = render @blog.user, be_visited_user: @blog.user
+      = render @blog.user, be_visited_user: @blog.user
 
-    article
-      = sanitize render_markdown(@blog.content)
+      article
+        = sanitize render_markdown(@blog.content)
+        .article_footer
+          .cc_by_sa_4_tips
+            | 本博客所有文章除特别声明外，均采用&nbsp;
+            = link_to 'CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh'
+            | &nbsp;协议 ，转载请注明出处！
+            | 尊重Ta人劳动成果，从你我做起！
 
   .col-3
     #toc_sider
