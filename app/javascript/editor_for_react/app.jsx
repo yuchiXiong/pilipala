@@ -37,10 +37,12 @@ class App extends React.Component {
     componentDidMount() {
         if (this.userInfo) {
             Users.userBlogs(this.userInfo.id).then(res => {
-                this.setState({
-                    blogs: res.data.blogs,
-                    current: res.data.blogs[0]
-                });
+                if (res.data.blogs.length > 0) {
+                    this.setState({
+                        blogs: res.data.blogs,
+                        current: res.data.blogs[0]
+                    });
+                }
             });
         }
     }
