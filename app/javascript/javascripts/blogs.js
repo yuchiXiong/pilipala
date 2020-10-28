@@ -2,11 +2,13 @@ import hljs from 'highlight.js';
 
 $(document).on("turbolinks:load", () => {
 
+    // * 博客列表页[首页]
     if ($("#blogs__index")) {
+        // * 页面底部下拉加载
         $(document).scroll(() => {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                 const loadMoreBtn = $('#load_more');
-                if ( !loadMoreBtn.data('loading')) {
+                if (!loadMoreBtn.data('loading')) {
                     document.querySelector('#load_more').click();
                     loadMoreBtn.data('loading', true);
                 }
@@ -14,7 +16,9 @@ $(document).on("turbolinks:load", () => {
         })
     }
 
+    // * 博客详情页
     if ($("#blogs__show")) {
+        // * 高亮
         const codeBlocks = $('.markdown-body pre>code');
         for (let i = 0; i < codeBlocks.length; i++) {
             hljs.highlightBlock(codeBlocks[i]);
@@ -50,6 +54,7 @@ $(document).on("turbolinks:load", () => {
 
     }
 
+    // * 添加滚动跳转
     $("#toc > a").each((index, item) => {
         $(item).click(e => {
             e.preventDefault();
