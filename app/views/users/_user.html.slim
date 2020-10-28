@@ -1,0 +1,27 @@
+.user_info_block
+  .avatar
+    = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
+  .info
+    h5.nick_name.font-weight-bold
+      = be_visited_user.nick_name
+      | &nbsp;
+      small#sex
+        = male_icon if User.sexes[be_visited_user.sex] == 1
+        = female_icon if User.sexes[be_visited_user.sex] == 2
+
+    p.count
+      span
+        | 博客&nbsp;
+        = be_visited_user.blogs.count
+          / | &nbsp;|&nbsp;
+          /   span
+          /     | 关注&nbsp;--&nbsp;
+          /   | &nbsp;|&nbsp;
+          /   span
+          /     | 粉丝&nbsp;--&nbsp;
+          /   | &nbsp;|&nbsp;
+          /   span
+          /     | 收获赞&nbsp;--&nbsp;
+
+          / button.fork
+          /   | 关注
