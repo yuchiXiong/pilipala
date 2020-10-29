@@ -1,0 +1,67 @@
+@import "vars";
+@import "mixins";
+
+#sessions__new,
+#registrations__new,
+#registrations__create,
+#passwords__new,
+#passwords__create {
+  background-color: $gray_bg_color;
+
+  nav.navbar {
+    display: none;
+  }
+
+  #error_alert {
+    top: -200px;
+    transition: top 450ms;
+    width: 50%;
+    margin: auto;
+
+    .error_messages {
+      margin-bottom: 0;
+    }
+
+    .close {
+      outline: none;
+    }
+  }
+
+  .devise_return_home {
+    font-size: 42px;
+    position: fixed;
+    left: 24px;
+    top: 12px;
+    color: $theme_color;
+
+    p {
+      font-size: 18px;
+    }
+  }
+
+  .container.body {
+    @include flex-col;
+    justify-content: center;
+    align-items: center;
+
+    .card {
+      width: 40%;
+      padding: 24px;
+      background-color: #fff;
+
+      h4 {
+        color: $theme_color;
+      }
+
+      .captcha {
+        margin-left: 24px;
+        height: 38px;
+      }
+    }
+  }
+
+  .devise_links {
+    @include flex-row;
+    justify-content: space-between;
+  }
+}

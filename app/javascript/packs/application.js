@@ -35,5 +35,3 @@ dayjs.extend(relativeTime);
 global.$ = $;
 global.dayjs = dayjs;
 Turbolinks.start();
-
-console.log('Hello World from Webpacker');

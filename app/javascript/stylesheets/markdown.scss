@@ -2,11 +2,15 @@
 
 .markdown-article {
   h1, h2, h3, h4, h5, h6 {
+    margin-top: 40px;
     margin-bottom: 12px;
+    font-weight: bolder;
+    border-bottom: 1px solid $gray_bg_color;
+    padding-bottom: 12px;
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 30px;
   }
 
   h2 {
@@ -14,7 +18,7 @@
   }
 
   h3, h4, h5, h6 {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
   }
 

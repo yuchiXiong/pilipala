@@ -19,7 +19,7 @@ $(document).on("turbolinks:load", () => {
     // * 博客详情页
     if ($("#blogs__show")) {
         // * 高亮
-        const codeBlocks = $('.markdown-body pre>code');
+        const codeBlocks = $('.markdown-article pre>code');
         for (let i = 0; i < codeBlocks.length; i++) {
             hljs.highlightBlock(codeBlocks[i]);
         }

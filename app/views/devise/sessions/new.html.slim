@@ -1,14 +1,11 @@
 = provide :title, "登陆 - SmallBook"
 
-css:
-    nav.navbar {
-        display: none;
-    }
+= render 'devise/shared/return_home'
 
-.alert.alert-danger.alert-dismissible.fade.fixed-top role="alert"
+#error_alert.alert.alert-danger.alert-dismissible.fade.fixed-top role="alert"
   strong
     | 登录失败:
-  ul.login_errors
+  ul.error_messages
 
   button type="button" class="close"
     span aria-hidden="true"
@@ -44,10 +41,10 @@ css:
 
 javascript:
     $('.close').click(() => {
-        $('.alert').removeClass('show');
+        $('.alert').css('top', '-200px');
     });
     $('#sessions__new').on('ajax:error', event => {
         const responseText = event.detail.pop().responseText;
-        $('.login_errors').text('').append(`<li>${responseText}</li>`);
-        $('.alert').addClass('show');
+        $('.error_messages').text('').append(`<li>${responseText}</li>`);
+        $('.alert').addClass('show').css('top', 0);
     });

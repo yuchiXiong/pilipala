@@ -1,9 +1,6 @@
 = provide :title, "注册 - SmallBook"
-css:
-    nav.navbar {
-        display: none;
-    }
 
+= render 'devise/shared/return_home'
 = render "devise/shared/error_messages", resource: resource
 
 .card
