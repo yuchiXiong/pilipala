@@ -36,10 +36,7 @@ $(document).on("turbolinks:load", () => {
         // * 生成目录并添加锚点
         $("article h1," +
             "article h2," +
-            "article h3," +
-            "article h4," +
-            "article h5," +
-            "article h6").each(function (i, item) {
+            "article h3").each(function (i, item) {
 
             const tag = $(item).get(0).localName;
             $(item).attr("id", "toc" + i);

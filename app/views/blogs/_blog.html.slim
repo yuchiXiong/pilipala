@@ -3,7 +3,7 @@
     h5.blog-post-title
       = blog.title
   p.blog-post-meta
-    = sanitize render_strip_down(blog.content)[0..200]
+    = sanitize render_strip_down(blog.content).truncate(200)
     | ...
   p.blog-post-data
     / span.like
