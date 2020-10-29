@@ -17,10 +17,10 @@
     | 登陆
 
   = form_for(resource, as: resource_name, url: session_path(resource_name), remote: true) do |f|
-    .field.input-group.mb-3
+    .input-group.mb-3
       = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       = f.password_field :password, autocomplete: "current-password", placeholder: '请输入您的密码', class: 'form-control'
 
     - if devise_mapping.rememberable?
@@ -30,7 +30,7 @@
             = f.check_box :remember_me
         = f.label :remember_me, '记住我', class: 'form-control'
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       = rucaptcha_input_tag(class: 'form-control', placeholder: '请输入验证码')
       = rucaptcha_image_tag(class: 'captcha', alt: '验证码')
 

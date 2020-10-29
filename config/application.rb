@@ -10,8 +10,13 @@ module YuchiXiongTopRails
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
 
-    config.action_mailer.delivery_method     = :smtp
-    config.action_mailer.smtp_settings       = {
+    # * 关闭视图层在表单提交失败后自动将类名替换为异常样式
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+      html_tag.html_safe
+    }
+
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings   = {
       address:              'smtpdm.aliyun.com',
       port:                 465,
       domain:               'example.com',

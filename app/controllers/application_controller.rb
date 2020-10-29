@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     when 'sessions__create'
       render plain: '验证码错误', status: 401 unless verify_rucaptcha?
     when 'registrations__create'
-      flash[:captcha] = '验证码错误' unless verify_rucaptcha?
+      redirect_to new_user_registration_url, flash: { captcha: '验证码错误' } unless verify_rucaptcha?
     end
   end
 end

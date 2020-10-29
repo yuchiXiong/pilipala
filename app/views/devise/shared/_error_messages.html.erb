@@ -1,4 +1,5 @@
-<% if resource.errors.any? %>
+<%- captcha = flash[:captcha] %>
+<% if resource.errors.any? || captcha %>
   <div id="error_alert" class="alert alert-danger alert-dismissible fade show fixed-top" role="alert">
     <strong>注册失败:</strong>
     <ul class="error_messages">

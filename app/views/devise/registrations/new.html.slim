@@ -9,10 +9,10 @@
 
   = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       - if @minimum_password_length
         - @tips = "请输入不低于#{@minimum_password_length}位密码"
       - else
@@ -20,10 +20,10 @@
 
       = f.password_field :password, autocomplete: "new-password", placeholder: @tips, class: 'form-control'
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: '请再次输入', class: 'form-control'
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       = rucaptcha_input_tag(class: 'form-control', placeholder: '请输入验证码')
       = rucaptcha_image_tag(class: 'captcha', alt: '验证码')
 
