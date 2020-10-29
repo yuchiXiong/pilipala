@@ -1,7 +1,7 @@
 <% if resource.errors.any? %>
-  <div class="alert alert-danger alert-dismissible fade show fixed-top" role="alert">
+  <div id="error_alert" class="alert alert-danger alert-dismissible fade show fixed-top" role="alert">
     <strong>注册失败:</strong>
-    <ul class="login_errors">
+    <ul class="error_messages">
       <% resource.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>

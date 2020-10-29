@@ -33,6 +33,11 @@
   = render "devise/shared/links"
 
 javascript:
+    $(document).on("turbolinks:load", () => {
+        if ($('#error_alert .error_messages').text()) {
+            $('#error_alert').css('top', 0)
+        }
+    })
     $('.close').click(() => {
-        $('.alert').removeClass('show');
+        $('.alert').css('top', '-200px');
     });
