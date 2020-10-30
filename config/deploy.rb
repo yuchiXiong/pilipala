@@ -61,7 +61,7 @@ task :deploy do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     # * 自动化部署打包严重影响了部署的速度
-    # invoke :'rails:assets_precompile'
+    invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     on :launch do
