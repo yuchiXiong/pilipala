@@ -1,0 +1,37 @@
+= provide :title, "重置密码 - SmallBook"
+
+= render 'devise/shared/return_home'
+
+.card
+  h4.mb-3
+    | 修改你的密码
+
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f|
+    = render "devise/shared/error_messages", resource: resource
+    = f.hidden_field :reset_password_token
+
+    .input-group.mb-3
+      - if @minimum_password_length
+        - @tips = "请输入不低于#{@minimum_password_length}位新密码"
+      - else
+        - @tips = "请输入新密码"
+      = f.password_field :password, autofocus: true, autocomplete: "new-password", class: 'form-control', placeholder: @tips
+
+    .input-group.mb-3
+      = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', placeholder: '请再次输入'
+
+    .actions.mb-3
+      = f.submit "修改我的密码", class: 'btn btn-block btn-primary'
+
+  = render "devise/shared/links"
+
+
+javascript:
+    $(document).on("turbolinks:load", () => {
+        if ($('#error_alert .error_messages').text()) {
+            $('#error_alert').css('top', 0)
+        }
+    })
+    $('.close').click(() => {
+        $('.alert').css('top', '-200px');
+    });

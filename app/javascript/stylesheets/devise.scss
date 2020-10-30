@@ -5,7 +5,9 @@
 #registrations__new,
 #registrations__create,
 #passwords__new,
-#passwords__create {
+#passwords__create,
+#passwords__edit,
+#passwords__update {
   background-color: $gray_bg_color;
 
   nav.navbar {

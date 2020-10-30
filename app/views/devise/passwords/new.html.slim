@@ -9,7 +9,7 @@
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
     = render "devise/shared/error_messages", resource: resource
 
-    .field.input-group.mb-3
+    .input-group.mb-3
       = f.email_field :email, autofocus: true, autocomplete: "请输入您的邮箱", class: 'form-control'
 
     .actions.mb-3
