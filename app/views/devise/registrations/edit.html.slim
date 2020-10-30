@@ -1,48 +1,68 @@
 = provide :title, "修改个人信息 - SmallBook"
 
-h4
-  | 修改个人信息
-
-= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-
-  .field.input-group.mb-3
-    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '邮箱', disabled: true, class: 'form-control'
-
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    div
-      | Currently waiting confirmation for:
-      = resource.unconfirmed_email
-
-  .field.input-group.mb-3
-    = f.text_field :nick_name, autocomplete: "nick_name", placeholder: '昵称', class: 'form-control'
-
-  / ! 更换头像
-  / .field.input-group.mb-3
-  /   = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
-
-  .field.input-group.mb-3
-    = f.text_area :description, autocomplete: "description", placeholder: '个人简介', class: 'form-control'
-
-  .field.input-group.mb-3
-    - if @minimum_password_length
-      - @tips = "请输入不低于#{@minimum_password_length}位密码，留空则不修改"
-    - else
-      - @tips = "请输入密码，留空则不修改"
-    = f.password_field :password, autocomplete: "new-password", placeholder: @tips, class: 'form-control'
-
-  .field.input-group.mb-3
-    = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: '请再次输入', class: 'form-control'
-
-  .field.input-group.mb-3
-    = f.password_field :current_password, autocomplete: "current-password", placeholder: '当前账户密码', class: 'form-control'
-
-  .actions.input-group.mb-3
-    = f.submit "更新", class: 'btn btn-primary btn-block'
+.row
+  .col-3
+    #user_update_sider.nav.flex-column.nav-pills role="tablist" aria-orientation="vertical"
+      a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"
+        | 修改个人信息
+      a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"
+        | 修改密码
+      a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"
+        | 注销账号
 
 
-/ h4.mt-4
-/   | 删除我的账户
-/
-/ p
-/   = button_to "删除我的账户", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-block'
+  .col-9
+    #user_update_content.tab-content
+      #v-pills-home.tab-pane.fade.show.active role="tabpanel" aria-labelledby="v-pills-home-tab"
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+          = render "devise/shared/error_messages", resource: resource
+
+          .field.input-group.mb-3
+            = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '邮箱', disabled: true, class: 'form-control'
+
+          - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+            div
+              | Currently waiting confirmation for:
+              = resource.unconfirmed_email
+
+          .field.input-group.mb-3
+            = f.text_field :nick_name, autocomplete: "nick_name", placeholder: '昵称', class: 'form-control'
+
+          / ! 更换头像
+          / .field.input-group.mb-3
+          /   = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
+
+          .field.input-group.mb-3
+            = f.text_area :description, autocomplete: "description", placeholder: '个人简介', class: 'form-control'
+
+          .actions.input-group.mb-3
+            = f.submit "更新", class: 'btn btn-primary btn-block'
+      #v-pills-profile.tab-pane.fade role="tabpanel" aria-labelledby="v-pills-profile-tab"
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+          = render "devise/shared/error_messages", resource: resource
+
+          .field.input-group.mb-3
+            - if @minimum_password_length
+              - @tips = "请输入不低于#{@minimum_password_length}位密码，留空则不修改"
+            - else
+              - @tips = "请输入密码，留空则不修改"
+            = f.password_field :password, autocomplete: "new-password", placeholder: @tips, class: 'form-control'
+
+          .field.input-group.mb-3
+            = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: '请再次输入', class: 'form-control'
+
+          .field.input-group.mb-3
+            = f.password_field :current_password, autocomplete: "current-password", placeholder: '当前账户密码', class: 'form-control'
+
+          .actions.input-group.mb-3
+            = f.submit "更新", class: 'btn btn-primary btn-block'
+      #v-pills-messages.tab-pane.fade role="tabpanel" aria-labelledby="v-pills-messages-tab"
+        h4.mt-4
+          | 删除我的账户
+        p
+          = button_to "删除我的账户", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger btn-block'
+
+
+
+
+

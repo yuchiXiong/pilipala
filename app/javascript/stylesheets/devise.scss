@@ -67,3 +67,20 @@
     justify-content: space-between;
   }
 }
+
+#registrations__edit {
+  background: $gray_bg_color;
+
+  #user_update_sider,
+  #user_update_content {
+    @include block;
+    background-color: #fff;
+    padding: 24px;
+
+  }
+
+  #user_update_sider {
+    height: inherit;
+    //background-color: #fff;
+  }
+}
