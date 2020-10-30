@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get 'blogs'
+      match 'update_info', via: %i[put patch]
     end
   end
 

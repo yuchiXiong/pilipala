@@ -14,18 +14,26 @@ import {
 const instance = axios.create({
     baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
     headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        // 'authenticity_token': document.querySelector('meta[name=csrf-token]').content
     }
 });
 
 instance.interceptors.request.use(config => {
-    // if (config.method !== 'get') {
-    //     let userToken = null;
-    //     if (localStorage.getItem('user')) {
-    //         userToken = JSON.parse(localStorage.getItem('user')).userToken;
-    //     }
-    //     config.headers['User-Token'] = userToken;
-    // }
+    if (config.method !== 'get') {
+        const csrfToken = document.querySelector('meta[name=csrf-token]').content;
+
+        if (config.method === 'delete') {
+            const formData = new FormData();
+            formData.append('_method', 'delete');
+            formData.append('authenticity_token', csrfToken);
+
+            config.method = 'post';
+            config.data = formData;
+        } else {
+            config.data.authenticity_token = csrfToken;
+        }
+    }
     return config;
 });
 

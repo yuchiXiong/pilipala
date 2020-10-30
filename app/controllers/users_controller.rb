@@ -4,14 +4,18 @@ class UsersController < ApplicationController
 
   # * Get /users/:id
   def show
-    @user_blogs = @be_visited_user.blogs.kept.where(released: true).order(updated_at: :desc)
+    @user_blogs = @be_visited_user.blogs.visible
   end
 
   # * Get /users/:id/blogs
   def blogs
     raise AccessDeniedError if @be_visited_user.id != current_user.id
 
-    @blogs = @be_visited_user.blogs.kept.order(updated_at: :desc)
+    @blogs = @be_visited_user.blogs.kept
+  end
+
+  def update_info
+    puts '11'
   end
 
   private

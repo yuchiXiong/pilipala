@@ -46,7 +46,7 @@ class AppSider extends React.Component {
     };
 
     onDelete(id) {
-        Blogs.destory(id).then(() => {
+        Blogs.destroy(id).then(() => {
             this.props.onDelete(id);
         });
     }

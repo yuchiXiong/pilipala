@@ -7,11 +7,17 @@ class Blog < ApplicationRecord
   # * 审核结果
   enum scan_result: { pass: 0, review: 1, block: 2 }
 
-  scope :released, -> { where(released: true) }
+  # * 所有处于发布状态的文章
+  scope :visible, -> { where({ released: true, discarded_at: nil }) }
   default_scope { order(updated_at: :desc) }
 
   # * 自动审核并进行标识
   # before_save :content_scan
+
+  # * 博客是否可访问
+  def readable?
+    !discarded? && released
+  end
 
   private
 
