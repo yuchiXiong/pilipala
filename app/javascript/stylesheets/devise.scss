@@ -1,19 +1,7 @@
 @import "vars";
 @import "mixins";
 
-#sessions__new,
-#registrations__new,
-#registrations__create,
-#passwords__new,
-#passwords__create,
-#passwords__edit,
-#passwords__update {
-  background-color: $gray_bg_color;
-
-  nav.navbar {
-    display: none;
-  }
-
+@mixin _alert() {
   #error_alert {
     top: -200px;
     transition: top 450ms;
@@ -28,6 +16,22 @@
       outline: none;
     }
   }
+}
+
+#sessions__new,
+#registrations__new,
+#registrations__create,
+#passwords__new,
+#passwords__create,
+#passwords__edit,
+#passwords__update {
+  background-color: $gray_bg_color;
+  @include _alert;
+
+  nav.navbar {
+    display: none;
+  }
+
 
   .devise_return_home {
     font-size: 42px;
@@ -84,3 +88,8 @@
     //background-color: #fff;
   }
 }
+
+#registrations__update {
+  @include _alert();
+}
+

@@ -3,18 +3,14 @@
 .row
   .col-3
     #user_update_sider.nav.flex-column.nav-pills role="tablist" aria-orientation="vertical"
-      a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"
-        | 修改个人信息
-      a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"
-        | 修改密码
-      a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"
-        | 注销账号
-
+      = link_to '修改个人信息', '#v-pills-home', class: "nav-link active", 'data-toggle': "pill", role: "tab", 'aria-controls': "v-pills-home", 'aria-selected': true, id: 'v-pills-home-tab'
+      = link_to '修改密码', '#v-pills-profile', class: "nav-link", 'data-toggle': "pill", role: "tab", 'aria-controls': "v-pills-profile", 'aria-selected': false, id: 'v-pills-profile-tab'
+      = link_to '注销账号', '#v-pills-messages', class: "nav-link", 'data-toggle': "pill", role: "tab", 'aria-controls': "v-pills-messages", 'aria-selected': false, id: 'v-pills-messages-tab'
 
   .col-9
     #user_update_content.tab-content
       #v-pills-home.tab-pane.fade.show.active role="tabpanel" aria-labelledby="v-pills-home-tab"
-        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
           = render "devise/shared/error_messages", resource: resource
 
           .field.input-group.mb-3
@@ -38,7 +34,7 @@
           .actions.input-group.mb-3
             = f.submit "更新", class: 'btn btn-primary btn-block'
       #v-pills-profile.tab-pane.fade role="tabpanel" aria-labelledby="v-pills-profile-tab"
-        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {method: :put}) do |f|
+        = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
           = render "devise/shared/error_messages", resource: resource
 
           .field.input-group.mb-3
@@ -60,7 +56,7 @@
         h4.mt-4
           | 删除我的账户
         p
-          = button_to "删除我的账户", registration_path(resource_name), data: {confirm: "Are you sure?"}, method: :delete, class: 'btn btn-danger btn-block'
+          = button_to "删除我的账户", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger btn-block'
 
 
 
