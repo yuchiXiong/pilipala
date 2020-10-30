@@ -47,4 +47,5 @@ javascript:
         const responseText = event.detail.pop().responseText;
         $('.error_messages').text('').append(`<li>${responseText}</li>`);
         $('.alert').addClass('show').css('top', 0);
+        $('.captcha').attr('src', '/rucaptcha/?t=' + Date.now());
     });
