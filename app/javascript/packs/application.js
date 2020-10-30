@@ -28,6 +28,8 @@ require("channels");
 
 import '../javascripts/users';
 import '../javascripts/blogs';
+import '../javascripts/devise';
+import '../javascripts/common';
 
 dayjs.locale('zh-cn');
 dayjs.extend(relativeTime);

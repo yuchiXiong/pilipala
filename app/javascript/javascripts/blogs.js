@@ -1,9 +1,20 @@
 import hljs from 'highlight.js';
 
+// * 事件太多了看的自己头痛 - -
+// * 博客列表页[首页]
+// * - 滚动至页面底部自动拉取新博客
+// * 博客详情页
+// * - 代码高亮
+// * - 日期格式化
+// * - 生成目录
+// *
+
 $(document).on("turbolinks:load", () => {
 
+    $(document).unbind('scroll');
+
     // * 博客列表页[首页]
-    if ($("#blogs__index")) {
+    if ($("#blogs__index").length) {
         // * 页面底部下拉加载
         $(document).scroll(() => {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
@@ -17,7 +28,7 @@ $(document).on("turbolinks:load", () => {
     }
 
     // * 博客详情页
-    if ($("#blogs__show")) {
+    if ($("#blogs__show").length) {
         // * 高亮
         const codeBlocks = $('.markdown-article pre>code');
         for (let i = 0; i < codeBlocks.length; i++) {
@@ -43,17 +54,17 @@ $(document).on("turbolinks:load", () => {
             $("#toc").append('<a class="toc_' + tag + '" href="#toc' + i + '">' + $(this).text() + '</a></br>');
 
         });
-        for (let i = 1; i < 7; i++) {
+
+        for (let i = 1; i < 3; i++) {
             $(`.toc_h${i}`).css("margin-left", (i - 1) * 20);
         }
-    }
 
-    // * 添加滚动跳转
-    $("#toc > a").each((index, item) => {
-        $(item).click(e => {
+        // * 添加滚动跳转
+        $("#toc").delegate('a', 'click', function (e) {
             e.preventDefault();
-            $('html, body').animate({scrollTop: $($(item).attr('href')).offset().top - 80}, 450);
-        });
-    });
+            $('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 80}, 450);
+        })
+
+    }
 
 });

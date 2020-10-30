@@ -4,9 +4,9 @@
 
 #error_alert.alert.alert-danger.alert-dismissible.fade.fixed-top role="alert"
   strong
-    | 登录失败:
+    | 请注意:
   ul.error_messages
-
+    = flash[:notice] if flash[:notice]
   button type="button" class="close"
     span aria-hidden="true"
       | &times;
@@ -38,14 +38,3 @@
       = f.submit "登陆", class: 'btn btn-primary btn-block'
 
   = render "devise/shared/links"
-
-javascript:
-    $('.close').click(() => {
-        $('.alert').css('top', '-200px');
-    });
-    $('#sessions__new').on('ajax:error', event => {
-        const responseText = event.detail.pop().responseText;
-        $('.error_messages').text('').append(`<li>${responseText}</li>`);
-        $('.alert').addClass('show').css('top', 0);
-        $('.captcha').attr('src', '/rucaptcha/?t=' + Date.now());
-    });
