@@ -3,278 +3,218 @@
 require 'test_helper'
 
 class BlogsControllerTest < ActionDispatch::IntegrationTest
-  # * 部分接口需要先登录
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    post sessions_url, params: {
-      account:  users(:success).account,
-      password: '123456'
-    }, headers:                { 'Accept': 'application/json' }
-    @user_token = JSON.parse(@response.body)['data']['user']['userToken']
+    @test_blog = {
+      title:       '写好测试至少没那么多bug',
+      description: '只是为了让自己少点事',
+      content:     '每次都打开swagger或者postman我也会很烦的',
+      cover:       nil,
+      released:    true
+    }
   end
 
-  # * Get /blogs
-  # * 拉取博客列表
-  # * 1. 应该拉取博客列表
-  # * 2. 拉取的博客不应该被标记为废弃
-  test 'get blog list' do
-    get blogs_url, params: {
-      format: 'application/json',
-      page:   1
-    }, headers:            { 'Accept': 'application/json' }
+  # * [HTML] Get /blogs or /
+  # * 拉取博客列表: 分页拉取所有处于 [已发布未弃用] 的博客
+  # * 1. 拉取处于 [已发布未弃用] 的博客列表
+  # * 2. 分页加载
+  test 'pull released and kept blogs list' do
+    get blogs_url, params: { page: 1 }
     assert_response :success
-    assert_equal JSON.parse(@response.body)['message'], 'success'
-    assert_instance_of Array, JSON.parse(@response.body)['data']['blogs']
+    assert_select '.blogs .blog-post > a', 10
+    assert_select '.blogs .blog-post > a' do |elements|
+      ids = elements.map do |e|
+        e['href'][e['href'].rindex('/') + 1..-1]
+      end
+      assert_equal Blog.where(id: ids).visible.count, 10
+    end
   end
 
-  test 'get blog all kept blog list' do
-    get blogs_url, params: {
-      format: 'application/json',
-      page:   1
-    }, headers:            { 'Accept': 'application/json' }
-    assert_response :success
-    assert_equal JSON.parse(@response.body)['message'], 'success'
-    assert_instance_of Array, JSON.parse(@response.body)['data']['blogs']
-    ids = JSON.parse(@response.body)['data']['blogs'].map { |item| item['id'] }
-    assert_equal 0, Blog.find(ids).map(&:kept?).reject { |item| item }.count
+  test 'next page' do
+    counter = 0
+    4.times do |page|
+      get blogs_url, params: { page: page + 1 }
+      assert_response :success
+      assert_select '.blogs .blog-post > a' do |elements|
+        counter += elements.size
+      end
+    end
+    assert_equal Blog.visible.count, counter
   end
 
-  # * Get blogs/:id
-  # * 拉取指定博客
-  # * 1. 应该拉取指定博客
-  # * 2. 指定博客不存在时应该提示不存在
-  # * 3. 指定博客存在但未发布时提示不存在
-  test 'get blog' do
-    get blog_url(blogs(:success).id), headers: { 'Accept': 'application/json' }
-    assert_response :success
-    assert_equal JSON.parse(@response.body)['message'], 'success'
-    assert_not_nil JSON.parse(@response.body)['data']['blog']
-  end
-
-  test 'return not found if blog not exist' do
-    get blog_url('not_present_id'), headers: { 'Accept': 'application/json' }
+  # * [HTML] Get blogs/:id
+  # * 拉取指定博客: 拉取指定id的博客
+  # * 1. 博客不存在
+  # * 2. 博客存在 -> 未发布
+  # * 3. 博客存在 -> 已标记为删除
+  # * 3. 博客存在 -> 可读 -> 成功
+  test 'blog not exists' do
+    get blog_url('not exists')
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['message'], '资源未找到'
   end
 
-  test 'return not found if blog not released' do
-    get blog_url(blogs(:released_blog).id), headers: { 'Accept': 'application/json' }
+  test 'blog not release' do
+    get blog_url(blogs(:not_released_blog).id)
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['message'], '资源未找到'
+    assert_equal blogs(:not_released_blog).released, false
   end
 
-  # * Post /blogs
+  test 'blog discard' do
+    get blog_url(blogs(:discard_blog).id)
+    assert_response :not_found
+    assert_not_nil blogs(:discard_blog).discarded_at
+  end
+
+  test 'show blog' do
+    get blog_url(blogs(:success).id)
+    assert_response :success
+    assert_nil blogs(:success).discarded_at
+    assert_equal blogs(:success).released, true
+    assert_select '.blog_title > h1', blogs(:success).title
+  end
+
+  # * [JSON] Post /blogs
   # * 创建博客
-  # * 1. 应该创建blog
-  # * 2. 未登录时应该提示未登录
-  # * 3. 登录状态超时时应该提示过期
-  # * 4. 创建的新博客作者是当前用户
-  test 'should create blog' do
-    blogs_count = Blog.count
+  # * 1. 未登录
+  # * 2. 登陆 -> 什么都没传
+  # * 3. 登陆 -> 标题/内容
+  test 'need login before create blog' do
+    count = Blog.count
     post blogs_url, params: {
-      blog: {
-        title:       '写好测试至少没那么多bug',
-        description: '只是为了让自己少点事',
-        content:     '每次都打开swagger或者postman我也会很烦的'
-      }
-    }, headers:             {
-      'User-Token': @user_token,
-      'Accept':     'application/json'
+      blog: {}
+    }
+    assert_response :redirect
+    assert_select 'a' do |element|
+      assert_equal element[0]['href'], new_user_session_url
+    end
+    assert_equal count, Blog.count
+  end
+
+  test 'need params before create blog' do
+    count = Blog.count
+    sign_in users(:success)
+    post blogs_url, params: {
+      format: 'application/json',
+    }
+    assert_response :bad_request
+    assert_equal JSON.parse(@response.body)['code'], Code::Parameter_Missing
+    assert_equal count, Blog.count
+  end
+
+  test 'create blog' do
+    blogs_count = Blog.count
+    sign_in users(:success)
+    post blogs_url, params: {
+      format: 'application/json',
+      blog:   @test_blog
     }
     assert_response :success
     assert_equal JSON.parse(@response.body)['message'], 'success'
     assert_not_nil JSON.parse(@response.body)['data']['blog']
     assert_equal blogs_count + 1, Blog.count
+    assert_equal Blog.first.title, @test_blog[:title]
+    assert_equal Blog.first.description, @test_blog[:description]
+    assert_equal Blog.first.content, @test_blog[:content]
+    assert_equal Blog.first.user.id, users(:success).id
   end
 
-  test 'should need login' do
-    post blogs_url, params: {
-      blog: {
-        title:       '写好测试至少没那么多bug',
-        description: '只是为了让自己少点事',
-        content:     '每次都打开swagger或者postman我也会很烦的',
-        user_id:     1
-      }
-    }, headers:             {
-      'Accept': 'application/json'
-    }
-    assert_response :unauthorized
-    assert_equal JSON.parse(@response.body)['code'], Code::Unauthorized_Error
-  end
-
-  test 'should login state expired' do
-    user_token = ''
-
-    # * travel_to 代码块模拟了在8天前进行登录，并获取了对应的token用于验证token过期时是否能够得到合理的响应
-    travel_to Time.current - 8.days do
-      post sessions_url, params: {
-        account:  users(:success).account,
-        password: '123456'
-      }, headers:                {
-        'Accept': 'application/json'
-      }
-      user_token = JSON.parse(@response.body)['data']['user']['userToken']
+  # * [JSON] Delete /blogs/:id
+  # * 删除指定博客: 将指定id的博客标记为删除
+  # * 1. 未登录
+  # * 2. 登录 -> 指定的文章不存在
+  # * 3. 登录 -> 指定的文章存在 -> 文章作者不是当前用户
+  # * 4. 登录 -> 指定的文章存在 -> 文章作者是当前用户
+  test 'need login before delete blog' do
+    delete blog_url(users(:success).id)
+    assert_response :redirect
+    assert_select 'a' do |e|
+      assert_equal e[0]['href'], new_user_session_url
     end
-
-    post blogs_url, params: {
-      blog: {
-        title:       '写好测试至少没那么多bug',
-        description: '只是为了让自己少点事',
-        content:     '每次都打开swagger或者postman我也会很烦的',
-        user_id:     1
-      }
-    }, headers:             {
-      'User-Token': user_token,
-      'Accept':     'application/json'
-    }
-
-    assert_response :unauthorized
-    assert_equal JSON.parse(@response.body)['code'], Code::Unauthorized_Expired
   end
 
-  test 'should blog author is current user' do
-    post blogs_url, params: {
-      blog: {
-        title:       '写好测试至少没那么多bug',
-        description: '只是为了让自己少点事',
-        content:     '每次都打开swagger或者postman我也会很烦的',
-        user_id:     1
-      }
-    }, headers:             {
-      'User-Token': @user_token,
-      'Accept':     'application/json'
-    }
-    blog = Blog.find(JSON.parse(@response.body)['data']['blog']['id'])
-    assert_response :success
-    assert_equal blog.user.account, users(:success).account
-  end
-
-  # * Delete /blogs/:id
-  # * [已废弃] 删除指定博客
-  # * [已废弃] 1. 应该删除指定的博客
-  # * [已废弃] 2. 指定博客不存在应该提示
-  # * [已废弃] 3. 未登录时提示登录
-  # * [已废弃] 4. 登录状态超时时应该提示过期
-  #除指定博客（仅将博客标记为已删除）
-  # * 1. 应该软删除指定的博客，博客被标记为已删除但不会真删除
-  # * 2. 指定博客不存在应该提示
-  # * 3. 未登录时提示登录
-  # * 4. 登录状态超时时应该提示过期
-  test 'should delete blog' do
-    current_blog_id = blogs(:success).id
-    delete blog_url(current_blog_id), headers: {
-      'User-Token': @user_token,
-      'Accept':     'application/json'
-    }
-    assert_response :success
-    assert_equal JSON.parse(@response.body)['message'], 'success'
-    assert_not_nil Blog.find_by(id: current_blog_id)
-    assert_equal false, Blog.find_by(id: current_blog_id).kept?
-  end
-
-  test 'blog not found so not delete' do
-    blogs_count = Blog.count
-    delete blog_url('blog_not_present'), headers: {
-      'User-Token': @user_token,
-      'Accept':     'application/json'
-    }
+  test 'can not delete because blog not exists' do
+    sign_in users(:success)
+    delete blog_url('not exists')
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['message'], '资源未找到'
-    assert_equal blogs_count, Blog.count
+    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
   end
 
-  test 'show need login' do
-    current_blog_id = blogs(:success).id
-    delete blog_url(current_blog_id), headers: { 'Accept': 'application/json' }
-    assert_response :unauthorized
-    assert_equal Code::Unauthorized_Error, JSON.parse(@response.body)['code']
-  end
-
-  test 'show login state expired' do
-    user_token = ''
-
-    # * travel_to 代码块模拟了在8天前进行登录，并获取了对应的token用于验证token过期时是否能够得到合理的响应
-    travel_to Time.current - 8.days do
-      post sessions_url, params: {
-        account:  users(:success).account,
-        password: '123456'
-      }, headers:                {
-        'Accept': 'application/json'
-      }
-      user_token = JSON.parse(@response.body)['data']['user']['userToken']
-    end
-
-    current_blog_id = blogs(:success).id
-    delete blog_url(current_blog_id), headers: {
-      'User-Token': user_token,
-      'Accept':     'application/json'
-    }
-    assert_response :unauthorized
-    assert_equal Code::Unauthorized_Expired, JSON.parse(@response.body)['code']
-  end
-
-  # * PUT/PATCH /blogs/:id
-  # * 修改指定博客
-  # * 1. 博客存在，且用户登录时修改博客
-  # * 2. 博客不存在，用户登录时提示资源不存在
-  # * 3. 博客存在，用户未登录时提是未登录
-  # * 4. 博客存在，用户登录，但博客不属于当前用户提示无权进行修改
-  test 'should update blog' do
-    patch blog_url(blogs(:success).id), params: {
-      blog: {
-        title:    'updated title',
-        released: true
-      }
-    }, headers:                                 {
-      'Accept':     'application/json',
-      'User-Token': @user_token
-    }
-    blog = Blog.find(blogs(:success).id)
-    assert_response :success
-    assert_equal blog.title, 'updated title'
-    assert_equal blog.released, true
-    assert_equal blog.content, blogs(:success).content
-    assert_equal blog.cover, blogs(:success).cover
-    assert_equal blog.user_id, blogs(:success).user_id
-  end
-
-  test 'return resources not found if blog not exist' do
-    patch blog_url('not exist'), params: {
-      blog: {
-        title:    'updated title',
-        released: true
-      }
-    }, headers:                          {
-      'Accept':     'application/json',
-      'User-Token': @user_token
-    }
-    assert_response :not_found
-    assert_equal JSON.parse(@response.body)['message'], '资源未找到'
-  end
-
-  test 'return need login if user not login' do
-    patch blog_url(blogs(:success).id), params: {
-      blog: {
-        title:    'updated title',
-        released: true
-      }
-    }, headers:                                 {
-      'Accept': 'application/json'
-    }
-    assert_response :unauthorized
-    assert_equal JSON.parse(@response.body)['message'], '身份验证异常'
-  end
-
-  test 'return access denied if login user is not blog author' do
-    patch blog_url(blogs(:other_blog).id), params: {
-      blog: {
-        title:    'updated title',
-        released: true
-      }
-    }, headers:                                    {
-      'Accept':     'application/json',
-      'User-Token': @user_token
-    }
+  test 'can not delete because blog author is not current user' do
+    count = Blog.kept.count
+    sign_in users(:success)
+    delete blog_url(blogs(:other_blog))
     assert_response :forbidden
-    assert_equal JSON.parse(@response.body)['message'], '无权访问！'
+    assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
+    assert_equal count, Blog.kept.count
   end
+
+  test 'delete blog' do
+    count = Blog.kept.count
+    sign_in users(:success)
+    delete blog_url(blogs(:success)), params: {
+      format: 'application/json'
+    }
+    assert_response :success
+    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_equal count - 1, Blog.kept.count
+  end
+
+  # * [JSON] PUT/PATCH /blogs/:id
+  # * 修改指定博客: 修改指定id的博客
+  # * 1. 未登录
+  # * 2. 登录 -> 指定的博客不存在
+  # * 3. 登录 -> 指定的博客存在 -> 文章作者不是当前用户
+  # * 4. 登录 -> 指定的博客存在 -> 文章作者是当前用户 -> 无参数
+  # * 5. 修改
+  test 'need login before update' do
+    patch blog_url(blogs(:success).id), params: {}
+    assert_response :redirect
+    assert_select 'a' do |element|
+      assert_equal element[0]['href'], new_user_session_url
+    end
+  end
+
+  test 'can not update because blog not exists' do
+    sign_in users(:success)
+    patch blog_url('not exists'), params: {}
+    assert_response :not_found
+    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+  end
+
+  test 'can not update because blog author is not current user' do
+    sign_in users(:success)
+    patch blog_url(blogs(:other_blog).id), params: {}
+    assert_response :forbidden
+    assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
+  end
+
+  test 'can not update because params missing' do
+    blog = Blog.find(blogs(:success).id)
+    sign_in users(:success)
+    patch blog_url(blogs(:success).id), params: {}
+    assert_response :bad_request
+    assert_equal JSON.parse(@response.body)['code'], Code::Parameter_Missing
+    assert_equal blog.title, Blog.find(blogs(:success).id).title
+    assert_equal blog.content, Blog.find(blogs(:success).id).content
+    assert_equal blog.description, Blog.find(blogs(:success).id).description
+    assert_equal blog.cover, Blog.find(blogs(:success).id).cover
+    assert_equal blog.released, Blog.find(blogs(:success).id).released
+  end
+
+  test 'update blog' do
+    sign_in users(:success)
+    patch blog_url(blogs(:success).id), params: {
+      format: 'application/json',
+      blog:   @test_blog
+    }
+    assert_response :success
+    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_equal @test_blog[:title], Blog.find(blogs(:success).id).title
+    assert_equal @test_blog[:content], Blog.find(blogs(:success).id).content
+    assert_equal @test_blog[:description], Blog.find(blogs(:success).id).description
+    assert_equal @test_blog[:cover], Blog.find(blogs(:success).id).cover
+    assert_equal @test_blog[:released], Blog.find(blogs(:success).id).released
+  end
+
 end

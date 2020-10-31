@@ -2,11 +2,18 @@
 
 success:
   id: 1
-  account: yuchi.xiong@foxmail.com
-  password_hash: $2a$12$ADpMH2v2Rl6gApCecrMvdeu4c.KdCI9HTjwK0QZwsOqqiUwqP4hpa
-  nick_name: yuchi
   email: yuchi.xiong@foxmail.com
+  encrypted_password: $2a$12$FRvO8n.4S.yg633LoU9LN.OATcv1G0NegrFbKNoD0YfVQdMMVnOdu
+  nick_name: yuchi
   avatar: ''
   sex: 1
   description: ''
 
+other_user:
+  id: 2
+  email: test@test.com
+  encrypted_password: $2a$12$FRvO8n.4S.yg633LoU9LN.OATcv1G0NegrFbKNoD0YfVQdMMVnOdu
+  nick_name: 'yuchi'
+  avatar: ''
+  sex: 1
+  description: ''

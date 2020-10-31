@@ -18,7 +18,7 @@ other_blog:
   cover: 用户2的一篇博客
   released: true
 
-released_blog:
+not_released_blog:
   id: 3
   user_id: 2
   title: 用户2的一篇博客
@@ -36,3 +36,19 @@ discard_blog:
   cover: 用户2的一篇博客
   released: true
   discarded_at: 2020-09-28 13:33:26.044512
+
+
+  <% 30.times do |n| %>
+list_blog_<%= n %>:
+  id: <%= 5 + n %>
+  user_id: 1
+  title: 用户<%= n %>的一篇博客
+  description: 用户<%= n %>的一篇博客
+  content: 用户<%= n %>的一篇博客
+  cover: 用户<%= n %>的一篇博客
+  released: true
+  discarded_at: nil
+  <% end %>
+
+
+

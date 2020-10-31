@@ -2,108 +2,80 @@ require 'test_helper'
 require 'open-uri'
 
 class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 
-  # * 登录
   setup do
-    post sessions_url, params: {
-      account:  users(:success).account,
-      password: '123456'
-    }, headers:                {
-      'Accept': 'application/json'
-    }
-    @user_token   = JSON.parse(@response.body)['data']['user']['userToken']
     @photo_domain = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com'.freeze
   end
 
-
-  # * Post /blog_photos
-  # * 上传博客插图
-  # * 1. 博客存在时，上传成功
-  # * 2. 博客不存在时，返回博客不存在
-  # * 3. 不应该接受任何其它类型的文件
-  # * 4. 未登录时提示未登录
-  test 'should upload success when blog exist' do
-    post blog_photos_url, params: {
-      blogId: blogs(:success).id,
-      file:   fixture_file_upload('/test_file.png', 'image/png')
-    }, headers:                   {
-      'Accept':     'application/json',
-      'User-Token': @user_token
-    }
-
-    assert_response :success
-    assert_equal JSON.parse(@response.body)['message'], 'success'
-    assert_instance_of String, JSON.parse(@response.body)['data']['photoURL']
-    assert_not_nil open(@photo_domain + JSON.parse(@response.body)['data']['photoURL'])
-  end
-
-  test 'should return blog not found' do
-    post blog_photos_url, params: {
-      blogId: 'not found',
-      file:   fixture_file_upload('/test_file.png', 'image/png')
-    }, headers:                   {
-      'Accept':     'application/json',
-      'User-Token': @user_token
-    }
-
-    assert_response :not_found
-    assert_equal Code::Resource_Not_Found, JSON.parse(@response.body)['code']
-    assert_nil JSON.parse(@response.body)['data']
-  end
-
-  test 'should upload only image file' do
+  # * [JSON] Post /blog_photos
+  # * 上传博客插图: 用户A上传图片文件至用户A的博客A
+  # * 1. 未登录
+  # * 2. 登陆 -> 但博客不存在
+  # * 3. 登陆 —> 博客存在 -> 作者不是当前用户
+  # * 4. 登陆 -> 博客存在 -> 作者是当前用户 -> 文件格式不支持
+  # * 5. 登陆 -> 博客存在 -> 作者是当前用户 -> 文件格式支持 -> 上传
+  test 'need sign in' do
     post blog_photos_url, params: {
       blogId: blogs(:success).id,
       file:   fixture_file_upload('/error_format_file.txt')
     }, headers:                   {
-      'Accept':     'application/json',
-      'User-Token': @user_token
+      'Accept': 'application/json'
     }
+    assert_response :unauthorized
+    assert_not_nil JSON.parse(@response.body)['error']
+  end
 
+  test 'blog not exists' do
+    sign_in users(:success)
+    post blog_photos_url, params: {
+      blogId: 'not exists id',
+      file:   fixture_file_upload('/error_format_file.txt')
+    }, headers:                   {
+      'Accept': 'application/json'
+    }
+    assert_response :not_found
+    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+  end
+
+  test 'blog not exists of current user' do
+    sign_in users(:success)
+    post blog_photos_url, params: {
+      blogId: blogs(:other_blog),
+      file:   fixture_file_upload('/error_format_file.txt')
+    }, headers:                   {
+      'Accept': 'application/json'
+    }
+    assert_response :not_found
+    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+  end
+
+  test 'file not support' do
+    sign_in users(:success)
+    post blog_photos_url, params: {
+      blogId: blogs(:success).id,
+      file:   fixture_file_upload('/error_format_file.txt')
+    }, headers:                   {
+      'Accept': 'application/json'
+    }
     assert_response :bad_request
-    assert_equal Code::Photo_Format_Not_Support, JSON.parse(@response.body)['code']
-    assert_nil JSON.parse(@response.body)['data']
+    assert_equal JSON.parse(@response.body)['code'], Code::Photo_Format_Not_Support
   end
 
-  test 'not login should not upload' do
+  test 'success' do
+    sign_in users(:success)
     post blog_photos_url, params: {
       blogId: blogs(:success).id,
       file:   fixture_file_upload('/test_file.png', 'image/png')
     }, headers:                   {
-      'Accept': 'application/json',
+      'Accept': 'application/json'
     }
-
-    assert_response :unauthorized
-    assert_equal Code::Unauthorized_Error, JSON.parse(@response.body)['code']
-    assert_nil JSON.parse(@response.body)['data']
+    assert_response :success
+    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_instance_of String, JSON.parse(@response.body)['data']['photoURL']
+    assert_not_nil open(@photo_domain + JSON.parse(@response.body)['data']['photoURL'])
   end
 
-  test 'if login state expired then should not upload' do
-
-    user_token = ''
-
-    # * travel_to 代码块模拟了在8天前进行登录，并获取了对应的token用于验证token过期时是否能够得到合理的响应
-    travel_to Time.current - 8.days do
-      post sessions_url, params: {
-        account:  users(:success).account,
-        password: '123456'
-      }, headers:                {
-        'Accept': 'application/json'
-      }
-      user_token = JSON.parse(@response.body)['data']['user']['userToken']
-    end
-
-    post blog_photos_url, params: {
-      blogId: blogs(:success).id,
-      file:   fixture_file_upload('/test_file.png', 'image/png')
-    }, headers:                   {
-      'Accept':     'application/json',
-      'User-Token': user_token
-    }
-
-    assert_response :unauthorized
-    assert_equal Code::Unauthorized_Expired, JSON.parse(@response.body)['code']
-    assert_nil JSON.parse(@response.body)['data']
-  end
+  # travel_to Time.current - 8.days do; end
 
 end
