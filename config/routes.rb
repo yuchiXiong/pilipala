@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   root 'blogs#index'
   get :editor, to: 'editor#index'
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions:      'users/sessions',
+    registrations: 'users/registrations'
+  }
 
   # namespace :api do
   #   resources :users, only: [:update_info] do

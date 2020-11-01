@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   include Code
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :verify_captcha!, if: :devise_controller?, only: :create
 
   class ResourcesNotFound < StandardError; end
 
@@ -33,12 +32,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:nick_name, :description, :avatar])
   end
 
-  def verify_captcha!
-    case "#{controller_name}__#{action_name}"
-    when 'sessions__create'
-      render plain: '验证码错误', status: 401 unless verify_rucaptcha?
-    else
-      redirect_to new_user_registration_url, flash: { captcha: '验证码错误' } unless verify_rucaptcha?
-    end
-  end
 end

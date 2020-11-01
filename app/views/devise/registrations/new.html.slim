@@ -7,7 +7,7 @@
   h4.mb-3
     | 注册
 
-  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true) do |f|
 
     .input-group.mb-3
       = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
@@ -41,3 +41,11 @@ javascript:
     $('.close').click(() => {
         $('.alert').css('top', '-200px');
     });
+    $(document).on('ajax:error', e => {
+        console.log('error')
+        console.log(e)
+    })
+    $(document).on('ajax:success', e => {
+        console.log('success')
+        console.log(e)
+    })
