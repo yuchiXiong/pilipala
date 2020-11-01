@@ -14,12 +14,12 @@ class ApplicationController < ActionController::Base
   rescue_from(AccessDeniedError) do
     respond_to do |format|
       format.html { render template: 'access_denied/show' }
-      format.js { render js: "alert('您无权进行该操作！')" }
+      format.js { render_notice_danger('您没有权限进行当前操作！', []) }
     end
   end
 
   rescue_from(ActionController::ParameterMissing) do
-    render js: "alert('服务端异常！请检测参数的完整性！')"
+    render_notice_danger('服务端异常！请检测参数的完整性！', [])
   end
 
   def default_url_options(options = {})

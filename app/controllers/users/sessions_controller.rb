@@ -15,7 +15,6 @@ class Users::SessionsController < Devise::SessionsController
     return render_notice_danger('登陆失败', '用户名与密码不匹配', {
       status: :unauthorized
     }) unless warden.authenticate?(auth_options)
-    # return render js: "notice('登陆失败', #{['用户名与密码不匹配！']})", status: :unauthorized unless resource
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
