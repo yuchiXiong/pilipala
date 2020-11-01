@@ -27,6 +27,7 @@ module YuchiXiongTopRails
       ssl:                  true
     }
 
+    config.i18n.default_locale = "zh-CN"
 
     config.load_defaults 5.2
     config.after_initialize do
