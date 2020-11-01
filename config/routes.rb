@@ -28,5 +28,6 @@ Rails.application.routes.draw do
     end
   end
 
+  get '*path', to: 'welcome#not_found'
 
 end

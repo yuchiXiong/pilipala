@@ -13,7 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from(AccessDeniedError) do
-    render template: 'access_denied/show'
+    respond_to do |format|
+      format.html { render template: 'access_denied/show' }
+      format.js { render js: "alert('您无权进行该操作！')" }
+    end
   end
 
   rescue_from(ActionController::ParameterMissing) do
