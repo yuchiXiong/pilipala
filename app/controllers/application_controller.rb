@@ -26,6 +26,15 @@ class ApplicationController < ActionController::Base
     { protocol: Rails.env.production? ? 'https' : 'http' }
   end
 
+  def render_notice_danger(title, messages = [], options = {})
+    messages = [messages] unless messages.class.eql? Array
+    render js: "notice('#{title}', #{messages}, {type: 'danger'})", status: options[:status] || :bad_request
+  end
+
+  def render_notice(title)
+    render js: "notice('#{title}', [])", status: :ok
+  end
+
   protected
 
   def configure_permitted_parameters

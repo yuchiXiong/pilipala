@@ -3,6 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  before_action :verify_captcha, only: :create
 
   # GET /resource/sign_up
   # def new
@@ -30,8 +31,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource do |format|
-        messages = resource.errors.messages.map { |model, msg| "#{model} #{msg}" }
-        format.js { render js: "alert('#{messages.join('<br/>').to_s}')" }
+        format.js { render_notice_danger('注册失败', resource.resource_errors, { status: :bad_request }) }
       end
     end
 
@@ -61,7 +61,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
+
+  def verify_captcha
+    render_notice_danger('注册失败', '验证码错误', {
+      status: :unauthorized
+    }) unless verify_rucaptcha?
+  end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params

@@ -12,8 +12,11 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    self.resource = warden.authenticate?(auth_options)
-    return render js: "alert('用户名或密码错误')" unless resource
+    return render_notice_danger('登陆失败', '用户名与密码不匹配', {
+      status: :unauthorized
+    }) unless warden.authenticate?(auth_options)
+    # return render js: "notice('登陆失败', #{['用户名与密码不匹配！']})", status: :unauthorized unless resource
+    self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     yield resource if block_given?
@@ -28,7 +31,9 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def verify_captcha
-    render js: "alert('captcha error!')" unless verify_rucaptcha?
+    render_notice_danger('登陆失败', '验证码错误', {
+      status: :unauthorized
+    }) unless verify_rucaptcha?
   end
 
   # If you have extra params to permit, append them to the sanitizer.

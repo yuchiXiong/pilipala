@@ -1,7 +1,6 @@
 = provide :title, "注册 - SmallBook"
 
 = render 'devise/shared/return_home'
-= render "devise/shared/error_messages", resource: resource
 
 .card
   h4.mb-3
@@ -33,14 +32,6 @@
   = render "devise/shared/links"
 
 javascript:
-    $(document).on("turbolinks:load", () => {
-        if ($('#error_alert .error_messages').text()) {
-            $('#error_alert').css('top', 0)
-        }
-    })
-    $('.close').click(() => {
-        $('.alert').css('top', '-200px');
-    });
     $(document).on('ajax:error', e => {
         console.log('error')
         console.log(e)
