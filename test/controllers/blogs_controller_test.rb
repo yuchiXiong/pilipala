@@ -10,7 +10,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
       title:       '写好测试至少没那么多bug',
       description: '只是为了让自己少点事',
       content:     '每次都打开swagger或者postman我也会很烦的',
-      cover:       nil,
+      cover:       '',
       released:    true
     }
   end

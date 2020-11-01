@@ -6,33 +6,18 @@ class ApplicationController < ActionController::Base
 
   class ResourcesNotFound < StandardError; end
 
-  class AccountValidError < StandardError; end
-
   class AccessDeniedError < StandardError; end
 
-  class FormatNotSupport < StandardError; end
-
-  rescue_from(FormatNotSupport) do
-    logger.warn "不支持的图片格式: #{params[:file].content_type}"
-    render json: { code: Code::Photo_Format_Not_Support, message: '暂仅支持gif/jpg/jpeg/png图片格式！' }, status: :bad_request
+  rescue_from(ActiveRecord::RecordNotFound || ResourcesNotFound) do
+    render template: 'not_found/show'
   end
 
   rescue_from(AccessDeniedError) do
-    logger.error "#{controller_name}_#{action_name}:无权访问！"
-    render json: { code: Code::Access_Denied, message: '无权访问！' }, status: :forbidden
+    render template: 'access_denied/show'
   end
 
   rescue_from(ActionController::ParameterMissing) do
-    logger.error "#{controller_name}_#{action_name}:参数异常或缺失！"
-    render json: { code: Code::Parameter_Missing, message: '参数异常或缺失！' }, status: :bad_request
-  end
-
-  rescue_from(AccountValidError) do
-    render json: { code: Code::Account_Or_Password_Not_Match, message: '用户名或密码不匹配！' }, status: :bad_request
-  end
-
-  rescue_from(ActiveRecord::RecordNotFound || ResourcesNotFound) do
-    render json: { code: Code::Resource_Not_Found, message: '资源未找到' }, status: :not_found
+    render js: "alert('服务端异常！请检测参数的完整性！')"
   end
 
   def default_url_options(options = {})
