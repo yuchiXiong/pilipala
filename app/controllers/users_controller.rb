@@ -1,20 +1,16 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show blogs update_info]
+  before_action :set_user, only: %i[show update_info]
   skip_before_action :authenticate_user!, only: %i[show]
-  before_action :current_user?, only: %i[blogs update_info]
+  before_action :current_user?, only: %i[update_info]
 
   # * Get /users/:id
   def show
     @user_blogs = @be_visited_user.blogs.visible
   end
 
-  # * Get /users/:id/blogs
-  def blogs
-    @blogs = @be_visited_user.blogs.kept
-  end
-
   def update_info
     @be_visited_user.update(user_params)
+    render_notice("修改成功！")
   end
 
   private

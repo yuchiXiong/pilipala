@@ -81,7 +81,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * 3. 登陆 -> 标题/内容
   test 'need login before create blog' do
     count = Blog.count
-    post blogs_url, params: {
+    post api_blogs_url, params: {
       blog: {}
     }
     assert_response :redirect
@@ -94,7 +94,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   test 'need params before create blog' do
     count = Blog.count
     sign_in users(:success)
-    post blogs_url, params: {
+    post api_blogs_url, params: {
       format: 'application/json',
     }
     assert_response :bad_request
@@ -105,7 +105,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   test 'create blog' do
     blogs_count = Blog.count
     sign_in users(:success)
-    post blogs_url, params: {
+    post api_blogs_url, params: {
       format: 'application/json',
       blog:   @test_blog
     }
@@ -126,7 +126,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * 3. 登录 -> 指定的文章存在 -> 文章作者不是当前用户
   # * 4. 登录 -> 指定的文章存在 -> 文章作者是当前用户
   test 'need login before delete blog' do
-    delete blog_url(users(:success).id)
+    delete api_blog_url(users(:success).id)
     assert_response :redirect
     assert_select 'a' do |e|
       assert_equal e[0]['href'], new_user_session_url
@@ -135,7 +135,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
 
   test 'can not delete because blog not exists' do
     sign_in users(:success)
-    delete blog_url('not exists')
+    delete api_blog_url('not exists')
     assert_response :not_found
     assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
   end
@@ -143,7 +143,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   test 'can not delete because blog author is not current user' do
     count = Blog.kept.count
     sign_in users(:success)
-    delete blog_url(blogs(:other_blog))
+    delete api_blog_url(blogs(:other_blog))
     assert_response :forbidden
     assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
     assert_equal count, Blog.kept.count
@@ -152,7 +152,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   test 'delete blog' do
     count = Blog.kept.count
     sign_in users(:success)
-    delete blog_url(blogs(:success)), params: {
+    delete api_blog_url(blogs(:success)), params: {
       format: 'application/json'
     }
     assert_response :success
@@ -168,7 +168,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * 4. 登录 -> 指定的博客存在 -> 文章作者是当前用户 -> 无参数
   # * 5. 修改
   test 'need login before update' do
-    patch blog_url(blogs(:success).id), params: {}
+    patch api_blog_url(blogs(:success).id), params: {}
     assert_response :redirect
     assert_select 'a' do |element|
       assert_equal element[0]['href'], new_user_session_url
@@ -177,14 +177,14 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
 
   test 'can not update because blog not exists' do
     sign_in users(:success)
-    patch blog_url('not exists'), params: {}
+    patch api_blog_url('not exists'), params: {}
     assert_response :not_found
     assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
   end
 
   test 'can not update because blog author is not current user' do
     sign_in users(:success)
-    patch blog_url(blogs(:other_blog).id), params: {}
+    patch api_blog_url(blogs(:other_blog).id), params: {}
     assert_response :forbidden
     assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
   end
@@ -192,7 +192,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   test 'can not update because params missing' do
     blog = Blog.find(blogs(:success).id)
     sign_in users(:success)
-    patch blog_url(blogs(:success).id), params: {}
+    patch api_blog_url(blogs(:success).id), params: {}
     assert_response :bad_request
     assert_equal JSON.parse(@response.body)['code'], Code::Parameter_Missing
     assert_equal blog.title, Blog.find(blogs(:success).id).title
@@ -204,7 +204,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
 
   test 'update blog' do
     sign_in users(:success)
-    patch blog_url(blogs(:success).id), params: {
+    patch api_blog_url(blogs(:success).id), params: {
       format: 'application/json',
       blog:   @test_blog
     }

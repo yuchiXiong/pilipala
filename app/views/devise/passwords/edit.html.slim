@@ -28,8 +28,8 @@
 
 javascript:
     $(document).on("turbolinks:load", () => {
-        if ($('#error_alert .error_messages').text()) {
-            $('#error_alert').css('top', 0)
+        if ($('#alert .error_messages').text()) {
+            $('#alert').css('top', 0)
         }
     })
     $('.close').click(() => {

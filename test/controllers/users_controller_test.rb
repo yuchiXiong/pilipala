@@ -10,7 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   # * 3. 登录 -> 用户存在 -> 访问的用户与被访问的用户不同
   # * 4. 成功
   test 'need login before fetch user blogs' do
-    get blogs_user_url(users(:success))
+    get api_user_blogs_url(users(:success))
     assert_response :redirect
     assert_select 'a' do |element|
       assert_equal element[0]['href'], new_user_session_url
@@ -19,7 +19,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'can not fetch blogs because user not exists' do
     sign_in users(:success)
-    get blogs_user_url('not found'), {
+    get api_user_blogs_url('not found'), {
       headers: {
         Accept: 'application/json'
       }
@@ -30,7 +30,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'can not fetch blogs because current user is not be visited user' do
     sign_in users(:success)
-    get blogs_user_url(users(:other_user)), {
+    get api_user_blogs_url(users(:other_user)), {
       headers: {
         Accept: 'application/json'
       }
@@ -41,7 +41,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'fetch user blogs' do
     sign_in users(:success)
-    get blogs_user_url(users(:success)), {
+    get api_user_blogs_url(users(:success)), {
       headers: {
         Accept: 'application/json'
       }

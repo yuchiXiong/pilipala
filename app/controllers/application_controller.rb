@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   class AccessDeniedError < StandardError; end
 
   rescue_from(ActiveRecord::RecordNotFound || ResourcesNotFound) do
-    render template: 'not_found/show'
+    render template: 'not_found/show', status: :not_found
   end
 
   rescue_from(AccessDeniedError) do

@@ -1,7 +1,7 @@
 import request from '../request';
 
-const userBlogs = id => {
-    return request.get(`/users/${id}/blogs`);
+const userBlogs = user_id => {
+    return request.get(`/api/users/${user_id}/blogs`);
 };
 
 export {

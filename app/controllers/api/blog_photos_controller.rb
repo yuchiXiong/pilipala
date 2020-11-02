@@ -1,6 +1,8 @@
 require 'ali/oss'
 
-class BlogPhotosController < ApplicationController
+
+class Api::BlogPhotosController < ApiController
+
 
   # * POST /blog_photos
   def create

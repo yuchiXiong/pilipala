@@ -1,0 +1,14 @@
+#alert {
+  top: -200px;
+  //transition: top 450ms;
+  width: 50%;
+  margin: auto;
+
+  .error_messages {
+    margin-bottom: 0;
+  }
+
+  .close {
+    outline: none;
+  }
+}

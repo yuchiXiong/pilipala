@@ -1,8 +1,6 @@
 require 'ali/content_scan'
 
 class BlogsController < ApplicationController
-  before_action :set_blog, only: %i[show update destroy]
-  before_action :current_user?, only: %i[update destroy]
   skip_before_action :authenticate_user!, only: %i[index show]
 
   # * GET /blogs
@@ -18,38 +16,8 @@ class BlogsController < ApplicationController
 
   # * GET /blogs/:id
   def show
-    raise ActiveRecord::RecordNotFound unless @blog.readable?
-  end
-
-  # * POST /blogs
-  def create
-    @blog         = Blog.new(blog_params)
-    @blog.user_id = current_user.id
-    @errors       = @blog.errors unless @blog.save
-  end
-
-  # * PUT/PATCH /blogs/:id
-  def update
-    @errors = @blog.errors unless @blog.update(blog_params)
-  end
-
-  # * DELETE /blogs/:id
-  def destroy
-    @errors = @blog.errors unless @blog.discard
-  end
-
-  private
-
-  def set_blog
     @blog = Blog.find(params[:id])
-  end
-
-  def current_user?
-    raise AccessDeniedError unless @blog.user_id == current_user.id
-  end
-
-  def blog_params
-    params.require(:blog).permit(:title, :content, :description, :cover, :released)
+    raise ActiveRecord::RecordNotFound unless @blog.readable?
   end
 
 end

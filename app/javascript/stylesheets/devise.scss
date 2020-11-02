@@ -1,23 +1,6 @@
 @import "vars";
 @import "mixins";
 
-@mixin _alert() {
-  #error_alert {
-    top: -200px;
-    //transition: top 450ms;
-    width: 50%;
-    margin: auto;
-
-    .error_messages {
-      margin-bottom: 0;
-    }
-
-    .close {
-      outline: none;
-    }
-  }
-}
-
 #sessions__new,
 #registrations__new,
 #registrations__create,
@@ -26,7 +9,6 @@
 #passwords__edit,
 #passwords__update {
   background-color: $gray_bg_color;
-  @include _alert;
 
   nav.navbar {
     display: none;
@@ -88,8 +70,3 @@
     //background-color: #fff;
   }
 }
-
-#registrations__update {
-  @include _alert();
-}
-

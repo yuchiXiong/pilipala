@@ -16,10 +16,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
   # * 4. 登陆 -> 博客存在 -> 作者是当前用户 -> 文件格式不支持
   # * 5. 登陆 -> 博客存在 -> 作者是当前用户 -> 文件格式支持 -> 上传
   test 'need sign in' do
-    post blog_photos_url, params: {
+    post api_blog_photos_url, params: {
       blogId: blogs(:success).id,
       file:   fixture_file_upload('/error_format_file.txt')
-    }, headers:                   {
+    }, headers:                       {
       'Accept': 'application/json'
     }
     assert_response :unauthorized
@@ -28,10 +28,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'blog not exists' do
     sign_in users(:success)
-    post blog_photos_url, params: {
+    post api_blog_photos_url, params: {
       blogId: 'not exists id',
       file:   fixture_file_upload('/error_format_file.txt')
-    }, headers:                   {
+    }, headers:                       {
       'Accept': 'application/json'
     }
     assert_response :not_found
@@ -40,10 +40,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'blog not exists of current user' do
     sign_in users(:success)
-    post blog_photos_url, params: {
+    post api_blog_photos_url, params: {
       blogId: blogs(:other_blog),
       file:   fixture_file_upload('/error_format_file.txt')
-    }, headers:                   {
+    }, headers:                       {
       'Accept': 'application/json'
     }
     assert_response :not_found
@@ -52,10 +52,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'file not support' do
     sign_in users(:success)
-    post blog_photos_url, params: {
+    post api_blog_photos_url, params: {
       blogId: blogs(:success).id,
       file:   fixture_file_upload('/error_format_file.txt')
-    }, headers:                   {
+    }, headers:                       {
       'Accept': 'application/json'
     }
     assert_response :bad_request
@@ -64,10 +64,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
 
   test 'success' do
     sign_in users(:success)
-    post blog_photos_url, params: {
+    post api_blog_photos_url, params: {
       blogId: blogs(:success).id,
       file:   fixture_file_upload('/test_file.png', 'image/png')
-    }, headers:                   {
+    }, headers:                       {
       'Accept': 'application/json'
     }
     assert_response :success
