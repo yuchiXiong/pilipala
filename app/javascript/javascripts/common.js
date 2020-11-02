@@ -1,4 +1,11 @@
 $(document).on("turbolinks:load", () => {
+
+    $("#alert").delegate(".close", "click", () => {
+        $("#alert").animate({top: -200}, 450, null, function () {
+            this.remove();
+        });
+    })
+
     // * 回到顶部
     $(document).delegate('.to_top_btn', 'click', e => {
         $('html, body').animate({scrollTop: 0}, 450);
@@ -12,6 +19,10 @@ $(document).on("turbolinks:load", () => {
             $('.to_top_btn').fadeOut(300);
         }
     });
+
+    if ($('#alert').length) {
+        $("#alert").animate({top: 0}, 450);
+    }
 });
 
 window.notice = function (title, messages, options = {type: 'primary'}) {
@@ -33,9 +44,9 @@ window.notice = function (title, messages, options = {type: 'primary'}) {
       </div>`).appendTo("body");
 
     // * 添加事件进入和退出动效
-    $("#alert").animate({top: 0}, 450).delegate('.close', 'click', () => {
+    $("#alert").animate({top: 0}, 450).delegate(".close", "click", () => {
         $("#alert").animate({top: -200}, 450, null, function () {
             this.remove();
-        })
+        });
     });
 }

@@ -12,6 +12,14 @@
 </head>
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">
+<% if flash[:notice] %>
+  <div id="alert" class="alert alert-primary alert-dismissible fade show fixed-top" role="alert">
+    <strong><%= flash[:notice] %></strong>
+    <button type="button" class="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
 <%= render 'shared/header' %>
 <div class="container body">
   <%= yield %>
