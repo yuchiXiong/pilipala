@@ -64,5 +64,11 @@ nav {
     }
   }
 
+  .navbar-collapse {
+    padding-left: 16px;
+  }
 
+  #mobile_user_nav {
+    border-top: 1px solid $gray_bg_color;
+  }
 }
