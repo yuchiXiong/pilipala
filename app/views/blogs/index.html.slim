@@ -4,14 +4,14 @@
 
 main.container[role="main"]
   .row
-    .col-md-9
+    .col-12.col-lg-9
       .blog-main
         .blogs
           = render @blogs, show_author: true
         = link_to '加载更多文章', blogs_url + "?page=#{@page <= 1 ? 2 : @page}", remote: true, id: 'load_more', 'data-page': @page <= 1 ? 2 : @page
         = paginate @blogs, class: 'hidden_paginate'
 
-    aside.col-md-3.blog-sidebar
+    aside.col-3.d-none.d-lg-block.blog-sidebar
       .p-4.bg-light.rounded.notice
         h4.font-italic
           | 发布日志
