@@ -8,7 +8,7 @@ class DevisesTest < ApplicationSystemTestCase
 
       assert_title '登陆 - SmallBook'
 
-      assert_selector ".card > h4", text: "登陆"
+      assert_selector ".user_card > h4", text: "登陆"
 
       assert_selector "form.new_user input#user_email"
       assert_selector "form.new_user input#user_password"

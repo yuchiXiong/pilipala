@@ -32,10 +32,10 @@
     justify-content: center;
     align-items: center;
 
-    .card {
-      width: 40%;
+    .user_card {
       padding: 24px;
       background-color: #fff;
+      flex: unset;
 
       h4 {
         color: $theme_color;

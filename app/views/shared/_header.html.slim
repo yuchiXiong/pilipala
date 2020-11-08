@@ -27,7 +27,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
         nav#mobile_user_nav.d-lg-none.col-12
           - if current_user
             = link_to '我的主页', user_url(current_user.id), class: 'nav-link'
-            = link_to '修改个人信息', edit_user_registration_url, class: 'nav-link'
+            / = link_to '修改个人信息', edit_user_registration_url, class: 'nav-link'
             = link_to '退出登录', destroy_user_session_url, class: 'nav-link', method: :delete
           - else
             = link_to '登陆', new_user_session_url, class: 'nav-link'
