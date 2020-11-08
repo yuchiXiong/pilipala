@@ -6,7 +6,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
       ul.navbar-nav.mr-auto
-        li.nav-item.active#header_home_nav
+        li.nav-item#header_home_nav
           = link_to root_path, class: 'nav-link' do
             = home_icon
             | 首页
@@ -23,9 +23,21 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
       / button.btn.btn-outline-success.my-2.my-sm-0[type="submit"]
       /   | Search
       ul.navbar-nav.ml-auto
-        - if current_user
-          li#user_avatar.nav-item
-            .btn-group.d-none.d-lg-block
+        / * 移动端
+        nav#mobile_user_nav.d-lg-none.col-12
+          - if current_user
+            = link_to '我的主页', user_url(current_user.id), class: 'nav-link'
+            = link_to '修改个人信息', edit_user_registration_url, class: 'nav-link'
+            = link_to '退出登录', destroy_user_session_url, class: 'nav-link', method: :delete
+          - else
+            = link_to '登陆', new_user_session_url, class: 'nav-link'
+            = link_to '注册', new_user_registration_url, class: 'nav-link'
+          = link_to '写文章', editor_url, class: 'nav-link', target: '_blank'
+
+        / * PC端用户栏
+        #user_avatar.nav-item.d-none.d-lg-flex
+          - if current_user
+            .btn-group
               button type="button" class="dropdown-toggle user_info_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                 - if current_user.avatar.nil?
                   = current_user.nick_name.empty? ? 'Small Book用户' : current_user.nick_name
@@ -36,15 +48,10 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
                 = link_to '修改个人信息', edit_user_registration_url, class: 'dropdown-item'
                 .dropdown-divider
                 = link_to '注销', destroy_user_session_url, class: 'dropdown-item', method: :delete
-          nav#mobile_user_nav
-            = link_to '我的主页', user_url(current_user.id), class: 'nav-link'
-            = link_to '修改个人信息', edit_user_registration_url, class: 'nav-link'
-            = link_to '退出登录', destroy_user_session_url, class: 'nav-link', method: :delete
-
-        - else
-          li.nav-item.active
-            = link_to '登陆', new_user_session_url, class: 'nav-link'
-          li.nav-item.active
-            = link_to '注册', new_user_registration_url, class: 'nav-link'
-        li.nav-item.active
-          = link_to '写文章', editor_url, id: 'new_article_btn', class: 'nav-link', target: '_blank'
+          - else
+            li.nav-item
+              = link_to '登陆', new_user_session_url, class: 'nav-link'
+            li.nav-item
+              = link_to '注册', new_user_registration_url, class: 'nav-link'
+          li.nav-item
+            = link_to '写文章', editor_url, id: 'new_article_btn', class: 'nav-link', target: '_blank'

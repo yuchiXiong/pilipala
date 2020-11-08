@@ -31,15 +31,6 @@ nav {
     }
   }
 
-  #new_article_btn {
-    background-color: $theme_color;
-    color: #fff;
-    border-radius: 20px;
-    width: 100px;
-    text-align: center;
-    margin-left: 16px;
-  }
-
   #user_avatar {
     .user_info_btn {
       border: none;
@@ -64,8 +55,19 @@ nav {
     }
   }
 
+
+  #new_article_btn {
+    background-color: $theme_color;
+    color: #fff !important;
+    border-radius: 20px;
+    width: 100px;
+    text-align: center;
+    margin-left: 16px;
+  }
+
+
   .navbar-collapse {
-    padding-left: 16px;
+    padding: 0 16px;
   }
 
   #mobile_user_nav {
