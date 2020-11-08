@@ -4,7 +4,7 @@
 
 main.container[role="main"]
   .row
-    .col-md-9
+    .col-12.col-md-9
       .blog-main
         = render @be_visited_user, be_visited_user: @be_visited_user
 
@@ -24,7 +24,7 @@ main.container[role="main"]
     / #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
     /   = render @user_blogs, show_author: false
 
-    aside.col-md-3.blog-sidebar
+    aside.col-3.d-none.d-md-block.blog-sidebar
       .user_other_info
         .rounded#user_introduce
           span.tag
