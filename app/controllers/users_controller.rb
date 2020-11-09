@@ -10,7 +10,11 @@ class UsersController < ApplicationController
 
   def update_info
     @be_visited_user.update(user_params)
-    render_notice("修改成功！")
+    if user_params[:avatar]
+      redirect_to update_info_user_url @be_visited_user
+    else
+      render_notice("修改成功！")
+    end
   end
 
   private

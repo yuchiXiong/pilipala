@@ -1,10 +1,13 @@
-= form_for(resource, as: resource_name, url: update_info_user_url(current_user.id), html: { class: 'edit_user_info', id: 'edit_user_info', method: :put }, remote: true) do |f|
+= form_for(resource, as: resource_name,
+        url: update_info_user_url(current_user.id),
+        html: { class: 'edit_user_info', id: 'edit_user_info', method: :put },
+        remote: true) do |f|
   = render "devise/shared/error_messages", resource: resource
 
   .user_basic_info.mb-2
     .left
       = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
-      = image_tag current_user.oss_avatar, alt: '111'
+      = image_tag current_user.oss_avatar
     .right
       .field.input-group
         = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '邮箱', disabled: true, class: 'form-control'
