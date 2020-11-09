@@ -1,6 +1,7 @@
 .user_info_block
   .avatar
-    = image_tag 'https://www.xiongyuchi.top/img/avatar.jpg'
+    = link_to user_url(be_visited_user.id) do
+      = image_tag be_visited_user.oss_avatar
   .info
     h5.nick_name.font-weight-bold
       = link_to be_visited_user.nick_name, user_url(be_visited_user.id)
