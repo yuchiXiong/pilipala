@@ -1,19 +1,21 @@
 = form_for(resource, as: resource_name, url: update_info_user_url(current_user.id), html: { class: 'edit_user_info', id: 'edit_user_info', method: :put }, remote: true) do |f|
   = render "devise/shared/error_messages", resource: resource
 
-  .field.input-group.mb-3
-    = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
+  .user_basic_info.mb-2
+    .left
+      = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
+      = image_tag current_user.oss_avatar, alt: '111'
+    .right
+      .field.input-group
+        = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '邮箱', disabled: true, class: 'form-control'
 
-  .field.input-group.mb-3
-    = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '邮箱', disabled: true, class: 'form-control'
+        - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+          div
+            | Currently waiting confirmation for:
+            = resource.unconfirmed_email
+      .field.input-group
+        = f.text_field :nick_name, autocomplete: "nick_name", placeholder: '昵称', class: 'form-control'
 
-  - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    div
-      | Currently waiting confirmation for:
-      = resource.unconfirmed_email
-
-  .field.input-group.mb-3
-    = f.text_field :nick_name, autocomplete: "nick_name", placeholder: '昵称', class: 'form-control'
 
   .field.input-group.mb-3
     = f.text_area :description, autocomplete: "description", placeholder: '个人简介', class: 'form-control'

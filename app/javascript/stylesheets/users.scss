@@ -128,3 +128,41 @@
 
 }
 
+.user_basic_info {
+  @include flex-row;
+
+  .left {
+    width: 15%;
+    height: 120px;
+    position: relative;
+    @include flex-col;
+    justify-content: center;
+    align-self: center;
+
+    input[type=file] {
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      z-index: 100;
+    }
+
+    img {
+      width: 100px;
+      border-radius: 100px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50px, -50px);
+    }
+
+  }
+
+  .right {
+    width: 85%;
+    height: 120px;
+    padding-left: 12px;
+    @include flex-col;
+    justify-content: space-evenly;
+  }
+
+}
