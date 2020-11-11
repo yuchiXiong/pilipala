@@ -3,6 +3,7 @@ require 'ali/content_scan'
 class Blog < ApplicationRecord
   include Discard::Model
   belongs_to :user
+  mount_uploader :cover, CoverUploader
 
   # * 审核结果
   enum scan_result: { pass: 0, review: 1, block: 2 }

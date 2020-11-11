@@ -1,9 +1,9 @@
 import React from 'react';
 import Turbolinks from 'turbolinks';
-import { Menu, Typography, Button, Dropdown } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
-import { LeftOutlined, PlusOutlined } from '@ant-design/icons';
-import { Blogs } from '../../utils/api';
+import {Menu, Typography, Button, Dropdown} from 'antd';
+import {SettingOutlined} from '@ant-design/icons';
+import {LeftOutlined, PlusOutlined} from '@ant-design/icons';
+import {Blogs} from '../../utils/api';
 import dayjs from 'dayjs';
 
 import styles from './index.module.scss';
@@ -75,17 +75,17 @@ class AppSider extends React.Component {
                             return <Menu.Item
                                 onClick={() => this.setState({selected: index})}
                                 className={styles['sider-item']}
-                                title={1111}
                                 key={item.id}>
                                 <Text level={4} ellipsis className={styles['sider-item-title']}>{item.title}</Text>
                                 {
                                     this.state.selected === index &&
                                     <Dropdown overlay={
                                         <Menu>
-                                            <Menu.Item>
-                                                <Button onClick={() => this.onDelete(item.id)}>
-                                                    删除博客
-                                                </Button>
+                                            <Menu.Item onClick={() => this.props.onUpdateCover()}>
+                                                设置封面
+                                            </Menu.Item>
+                                            <Menu.Item onClick={() => this.onDelete(item.id)}>
+                                                删除博客
                                             </Menu.Item>
                                         </Menu>
                                     }>
