@@ -20,6 +20,10 @@ class Blog < ApplicationRecord
     !discarded? && released
   end
 
+  def oss_avatar
+    "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{cover.url}"
+  end
+
   private
 
   # * 内容审核

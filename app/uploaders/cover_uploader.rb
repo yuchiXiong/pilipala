@@ -1,11 +1,11 @@
 class CoverUploader < CarrierWave::Uploader::Base
 
-  # # * 保存前记录文件cache id
-  # before :store, :remember_cache_id
-  # # * 保存后将文件上传至OSS并删除本地的文件
-  # after :store, :save_to_ali_oss
-  # # * 保存后删除文件cache
-  # after :store, :delete_tmp_dir
+  # * 保存前记录文件cache id
+  before :store, :remember_cache_id
+  # * 保存后将文件上传至OSS并删除本地的文件
+  after :store, :save_to_ali_oss
+  # * 保存后删除文件cache
+  after :store, :delete_tmp_dir
 
   storage :file
 

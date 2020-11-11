@@ -2,7 +2,7 @@
   .card.mb-3
     = link_to blog_url(blog.id) do
       - unless blog.cover.file.nil?
-        = image_tag blog.cover.url, class: 'card-img-top'
+        = image_tag blog.oss_avatar, class: 'card-img-top'
       .card-body
         h4.card-title.blog-title
           = blog.title
