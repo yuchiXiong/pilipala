@@ -11,14 +11,12 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
             = link_to root_path, class: 'nav-link' do
               / = home_icon
               | 首页
-          li.nav-item
-            = link_to "#", class: 'nav-link' do
-              / = fork_icon
-              | 关注
-          li.nav-item
-            = link_to "#", class: 'nav-link' do
-              / = notice_icon
-              | 消息
+        / li.nav-item
+        /   = link_to "#", class: 'nav-link' do
+        /     | 关注
+        / li.nav-item
+        /   = link_to "#", class: 'nav-link' do
+        /     | 消息
         #nav_icon_group
           .btn-group
             button.dropdown-toggle.user_info_btn type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
