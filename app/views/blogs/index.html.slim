@@ -2,24 +2,24 @@
 
 = render 'shared/to_top_btn'
 
+#carouselExampleControls.carousel.slide.mb-3 data-ride="carousel"
+  .carousel-inner
+    .carousel-item.active
+      = image_pack_tag 'media/assets/images/default1.png', class: 'w-100'
+    .carousel-item
+      = image_pack_tag 'media/assets/images/default2.png', class: 'w-100'
+  a.carousel-control-prev href="#carouselExampleControls" role="button" data-slide="prev"
+    span.carousel-control-prev-icon aria-hidden="true"
+    span.sr-only
+      | Previous
+  a.carousel-control-next href="#carouselExampleControls" role="button" data-slide="next"
+    span.carousel-control-next-icon aria-hidden="true"
+    span.sr-only
+      | Next
+
 main.container[role="main"]
   .row
     .col-12.col-lg-9
-      #carouselExampleControls.carousel.slide.mb-3 data-ride="carousel"
-        .carousel-inner
-          .carousel-item.active
-            = image_pack_tag 'media/assets/images/default1.png'
-          .carousel-item
-            = image_pack_tag 'media/assets/images/default2.png'
-        a.carousel-control-prev href="#carouselExampleControls" role="button" data-slide="prev"
-          span.carousel-control-prev-icon aria-hidden="true"
-          span.sr-only
-            | Previous
-        a.carousel-control-next href="#carouselExampleControls" role="button" data-slide="next"
-          span.carousel-control-next-icon aria-hidden="true"
-          span.sr-only
-            | Next
-
       .blog-main
         .blogs
           = render @blogs, show_author: true
@@ -27,22 +27,48 @@ main.container[role="main"]
         = paginate @blogs, class: 'hidden_paginate'
 
     aside.col-3.d-none.d-lg-block.blog-sidebar
-      .p-4.bg-light.rounded.notice
-        h4.font-italic
-          | 发布日志
-        p.mb-0
-          | 2020/10/22
-          br
-          em
-            | [alpha]
-          | &nbsp;此为预发布版本。
-          | 完成登陆注册功能，允许用户修改信息。
-        br
-        p.mb-0
-          | 2020/10/20
-          br
-          em
-            | [alpha]
-          | &nbsp;此为预发布版本。
-          | 更多功能近期即将上线，敬请期待。
+      .notice
+        .hot_authors
+          h4.tag
+            | 热门作者
+          ul
+            - User.all.take(10).each do |user|
+              li
+                = link_to user_url(user.id) do
+                  = image_tag user.oss_avatar, class: 'avatar'
+                  .hot_author_info
+                    = user.nick_name.truncate(18)
+                    p
+                      | 收获
+                      = rand(0..100)
+                      | 赞
+        .hot_blogs
+          h4.tag.mt-2
+            | 热门博客
+          ul
+            - @hots.each_with_index do |blog, index|
+              li.hot_item
+                = link_to blog_url(blog.id) do
+                  = blog.title.truncate(20)
+                small.ml-auto
+                  = star_icon
+                  = rand(0..100)
+              hr
+
+          .website_info.text-center
+            p.mb-0
+              small
+                | 关于 |
+              small
+                |  帮助 |
+              small
+                |  联系
+            p.mb-0
+              small
+                | 鄂ICP备18022630号
+            p.mb-0
+              small
+                | Design By&nbsp;
+                = link_to 'yuchi', 'https://github.com/yuchiXiong'
+
 

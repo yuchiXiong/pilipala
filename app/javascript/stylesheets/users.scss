@@ -59,6 +59,12 @@
   }
 }
 
+.tag {
+  font-size: $tag_font_size;
+  border-bottom: 2px solid $theme_color;
+  padding-bottom: 4px;
+}
+
 #users__show {
   background-color: $gray_bg_color;
 
@@ -110,12 +116,6 @@
 
       #user_introduce, #blog_sets {
         margin-bottom: 32px;
-
-        .tag {
-          font-size: $tag_font_size;
-          border-bottom: 2px solid $theme_color;
-          padding-bottom: 4px;
-        }
 
         p {
           font-size: 14px;

@@ -5,9 +5,10 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    @page              = params[:page].to_i <= 0 ? 1 : params[:page].to_i
+    @page = params[:page].to_i <= 0 ? 1 : params[:page].to_i
     all_released_blogs = Blog.visible.includes(:user)
-    @blogs             = all_released_blogs.page(@page).per(10)
+    @blogs = all_released_blogs.page(@page).per(10)
+    @hots = Blog.visible.first(5)
     respond_to do |format|
       format.html
       format.js

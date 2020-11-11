@@ -1,7 +1,8 @@
-.blog-post
+.blog-post.shadow-sm.mt-3.mb-3
   = link_to blog_url(blog.id), class: 'btn-link' do
     .card.mb-3
-      = image_pack_tag 'media/assets/images/blog_cover_default.png', class: 'card-img-top'
+      - if blog.cover
+        = image_pack_tag 'media/assets/images/blog_cover_default.png', class: 'card-img-top'
       .card-body
         h4.card-title.blog-title
           = blog.title

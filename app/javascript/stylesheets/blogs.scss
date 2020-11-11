@@ -23,10 +23,6 @@
     @include flex-row;
   }
 
-  .author_info {
-
-  }
-
 }
 
 #blogs__index {
@@ -48,11 +44,53 @@
   .notice {
     position: sticky;
     top: 96px;
+    margin-top: 28px;
+    padding: 0 12px;
+
+    .hot_authors {
+      .tag {
+        margin-bottom: 16px;
+      }
+
+      .avatar {
+        height: 42px;
+        width: 42px;
+        border-radius: 50%;
+      }
+
+      li > a {
+        @include flex-row;
+
+        .hot_author_info {
+          margin-left: 12px;
+          font-size: 14px;
+        }
+      }
+    }
+
+    .hot_blogs {
+
+    }
+
+    .hot_item {
+      @include flex-row;
+      line-height: 24px;
+    }
+
+    ul {
+      padding-left: 0;
+
+      li {
+        list-style: none;
+
+      }
+    }
+
   }
 
   .blog-main {
     background-color: #fff;
-    padding: 24px 0;
+    padding: 12px 0;
   }
 }
 
