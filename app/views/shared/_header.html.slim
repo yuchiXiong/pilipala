@@ -5,24 +5,34 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
     button.navbar-toggler[type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
-      ul.navbar-nav.mr-auto
-        li.nav-item#header_home_nav
-          = link_to root_path, class: 'nav-link' do
-            = home_icon
-            | 首页
-      / li.nav-item.active
-      /   = link_to "#", class: 'nav-link' do
-      /     = fork_icon
-      /     | 关注
-      / li.nav-item.active
-      /   = link_to "#", class: 'nav-link' do
-      /     = notice_icon
-      /     | 消息
-      / form.form-inline.my-2.my-lg-0
-      /   input#search.form-control.mr-sm-2[type="search" placeholder="搜点什么……" aria-label="Search"]
-      / button.btn.btn-outline-success.my-2.my-sm-0[type="submit"]
-      /   | Search
       ul.navbar-nav.ml-auto
+        #nav_item_group
+          li.nav-item#header_home_nav
+            = link_to root_path, class: 'nav-link' do
+              / = home_icon
+              | 首页
+          li.nav-item
+            = link_to "#", class: 'nav-link' do
+              / = fork_icon
+              | 关注
+          li.nav-item
+            = link_to "#", class: 'nav-link' do
+              / = notice_icon
+              | 消息
+        #nav_icon_group
+          .btn-group
+            button.dropdown-toggle.user_info_btn type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+              = user_icon
+            .dropdown-menu
+              = link_to '写文章', editor_url, class: 'dropdown-item', target: '_blank'
+              - if current_user
+                .dropdown-divider
+                = link_to '我的主页', user_url(current_user.id), class: 'dropdown-item'
+                = link_to '修改个人信息', edit_user_registration_url, class: 'dropdown-item'
+                .dropdown-divider
+                = link_to '注销', destroy_user_session_url, class: 'dropdown-item', method: :delete
+
+      ul.navbar-nav
         / * 移动端
         nav#mobile_user_nav.d-lg-none.col-12
           - if current_user
@@ -33,25 +43,3 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light.fixed-top
             = link_to '登陆', new_user_session_url, class: 'nav-link'
             = link_to '注册', new_user_registration_url, class: 'nav-link'
           = link_to '写文章', editor_url, class: 'nav-link', target: '_blank'
-
-        / * PC端用户栏
-        #user_avatar.nav-item.d-none.d-lg-flex
-          - if current_user
-            .btn-group
-              button type="button" class="dropdown-toggle user_info_btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                - if current_user.avatar.nil?
-                  = current_user.nick_name.empty? ? 'Small Book用户' : current_user.nick_name
-                - else
-                  = image_tag current_user.oss_avatar, class: "avatar"
-              .dropdown-menu
-                = link_to '我的主页', user_url(current_user.id), class: 'dropdown-item'
-                = link_to '修改个人信息', edit_user_registration_url, class: 'dropdown-item'
-                .dropdown-divider
-                = link_to '注销', destroy_user_session_url, class: 'dropdown-item', method: :delete
-          - else
-            li.nav-item
-              = link_to '登陆', new_user_session_url, class: 'nav-link'
-            li.nav-item
-              = link_to '注册', new_user_registration_url, class: 'nav-link'
-          li.nav-item
-            = link_to '写文章', editor_url, id: 'new_article_btn', class: 'nav-link', target: '_blank'

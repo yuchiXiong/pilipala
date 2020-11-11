@@ -17,6 +17,7 @@
 body {
   @include flex-col;
   height: 100vh;
+  font-family: 'normal';
 
   .body {
     margin-top: 96px;
@@ -58,4 +59,9 @@ body {
       fill: #fff;
     }
   }
+}
+
+@font-face {
+  font-family: 'normal';
+  src: url("../assets/fonts/normal.ttf");
 }
