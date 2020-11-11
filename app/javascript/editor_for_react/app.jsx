@@ -1,12 +1,14 @@
-import React, {Suspense} from 'react';
-import {Layout, Modal, Upload} from 'antd';
-import ImgCrop from 'antd-img-crop';
+import React, { Suspense } from 'react';
+import Cropper from 'react-cropper';
+import { Layout, Modal, Upload, Button } from 'antd';
+
+import 'cropperjs/dist/cropper.css';
 
 const AppSider = React.lazy(() => import('./components/sider'));
 const AppEditor = React.lazy(() => import('./components/editor'));
 import Loading from './components/loading';
 
-import {Users, Blogs, BlogPhotos} from './utils/api';
+import { Users, Blogs, BlogPhotos } from './utils/api';
 
 import styles from './app.module.scss';
 import request from "./utils/request";
@@ -29,16 +31,19 @@ class App extends React.Component {
             // * 当前用户的博客列表
             blogs: [],
             visible: false,
-            fileList: []
+            fileList: [],
+            image: null
         };
+        this.cropperRef = React.createRef();
         this.onToggle = this.onToggle.bind(this);
         this.onCreate = this.onCreate.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.openModal = this.openModal.bind(this);
         this.onChangeImgFile = this.onChangeImgFile.bind(this);
-        this.onPreview = this.onPreview.bind(this);
-        this.updateCover = this.updateCover.bind(this);
+        this.onFinish = this.onFinish.bind(this);
+        // this.onPreview = this.onPreview.bind(this);
+        // this.updateCover = this.updateCover.bind(this);
     }
 
     // * 组件挂载后拉取当前用户的博客列表
@@ -100,35 +105,29 @@ class App extends React.Component {
     }
 
     // * 更新文件
-    onChangeImgFile(obj) {
-        this.setState({fileList: obj.fileList});
+    onChangeImgFile(e) {
+        const files = e.target.files;
+        const reader = new FileReader();
+        reader.onload = () => {
+            this.setState({image: reader.result})
+        }
+        reader.readAsDataURL(files[0]);
     }
 
     // * 上传封面
-    updateCover(obj) {
-        const formData = new FormData();
-        formData.append('_method', 'put');
-        formData.append("blog[cover]", obj.file, obj.file.name);
-        request.post(`/api/blogs/${this.state.current.id}`, formData).then(res => console.log(res));
-
-        // Blogs.update(this.state.current.id, formData).then(res => {
-        //     console.log(res);
-        // });
-    }
-
-    async onPreview(file) {
-        let src = file.url;
-        if (!src) {
-            src = await new Promise(resolve => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file.originFileObj);
-                reader.onload = () => resolve(reader.result);
+    onFinish() {
+        const imageElement = this.cropperRef?.current;
+        const cropper = imageElement?.cropper;
+        cropper.getCroppedCanvas().toBlob(file => {
+            const formData = new FormData();
+            formData.append('_method', 'put');
+            formData.append("blog[cover]", file, 'cover.png');
+            request.post(`/api/blogs/${this.state.current.id}`, formData).then(res => {
+                if (res.code === 8888) {
+                    this.setState({visible: false});
+                }
             });
-        }
-        const image = new Image();
-        image.src = src;
-        const imgWindow = window.open(src);
-        imgWindow.document.write(image.outerHTML);
+        });
     };
 
     render() {
@@ -138,19 +137,30 @@ class App extends React.Component {
                     title="选择博客封面"
                     visible={this.state.visible}
                     footer={null}
+                    destroyOnClose={true}
+                    maskClosable={false}
                     onCancel={() => this.setState({visible: false})}
                 >
-                    <ImgCrop rotate aspect={16 / 9}>
-                        <Upload
-                            customRequest={this.updateCover}
-                            listType="picture-card"
-                            fileList={this.state.fileList}
-                            onChange={this.onChangeImgFile}
-                            onPreview={this.onPreview}
-                        >
-                            {this.state.fileList.length < 1 && '+ Upload'}
-                        </Upload>
-                    </ImgCrop>
+                    <input type="file" onChange={this.onChangeImgFile}/>
+                    <Button type="primary" onClick={this.onFinish}>确认</Button>
+                    <Cropper
+                        style={{height: 400, width: "100%"}}
+                        initialAspectRatio={1}
+                        preview=".img-preview"
+                        src={this.state.image}
+                        viewMode={1}
+                        guides={true}
+                        minCropBoxHeight={10}
+                        minCropBoxWidth={10}
+                        background={false}
+                        responsive={true}
+                        autoCropArea={1}
+                        checkOrientation={false}
+                        // onInitialized={(instance) => {
+                        //     setCropper(instance);
+                        // }}
+                        ref={this.cropperRef}
+                    />
                 </Modal>
                 <Sider
                     className={styles['sider']}

@@ -19,14 +19,14 @@
 
 main.container[role="main"]
   .row
-    .col-12.col-lg-9
+    .left.col-12.col-lg-9
       .blog-main
         .blogs
           = render @blogs, show_author: true
         = link_to '加载更多文章', blogs_url + "?page=#{@page <= 1 ? 2 : @page}", remote: true, id: 'load_more', 'data-page': @page <= 1 ? 2 : @page
         = paginate @blogs, class: 'hidden_paginate'
 
-    aside.col-3.d-none.d-lg-block.blog-sidebar
+    aside.right.col-3.d-none.d-lg-block.blog-sidebar
       .notice
         .hot_authors
           h4.tag
