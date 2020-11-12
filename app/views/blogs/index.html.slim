@@ -2,24 +2,23 @@
 
 = render 'shared/to_top_btn'
 
-#carouselExampleControls.carousel.slide.mb-3 data-ride="carousel"
-  .carousel-inner
-    .carousel-item.active
-      = image_pack_tag 'media/assets/images/default1.png', class: 'w-100'
-    .carousel-item
-      = image_pack_tag 'media/assets/images/default2.png', class: 'w-100'
-  a.carousel-control-prev href="#carouselExampleControls" role="button" data-slide="prev"
-    span.carousel-control-prev-icon aria-hidden="true"
-    span.sr-only
-      | Previous
-  a.carousel-control-next href="#carouselExampleControls" role="button" data-slide="next"
-    span.carousel-control-next-icon aria-hidden="true"
-    span.sr-only
-      | Next
-
 main.container[role="main"]
   .row
     .left.col-12.col-lg-9
+      #homeCarouselControls.carousel.slide.mb-3 data-ride="carousel"
+        .carousel-inner
+          .carousel-item.active
+            = image_pack_tag 'media/assets/images/default1.png', class: 'w-100'
+          .carousel-item
+            = image_pack_tag 'media/assets/images/default2.png', class: 'w-100'
+        a.carousel-control-prev href="#homeCarouselControls" role="button" data-slide="prev"
+          span.carousel-control-prev-icon aria-hidden="true"
+          span.sr-only
+            | Previous
+        a.carousel-control-next href="#homeCarouselControls" role="button" data-slide="next"
+          span.carousel-control-next-icon aria-hidden="true"
+          span.sr-only
+            | Next
       .blog-main
         .blogs
           = render @blogs, show_author: true
@@ -40,8 +39,6 @@ main.container[role="main"]
                     = user.nick_name.truncate(18)
                     p
                       | 收获 --- 赞
-                        / = rand(0..100)
-                        / | 赞
         .hot_blogs
           h4.tag.mt-2
             | 热门博客
@@ -55,20 +52,18 @@ main.container[role="main"]
               /   = rand(0..100)
               hr
 
-          .website_info.text-center
-            p.mb-0
-              small
-                | 关于 |
-              small
-                |  帮助 |
-              small
-                |  联系
-            p.mb-0
-              small
-                | 鄂ICP备18022630号
-            p.mb-0
-              small
-                | Design By&nbsp;
-                = link_to 'yuchi', 'https://github.com/yuchiXiong'
-
-
+        .website_info.text-center
+          p.mb-0
+            small
+              | 关于 |
+            small
+              |  帮助 |
+            small
+              |  联系
+          p.mb-0
+            small
+              | 鄂ICP备18022630号
+          p.mb-0
+            small
+              | Design By&nbsp;
+              = link_to 'yuchi', 'https://github.com/yuchiXiong'

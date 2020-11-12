@@ -26,7 +26,7 @@
 }
 
 #blogs__index {
-  //background-color: $gray_bg_color;
+  background-color: $gray_bg_color;
 
   #load_more {
     text-align: center;
@@ -44,10 +44,11 @@
   .notice {
     position: sticky;
     top: 96px;
-    margin-top: 28px;
-    padding: 0 12px;
 
     .hot_authors {
+      background-color: #fff;
+      padding: 1.25rem;
+
       .tag {
         margin-bottom: 16px;
       }
@@ -69,7 +70,13 @@
     }
 
     .hot_blogs {
+      margin-top: 16px;
+      background-color: #fff;
+      padding: 1.25rem;
+    }
 
+    .website_info {
+      margin-top: 16px;
     }
 
     .hot_item {
@@ -88,18 +95,6 @@
 
   }
 
-  .blog-main {
-    background-color: #fff;
-    padding: 12px 0;
-  }
-
-  .left {
-    padding-left: 0;
-  }
-
-  .right {
-    padding-right: 0;
-  }
 }
 
 #blogs__show {
