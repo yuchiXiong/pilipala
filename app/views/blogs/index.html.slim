@@ -32,16 +32,16 @@ main.container[role="main"]
           h4.tag
             | 热门作者
           ul
-            - User.all.take(10).each do |user|
+            - User.all.take(5).each do |user|
               li
                 = link_to user_url(user.id) do
                   = image_tag user.oss_avatar, class: 'avatar'
                   .hot_author_info
                     = user.nick_name.truncate(18)
                     p
-                      | 收获
-                      = rand(0..100)
-                      | 赞
+                      | 收获 --- 赞
+                        / = rand(0..100)
+                        / | 赞
         .hot_blogs
           h4.tag.mt-2
             | 热门博客
@@ -50,9 +50,9 @@ main.container[role="main"]
               li.hot_item
                 = link_to blog_url(blog.id) do
                   = blog.title.truncate(20)
-                small.ml-auto
-                  = star_icon
-                  = rand(0..100)
+              / small.ml-auto
+              /   = star_icon
+              /   = rand(0..100)
               hr
 
           .website_info.text-center
