@@ -46,6 +46,7 @@
     top: 96px;
 
     .hot_authors {
+      border-radius: 0.25rem;
       background-color: #fff;
       padding: 1.25rem;
 
@@ -65,11 +66,16 @@
         .hot_author_info {
           margin-left: 12px;
           font-size: 14px;
+
+          small {
+            color: $gray_font_color;
+          }
         }
       }
     }
 
     .hot_blogs {
+      border-radius: 0.25rem;
       margin-top: 16px;
       background-color: #fff;
       padding: 1.25rem;
@@ -86,6 +92,7 @@
 
     ul {
       padding-left: 0;
+      margin-bottom: 0;
 
       li {
         list-style: none;
