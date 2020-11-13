@@ -52,19 +52,4 @@ main.container[role="main"]
               /   = star_icon
               /   = rand(0..100)
               hr
-
-        .website_info.text-center
-          p.mb-0
-            small
-              | 关于 |
-            small
-              |  帮助 |
-            small
-              |  联系
-          p.mb-0
-            small
-              | 鄂ICP备18022630号
-          p.mb-0
-            small
-              | Design By&nbsp;
-              = link_to 'yuchi', 'https://github.com/yuchiXiong'
+        = render 'shared/footer'

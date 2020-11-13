@@ -21,6 +21,9 @@ main.container[role="main"]
           #tab_content.tab-content
             #article.tab-pane.fade.show.active[role="tabpanel" aria-labelledby="home-tab"]
               = render @user_blogs, show_author: false
+              - if @user_blogs.count.zero?
+                p.text-center
+                  | 没有找到任何内容
     / #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
     /   = render @user_blogs, show_author: false
 
