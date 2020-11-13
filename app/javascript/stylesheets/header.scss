@@ -1,7 +1,8 @@
 @import "vars";
 @import "mixins";
 
-nav {
+#website_nav,
+#blogs_show_nav_container {
   background-color: #fff;
 
   #logo {
@@ -81,5 +82,31 @@ nav {
 
   #mobile_user_nav {
     border-top: 1px solid $gray_bg_color;
+  }
+}
+
+#blogs_show_nav_container {
+  overflow: hidden;
+  height: 78px;
+
+  #website_nav,
+  #blog_show_nav {
+    position: unset;
+    transition: transform 450ms;
+  }
+
+  #blog_show_nav {
+    #logo {
+      color: $normal_font_color;
+    }
+
+    border-bottom: 1px solid #eee;
+  }
+}
+
+#blogs_show_nav_container.close_website_nav {
+  #website_nav,
+  #blog_show_nav {
+    transform: translate(0, -75px);
   }
 }

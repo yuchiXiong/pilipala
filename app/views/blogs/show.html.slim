@@ -2,6 +2,20 @@
 
 = render 'shared/to_top_btn'
 
+#blogs_show_nav_container.fixed-top
+  = render 'shared/header'
+  nav#blog_show_nav.navbar.navbar-expand-lg.navbar-light
+    .container-lg
+      #logo.navbar-brand
+        = @blog.title
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.ml-auto
+          #nav_item_group
+            li.nav-item#header_home_nav
+              = link_to user_url(@blog.user.id), class: 'nav-link' do
+                = image_tag @blog.user.oss_avatar, class: 'avatar mr-1'
+                = @blog.user.nick_name
+
 .container.mr-auto
   .row
     .col-12.col-lg-9

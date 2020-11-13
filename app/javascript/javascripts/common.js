@@ -23,6 +23,15 @@ $(document).on("turbolinks:load", () => {
     if ($('#alert').length) {
         $("#alert").animate({top: 0}, 450);
     }
+
+    // * .format_date为后端created_at格式时间，自动将其格式化
+    const formatDateContainer = $('.format_date');
+    for (let i = 0; i < formatDateContainer.length; i++) {
+        const current = $(formatDateContainer[i]);
+        const formatDate = dayjs(current.text());
+        current.attr({title: formatDate.fromNow()})
+            .text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
+    }
 });
 
 window.notice = function (title, messages, options = {type: 'primary'}) {

@@ -5,7 +5,6 @@ import hljs from 'highlight.js';
 // * - 滚动至页面底部自动拉取新博客
 // * 博客详情页
 // * - 代码高亮
-// * - 日期格式化
 // * - 生成目录
 // *
 
@@ -19,7 +18,7 @@ $(document).on("turbolinks:load", () => {
         $(document).scroll(() => {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                 const loadMoreBtn = $('#load_more');
-                if ( !loadMoreBtn.data('loading')) {
+                if (!loadMoreBtn.data('loading')) {
                     document.querySelector('#load_more').click();
                     loadMoreBtn.data('loading', true);
                 }
@@ -33,15 +32,6 @@ $(document).on("turbolinks:load", () => {
         const codeBlocks = $('.markdown-article pre>code');
         for (let i = 0; i < codeBlocks.length; i++) {
             hljs.highlightBlock(codeBlocks[i]);
-        }
-
-        // * .format_date为后端created_at格式时间，自动将其格式化
-        const formatDateContainer = $('.format_date');
-        for (let i = 0; i < formatDateContainer.length; i++) {
-            const current = $(formatDateContainer[i]);
-            const formatDate = dayjs(current.text());
-            current.attr({title: formatDate.fromNow()})
-                   .text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
         }
 
         // * 生成目录并添加锚点
@@ -63,6 +53,16 @@ $(document).on("turbolinks:load", () => {
         $("#toc").delegate('a', 'click', function (e) {
             e.preventDefault();
             $('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 80}, 450);
+        });
+
+        // // * 动态修改顶部标题栏
+        $(document).scroll(() => {
+            if ($(document).scrollTop() > 118) {
+                $('#blogs_show_nav_container').addClass('close_website_nav');
+            } else {
+                $('#blogs_show_nav_container').removeClass('close_website_nav');
+            }
+
         })
 
     }
