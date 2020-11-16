@@ -7,7 +7,7 @@ const create = params => {
 };
 
 const update = (id, params) => {
-    return request.post(`/api/blogs/${id}`, {
+    return request.put(`/api/blogs/${id}`, {
         ...params
     });
 };

@@ -1,9 +1,8 @@
 import React from 'react';
 import Turbolinks from 'turbolinks';
-import {Menu, Typography, Button, Dropdown} from 'antd';
-import {SettingOutlined} from '@ant-design/icons';
-import {LeftOutlined, PlusOutlined} from '@ant-design/icons';
-import {Blogs} from '../../utils/api';
+import { Menu, Typography, Button, Dropdown } from 'antd';
+import { SettingOutlined, MinusCircleOutlined, CheckCircleOutlined, LeftOutlined } from '@ant-design/icons';
+import { Blogs } from '../../utils/api';
 import dayjs from 'dayjs';
 
 import styles from './index.module.scss';
@@ -63,9 +62,9 @@ class AppSider extends React.Component {
                 <Menu.Item key="return-home" className={styles['return-home-btn']}>
                     <LeftOutlined/> <Title level={4}>回到首页</Title>
                 </Menu.Item>
-                <Menu.Item key="add-blog-set" className={styles['add-blog-set']}>
-                    <PlusOutlined/> <Text>创建文集</Text>
-                </Menu.Item>
+                {/*<Menu.Item key="add-blog-set" className={styles['add-blog-set']}>*/}
+                {/*    <PlusOutlined/> <Text>创建文集</Text>*/}
+                {/*</Menu.Item>*/}
                 <SubMenu
                     key="default-blog-set"
                     title={<span>默认(暂不支持文集)</span>}
@@ -76,22 +75,31 @@ class AppSider extends React.Component {
                                 onClick={() => this.setState({selected: index})}
                                 className={styles['sider-item']}
                                 key={item.id}>
+                                {
+                                    item.released ?
+                                        <CheckCircleOutlined style={{fontSize: '20px'}}/> :
+                                        <MinusCircleOutlined style={{fontSize: '20px', color: '#ccc'}}/>
+                                }
                                 <Text level={4} ellipsis className={styles['sider-item-title']}>{item.title}</Text>
                                 {
-                                    this.state.selected === index &&
-                                    <Dropdown overlay={
-                                        <Menu>
-                                            <Menu.Item onClick={() => this.props.onUpdateCover()}>
-                                                设置封面
-                                            </Menu.Item>
-                                            <Menu.Item onClick={() => this.onDelete(item.id)}>
-                                                删除博客
-                                            </Menu.Item>
-                                        </Menu>
-                                    }>
+                                    // this.state.selected === index &&
+                                    <Dropdown
+                                        overlay={
+                                            <Menu>
+                                                <Menu.Item onClick={() => this.props.onUpdateCover()}>
+                                                    设置封面
+                                                </Menu.Item>
+                                                <Menu.Item onClick={() => this.onDelete(item.id)}>
+                                                    删除博客
+                                                </Menu.Item>
+                                            </Menu>
+                                        }>
                                         <SettingOutlined
                                             // onClick={() => console.log(item.id)}
-                                            style={{fontSize: '18px'}}/>
+                                            style={{
+                                                fontSize: '18px',
+                                                opacity: this.state.selected === index ? 1 : 0
+                                            }}/>
                                     </Dropdown>
                                 }
 

@@ -154,7 +154,7 @@ class AppEditor extends React.Component {
     render() {
         return <>
             <Input
-                className={styles['input-title']}
+                className={styles['input_title']}
                 ref={this.inputRef}
                 placeholder='博客标题'/>
             <Editor
