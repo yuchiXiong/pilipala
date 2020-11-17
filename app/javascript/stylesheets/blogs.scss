@@ -5,6 +5,16 @@
 
 // * shared blog-post comment styles
 .blog-post {
+
+  .card-image {
+    height: 220px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+    }
+  }
+
   .blog-content, .blog-title {
     color: $normal_font_color;
   }
