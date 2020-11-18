@@ -5,7 +5,23 @@
 
 // * shared blog-post comment styles
 .blog-post {
-  .blog-content, .blog-title {
+
+  .blog-image {
+    height: 220px;
+    background-size: 100%;
+    background-position: center;
+    transition: background-size 450ms, opacity 450ms;
+  }
+
+  &:hover {
+    .blog-image {
+      background-size: 120%;
+      opacity: 0.8;
+    }
+  }
+
+  .blog-content,
+  .blog-title {
     color: $normal_font_color;
   }
 

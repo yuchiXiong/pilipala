@@ -20,7 +20,7 @@ class Blog < ApplicationRecord
     !discarded? && released
   end
 
-  def oss_avatar
+  def oss_cover
     "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{cover.url}"
   end
 
