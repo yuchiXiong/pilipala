@@ -55,15 +55,14 @@ $(document).on("turbolinks:load", () => {
             $('html, body').animate({scrollTop: $($(this).attr('href')).offset().top - 80}, 450);
         });
 
-        // // * 动态修改顶部标题栏
+        // * 动态修改顶部标题栏
         $(document).scroll(() => {
             if ($(document).scrollTop() > 118) {
                 $('#blogs_show_nav_container').addClass('close_website_nav');
             } else {
                 $('#blogs_show_nav_container').removeClass('close_website_nav');
             }
-
-        })
+        });
 
     }
 

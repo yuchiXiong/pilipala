@@ -33,7 +33,10 @@ main.container[role="main"]
           span.tag
             | 个人介绍
           p
-            = @be_visited_user.description
+            - if @be_visited_user.description.blank?
+              | 这个人很懒……什么都没留下
+            - else
+              = @be_visited_user.description
         .rounded#blog_sets
           span.tag
             | 我的文集

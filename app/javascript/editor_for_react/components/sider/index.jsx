@@ -119,3 +119,48 @@ class AppSider extends React.Component {
 }
 
 export default AppSider;
+
+// import React from 'react';
+
+// dataSource={this.state.blogs}
+// onDelete={this.onDelete}
+// onToggle={this.onToggle}
+// onCreate={this.onCreate}
+// onUpdateCover={this.openModal}
+
+// import styles from './index.module.scss';
+//
+// class AppSider extends React.Component {
+//
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             selected: -1
+//         }
+//         this.onSelected = this.onSelected.bind(this);
+//     }
+//
+//     onSelected(index, id) {
+//         this.setState({
+//             selected: index
+//         });
+//         this.props.onToggle(id);
+//     }
+//
+//     render() {
+//         return <ul className={styles['app-sider']}>
+//             {
+//                 this.props.dataSource.map((item, index) => {
+//                     return <li
+//                         onClick={() => this.onSelected(index, item.id)}
+//                         key={item.id}
+//                         className={this.state.selected === index ? styles.active : null}>
+//                         {item.title}
+//                     </li>
+//                 })
+//             }
+//         </ul>
+//     }
+// };
+//
+// export default AppSider;

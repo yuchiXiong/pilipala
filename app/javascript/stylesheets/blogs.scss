@@ -18,15 +18,20 @@
       background-size: 120%;
       opacity: 0.8;
     }
+
+    .blog-content {
+      color: $normal_font_color
+    }
   }
 
   .blog-content,
   .blog-title {
+    transition: color 450ms;
     color: $normal_font_color;
   }
 
-  .blog-title {
-    transition: color 450ms;
+  .blog-content {
+    color: $gray_font_color;
   }
 
   &:hover {

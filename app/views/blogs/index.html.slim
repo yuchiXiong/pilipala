@@ -39,7 +39,11 @@ main.container[role="main"]
                     = user.nick_name.truncate(18)
                     p
                       small
-                        | 收获 --- 赞
+                        - if user.description.blank?
+                          | 这个人很懒……什么都没留下
+                        - else
+                          = user.description
+                          / | 收获 --- 赞
         .hot_blogs
           h4.tag.mt-2
             | 热门博客

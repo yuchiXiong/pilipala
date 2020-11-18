@@ -72,13 +72,25 @@
     @include block;
 
     .list_container {
-      background-color: #fff;
-      padding: 24px;
       margin-top: -12px;
       @include block;
 
+      & .blog-post:first-child {
+        margin-top: 0 !important;
+
+        .card {
+          border-top: none;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+        }
+      }
+
       #tab {
-        margin-bottom: 24px;
+        background-color: #fff;
+        margin-bottom: 0;
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-bottom: none;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 
         .nav-item {
           .nav-link {
