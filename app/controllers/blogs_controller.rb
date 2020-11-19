@@ -5,10 +5,10 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    @page = params[:page].to_i <= 0 ? 1 : params[:page].to_i
+    @page              = params[:page].to_i <= 0 ? 1 : params[:page].to_i
     all_released_blogs = Blog.visible.includes(:user)
-    @blogs = all_released_blogs.page(@page).per(10)
-    @hots = Blog.visible.first(5)
+    @blogs             = all_released_blogs.page(@page).per(10)
+    @hots              = Blog.visible.first(5)
     respond_to do |format|
       format.html
       format.js
@@ -18,6 +18,7 @@ class BlogsController < ApplicationController
   # * GET /blogs/:id
   def show
     @blog = Blog.find(params[:id])
+    current_user.create_action(:read, target: @blog) if current_user
     raise ActiveRecord::RecordNotFound unless @blog.readable?
   end
 

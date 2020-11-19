@@ -31,7 +31,7 @@ main.container[role="main"]
           h4.tag
             | 热门作者
           ul
-            - User.all.take(5).each do |user|
+            - User.all.take(3).each do |user|
               li
                 = link_to user_url(user.id) do
                   = image_tag user.oss_avatar, class: 'avatar'

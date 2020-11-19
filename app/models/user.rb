@@ -7,6 +7,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :blogs, dependent: :destroy
+  action_store :read, :blog, counter_cache: true
+  action_store :like, :blog
 
   enum sex: %i[保密 男 女]
 
