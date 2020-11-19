@@ -1,0 +1,32 @@
+@import "vars";
+@import "mixins";
+
+.blog_sider_ugc {
+  padding-left: 0;
+  position: fixed;
+  top: 20%;
+  margin-left: -54px;
+
+  li {
+    list-style: none;
+    height: 48px;
+    width: 48px;
+    border-radius: 24px;
+    text-align: center;
+    line-height: 48px;
+    cursor: pointer;
+    user-select: none;
+    background-color: #fff;
+
+    svg {
+      vertical-align: text-bottom;
+      height: 24px;
+      width: 24px;
+    }
+  }
+
+  a {
+    color: $normal_font_color
+  }
+
+}

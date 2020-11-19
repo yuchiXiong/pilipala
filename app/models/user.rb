@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :blogs, dependent: :destroy
   action_store :read, :blog, counter_cache: true
-  action_store :like, :blog
+  action_store :like, :blog, counter_cache: true
 
   enum sex: %i[保密 男 女]
 

@@ -22,4 +22,15 @@ class BlogsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless @blog.readable?
   end
 
+  # * POST /blogs/:id/like
+  def like
+    @blog = Blog.find(params[:id])
+    if current_user.like_blog?(@blog)
+      current_user.unlike_blog(@blog)
+    else
+      current_user.like_blog(@blog)
+    end
+    redirect_to @blog
+  end
+
 end

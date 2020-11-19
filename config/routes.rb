@@ -11,31 +11,24 @@ Rails.application.routes.draw do
     passwords:     'users/passwords'
   }
 
+  # * API
   namespace :api do
     resource :blog_photos, only: [:create]
     resources :blogs, only: [:update, :destroy, :create]
     resources :users, only: :blogs do
       get :blogs
     end
-    # resources :users do
-    #   member do
-    #     resource :blogs, only: :index
-    #   end
-    # end
-    # resources :users, only: [:update_info] do
-    # member do
-    #   match :update_info, via: [:put, :patch]
-    # end
-    # end
   end
 
-
-  resources :blogs, only: [:index, :show]
-
+  resources :blogs, only: [:index, :show] do
+    member do
+      post :like
+    end
+  end
   resources :users do
     member do
       # * 更新用户信息
-      match :update_info, to: redirect('users/edit'), via: [:get]
+      match :update_info, to: redirect('users/edit'), via: :get
       match :update_info, via: [:put, :patch]
     end
   end
