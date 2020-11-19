@@ -3,6 +3,7 @@ require 'ali/content_scan'
 class Blog < ApplicationRecord
   include Discard::Model
   belongs_to :user
+
   mount_uploader :cover, CoverUploader
 
   # * 审核结果
@@ -37,4 +38,5 @@ class Blog < ApplicationRecord
     self.scan_result = 'review' if result.include? 'review'
     self.scan_result = 'pass' if result.include? 'block'
   end
+
 end

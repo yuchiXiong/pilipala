@@ -10,10 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_110024) do
+ActiveRecord::Schema.define(version: 2020_11_19_123325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "actions", force: :cascade do |t|
+    t.string "action_type", null: false
+    t.string "action_option"
+    t.string "target_type"
+    t.bigint "target_id"
+    t.string "user_type"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["action_type", "target_type", "target_id", "user_type", "user_id"], name: "uk_action_target_user", unique: true
+    t.index ["target_type", "target_id", "action_type"], name: "index_actions_on_target_type_and_target_id_and_action_type"
+    t.index ["user_type", "user_id", "action_type"], name: "index_actions_on_user_type_and_user_id_and_action_type"
+  end
 
   create_table "blogs", comment: "博客表", force: :cascade do |t|
     t.string "title", null: false, comment: "标题"
@@ -26,6 +40,8 @@ ActiveRecord::Schema.define(version: 2020_10_21_110024) do
     t.boolean "released", default: false, comment: "博客发布状态"
     t.datetime "discarded_at"
     t.integer "scan_result"
+    t.integer "reads_count", default: 0
+    t.integer "likes_count", default: 0
     t.index ["discarded_at"], name: "index_blogs_on_discarded_at"
     t.index ["scan_result"], name: "index_blogs_on_scan_result"
     t.index ["title"], name: "index_blogs_on_title"
@@ -33,8 +49,8 @@ ActiveRecord::Schema.define(version: 2020_10_21_110024) do
   end
 
   create_table "users", comment: "用户表", force: :cascade do |t|
-    t.string "nick_name", default: "SmallBook4a3e8123", comment: "昵称"
-    t.string "email", comment: "邮箱"
+    t.string "nick_name", default: "SmallBook914bb3f4", comment: "昵称"
+    t.string "email", comment: "[废弃]邮箱"
     t.string "avatar", comment: "头像"
     t.integer "sex", default: 0, comment: "性别"
     t.text "description", default: "", comment: "简介"

@@ -10,17 +10,18 @@
           = sanitize render_strip_down(blog.content).truncate(200)
         p.card-text.mt-2
           small.text-muted.blog-data
-            - if show_author
-              = link_to blog.user.nick_name, user_url(blog.user.id), class: 'mr-2'
-            / span.like
-            /   = like_icon
-            /   | &nbsp;--&nbsp;
             / span.comment
             /   = comment_icon
             /   | &nbsp;--&nbsp;
             / span.star
             /   = star_icon
             /   | &nbsp;--&nbsp;
+            - if show_author
+              = link_to blog.user.nick_name, user_url(blog.user.id), class: 'mr-2'
+            span
+              = read_icon
+              | &nbsp;&nbsp;
+              = blog.reads_count
             span.publiced_at.ml-auto
               | 发布于
               span.format_date[data-toggle="tooltip" data-placement="top" title="Tooltip on top"]
