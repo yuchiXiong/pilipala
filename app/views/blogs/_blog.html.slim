@@ -18,10 +18,14 @@
             /   | &nbsp;--&nbsp;
             - if show_author
               = link_to blog.user.nick_name, user_url(blog.user.id), class: 'mr-2'
-            span
+            span.mr-2
               = read_icon
-              | &nbsp;&nbsp;
+              | &nbsp;
               = blog.reads_count
+            span
+              = current_user.like_blog?(blog) ? like_icon_selected : like_icon
+              | &nbsp;
+              = blog.likes_count
             span.publiced_at.ml-auto
               | 发布于
               span.format_date[data-toggle="tooltip" data-placement="top" title="Tooltip on top"]
