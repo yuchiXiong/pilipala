@@ -1,5 +1,12 @@
 $(document).on("turbolinks:load", () => {
 
+    // * 全局处理基于 remote => true 返回的 HTTP 401
+    $(document).on('ajax:error', e => {
+        if (e.detail[e.detail.length - 1].status === 401) {
+            Turbolinks.visit('/users/sign_in');
+        }
+    });
+
     $("#alert").delegate(".close", "click", () => {
         $("#alert").animate({top: -200}, 450, null, function () {
             this.remove();
@@ -30,7 +37,7 @@ $(document).on("turbolinks:load", () => {
         const current = $(formatDateContainer[i]);
         const formatDate = dayjs(current.text());
         current.attr({title: formatDate.fromNow()})
-            .text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
+               .text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
     }
 });
 
