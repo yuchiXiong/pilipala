@@ -20,6 +20,7 @@ class BlogsController < ApplicationController
   def show
     @blog = Blog.find(params[:id])
     current_user.read_blog(@blog) if current_user
+    @comment = Comment.new
     raise ActiveRecord::RecordNotFound unless @blog.readable?
   end
 

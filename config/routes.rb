@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     member do
       post :like
     end
+    resources :comments
   end
   resources :users do
     member do

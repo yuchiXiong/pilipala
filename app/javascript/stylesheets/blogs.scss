@@ -211,6 +211,19 @@
 
       }
     }
+
+    .comments {
+      background-color: #fff;
+      padding: 24px;
+      border-radius: 5px;
+
+      .avatar {
+        height: 48px;
+        width: 48px;
+        border-radius: 24px;
+      }
+    }
+
   }
 
   .right {

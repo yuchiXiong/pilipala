@@ -1,0 +1,12 @@
+li.media.mt-3.mb-3
+  img.mr-3.avatar[src==comment.user.oss_avatar alt==comment.user.nick_name]
+  .media-body
+    h6.mt-0.mb-1
+      = comment.user.nick_name
+    p.mt-2.mb-2
+      = comment.content
+    small
+      | 发布于&nbsp;
+      span.format_date
+        = comment.created_at
+    hr

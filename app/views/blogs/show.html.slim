@@ -18,6 +18,7 @@
                 = image_tag @blog.user.oss_avatar, class: 'avatar mr-1'
                 = @blog.user.nick_name
 
+
 .container.mr-auto
   .row
     .col-12.col-lg-9.left
@@ -45,6 +46,22 @@
               = link_to 'CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/deed.zh'
               | &nbsp;协议 ，转载请注明出处！
               | 尊重Ta人劳动成果，从你我做起！
+
+      section.mt-3.comments
+        h4
+          | 评论
+        small
+          = "共有 "
+          span.comments_count
+            = @blog.comments.count
+          = " 条评论"
+        = form_for [@blog, @comment], remote: true do |f|
+          = f.text_area 'content', class: 'form-control mt-3 mb-3', rows: '3', placeholder: '发条友善的评论吧', data: { "disable-with": "Saving..." }
+          = f.submit '发表', class: 'btn btn-primary'
+
+        hr
+        .ul.list-unstyled.comment_list
+          = render @blog.comments
 
     .col-3.d-none.d-lg-block.right
       .blog_show_right
