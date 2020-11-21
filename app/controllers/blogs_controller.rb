@@ -9,6 +9,7 @@ class BlogsController < ApplicationController
     all_released_blogs = Blog.visible.includes(:user)
     @blogs             = all_released_blogs.page(@page).per(10)
     @hots              = Blog.visible.first(5)
+    @current_user_like_blog_ids = current_user.like_blogs.ids if current_user
     respond_to do |format|
       format.html
       format.js
@@ -18,7 +19,7 @@ class BlogsController < ApplicationController
   # * GET /blogs/:id
   def show
     @blog = Blog.find(params[:id])
-    current_user.create_action(:read, target: @blog) if current_user
+    current_user.read_blog(@blog) if current_user
     raise ActiveRecord::RecordNotFound unless @blog.readable?
   end
 

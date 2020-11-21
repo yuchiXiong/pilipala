@@ -3,6 +3,7 @@ require 'ali/content_scan'
 class Blog < ApplicationRecord
   include Discard::Model
   belongs_to :user
+  has_many :comments
 
   mount_uploader :cover, CoverUploader
 
@@ -11,7 +12,7 @@ class Blog < ApplicationRecord
 
   # * 所有处于发布状态的文章
   scope :visible, -> { where({ released: true, discarded_at: nil }) }
-  default_scope { order(updated_at: :desc) }
+  default_scope { order(likes_count: :desc) }
 
   # * 自动审核并进行标识
   # before_save :content_scan

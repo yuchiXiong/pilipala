@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   # * Get /users/:id
   def show
     @user_blogs = @be_visited_user.blogs.visible
+    @current_user_like_blog_ids = current_user.like_blogs.ids if current_user
   end
 
   def update_info

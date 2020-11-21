@@ -23,7 +23,7 @@
               | &nbsp;
               = blog.reads_count
             span
-              = (current_user && current_user.like_blog?(blog)) ? like_icon_selected : like_icon
+              = (current_user && (@current_user_like_blog_ids.include? blog.id)) ? like_icon_selected : like_icon
               | &nbsp;
               = blog.likes_count
             span.publiced_at.ml-auto
