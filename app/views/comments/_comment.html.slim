@@ -1,12 +1,25 @@
-li.media.mt-3.mb-3
-  img.mr-3.avatar[src==comment.user.oss_avatar alt==comment.user.nick_name]
+li.media.mt-3.mb-3.comment data-id==comment.id
+  = link_to user_url(comment.user.id) do
+    img.mr-3.avatar[src==comment.user.oss_avatar alt==comment.user.nick_name]
   .media-body
     h6.mt-0.mb-1
       = comment.user.nick_name
     p.mt-2.mb-2
       = comment.content
-    small
-      | 发布于&nbsp;
+    small.d-flex.flex-row.w-100.user_operation
       span.format_date
         = comment.created_at
+      span.ml-2.reply
+        = link_to '回复', comment_blog_comment_path(comment.blog.id, comment.id), remote: true
+
+      - if current_user && current_user.id == comment.user.id
+        span.ml-auto
+          a.dropdown-toggle href="#" id="comment_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            | ...
+          .dropdown-menu aria-labelledby="comment_dropdown"
+            = link_to '删除', blog_comment_path(comment.blog.id, comment.id), remote: true, method: :delete, class: 'dropdown-item'
+
+    .sub_comments
+      = render partial: 'comments/sub_comment', collection: comment.sub_comments, locals: { blog: comment.blog }
+
     hr

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_21_074813) do
+ActiveRecord::Schema.define(version: 2020_11_22_023549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_11_21_074813) do
     t.integer "scan_result"
     t.integer "reads_count", default: 0
     t.integer "likes_count", default: 0
+    t.integer "comments_count", default: 0, comment: "评论总数缓存"
     t.index ["discarded_at"], name: "index_blogs_on_discarded_at"
     t.index ["scan_result"], name: "index_blogs_on_scan_result"
     t.index ["title"], name: "index_blogs_on_title"

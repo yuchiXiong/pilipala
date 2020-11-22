@@ -1,7 +1,18 @@
 (function () {
-    $("#comment_content").val('');
+    $(".new_comment #comment_content").val('');
+    $(".sub_comment_input #comment_content").val('');
     $(".comments_count").text(parseInt($(".comments_count").text()) + 1);
+
+    <%- if params[:comment][:comment_id] %>
+    $('.comment').map((index, item) => {
+        if (parseInt($(item).data('id')) === <%= @comment.comment_id %>) {
+            $("<%= escape_javascript(render partial: 'comments/sub_comment', object: @comment, locals: { blog: @comment.blog })%>").prependTo($(item).find('.sub_comments'))
+        }
+    });
+    <%- else %>
     $("<%= escape_javascript(render @comment)%>").prependTo(".comment_list");
+    <%- end %>
+
     // * .format_date为后端created_at格式时间，自动将其格式化
     const formatDateContainer = $('.comment_list .format_date')[0];
     const current = $(formatDateContainer);

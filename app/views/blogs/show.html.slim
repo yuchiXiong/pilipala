@@ -55,13 +55,11 @@
           span.comments_count
             = @blog.comments.count
           = " 条评论"
-        = form_for [@blog, @comment], remote: true do |f|
-          = f.text_area 'content', class: 'form-control mt-3 mb-3', rows: '3', placeholder: '发条友善的评论吧', data: { "disable-with": "Saving..." }
-          = f.submit '发表', class: 'btn btn-primary'
+        = render 'comments/comment_input', blog: @blog, comment: @comment
 
         hr
         .ul.list-unstyled.comment_list
-          = render @blog.comments
+          = render @blog.comments.includes(:user, :sub_comments).where(comment_id: nil)
 
     .col-3.d-none.d-lg-block.right
       .blog_show_right

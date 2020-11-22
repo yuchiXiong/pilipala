@@ -222,6 +222,29 @@
         width: 48px;
         border-radius: 24px;
       }
+
+      #comment_dropdown:after {
+        display: none;
+      }
+
+      .user_operation,
+      .reply > a {
+        color: $gray_font_color;
+
+      }
+
+      .reply > a:hover {
+        color: $theme_color;
+      }
+
+      .sub_comment {
+        .sub_comment_avatar {
+          height: 24px;
+          width: 24px;
+          border-radius: 16px;
+        }
+      }
+
     }
 
   }
