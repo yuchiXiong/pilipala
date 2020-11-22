@@ -14,10 +14,9 @@
         ul.navbar-nav.ml-auto
           #nav_item_group
             li.nav-item#header_home_nav
-              = link_to user_url(@blog.user.id), class: 'nav-link' do
+              = link_to user_url(@blog.user_id), class: 'nav-link' do
                 = image_tag @blog.user.oss_avatar, class: 'avatar mr-1'
                 = @blog.user.nick_name
-
 
 .container.mr-auto
   .row
@@ -53,7 +52,7 @@
         small
           = "共有 "
           span.comments_count
-            = @blog.comments.count
+            = @blog.comments_count
           = " 条评论"
         = render 'comments/comment_input', blog: @blog, comment: @comment
 
