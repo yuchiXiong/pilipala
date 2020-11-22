@@ -12,7 +12,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    # Comment.find(params[:id]).delete
+    @comment = Comment.find(params[:id])
+    raise Access_Denied unless current_user.id == @comment.user_id
+    if @comment.comment_id.nil?
+      @comment.sub_comments.destroy_all
+    else
+      @comment.delete
+    end
     redirect_to @blog
   end
 

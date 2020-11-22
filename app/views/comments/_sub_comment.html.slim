@@ -1,5 +1,5 @@
 .media.mt-3.sub_comment
-  = link_to user_url(sub_comment.user.id), class: 'mr-2 align-self-center' do
+  = link_to user_url(sub_comment.user_id), class: 'mr-2 align-self-center' do
     img.sub_comment_avatar[src==sub_comment.user.oss_avatar alt==sub_comment.user.nick_name]
   .media-body
     span.mt-0.mb-1.mr-2
@@ -11,3 +11,10 @@
         = sub_comment.created_at
       span.ml-2.reply
         = link_to '回复', comment_blog_comment_path(blog.id, sub_comment.comment_id), remote: true
+
+      - if current_user && current_user.id == sub_comment.user.id
+        span.ml-auto
+          a.dropdown-toggle href="#" id="comment_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+            | ...
+          .dropdown-menu aria-labelledby="comment_dropdown"
+            = link_to '删除', blog_comment_path(sub_comment.blog_id, sub_comment.id), remote: true, method: :delete, class: 'dropdown-item'
