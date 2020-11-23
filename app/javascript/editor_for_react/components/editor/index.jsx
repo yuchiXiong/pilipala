@@ -5,7 +5,8 @@ import { Editor } from '@toast-ui/react-editor';
 import { BlogPhotos } from '../../utils/api';
 import hljs from 'highlight.js';
 
-import 'highlight.js/styles/github.css';
+``// import 'highlight.js/styles/github.css';
+import 'highlight.js/styles/atom-one-dark';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 import styles from './index.module.scss';

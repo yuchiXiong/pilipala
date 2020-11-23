@@ -14,6 +14,7 @@
 @import "../stylesheets/devise";
 
 @import "~highlight.js/styles/atom-one-dark";
+//@import "~highlight.js/styles/github-gists";
 
 body {
   @include flex-col;
