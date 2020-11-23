@@ -23,7 +23,7 @@ $(document).on("turbolinks:load", () => {
                     loadMoreBtn.data('loading', true);
                 }
             }
-        })
+        });
     }
 
     // * 博客详情页

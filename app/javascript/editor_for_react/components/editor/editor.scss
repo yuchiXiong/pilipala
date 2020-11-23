@@ -1,0 +1,56 @@
+@import "../../../stylesheets/vars";
+
+.tui-md-heading1,
+.te-preview .tui-editor-contents h1 {
+  font-size: 30px;
+}
+
+.tui-md-heading2,
+.te-preview .tui-editor-contents h2 {
+  font-size: 24px;
+}
+
+.tui-md-heading3,
+.tui-md-heading4,
+.tui-md-heading5,
+.tui-md-heading6,
+.te-preview .tui-editor-contents h3,
+.te-preview .tui-editor-contents h4,
+.te-preview .tui-editor-contents h5,
+.te-preview .tui-editor-contents h6 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.tui-editor-contents h1,
+.tui-editor-contents h2,
+.tui-editor-contents h3,
+.tui-editor-contents h4,
+.tui-editor-contents h5,
+.tui-editor-contents h6 {
+  border-bottom: 1px solid $gray_bg_color;
+  padding-bottom: 12px;
+  margin-top: 40px;
+  margin-bottom: 12px;
+}
+
+pre span,
+.tui-editor-contents p {
+  font-size: 16px;
+}
+
+.tui-editor-contents blockquote {
+  padding: 24px 12px;
+  border-left: 4px solid $dim_theme_color;
+  background-color: #f0f0f0;
+
+  &:after {
+    border-left: 4px solid $dim_theme_color;
+    background-color: #f0f0f0 !important;
+  }
+}
+
+.tui-editor-contents code {
+  color: #e83e8c;
+  background-color: unset;
+}

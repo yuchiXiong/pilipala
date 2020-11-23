@@ -3,8 +3,13 @@ import { Input } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
 
 import { BlogPhotos } from '../../utils/api';
+import hljs from 'highlight.js';
+
+import 'highlight.js/styles/github.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 import styles from './index.module.scss';
+import './editor.scss';
 
 const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
 
@@ -163,8 +168,10 @@ class AppEditor extends React.Component {
                 height="100%"
                 initialEditType="markdown"
                 useCommandShortcut={true}
+                previewHighlight={true}
                 hooks={{addImageBlobHook: this.addImageBlobHook}}
                 toolbarItems={toolbar(this.props.blog.released)}
+                plugins={[[codeSyntaxHighlight, {hljs}]]}
             />
         </>;
     }

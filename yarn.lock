@@ -1066,6 +1066,13 @@
     webpack-cli "^3.3.12"
     webpack-sources "^1.4.3"
 
+"@toast-ui/editor-plugin-code-syntax-highlight@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/@toast-ui/editor-plugin-code-syntax-highlight/download/@toast-ui/editor-plugin-code-syntax-highlight-1.0.0.tgz#61898e4f721c63bb28f59e470804b8e62ef9cbe4"
+  integrity sha1-YYmOT3IcY7so9Z5HCAS45i75y+Q=
+  dependencies:
+    highlight.js "^9.18.1"
+
 "@toast-ui/editor@^2.5.0":
   version "2.5.0"
   resolved "https://registry.npm.taobao.org/@toast-ui/editor/download/@toast-ui/editor-2.5.0.tgz#02779b119eaa6dd7601249d75ca031e0b98400f1"
@@ -3740,6 +3747,11 @@ highlight.js@^10.2.1:
   version "10.2.1"
   resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-10.2.1.tgz#09784fe2e95612abbefd510948945d4fe6fa9668"
   integrity sha1-CXhP4ulWEqu+/VEJSJRdT+b6lmg=
+
+highlight.js@^9.18.1:
+  version "9.18.5"
+  resolved "https://registry.npm.taobao.org/highlight.js/download/highlight.js-9.18.5.tgz#d18a359867f378c138d6819edfc2a8acd5f29825"
+  integrity sha1-0Yo1mGfzeME41oGe38KorNXymCU=
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
