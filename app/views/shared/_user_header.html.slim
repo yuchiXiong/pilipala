@@ -1,0 +1,12 @@
+nav#website_nav.user_blog_header.navbar.navbar-expand-lg.navbar-light
+  .container-lg
+    #logo.navbar-brand
+      = link_to 'Small Book', root_url, class: 'nav-link'
+    ul.navbar-nav.mr-auto
+      h4.mb-0
+        = @be_visited_user.nick_name
+    ul.navbar-nav
+      li.nav-item#header_home_nav
+        / = link_to user_url(@blog.user_id), class: 'nav-link' do
+        /   = image_tag @blog.user.oss_avatar, class: 'avatar mr-1'
+        /   = @blog.user.nick_name

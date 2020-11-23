@@ -18,7 +18,7 @@ $(document).on("turbolinks:load", () => {
         $(document).scroll(() => {
             if ($(document).scrollTop() >= $(document).height() - $(window).height()) {
                 const loadMoreBtn = $('#load_more');
-                if (!loadMoreBtn.data('loading')) {
+                if ( !loadMoreBtn.data('loading')) {
                     document.querySelector('#load_more').click();
                     loadMoreBtn.data('loading', true);
                 }
@@ -58,9 +58,9 @@ $(document).on("turbolinks:load", () => {
         // * 动态修改顶部标题栏
         $(document).scroll(() => {
             if ($(document).scrollTop() > 118) {
-                $('#blogs_show_nav_container').addClass('close_website_nav');
+                $('.website_nav').addClass('close_website_nav');
             } else {
-                $('#blogs_show_nav_container').removeClass('close_website_nav');
+                $('.website_nav').removeClass('close_website_nav');
             }
         });
 

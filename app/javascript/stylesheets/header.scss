@@ -1,9 +1,9 @@
 @import "vars";
 @import "mixins";
 
-#website_nav,
-#blogs_show_nav_container {
+#website_nav {
   background-color: #fff;
+  transition: top 450ms;
 
   #logo {
     color: $theme_color;
@@ -85,28 +85,15 @@
   }
 }
 
-#blogs_show_nav_container {
-  overflow: hidden;
-  height: 78px;
-
-  #website_nav,
-  #blog_show_nav {
-    position: unset;
-    transition: transform 450ms;
-  }
-
-  #blog_show_nav {
-    #logo {
-      color: $normal_font_color;
-    }
-
-    border-bottom: 1px solid #eee;
-  }
+.user_blog_header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  left: 0;
+  top: 0;
 }
 
-#blogs_show_nav_container.close_website_nav {
-  #website_nav,
-  #blog_show_nav {
-    transform: translate(0, -75px);
-  }
+.close_website_nav {
+  top: -78px;
 }
+

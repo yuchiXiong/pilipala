@@ -21,7 +21,7 @@
     </button>
   </div>
 <% end %>
-<%= render 'shared/header' unless "#{controller_name}__#{action_name}".eql? 'blogs__show' %>
+<%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
 <div class="container body">
   <%= yield %>
 </div>
