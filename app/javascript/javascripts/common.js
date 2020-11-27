@@ -1,11 +1,11 @@
 $(document).on("turbolinks:load", () => {
 
     // * 全局处理基于 remote => true 返回的 HTTP 401
-    $(document).on('ajax:error', e => {
-        if (e.detail[e.detail.length - 1].status === 401) {
-            Turbolinks.visit('/users/sign_in');
-        }
-    });
+    // $(document).on('ajax:error', e => {
+    //     if (e.detail[e.detail.length - 1].status === 401) {
+    //         Turbolinks.visit('/users/sign_in');
+    //     }
+    // });
 
     $("#alert").delegate(".close", "click", () => {
         $("#alert").animate({top: -200}, 450, null, function () {
