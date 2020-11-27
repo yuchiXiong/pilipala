@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
 import { Editor } from '@toast-ui/react-editor';
+import dayjs from 'dayjs';
 
 import { BlogPhotos } from '../../utils/api';
 import hljs from 'highlight.js';
@@ -84,10 +85,12 @@ class AppEditor extends React.Component {
 
     constructor(props) {
         super(props);
+        this.timer = null;
         this.userInfo = gon.currentUser;
         this.editorRef = React.createRef(null);
         this.inputRef = React.createRef(null);
         this.addImageBlobHook = this.addImageBlobHook.bind(this);
+        this.handleEditorChange = this.handleEditorChange.bind(this);
     }
 
     componentDidMount() {
@@ -157,6 +160,19 @@ class AppEditor extends React.Component {
         }
     }
 
+    handleEditorChange() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+            this.props.onUpdate({
+                ...this.props.blog,
+                content: this.editorRef.current.getInstance().getMarkdown()
+            });
+        }, 500);
+
+    }
+
     render() {
         return <>
             <Input
@@ -165,6 +181,7 @@ class AppEditor extends React.Component {
                 placeholder='博客标题'/>
             <Editor
                 ref={this.editorRef}
+                onChange={this.handleEditorChange}
                 previewStyle="vertical"
                 height="100%"
                 initialEditType="markdown"

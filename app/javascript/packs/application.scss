@@ -20,6 +20,8 @@ body {
   @include flex-col;
   height: 100vh;
   font-family: 'normal';
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   .body {
     margin-top: 96px;
@@ -46,7 +48,6 @@ body {
   display: none;
   z-index: 100;
   border: 1px solid $theme_color;
-  transition: all 300ms;
   background-color: #fff;
 
   svg > path {

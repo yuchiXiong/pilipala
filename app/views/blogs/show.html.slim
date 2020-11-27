@@ -3,8 +3,9 @@
 = render 'shared/to_top_btn'
 = render 'ugc', blog: @blog
 
-= render 'shared/header'
-= render 'shared/user_blog_header'
+= provide :slot do
+  = render 'shared/header'
+  = render 'shared/user_blog_header'
 
 .container.mr-auto
   .row

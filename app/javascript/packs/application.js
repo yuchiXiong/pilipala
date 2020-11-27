@@ -37,3 +37,14 @@ dayjs.extend(relativeTime);
 global.$ = $;
 global.dayjs = dayjs;
 Turbolinks.start();
+
+$(document).on('turbolinks:load', () => {
+    $('.page').animate({marginRight: 0, opacity: 1}, 450);
+});
+
+$(document).on('ajax:error', e => {
+    if (e.detail[e.detail.length - 1].status === 401) {
+        Turbolinks.visit('/users/sign_in');
+    }
+});
+

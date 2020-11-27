@@ -2,8 +2,9 @@
 
 = render 'shared/to_top_btn'
 
-= render 'shared/header'
-= render 'shared/user_header'
+= provide :slot do
+  = render 'shared/header'
+  = render 'shared/user_header'
 
 main.container[role="main"]
   .row

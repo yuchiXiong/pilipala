@@ -22,9 +22,15 @@
   </div>
 <% end %>
 <%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
-<div class="container body">
-  <%= yield %>
+<%= yield :slot %>
+
+<div class="page">
+  <div class="container body">
+    <%= yield %>
+  </div>
 </div>
-<%#= render 'shared/footer' %>
+<script>
+    $('.page').css({marginRight: '-10%', opacity: 0});
+</script>
 </body>
 </html>
