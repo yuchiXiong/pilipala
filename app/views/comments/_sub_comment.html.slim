@@ -7,7 +7,7 @@
     span.mt-2.mb-2
       = sub_comment.content
     small.d-flex.flex-row.w-100.user_operation
-      span.format_date
+      span.format_date[data-controller='format-date']
         = sub_comment.created_at
       span.ml-2.reply
         = link_to '回复', comment_blog_comment_path(blog.id, sub_comment.comment_id), remote: true

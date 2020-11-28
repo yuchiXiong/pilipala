@@ -26,10 +26,8 @@ import Turbolinks from 'turbolinks';
 require("@rails/activestorage").start();
 require("channels");
 
-import '../javascripts/blogs';
 import '../javascripts/devise';
 import '../javascripts/common';
-import '../javascripts/users';
 
 dayjs.locale('zh-cn');
 dayjs.extend(relativeTime);

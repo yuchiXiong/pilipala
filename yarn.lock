@@ -1066,6 +1066,30 @@
     webpack-cli "^3.3.12"
     webpack-sources "^1.4.3"
 
+"@stimulus/core@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/@stimulus/core/download/@stimulus/core-1.1.1.tgz#42b0cfe5b73ca492f41de64b77a03980bae92c82"
+  integrity sha1-QrDP5bc8pJL0HeZLd6A5gLrpLII=
+  dependencies:
+    "@stimulus/mutation-observers" "^1.1.1"
+
+"@stimulus/multimap@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/@stimulus/multimap/download/@stimulus/multimap-1.1.1.tgz#b95e3fd607345ab36e5d5b55486ee1a12d56b331"
+  integrity sha1-uV4/1gc0WrNuXVtVSG7hoS1WszE=
+
+"@stimulus/mutation-observers@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/@stimulus/mutation-observers/download/@stimulus/mutation-observers-1.1.1.tgz#0f6c6f081308427fed2a26360dda0c173b79cfc0"
+  integrity sha1-D2xvCBMIQn/tKiY2DdoMFzt5z8A=
+  dependencies:
+    "@stimulus/multimap" "^1.1.1"
+
+"@stimulus/webpack-helpers@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/@stimulus/webpack-helpers/download/@stimulus/webpack-helpers-1.1.1.tgz#eff60cd4e58b921d1a2764dc5215f5141510f2c2"
+  integrity sha1-7/YM1OWLkh0aJ2TcUhX1FBUQ8sI=
+
 "@toast-ui/editor-plugin-code-syntax-highlight@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/@toast-ui/editor-plugin-code-syntax-highlight/download/@toast-ui/editor-plugin-code-syntax-highlight-1.0.0.tgz#61898e4f721c63bb28f59e470804b8e62ef9cbe4"
@@ -7621,6 +7645,14 @@ stdout-stream@^1.4.0:
   integrity sha1-WsF0zdXNcmEEqgwLK9g4FdjVNd4=
   dependencies:
     readable-stream "^2.0.1"
+
+stimulus@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npm.taobao.org/stimulus/download/stimulus-1.1.1.tgz#53c2fded6849e7b85eed3ed8dd76e33abd74bec5"
+  integrity sha1-U8L97WhJ57he7T7Y3XbjOr10vsU=
+  dependencies:
+    "@stimulus/core" "^1.1.1"
+    "@stimulus/webpack-helpers" "^1.1.1"
 
 stream-browserify@^2.0.1:
   version "2.0.2"

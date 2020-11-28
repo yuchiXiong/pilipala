@@ -4,8 +4,9 @@
 = render 'ugc', blog: @blog
 
 = provide :slot do
-  = render 'shared/header'
-  = render 'shared/user_blog_header'
+  nav[data-controller='navbar-toggle' data-action='scroll@document->navbar-toggle#toggleNavbar']
+    = render 'shared/header'
+    = render 'shared/user_blog_header'
 
 .container.mr-auto
   .row
@@ -17,7 +18,7 @@
           p.count
             small.create_at.mr-2
               | 发布于
-              small.format_date
+              small.format_date[data-controller='format-date']
                 = @blog.created_at
             small
               = read_icon
@@ -26,7 +27,7 @@
 
         = render @blog.user, be_visited_user: @blog.user
 
-        article
+        article[data-controller='markdown-parse']
           = sanitize render_markdown(@blog.content)
           .article_footer
             .cc_by_sa_4_tips
@@ -54,4 +55,4 @@
         #toc_sider
           h4
             | 目录
-          #toc
+          #toc[data-controller='toc' data-action='click->toc#scrollTo']

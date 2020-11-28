@@ -3,8 +3,9 @@
 = render 'shared/to_top_btn'
 
 = provide :slot do
-  = render 'shared/header'
-  = render 'shared/user_header'
+  div[data-controller='navbar-toggle' data-action='scroll@document->navbar-toggle#toggleNavbar']
+    = render 'shared/header'
+    = render 'shared/user_header'
 
 main.container[role="main"]
   .row

@@ -1,9 +1,7 @@
 (function () {
     const loadMoreBtn = $('#load_more');
-    loadMoreBtn.data({
-        'page': loadMoreBtn.data('page') + 1,
-        'loading': false
-    })
+    $('data[scroll-fetch-loading]').data({'scroll-fetch-loading': false});
+    loadMoreBtn.data({'page': loadMoreBtn.data('page') + 1})
                .attr('href', `${'<%= blogs_url %>'}?page=${loadMoreBtn.data('page')}`);
     <%- if @blogs.count.zero? %>
     loadMoreBtn.attr({href: "#", 'data-remote': false})
@@ -13,12 +11,5 @@
     <%- else %>
     $("<%= escape_javascript(render @blogs, show_author: true)%>").appendTo(".blogs");
     <%- end %>
-// * .format_date为后端created_at格式时间，自动将其格式化
-    const formatDateContainer = $('.format_date');
-    for (let i = 0; i < formatDateContainer.length; i++) {
-        const current = $(formatDateContainer[i]);
-        const formatDate = dayjs(current.text());
-        current.attr({title: formatDate.fromNow()});
-        current.text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
-    }
+
 })();

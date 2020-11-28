@@ -12,11 +12,4 @@
     <%- else %>
     $("<%= escape_javascript(render @comment)%>").prependTo(".comment_list");
     <%- end %>
-
-    // * .format_date为后端created_at格式时间，自动将其格式化
-    const formatDateContainer = $('.comment_list .format_date')[0];
-    const current = $(formatDateContainer);
-    const formatDate = dayjs(current.text());
-    current.attr({title: formatDate.fromNow()});
-    current.text(formatDate.format('YYYY-MM-DD HH:mm:ss'));
 })();
