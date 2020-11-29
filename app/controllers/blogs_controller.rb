@@ -1,7 +1,7 @@
 require 'ali/content_scan'
 
 class BlogsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show]
+  skip_before_action :authenticate_user!, except: %i[like]
 
   # * GET /blogs
   def index
@@ -11,8 +11,11 @@ class BlogsController < ApplicationController
     @hots                       = Blog.visible.first(5)
     @current_user_like_blog_ids = current_user.like_blogs.ids if current_user
     respond_to do |format|
+      format.js {
+        return render json: nil if @blogs.size.zero?
+        render partial: 'blogs/blog', collection: @blogs, locals: { show_author: false }, content_type: 'text/html'
+      }
       format.html
-      format.js
     end
   end
 

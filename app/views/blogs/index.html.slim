@@ -20,11 +20,12 @@ main.container[role="main"]
           span.sr-only
             | Next
       .blog-main
-        .blogs
+        .blogs[data-controller='scroll-fetch'
+          data-action="scroll@document->scroll-fetch#fetch"
+          data-scroll-fetch-loading='false'
+          data-scroll-fetch-page="2"
+          data-scroll-fetch-none='false']
           = render @blogs, show_author: true
-        div[data-controller='scroll-fetch' data-scroll-fetch-loading="false"]
-          - @page_no = @page <= 1 ? 2 : @page
-          = link_to '加载更多文章', blogs_url + "?page=#{@page_no}", remote: true, id: 'load_more', data: { page: @page_no, action: 'scroll@document->scroll-fetch#fetch' }
           = paginate @blogs
 
     aside.right.col-3.d-none.d-lg-block.blog-sidebar
