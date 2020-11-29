@@ -27,7 +27,6 @@ require("@rails/activestorage").start();
 require("channels");
 
 import '../javascripts/devise';
-import '../javascripts/common';
 
 dayjs.locale('zh-cn');
 dayjs.extend(relativeTime);

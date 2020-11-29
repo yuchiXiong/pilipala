@@ -13,3 +13,14 @@
     outline: none;
   }
 }
+
+#notice {
+  z-index: 1080;
+  top: -500px;
+  width: 60%;
+  margin: auto;
+
+  .close {
+    outline: none;
+  }
+}
