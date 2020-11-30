@@ -6,11 +6,8 @@
 // * shared blog-post comment styles
 .blog-post {
 
-  .blog-image {
-    height: 220px;
-    background-size: 100%;
-    background-position: center;
-    transition: background-size 450ms, opacity 450ms;
+  .blog-title:hover {
+    color: $theme_color;
   }
 
   &:hover {
@@ -18,31 +15,33 @@
       background-size: 120%;
       opacity: 0.8;
     }
-
-    .blog-content {
-      color: $normal_font_color
-    }
   }
 
   .blog-content,
   .blog-title {
-    transition: color 450ms;
     color: $normal_font_color;
+    transition: color 450ms;
+  }
+
+  .blog-image {
+    height: 220px;
+    background-size: 100%;
+    background-position: center;
+    transition: background-size 450ms, opacity 450ms;
   }
 
   .blog-content {
     color: $gray_font_color;
-  }
-
-  &:hover {
-    .blog-title {
-      color: $theme_color;
-    }
+    font-size: 16px;
   }
 
   .blog-data {
+    border-top: 1px solid rgba(68, 68, 68, 0.1);
+    margin-top: 12px;
+    padding-top: 12px;
     @include flex-row;
   }
+
 
 }
 
@@ -111,6 +110,10 @@
 
       .website_info {
         margin-top: 16px;
+
+        .author_href {
+          color: $theme_color;
+        }
       }
 
       .hot_item {

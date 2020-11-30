@@ -18,9 +18,10 @@
 //@import "~highlight.js/styles/github-gists";
 
 body {
+  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-weight: 500;
   @include flex-col;
   height: 100vh;
-  font-family: 'normal';
   overflow-x: hidden;
   overflow-y: scroll;
 
@@ -66,6 +67,11 @@ body {
 }
 
 @font-face {
-  font-family: 'normal';
-  src: url("https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com/assets/fonts/normal.ttf");
+  font-family: UbuntuMono;
+  src: url("../assets/fonts/UbuntuMono-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Varela Round";
+  src: url("../assets/fonts/VarelaRound-Regular.ttf");
 }

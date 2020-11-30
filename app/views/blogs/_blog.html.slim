@@ -8,8 +8,8 @@
           = blog.title
         p.card-text.blog-content
           = sanitize render_strip_down(blog.content).truncate(200)
-        p.card-text.mt-2
-          small.text-muted.blog-data
+        p.card-text.mt-2.blog-data
+          small.text-muted
             / span.comment
             /   = comment_icon
             /   | &nbsp;--&nbsp;
