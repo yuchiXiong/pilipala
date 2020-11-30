@@ -39,7 +39,10 @@
     border-top: 1px solid rgba(68, 68, 68, 0.1);
     margin-top: 12px;
     padding-top: 12px;
-    @include flex-row;
+
+    .text-muted {
+      @include flex-row;
+    }
   }
 
 

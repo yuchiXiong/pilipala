@@ -13,7 +13,7 @@ class BlogsController < ApplicationController
     respond_to do |format|
       format.js {
         return render json: nil if @blogs.size.zero?
-        render partial: 'blogs/blog', collection: @blogs, locals: { show_author: false }, content_type: 'text/html'
+        render partial: 'blogs/blog', collection: @blogs, locals: { show_author: true }, content_type: 'text/html'
       }
       format.html
     end
