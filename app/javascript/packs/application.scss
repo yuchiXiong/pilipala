@@ -43,27 +43,42 @@ body {
   display: none;
 }
 
+.show_to_top {
+  bottom: 32px !important;
+}
+
 .to_top_btn {
   position: fixed;
-  bottom: 50px;
   right: 5%;
-  display: none;
   z-index: 100;
-  border: 1px solid $theme_color;
-  background-color: #fff;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0;
+  transition: all 450ms;
+  bottom: -100px;
+  outline: none;
 
-  svg > path {
-    fill: $theme_color;
+  svg {
+    height: 50px;
+    width: 50px;
+    vertical-align: middle;
+
+    path {
+      fill: $theme_color;
+      vertical-align: middle;
+      transition: fill 450ms;
+    }
+
   }
 
   &:hover {
-    border: 1px solid #fff;
-    background-color: $theme_color !important;
 
     svg > path {
       fill: #fff;
     }
+
   }
+
 }
 
 @font-face {

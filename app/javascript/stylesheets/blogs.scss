@@ -6,6 +6,10 @@
 // * shared blog-post comment styles
 .blog-post {
 
+  .card {
+    border-radius: 8px;
+  }
+
   .blog-title:hover {
     color: $theme_color;
   }
@@ -37,12 +41,12 @@
 
   .blog-data {
     border-top: 1px solid rgba(68, 68, 68, 0.1);
-    margin-top: 12px;
-    padding-top: 12px;
+    padding-top: 8px;
 
     .text-muted {
       @include flex-row;
     }
+
   }
 
 
@@ -66,6 +70,12 @@
 
   .left {
     padding-right: 0.5rem;
+
+    .carousel-inner {
+      img {
+        border-radius: 8px;
+      }
+    }
   }
 
   .right {
@@ -76,7 +86,7 @@
       top: 96px;
 
       .hot_authors {
-        border-radius: 0.25rem;
+        border-radius: 8px;
         background-color: #fff;
         padding: 1.25rem;
 
@@ -105,7 +115,7 @@
       }
 
       .hot_blogs {
-        border-radius: 0.25rem;
+        border-radius: 8px;
         margin-top: 16px;
         background-color: #fff;
         padding: 1.25rem;
@@ -149,6 +159,7 @@
     .blog_detail {
       @include block;
       background-color: #fff;
+      border-radius: 8px;
 
       .blog_title {
         padding: 24px;
@@ -221,7 +232,7 @@
     .comments {
       background-color: #fff;
       padding: 24px;
-      border-radius: 5px;
+      border-radius: 8px;
 
       .avatar {
         height: 48px;
