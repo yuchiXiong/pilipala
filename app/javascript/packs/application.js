@@ -36,7 +36,7 @@ global.dayjs = dayjs;
 Turbolinks.start();
 
 $(document).on('turbolinks:load', () => {
-    $('.page').animate({marginRight: 0, opacity: 1}, 450);
+    $('.app').animate({marginRight: 0, opacity: 1}, 450);
 });
 
 $(document).on('ajax:error', e => {

@@ -25,6 +25,11 @@ body {
   overflow-x: hidden;
   overflow-y: scroll;
 
+  .app {
+    height: 100%;
+    width: 100%;
+  }
+
   .body {
     margin-top: 96px;
     margin-bottom: 22px;

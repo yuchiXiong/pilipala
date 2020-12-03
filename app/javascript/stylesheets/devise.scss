@@ -14,12 +14,11 @@
     display: none;
   }
 
-
   .devise_return_home {
     font-size: 42px;
     position: fixed;
-    left: 24px;
-    top: 12px;
+    left: 5%;
+    top: 5%;
     color: $theme_color;
 
     p {
@@ -27,24 +26,53 @@
     }
   }
 
-  .container.body {
+  @include flex-col;
+  justify-content: center;
+  align-items: center;
+
+  .devise_left {
+    background-color: #fff;
+    height: 100%;
     @include flex-col;
     justify-content: center;
-    align-items: center;
+    padding: 24px;
 
-    .user_card {
+    section {
       padding: 24px;
-      background-color: #fff;
-      flex: unset;
 
-      h4 {
-        color: $theme_color;
+      .logo {
+        a {
+          font-weight: bold;
+          color: $theme_color;
+        }
+      }
+
+      .form_label {
+        font-size: 14px;
+        font-weight: bold;
       }
 
       .captcha {
         margin-left: 24px;
         height: 38px;
       }
+
+      .devise_links {
+
+      }
+
+    }
+
+
+  }
+
+  .devise_right {
+    background: url('../assets/images/test.jpg') no-repeat center center;
+    background-size: 120%;
+    transition: background-size 150ms;
+
+    &:hover {
+      background-size: 140%;
     }
   }
 

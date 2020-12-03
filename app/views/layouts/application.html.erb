@@ -22,13 +22,19 @@
     </button>
   </div>
 <% end %>
+
 <%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
 <%= yield :slot %>
 
-<div class="page">
-  <div class="container body">
+<div class="app">
+  <%- if devise_controller? %>
     <%= yield %>
-  </div>
+  <%- else %>
+    <div class="container body">
+      <%= yield %>
+    </div>
+  <%- end %>
+
 </div>
 <script>
     $('.page').css({marginRight: '-10%', opacity: 0});
