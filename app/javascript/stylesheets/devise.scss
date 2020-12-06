@@ -14,17 +14,6 @@
     display: none;
   }
 
-  .devise_return_home {
-    font-size: 42px;
-    position: fixed;
-    left: 5%;
-    top: 5%;
-    color: $theme_color;
-
-    p {
-      font-size: 18px;
-    }
-  }
 
   @include flex-col;
   justify-content: center;
@@ -36,6 +25,18 @@
     @include flex-col;
     justify-content: center;
     padding: 24px;
+
+    //.devise_return_home {
+    //  font-size: 42px;
+    //  position: fixed;
+    //  left: 5%;
+    //  top: 5%;
+    //  color: $theme_color;
+    //
+    //  p {
+    //    font-size: 18px;
+    //  }
+    //}
 
     section {
       padding: 24px;
@@ -67,13 +68,21 @@
   }
 
   .devise_right {
+    @include mask;
+
+    position: relative;
     background: url('../assets/images/test.jpg') no-repeat center center;
     background-size: 120%;
     transition: background-size 150ms;
+    color: #fff;
 
-    &:hover {
-      background-size: 140%;
+    .propaganda {
+      position: absolute;
+      padding: 24px;
+      bottom: 20%;
+      z-index: 1001;
     }
+
   }
 
   .devise_links {

@@ -35,3 +35,18 @@
     background: #FDCE4E00;
   }
 }
+
+@mixin mask {
+  &:after {
+    height: 100vh;
+    width: inherit;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1000;
+    display: block;
+    content: '';
+    background-color: #000;
+  }
+}

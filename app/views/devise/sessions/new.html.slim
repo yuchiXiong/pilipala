@@ -1,15 +1,13 @@
 = provide :title, "登陆 - SmallBook"
 
-/ = render 'devise/shared/return_home'
-
 .row.h-100
   .col-4.devise_left
     section
-      h4.mb-3
+      h4.mb-1
         | 欢迎使用&nbsp;
         span.logo
           = link_to 'Small Book', root_url
-      span
+      small.text-muted
         | 简简单单创作
 
       = form_for(resource, as: resource_name, url: session_path(resource_name), remote: true, html: { class: 'mt-4' }) do |f|
@@ -48,5 +46,11 @@
 
 
   .col-8.devise_right
-
+    / .propaganda
+    /   h1
+    /     | 分享学习生活
+    /   p.mb-4
+    /     | 一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话
+    /   small
+    /     | 小声逼逼小声逼逼小声逼逼小声逼逼
 

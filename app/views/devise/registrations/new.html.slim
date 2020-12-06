@@ -1,35 +1,59 @@
 = provide :title, "注册 - SmallBook"
 
-= render 'devise/shared/return_home'
+.row.h-100
+  .col-4.devise_left
+    section
+      h4.mb-1
+        | 欢迎使用&nbsp;
+        span.logo
+          = link_to 'Small Book', root_url
+      small.text-muted
+        | 简简单单创作
 
-.user_card
-  h4.mb-3
-    | 注册
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true, html: { class: 'mt-4' }) do |f|
 
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true) do |f|
+        .form-group.mb-3
+          = f.label :email, class: 'form-text form_label' do
+            | 邮箱
+          = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
 
-    .input-group.mb-3
-      = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '请输入您的邮箱', class: 'form-control'
+        .form-group.mb-3
+          - if @minimum_password_length
+            - @tips = "请输入不低于#{@minimum_password_length}位密码"
+          - else
+            - @tips = "请输入密码"
+          = f.label :email, class: 'form-text form_label' do
+            | 密码
+          = f.password_field :password, autocomplete: "new-password", placeholder: @tips, class: 'form-control'
 
-    .input-group.mb-3
-      - if @minimum_password_length
-        - @tips = "请输入不低于#{@minimum_password_length}位密码"
-      - else
-        - @tips = "请输入密码"
+        .form-group.mb-3
+          = f.label :email, class: 'form-text form_label' do
+            | 确认密码
+          = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: '请再次输入', class: 'form-control'
 
-      = f.password_field :password, autocomplete: "new-password", placeholder: @tips, class: 'form-control'
+        .form-group.mb-3
+          = f.label :email, class: 'form-text form_label' do
+            | 验证码
+          .input-group
+            = rucaptcha_input_tag(class: 'form-control', placeholder: '请输入验证码')
+            = rucaptcha_image_tag(class: 'captcha', alt: '验证码')
 
-    .input-group.mb-3
-      = f.password_field :password_confirmation, autocomplete: "new-password", placeholder: '请再次输入', class: 'form-control'
+        .actions.mb-3
+          = f.submit "注册", class: 'btn btn-success btn-block'
 
-    .input-group.mb-3
-      = rucaptcha_input_tag(class: 'form-control', placeholder: '请输入验证码')
-      = rucaptcha_image_tag(class: 'captcha', alt: '验证码')
+      small.form-text.text-muted.text-center
+        | 已有帐号？
+        = link_to "立即登陆", new_session_path(resource_name)
 
-    .actions.mb-3
-      = f.submit "注册", class: 'btn btn-success btn-block'
 
-  = render "devise/shared/links"
+  .col-8.devise_right
+/ .propaganda
+/   h1
+/     | 分享学习生活
+/   p.mb-4
+/     | 一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话
+/   small
+/     | 小声逼逼小声逼逼小声逼逼小声逼逼
 
 javascript:
     $(document).on('ajax:error', e => {
