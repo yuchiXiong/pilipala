@@ -95,7 +95,7 @@ class AppEditor extends React.Component {
         this.editorRef = React.createRef();
         this.inputRef = React.createRef();
         this.fetchBlog = this.fetchBlog.bind(this);
-        // this.addImageBlobHook = this.addImageBlobHook.bind(this);
+        this.addImageBlobHook = this.addImageBlobHook.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
     }
 
@@ -124,15 +124,15 @@ class AppEditor extends React.Component {
         document.querySelector(".editor_toggle_released_state p").textContent = toggle_released_state_tips;
     }
 
-    // addImageBlobHook(file, callback) {
-    //     const formData = new FormData();
-    //     formData.append("file", file, file.name);
-    //     formData.append("blogId", this.props.blog.id);
-    //
-    //     BlogPhotos.create(formData).then(res => {
-    //         callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
-    //     });
-    // }
+    addImageBlobHook(file, callback) {
+        const formData = new FormData();
+        formData.append("file", file, file.name);
+        formData.append("blogId", this.props.currentId);
+
+        BlogPhotos.create(formData).then(res => {
+            callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
+        });
+    }
 
     // * 为md编辑器绑定自定义菜单事件
     // ! toast-ui/react-editor 未提供 removeEventType 方法
@@ -211,9 +211,9 @@ class AppEditor extends React.Component {
                         initialEditType="markdown"
                         useCommandShortcut={true}
                         previewHighlight={true}
-                        // hooks={{addImageBlobHook: this.addImageBlobHook}}
+                        hooks={{addImageBlobHook: this.addImageBlobHook}}
                         toolbarItems={toolbar(this.state.current.released)}
-                        // plugins={[[codeSyntaxHighlight, {hljs}]]}
+                        plugins={[[codeSyntaxHighlight, {hljs}]]}
                     />
                 </>
             }
