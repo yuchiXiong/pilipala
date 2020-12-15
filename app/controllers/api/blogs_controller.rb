@@ -2,11 +2,16 @@ class Api::BlogsController < ApiController
   before_action :set_blog, only: %i[delete update destroy]
   before_action :current_user?, only: %i[update destroy]
 
+  # * GET /blogs/:id
+  def show
+    @blog = Blog.find(params[:id])
+  end
+
   # * POST /blogs
   def create
-    @blog         = Blog.new(blog_params)
+    @blog = Blog.new(blog_params)
     @blog.user_id = current_user.id
-    @errors       = @blog.errors unless @blog.save
+    @errors = @blog.errors unless @blog.save
   end
 
   # * PUT/PATCH /blogs/:id

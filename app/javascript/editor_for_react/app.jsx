@@ -175,7 +175,7 @@ class App extends React.Component {
                 </Sider>
                 <Content className={styles['content']}>
                     <AppEditor
-                        blog={this.state.current}
+                        currentId={this.state.current.id}
                         onUpdate={this.onUpdate}/>
                 </Content>
             </Layout>

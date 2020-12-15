@@ -6,15 +6,15 @@ Rails.application.routes.draw do
   get :editor, to: 'editor#index'
 
   devise_for :users, controllers: {
-    sessions:      'users/sessions',
+    sessions: 'users/sessions',
     registrations: 'users/registrations',
-    passwords:     'users/passwords'
+    passwords: 'users/passwords'
   }
 
   # * API
   namespace :api do
     resource :blog_photos, only: [:create]
-    resources :blogs, only: [:update, :destroy, :create]
+    resources :blogs, only: [:show, :update, :destroy, :create]
     resources :users, only: :blogs do
       get :blogs
     end

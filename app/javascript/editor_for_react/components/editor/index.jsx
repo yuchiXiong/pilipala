@@ -1,12 +1,14 @@
 import React from 'react';
-import { Input } from 'antd';
-import { Editor } from '@toast-ui/react-editor';
+import {Input} from 'antd';
+import {Editor} from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
 
-import { BlogPhotos } from '../../utils/api';
+import Loading from '../loading';
+
+import {Blogs, BlogPhotos} from '../../utils/api';
 import hljs from 'highlight.js';
 
-``// import 'highlight.js/styles/github.css';
+// import 'highlight.js/styles/github.css';
 import 'highlight.js/styles/atom-one-dark';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
@@ -80,29 +82,31 @@ const toolbar = released => {
     ]);
 }
 
-
 class AppEditor extends React.Component {
 
     constructor(props) {
         super(props);
         this.timer = null;
-        this.userInfo = gon.currentUser;
-        this.editorRef = React.createRef(null);
-        this.inputRef = React.createRef(null);
-        this.addImageBlobHook = this.addImageBlobHook.bind(this);
+        this.state = {
+            loading: false,
+            current: {}
+        }
+        // this.userInfo = gon.currentUser;
+        this.editorRef = React.createRef();
+        this.inputRef = React.createRef();
+        this.fetchBlog = this.fetchBlog.bind(this);
+        // this.addImageBlobHook = this.addImageBlobHook.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
     }
 
     componentDidMount() {
-        if (this.userInfo) {
-            this.updateBlogView();
-            this.registReleaseEvent()
-            this.registToggleReleasedSTateEvent();
-        }
+        this.fetchBlog(this.props.currentId);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.updateBlogView();
+        if (prevProps.currentId !== this.props.currentId) {
+            this.fetchBlog(this.props.currentId);
+        }
     }
 
     componentWillUnmount() {
@@ -113,29 +117,29 @@ class AppEditor extends React.Component {
 
     // * 更新当前视图下的博客内容和标题
     updateBlogView() {
-        this.editorRef.current.getInstance().setMarkdown(this.props.blog.content);
+        this.editorRef.current.getInstance().setMarkdown(this.state.current.content);
         this.editorRef.current.getInstance().moveCursorToStart();
-        this.inputRef.current.setValue(this.props.blog.title);
-        const toggle_released_state_tips = this.props.blog.released ? '取消发布' : '发布博客'
+        this.inputRef.current.setValue(this.state.current.title);
+        const toggle_released_state_tips = this.state.current.released ? '取消发布' : '发布博客'
         document.querySelector(".editor_toggle_released_state p").textContent = toggle_released_state_tips;
     }
 
-    addImageBlobHook(file, callback) {
-        const formData = new FormData();
-        formData.append("file", file, file.name);
-        formData.append("blogId", this.props.blog.id);
-
-        BlogPhotos.create(formData).then(res => {
-            callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
-        });
-    }
+    // addImageBlobHook(file, callback) {
+    //     const formData = new FormData();
+    //     formData.append("file", file, file.name);
+    //     formData.append("blogId", this.props.blog.id);
+    //
+    //     BlogPhotos.create(formData).then(res => {
+    //         callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
+    //     });
+    // }
 
     // * 为md编辑器绑定自定义菜单事件
     // ! toast-ui/react-editor 未提供 removeEventType 方法
     registReleaseEvent() {
         const mdInstance = this.editorRef.current.getInstance();
         const mdInstanceEventManager = mdInstance.eventManager;
-        if ( !mdInstanceEventManager._hasEventType('onRelease')) {
+        if (!mdInstanceEventManager._hasEventType('onRelease')) {
             mdInstanceEventManager.addEventType('onRelease');
             mdInstanceEventManager.listen('onRelease', () => {
                 this.props.onUpdate({
@@ -149,7 +153,7 @@ class AppEditor extends React.Component {
 
     registToggleReleasedSTateEvent() {
         const mdInstanceEventManager = this.editorRef.current.getInstance().eventManager;
-        if ( !mdInstanceEventManager._hasEventType('onToggleReleasedState')) {
+        if (!mdInstanceEventManager._hasEventType('onToggleReleasedState')) {
             mdInstanceEventManager.addEventType('onToggleReleasedState');
             mdInstanceEventManager.listen('onToggleReleasedState', () => {
                 this.props.onUpdate({
@@ -165,32 +169,54 @@ class AppEditor extends React.Component {
             clearTimeout(this.timer);
         }
         this.timer = setTimeout(() => {
-            this.props.onUpdate({
-                ...this.props.blog,
+            document.title = '自动保存……';
+            Blogs.update(this.props.currentId, {
+                title: this.inputRef.current.state.value,
                 content: this.editorRef.current.getInstance().getMarkdown()
+            }).then(res => {
+                if (res.code === 8888) {
+                    document.title = `${dayjs().format('HH:mm:ss')} 已为您自动保存`;
+                }
             });
-        }, 500);
+        }, 1000);
 
+    }
+
+    fetchBlog(id) {
+        this.setState({loading: true})
+        Blogs.show(id).then(res => {
+            this.setState({
+                current: res.data.blog,
+                loading: false
+            });
+            this.updateBlogView();
+            this.registReleaseEvent()
+            this.registToggleReleasedSTateEvent();
+        });
     }
 
     render() {
         return <>
-            <Input
-                className={styles['input_title']}
-                ref={this.inputRef}
-                placeholder='博客标题'/>
-            <Editor
-                ref={this.editorRef}
-                onChange={this.handleEditorChange}
-                previewStyle="vertical"
-                height="100%"
-                initialEditType="markdown"
-                useCommandShortcut={true}
-                previewHighlight={true}
-                hooks={{addImageBlobHook: this.addImageBlobHook}}
-                toolbarItems={toolbar(this.props.blog.released)}
-                plugins={[[codeSyntaxHighlight, {hljs}]]}
-            />
+            {this.state.loading ? <Loading/>
+                : <>
+                    <Input
+                        className={styles['input_title']}
+                        ref={this.inputRef}
+                        placeholder='博客标题'/>
+                    <Editor
+                        ref={this.editorRef}
+                        onChange={this.handleEditorChange}
+                        previewStyle="vertical"
+                        height="100%"
+                        initialEditType="markdown"
+                        useCommandShortcut={true}
+                        previewHighlight={true}
+                        // hooks={{addImageBlobHook: this.addImageBlobHook}}
+                        toolbarItems={toolbar(this.state.current.released)}
+                        // plugins={[[codeSyntaxHighlight, {hljs}]]}
+                    />
+                </>
+            }
         </>;
     }
 }

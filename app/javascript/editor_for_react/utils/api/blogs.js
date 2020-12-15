@@ -1,5 +1,9 @@
 import request from '../request';
 
+const show = id => {
+    return request.get(`/api/blogs/${id}`);
+}
+
 const create = params => {
     return request.post(`/api/blogs`, {
         ...params
@@ -17,6 +21,7 @@ const destroy = id => {
 };
 
 export {
+    show,
     create,
     update,
     destroy

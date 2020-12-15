@@ -12,7 +12,7 @@ import {
 // import history from './history';
 
 const instance = axios.create({
-    baseURL: process.env.NODE_ENV === "development" ? 'http://localhost:4000' : 'https://blog.xiongyuchi.top',
+    baseURL: process.env.NODE_ENV === "development" ? 'http://192.168.10.108:4000' : 'https://blog.xiongyuchi.top',
     headers: {
         'Accept': 'application/json',
         // 'authenticity_token': document.querySelector('meta[name=csrf-token]').content
