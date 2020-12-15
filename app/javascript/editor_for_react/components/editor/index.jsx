@@ -123,7 +123,8 @@ class AppEditor extends React.Component {
             mdInstanceEventManager.listen('onToggleReleasedState', () => {
                 Blogs.update(this.props.currentId, {
                     title: this.inputRef.current.state.value,
-                    content: this.editorRef.current.getInstance().getMarkdown()
+                    content: this.editorRef.current.getInstance().getMarkdown(),
+                    released: !this.state.current.released
                 }).then(res => {
                     if (res.code === 8888) {
                     }
