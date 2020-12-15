@@ -8,7 +8,7 @@ import Loading from '../loading';
 import {Blogs, BlogPhotos} from '../../utils/api';
 import hljs from 'highlight.js';
 
-// import 'highlight.js/styles/github.css';
+import 'highlight.js/styles/github.css';
 import 'highlight.js/styles/atom-one-dark';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
@@ -16,14 +16,6 @@ import styles from './index.module.scss';
 import './editor.scss';
 
 const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
-
-// * 创建一个用于更新文章的按钮
-function createUpdateBlogBtn() {
-    const button = document.createElement('button');
-    button.className = 'last editor_save';
-    button.innerHTML = '<p>保存</p>';
-    return button;
-}
 
 // * 创建一个用户切换发布状态的按钮
 function createToggleReleasedStateBtn(releasedState) {
@@ -67,17 +59,6 @@ const toolbar = released => {
                 style: 'color: #333; width: auto; margin-left: auto;',
                 // text: '保存',
             }
-        },
-        {
-            type: 'button',
-            options: {
-                el: createUpdateBlogBtn(),
-                tooltip: '保存',
-                className: 'last',
-                event: 'onRelease',
-                style: 'color: #333; width: auto;',
-                // text: '保存',
-            }
         }
     ]);
 }
@@ -91,7 +72,6 @@ class AppEditor extends React.Component {
             loading: false,
             current: {}
         }
-        // this.userInfo = gon.currentUser;
         this.editorRef = React.createRef();
         this.inputRef = React.createRef();
         this.fetchBlog = this.fetchBlog.bind(this);
@@ -136,21 +116,6 @@ class AppEditor extends React.Component {
 
     // * 为md编辑器绑定自定义菜单事件
     // ! toast-ui/react-editor 未提供 removeEventType 方法
-    registReleaseEvent() {
-        const mdInstance = this.editorRef.current.getInstance();
-        const mdInstanceEventManager = mdInstance.eventManager;
-        if (!mdInstanceEventManager._hasEventType('onRelease')) {
-            mdInstanceEventManager.addEventType('onRelease');
-            mdInstanceEventManager.listen('onRelease', () => {
-                this.props.onUpdate({
-                    ...this.props.blog,
-                    title: this.inputRef.current.state.value,
-                    content: mdInstance.getMarkdown()
-                });
-            });
-        }
-    }
-
     registToggleReleasedSTateEvent() {
         const mdInstanceEventManager = this.editorRef.current.getInstance().eventManager;
         if (!mdInstanceEventManager._hasEventType('onToggleReleasedState')) {
@@ -179,7 +144,6 @@ class AppEditor extends React.Component {
                 }
             });
         }, 1000);
-
     }
 
     fetchBlog(id) {
@@ -190,7 +154,6 @@ class AppEditor extends React.Component {
                 loading: false
             });
             this.updateBlogView();
-            this.registReleaseEvent()
             this.registToggleReleasedSTateEvent();
         });
     }
