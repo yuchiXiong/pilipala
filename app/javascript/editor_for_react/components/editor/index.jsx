@@ -121,9 +121,12 @@ class AppEditor extends React.Component {
         if (!mdInstanceEventManager._hasEventType('onToggleReleasedState')) {
             mdInstanceEventManager.addEventType('onToggleReleasedState');
             mdInstanceEventManager.listen('onToggleReleasedState', () => {
-                this.props.onUpdate({
-                    ...this.props.blog,
-                    released: !this.props.blog.released
+                Blogs.update(this.props.currentId, {
+                    title: this.inputRef.current.state.value,
+                    content: this.editorRef.current.getInstance().getMarkdown()
+                }).then(res => {
+                    if (res.code === 8888) {
+                    }
                 });
             });
         }
