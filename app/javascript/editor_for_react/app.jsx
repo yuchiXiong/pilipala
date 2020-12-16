@@ -1,14 +1,14 @@
-import React, { Suspense } from 'react';
+import React, {Suspense} from 'react';
 import Cropper from 'react-cropper';
-import { Layout, Modal, Upload, Button } from 'antd';
-
-import 'cropperjs/dist/cropper.css';
+import {Layout, Modal, Upload, Button} from 'antd';
 
 const AppSider = React.lazy(() => import('./components/sider'));
 const AppEditor = React.lazy(() => import('./components/editor'));
+
+import 'cropperjs/dist/cropper.css';
 import Loading from './components/loading';
 
-import { Users, Blogs, BlogPhotos } from './utils/api';
+import {Users, Blogs} from './utils/api';
 
 import styles from './app.module.scss';
 import request from "./utils/request";
@@ -42,8 +42,6 @@ class App extends React.Component {
         this.openModal = this.openModal.bind(this);
         this.onChangeImgFile = this.onChangeImgFile.bind(this);
         this.onFinish = this.onFinish.bind(this);
-        // this.onPreview = this.onPreview.bind(this);
-        // this.updateCover = this.updateCover.bind(this);
     }
 
     // * 组件挂载后拉取当前用户的博客列表

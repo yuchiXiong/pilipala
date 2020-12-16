@@ -1,8 +1,8 @@
 import React from 'react';
 import Turbolinks from 'turbolinks';
-import { Menu, Typography, Button, Dropdown } from 'antd';
-import { SettingOutlined, MinusCircleOutlined, CheckCircleOutlined, LeftOutlined } from '@ant-design/icons';
-import { Blogs } from '../../utils/api';
+import {Menu, Typography, Button, Dropdown} from 'antd';
+import {SettingOutlined, MinusCircleOutlined, CheckCircleOutlined, LeftOutlined} from '@ant-design/icons';
+import {Blogs} from '../../utils/api';
 import dayjs from 'dayjs';
 
 import styles from './index.module.scss';
@@ -21,6 +21,7 @@ class AppSider extends React.Component {
         };
         this.onDelete = this.onDelete.bind(this);
         this.handleMenuClick = this.handleMenuClick.bind(this);
+        this.toggleBlog = this.toggleBlog.bind(this);
     }
 
     handleMenuClick(e) {
@@ -50,30 +51,27 @@ class AppSider extends React.Component {
         });
     }
 
+    returnHome() {
+        Turbolinks.visit('/');
+    }
+
+    toggleBlog(id, index) {
+        this.setState({
+            selected: index,
+        });
+        this.props.onToggle(id);
+    }
+
     render() {
         return (
-            <Menu
-                onClick={this.handleMenuClick}
-                defaultSelectedKeys={[]}
-                defaultOpenKeys={['default-blog-set']}
-                mode="inline"
-                theme="light"
-            >
-                <Menu.Item key="return-home" className={styles['return-home-btn']}>
-                    <LeftOutlined/> <Title level={4}>回到首页</Title>
-                </Menu.Item>
-                {/*<Menu.Item key="add-blog-set" className={styles['add-blog-set']}>*/}
-                {/*    <PlusOutlined/> <Text>创建文集</Text>*/}
-                {/*</Menu.Item>*/}
-                <SubMenu
-                    key="default-blog-set"
-                    title={<span>默认(暂不支持文集)</span>}
-                >
+            <aside className={styles['sider']}>
+                <Title className={styles['return_home_btn']} level={4} onClick={() => this.returnHome()}><LeftOutlined/>回到首页</Title>
+                <ul className={styles['blogs_set']}>
                     {
                         this.props.dataSource.map((item, index) => {
-                            return <Menu.Item
-                                onClick={() => this.setState({selected: index})}
-                                className={styles['sider-item']}
+                            return <li
+                                onClick={() => this.toggleBlog(item.id, index)}
+                                className={`${styles['sider_item']} ${index === this.state.selected && styles['active']}`}
                                 key={item.id}>
                                 {
                                     item.released ?
@@ -82,7 +80,6 @@ class AppSider extends React.Component {
                                 }
                                 <Text level={4} ellipsis className={styles['sider-item-title']}>{item.title}</Text>
                                 {
-                                    // this.state.selected === index &&
                                     <Dropdown
                                         overlay={
                                             <Menu>
@@ -95,9 +92,9 @@ class AppSider extends React.Component {
                                             </Menu>
                                         }>
                                         <SettingOutlined
-                                            // onClick={() => console.log(item.id)}
                                             style={{
                                                 fontSize: '18px',
+                                                marginRight: '16px',
                                                 opacity: this.state.selected === index ? 1 : 0
                                             }}/>
                                     </Dropdown>
@@ -105,62 +102,15 @@ class AppSider extends React.Component {
 
                                 {/* <Text >{item.content}</Text> */}
                                 {/* <Text>字数：{item.content.length}</Text> */}
-                            </Menu.Item>;
+                            </li>;
                         })
                     }
 
-                </SubMenu>
-                <Menu.Item key="new-blog-btn" className={styles['new-blog-btn']}>
-                    <Button type="primary" ghost block>添加新博客</Button>
-                </Menu.Item>
-            </Menu>
+                </ul>
+                <Button className={styles['new_blog_btn']} type="primary" ghost block>添加新博客</Button>
+            </aside>
         );
     }
 }
 
 export default AppSider;
-
-// import React from 'react';
-
-// dataSource={this.state.blogs}
-// onDelete={this.onDelete}
-// onToggle={this.onToggle}
-// onCreate={this.onCreate}
-// onUpdateCover={this.openModal}
-
-// import styles from './index.module.scss';
-//
-// class AppSider extends React.Component {
-//
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             selected: -1
-//         }
-//         this.onSelected = this.onSelected.bind(this);
-//     }
-//
-//     onSelected(index, id) {
-//         this.setState({
-//             selected: index
-//         });
-//         this.props.onToggle(id);
-//     }
-//
-//     render() {
-//         return <ul className={styles['app-sider']}>
-//             {
-//                 this.props.dataSource.map((item, index) => {
-//                     return <li
-//                         onClick={() => this.onSelected(index, item.id)}
-//                         key={item.id}
-//                         className={this.state.selected === index ? styles.active : null}>
-//                         {item.title}
-//                     </li>
-//                 })
-//             }
-//         </ul>
-//     }
-// };
-//
-// export default AppSider;
