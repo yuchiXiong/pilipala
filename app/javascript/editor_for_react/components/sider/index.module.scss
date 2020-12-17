@@ -5,7 +5,7 @@
   height: 100vh !important;
   overflow-y: scroll !important;
 
-  @include scroll-reset();
+  //@include scroll-reset();
 }
 
 .sider-menu {
@@ -52,8 +52,7 @@
 
 .return_home_btn {
   top: 0;
-  background-color: $normal_font_color !important;
-  //background-color: $theme_color !important;
+  background-color: $theme_color !important;
   height: 48px !important;
   line-height: 48px !important;
   color: #fff !important;

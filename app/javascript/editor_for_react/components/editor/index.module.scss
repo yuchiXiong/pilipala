@@ -1,3 +1,25 @@
+@import "../../../stylesheets/mixins";
+
+:global(.editor_container) {
+  height: 100vh;
+}
+
+:global(.ant-spin-container) {
+  height: 100vh !important;
+  @include flex-col();
+
+  & > div {
+    height: unset;
+    flex: 1;
+  }
+}
+
+:global(.editor_container) {
+  :global(.ant-spin) {
+    max-height: unset !important;
+  }
+}
+
 .input_title {
   font-size: 24px !important;
   padding: 12px !important;

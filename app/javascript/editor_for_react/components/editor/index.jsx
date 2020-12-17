@@ -1,9 +1,7 @@
 import React from 'react';
-import {Input} from 'antd';
+import {Input, Spin} from 'antd';
 import {Editor} from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
-
-import Loading from '../loading';
 
 import {Blogs, BlogPhotos} from '../../utils/api';
 import hljs from 'highlight.js';
@@ -164,26 +162,29 @@ class AppEditor extends React.Component {
 
     render() {
         return <>
-            {this.state.loading ? <Loading/>
-                : <>
-                    <Input
-                        className={styles['input_title']}
-                        ref={this.inputRef}
-                        placeholder='博客标题'/>
-                    <Editor
-                        ref={this.editorRef}
-                        onChange={this.handleEditorChange}
-                        previewStyle="vertical"
-                        height="100%"
-                        initialEditType="markdown"
-                        useCommandShortcut={true}
-                        previewHighlight={true}
-                        hooks={{addImageBlobHook: this.addImageBlobHook}}
-                        toolbarItems={toolbar(this.state.current.released)}
-                        plugins={[[codeSyntaxHighlight, {hljs}]]}
-                    />
-                </>
-            }
+            {/*{this.state.loading && <Loading/>}*/}
+            <Spin wrapperClassName={'editor_container'}
+                  spinning={this.state.loading}
+                  size={'large'}
+                  tip={'精彩内容即将呈现'}>
+                <Input
+                    className={styles['input_title']}
+                    ref={this.inputRef}
+                    placeholder='博客标题'/>
+                <Editor
+                    ref={this.editorRef}
+                    onChange={this.handleEditorChange}
+                    previewStyle="vertical"
+                    height="100%"
+                    initialEditType="markdown"
+                    useCommandShortcut={true}
+                    previewHighlight={true}
+                    hooks={{addImageBlobHook: this.addImageBlobHook}}
+                    toolbarItems={toolbar(this.state.current.released)}
+                    plugins={[[codeSyntaxHighlight, {hljs}]]}
+                />
+            </Spin>
+
         </>;
     }
 }
