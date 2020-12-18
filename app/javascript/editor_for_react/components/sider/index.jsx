@@ -32,6 +32,14 @@ class AppSider extends React.Component {
             }
         }).then(res => {
             this.props.createNewBlog(res.data.blog);
+            let index = -1;
+            this.props.dataSource.map((item, _index) => {
+                (item.id === res.data.blog.id) && (index = _index);
+            })
+            console.log(index);
+            this.setState({
+                selected: index
+            })
         })
     }
 

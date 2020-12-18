@@ -60,7 +60,7 @@ class App extends React.Component {
     // * 添加一篇新的博客
     createNewBlog(blog) {
         this.setState({
-            current: blog.id,
+            currentId: blog.id,
             blogs: [
                 blog,
                 ...this.state.blogs
