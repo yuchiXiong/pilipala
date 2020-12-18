@@ -12,7 +12,7 @@ class Blog < ApplicationRecord
 
   # * 所有处于发布状态的文章
   scope :visible, -> { where({ released: true, discarded_at: nil }) }
-  default_scope { order(likes_count: :desc) }
+  default_scope { order(likes_count: :desc, id: desc) }
 
   # * 自动审核并进行标识
   # before_save :content_scan
@@ -30,7 +30,7 @@ class Blog < ApplicationRecord
 
   # * 内容审核
   def content_scan
-    text   = title + content
+    text = title + content
     result = []
     (1..((text.size / 9000) + 1)).map do |i|
       result.push(Ali::ContentScan.new.scan_text(text[(i - 1) * 9000...i * 9000]))

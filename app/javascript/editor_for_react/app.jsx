@@ -70,8 +70,10 @@ class App extends React.Component {
 
     // * 请求服务器删除一篇博客并更新客户端博客列表
     onDelete(id) {
+        const newBlogs = [...this.state.blogs.filter(item => item.id.toString() !== id.toString())];
         this.setState({
-            blogs: [...this.state.blogs.filter(item => item.id.toString() !== id.toString())]
+            currentId: newBlogs[0].id,
+            blogs: newBlogs
         });
     }
 
