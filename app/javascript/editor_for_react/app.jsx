@@ -8,10 +8,11 @@ const AppEditor = React.lazy(() => import('./components/editor'));
 import 'cropperjs/dist/cropper.css';
 import Loading from './components/loading';
 
-import {Users, Blogs} from './utils/api';
-
-import styles from './app.module.scss';
+import {User, Blog} from './utils/api';
 import request from "./utils/request";
+
+import './app.scss';
+import styles from './app.module.scss';
 
 const {Sider, Content} = Layout;
 
@@ -20,14 +21,7 @@ class App extends React.Component {
         super(props);
         this.userInfo = gon.currentUser;
         this.state = {
-            // * 当前编辑器里的博客对象
-            current: {
-                userId: -1,
-                title: "",
-                content: "",
-                id: -1,
-                released: false,
-            },
+            currentId: -1,
             // * 当前用户的博客列表
             blogs: [],
             visible: false,
@@ -36,18 +30,18 @@ class App extends React.Component {
         };
         this.cropperRef = React.createRef();
         this.onToggle = this.onToggle.bind(this);
-        this.onCreate = this.onCreate.bind(this);
-        this.onUpdate = this.onUpdate.bind(this);
+        this.createNewBlog = this.createNewBlog.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.openModal = this.openModal.bind(this);
         this.onChangeImgFile = this.onChangeImgFile.bind(this);
         this.onFinish = this.onFinish.bind(this);
+        this.onEditorUpload = this.onEditorUpload.bind(this);
     }
 
     // * 组件挂载后拉取当前用户的博客列表
     componentDidMount() {
         if (this.userInfo) {
-            Users.userBlogs(this.userInfo.id).then(res => {
+            User.userBlog(this.userInfo.id).then(res => {
                 if (res.data.blogs.length > 0) {
                     this.setState({
                         blogs: res.data.blogs,
@@ -60,33 +54,17 @@ class App extends React.Component {
 
     // * 点击左侧sider切换右侧显示的博客内容
     onToggle(id) {
-        const selectedBlog = this.state.blogs.filter(item => item.id.toString() === id.toString())[0];
-        this.setState({current: selectedBlog});
+        this.setState({currentId: id});
     }
 
     // * 添加一篇新的博客
-    onCreate(blog) {
+    createNewBlog(blog) {
         this.setState({
-            current: blog,
+            current: blog.id,
             blogs: [
                 blog,
                 ...this.state.blogs
             ]
-        });
-    }
-
-    // * 将修改后的博客上传至服务器
-    onUpdate(blog) {
-        Blogs.update(blog.id, {
-            blog
-        }).then(res => {
-            this.setState({
-                blogs: [
-                    res.data.blog,
-                    ...this.state.blogs.filter(item => item.id.toString() !== blog.id.toString())
-                ],
-                current: {...res.data.blog}
-            });
         });
     }
 
@@ -128,6 +106,19 @@ class App extends React.Component {
         });
     };
 
+    onEditorUpload(blog) {
+        let index = -1;
+        this.state.blogs.map((item, _index) => {
+            if (item.id === blog.id) index = _index;
+        });
+        this.state.blogs[index] = blog;
+        this.setState({
+            blogs: [
+                ...this.state.blogs
+            ]
+        })
+    }
+
     render() {
         return <Suspense fallback={<Loading/>}>
             <Layout>
@@ -167,14 +158,15 @@ class App extends React.Component {
                         dataSource={this.state.blogs}
                         onDelete={this.onDelete}
                         onToggle={this.onToggle}
-                        onCreate={this.onCreate}
+                        createNewBlog={this.createNewBlog}
                         onUpdateCover={this.openModal}
                     />
                 </Sider>
                 <Content className={styles['content']}>
                     <AppEditor
-                        currentId={this.state.current.id}
-                        onUpdate={this.onUpdate}/>
+                        currentId={this.state.currentId}
+                        onUpdate={this.onEditorUpload}
+                    />
                 </Content>
             </Layout>
         </Suspense>;

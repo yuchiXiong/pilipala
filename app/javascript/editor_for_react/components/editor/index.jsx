@@ -3,7 +3,7 @@ import {Input, Spin} from 'antd';
 import {Editor} from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
 
-import {Blogs, BlogPhotos} from '../../utils/api';
+import {Blog, BlogPhoto} from '../../utils/api';
 import hljs from 'highlight.js';
 
 import 'highlight.js/styles/github.css';
@@ -107,7 +107,7 @@ class AppEditor extends React.Component {
         formData.append("file", file, file.name);
         formData.append("blogId", this.props.currentId);
 
-        BlogPhotos.create(formData).then(res => {
+        BlogPhoto.create(formData).then(res => {
             callback(ALI_OSS_DOMAIN + res.data.photoURL, '图片');
         });
     }
@@ -119,7 +119,7 @@ class AppEditor extends React.Component {
         if (!mdInstanceEventManager._hasEventType('onToggleReleasedState')) {
             mdInstanceEventManager.addEventType('onToggleReleasedState');
             mdInstanceEventManager.listen('onToggleReleasedState', () => {
-                Blogs.update(this.props.currentId, {
+                Blog.update(this.props.currentId, {
                     title: this.inputRef.current.state.value,
                     content: this.editorRef.current.getInstance().getMarkdown(),
                     released: !this.state.current.released
@@ -132,58 +132,66 @@ class AppEditor extends React.Component {
     }
 
     handleEditorChange() {
-        if (this.timer) {
-            clearTimeout(this.timer);
+        if (this.state.currentId !== -1) {
+            if (this.timer) {
+                clearTimeout(this.timer);
+            }
+            this.timer = setTimeout(() => {
+                document.title = '自动保存……';
+                Blog.update(this.props.currentId, {
+                    title: this.inputRef.current.state.value,
+                    content: this.editorRef.current.getInstance().getMarkdown()
+                }).then(res => {
+                    if (res.code === 8888) {
+                        this.props.onUpdate(res.data.blog);
+                        document.title = `${dayjs().format('HH:mm:ss')} 已为您自动保存`;
+                    }
+                });
+            }, 1000);
         }
-        this.timer = setTimeout(() => {
-            document.title = '自动保存……';
-            Blogs.update(this.props.currentId, {
-                title: this.inputRef.current.state.value,
-                content: this.editorRef.current.getInstance().getMarkdown()
-            }).then(res => {
-                if (res.code === 8888) {
-                    document.title = `${dayjs().format('HH:mm:ss')} 已为您自动保存`;
-                }
-            });
-        }, 1000);
     }
 
     fetchBlog(id) {
-        this.setState({loading: true})
-        Blogs.show(id).then(res => {
-            this.setState({
-                current: res.data.blog,
-                loading: false
+        if (id !== -1) {
+            this.setState({loading: true})
+            Blog.show(id).then(res => {
+                this.setState({
+                    current: res.data.blog,
+                    loading: false
+                });
+                this.updateBlogView();
+                this.registToggleReleasedSTateEvent();
             });
-            this.updateBlogView();
-            this.registToggleReleasedSTateEvent();
-        });
+        }
     }
 
     render() {
         return <>
-            {/*{this.state.loading && <Loading/>}*/}
-            <Spin wrapperClassName={'editor_container'}
-                  spinning={this.state.loading}
-                  size={'large'}
-                  tip={'精彩内容即将呈现'}>
-                <Input
-                    className={styles['input_title']}
-                    ref={this.inputRef}
-                    placeholder='博客标题'/>
-                <Editor
-                    ref={this.editorRef}
-                    onChange={this.handleEditorChange}
-                    previewStyle="vertical"
-                    height="100%"
-                    initialEditType="markdown"
-                    useCommandShortcut={true}
-                    previewHighlight={true}
-                    hooks={{addImageBlobHook: this.addImageBlobHook}}
-                    toolbarItems={toolbar(this.state.current.released)}
-                    plugins={[[codeSyntaxHighlight, {hljs}]]}
-                />
-            </Spin>
+            {
+                this.props.currentId !== -1 ?
+                    <Spin wrapperClassName={'editor_container'}
+                          spinning={this.state.loading}
+                          size={'large'}
+                          tip={'精彩内容即将呈现'}>
+                        <Input
+                            className={styles['input_title']}
+                            ref={this.inputRef}
+                            placeholder='博客标题'/>
+                        <Editor
+                            ref={this.editorRef}
+                            onChange={this.handleEditorChange}
+                            previewStyle="vertical"
+                            height="100%"
+                            initialEditType="markdown"
+                            useCommandShortcut={true}
+                            previewHighlight={true}
+                            hooks={{addImageBlobHook: this.addImageBlobHook}}
+                            toolbarItems={toolbar(this.state.current.released)}
+                            plugins={[[codeSyntaxHighlight, {hljs}]]}
+                        />
+                    </Spin> :
+                    null
+            }
 
         </>;
     }

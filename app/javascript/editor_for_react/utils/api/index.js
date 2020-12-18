@@ -1,9 +1,9 @@
-import * as BlogPhotos from './blog-photos';
-import * as Blogs from './blogs';
-import * as Users from './users';
+import * as BlogPhoto from './blog-photos';
+import * as Blog from './blogs';
+import * as User from './users';
 
 export {
-    BlogPhotos,
-    Blogs,
-    Users
+    BlogPhoto,
+    Blog,
+    User
 };

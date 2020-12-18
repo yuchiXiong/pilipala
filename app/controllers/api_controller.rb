@@ -1,5 +1,6 @@
 class ApiController < ActionController::API
   before_action :authenticate_user!
+  before_action :only_api
 
   class FormatNotSupport < StandardError; end
 
@@ -21,6 +22,12 @@ class ApiController < ActionController::API
 
   rescue_from(ActionController::ParameterMissing) do
     render json: { code: Code::Parameter_Missing, message: '参数异常！' }, status: :bad_request
+  end
+
+  private
+
+  def only_api
+    request.format = :json
   end
 
 end

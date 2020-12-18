@@ -4,8 +4,6 @@
 :global(.ant-layout-sider-children) {
   height: 100vh !important;
   overflow-y: scroll !important;
-
-  //@include scroll-reset();
 }
 
 .sider-menu {
@@ -14,7 +12,6 @@
 
 .sider_item {
   height: 72px !important;
-  padding-left: 16px !important;
   display: flex !important;
   flex-direction: row;
   justify-content: space-between;
@@ -38,6 +35,15 @@
 
 }
 
+.sider_item_container {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  z-index: 1070;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
 .sider {
   display: flex;
   flex-direction: column;
@@ -48,15 +54,19 @@
   position: sticky;
   width: 100%;
   background-color: #fff !important;
+  cursor: pointer;
+  user-select: unset;
+  z-index: 1080;
 }
 
 .return_home_btn {
   top: 0;
-  background-color: $theme_color !important;
+  text-align: center;
   height: 48px !important;
   line-height: 48px !important;
-  color: #fff !important;
+  color: $theme_color !important;
   margin-bottom: 0 !important;
+  font-weight: bold;
 
   & > span {
     margin-left: 12px;
@@ -74,9 +84,35 @@
   li {
     user-select: none;
     cursor: pointer;
+    position: relative;
+    background-color: #fff;
+
+    &:after {
+      position: absolute;
+      content: '';
+      display: block;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #0084ff80;
+      height: inherit;
+      width: 100%;
+      transform: scaleX(0);
+      transition: transform 450ms;
+    }
   }
 }
 
 li.active {
   background-color: $dim_theme_color;
+  color: #fff;
+
+  span {
+    color: #fff;
+  }
+
+  &:after {
+    transform: scaleX(1);
+  }
+
 }
