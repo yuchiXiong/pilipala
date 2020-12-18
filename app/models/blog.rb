@@ -12,7 +12,7 @@ class Blog < ApplicationRecord
 
   # * 所有处于发布状态的文章
   scope :visible, -> { where({ released: true, discarded_at: nil }) }
-  default_scope { order(likes_count: :desc, id: desc) }
+  default_scope { order(likes_count: :desc, id: :desc) }
 
   # * 自动审核并进行标识
   # before_save :content_scan
