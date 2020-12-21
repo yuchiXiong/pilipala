@@ -66,6 +66,7 @@ class AppEditor extends React.Component {
     constructor(props) {
         super(props);
         this.timer = null;
+        this.counter = 0;
         this.state = {
             loading: false,
             current: {}
@@ -91,6 +92,7 @@ class AppEditor extends React.Component {
         const mdInstance = this.editorRef.current.getInstance();
         mdInstance.eventManager.removeEventHandler('onRelease');
         mdInstance.eventManager.removeEventHandler('onToggleReleasedState');
+        clearTimeout(this.timer);
     }
 
     // * 更新当前视图下的博客内容和标题
@@ -131,8 +133,8 @@ class AppEditor extends React.Component {
         }
     }
 
-    handleEditorChange() {
-        if (this.state.currentId !== -1) {
+    handleEditorChange(e) {
+        if (this.state.currentId !== -1 && this.counter > 0) {
             if (this.timer) {
                 clearTimeout(this.timer);
             }
@@ -149,6 +151,7 @@ class AppEditor extends React.Component {
                 });
             }, 1000);
         }
+        this.counter += 1;
     }
 
     fetchBlog(id) {
