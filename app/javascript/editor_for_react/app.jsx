@@ -1,6 +1,7 @@
 import React, {Suspense} from 'react';
 import Cropper from 'react-cropper';
 import {Layout, Modal, Upload, Button} from 'antd';
+import {UploadOutlined} from '@ant-design/icons';
 
 const AppSider = React.lazy(() => import('./components/sider'));
 const AppEditor = React.lazy(() => import('./components/editor'));
@@ -125,14 +126,18 @@ class App extends React.Component {
         return <Suspense fallback={<Loading/>}>
             <Layout>
                 <Modal
-                    title="选择博客封面"
+                    title="为博客挑选一张封面"
                     visible={this.state.visible}
                     footer={null}
                     destroyOnClose={true}
                     maskClosable={false}
+
                     onCancel={() => this.setState({visible: false})}
                 >
-                    <input type="file" onChange={this.onChangeImgFile}/>
+                    {/*<input type="file" onChange={this.onChangeImgFile}/>*/}
+                    <Upload onChange={this.onChangeImgFile}>
+                        <Button icon={<UploadOutlined/>}>Click to Upload</Button>
+                    </Upload>
                     <Button type="primary" onClick={this.onFinish}>确认</Button>
                     <Cropper
                         style={{height: 400, width: "100%"}}
@@ -157,6 +162,7 @@ class App extends React.Component {
                     className={styles['sider']}
                     theme="light">
                     <AppSider
+                        defaultSelect={this.state.currentId}
                         dataSource={this.state.blogs}
                         onDelete={this.onDelete}
                         onToggle={this.onToggle}

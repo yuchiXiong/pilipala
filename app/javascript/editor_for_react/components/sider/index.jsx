@@ -59,6 +59,16 @@ class AppSider extends React.Component {
         this.props.onToggle(id);
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // * 删除文章时更新选中项为0
+        if ((prevState.selected === this.state.selected) &&
+            (prevProps.defaultSelect !== this.props.defaultSelect)) {
+            this.setState({
+                selected: 0
+            });
+        }
+    }
+
     render() {
         return (
             <aside className={styles['sider']}>
@@ -94,7 +104,9 @@ class AppSider extends React.Component {
                                                         删除博客
                                                     </Menu.Item>
                                                 </Menu>
-                                            }>
+                                            }
+                                            trigger={'click'}
+                                        >
                                             <SettingOutlined
                                                 style={{
                                                     fontSize: '18px',

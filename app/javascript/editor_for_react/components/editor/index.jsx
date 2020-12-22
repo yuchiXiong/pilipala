@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input, Spin} from 'antd';
+import {Input, Spin, Typography} from 'antd';
 import {Editor} from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
 
@@ -12,6 +12,8 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 import styles from './index.module.scss';
 import './editor.scss';
+
+const {Title} = Typography;
 
 const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
 
@@ -192,8 +194,9 @@ class AppEditor extends React.Component {
                             toolbarItems={toolbar(this.state.current.released)}
                             plugins={[[codeSyntaxHighlight, {hljs}]]}
                         />
-                    </Spin> :
-                    null
+                    </Spin> : <section className={styles['website_place_holder']}>
+                        <Title level={2}>Small Book</Title>
+                    </section>
             }
 
         </>;
