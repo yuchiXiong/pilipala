@@ -1,0 +1,25 @@
+#admin_layout {
+  height: 100%;
+}
+
+#admin_layout .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#admin_layout .trigger:hover {
+  color: #1890ff;
+}
+
+#admin_layout .logo {
+  height: 32px;
+  background: rgba(0, 0, 0, 0.7);
+  margin: 16px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
