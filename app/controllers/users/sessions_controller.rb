@@ -12,7 +12,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    return render_notice_danger('登陆失败', '用户名与密码不匹配', {
+    return render_notice_danger('登录失败', '用户名与密码不匹配', {
       status: :unauthorized
     }) unless warden.authenticate?(auth_options)
     self.resource = warden.authenticate!(auth_options)
@@ -32,7 +32,7 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def verify_captcha
-    render_notice_danger('登陆失败', '验证码错误', {
+    render_notice_danger('登录失败', '验证码错误', {
       status: :unauthorized
     }) unless verify_rucaptcha?
   end

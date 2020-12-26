@@ -77,8 +77,8 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
   # * [JSON] Post /blogs
   # * 创建博客
   # * 1. 未登录
-  # * 2. 登陆 -> 什么都没传
-  # * 3. 登陆 -> 标题/内容
+  # * 2. 登录 -> 什么都没传
+  # * 3. 登录 -> 标题/内容
   test 'need login before create blog' do
     count = Blog.count
     post api_blogs_url, params: {

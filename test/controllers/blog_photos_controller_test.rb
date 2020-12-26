@@ -11,15 +11,15 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
   # * [JSON] Post /blog_photos
   # * 上传博客插图: 用户A上传图片文件至用户A的博客A
   # * 1. 未登录
-  # * 2. 登陆 -> 但博客不存在
-  # * 3. 登陆 —> 博客存在 -> 作者不是当前用户
-  # * 4. 登陆 -> 博客存在 -> 作者是当前用户 -> 文件格式不支持
-  # * 5. 登陆 -> 博客存在 -> 作者是当前用户 -> 文件格式支持 -> 上传
+  # * 2. 登录 -> 但博客不存在
+  # * 3. 登录 —> 博客存在 -> 作者不是当前用户
+  # * 4. 登录 -> 博客存在 -> 作者是当前用户 -> 文件格式不支持
+  # * 5. 登录 -> 博客存在 -> 作者是当前用户 -> 文件格式支持 -> 上传
   test 'need sign in' do
     post api_blog_photos_url, params: {
       blogId: blogs(:success).id,
-      file:   fixture_file_upload('/error_format_file.txt')
-    }, headers:                       {
+      file: fixture_file_upload('/error_format_file.txt')
+    }, headers: {
       'Accept': 'application/json'
     }
     assert_response :unauthorized

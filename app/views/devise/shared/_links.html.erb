@@ -4,7 +4,7 @@
   <% end %>
 
   <%- if controller_name != 'sessions' %>
-    <%= link_to "已有帐号？立即登陆", new_session_path(resource_name) %>
+    <%= link_to "已有帐号？立即登录", new_session_path(resource_name) %>
   <% end %>
 
   <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
