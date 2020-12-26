@@ -23,3 +23,10 @@
 .site-layout .site-layout-background {
   background: #fff;
 }
+
+.ant-layout-content {
+  padding: 24px;
+  margin: 24px 16px;
+  min-height: unset !important;
+  flex: unset;
+}

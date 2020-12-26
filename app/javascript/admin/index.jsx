@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, NavLink, Route, Switch} from 'react-router-dom';
-import {Layout, Menu} from 'antd';
+import {Layout, Menu, Typography} from 'antd';
 import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
@@ -9,8 +9,10 @@ import {
     UploadOutlined,
 } from '@ant-design/icons';
 
-const {Header, Sider, Content} = Layout;
+const {Header, Sider, Content, Footer} = Layout;
 const {SubMenu} = Menu;
+
+import Blog from './pages/manages/blogs';
 
 import 'antd/dist/antd.css';
 import './index.scss';
@@ -62,7 +64,6 @@ class App extends React.Component {
                             style={{
                                 margin: '24px 16px',
                                 padding: 24,
-                                minHeight: 280,
                             }}
                         >
                             <Switch>
@@ -75,7 +76,7 @@ class App extends React.Component {
                                             <h1>users manager</h1>
                                         </Route>
                                         <Route path='/admin/manager/blogs'>
-                                            <h1>blogs manager</h1>
+                                            <Blog/>
                                         </Route>
                                         <Route path='/admin/manager/comments'>
                                             <h1>comments manager</h1>
@@ -84,6 +85,11 @@ class App extends React.Component {
                                 </Route>
                             </Switch>
                         </Content>
+                        <Footer style={{textAlign: 'center'}}>
+                            <Typography.Text>Design By yuchi</Typography.Text>
+                            {/*<Typography.Text>Design By yuchi</Typography.Text>*/}
+                            <Typography.Paragraph>鄂ICP备18022630号</Typography.Paragraph>
+                        </Footer>
                     </Layout>
                 </Layout>
             </BrowserRouter>
