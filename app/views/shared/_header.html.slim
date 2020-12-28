@@ -28,7 +28,7 @@ nav#website_nav.website_nav.navbar.navbar-expand-lg.navbar-light.fixed-top
                 = link_to '修改个人信息', edit_user_registration_url, class: 'dropdown-item'
                 - if current_user.is_admin
                   .dropdown-divider
-                    = link_to '后台管理', admin_root_url, class: 'dropdown-item'
+                  = link_to '后台管理', admin_root_url, class: 'dropdown-item'
                 .dropdown-divider
                 = link_to '注销', destroy_user_session_url, class: 'dropdown-item', method: :delete
 
