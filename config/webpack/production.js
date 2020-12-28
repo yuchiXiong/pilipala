@@ -8,7 +8,7 @@ const extendConfig = {
 
 const outputConfig = {
     output: {
-        publicPath: 'https://assets.bubuyu.top/'
+        publicPath: 'https://assets.bubuyu.top/packs/'
     }
 }
 
