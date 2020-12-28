@@ -1,0 +1,46 @@
+{
+  "admin.css": "/packs/css/admin-6ccb8191.css",
+  "admin.js": "/packs/js/admin-1c6a70d78cb43d69cab1.js",
+  "application.css": "/packs/css/application-438c3ff5.css",
+  "application.js": "/packs/js/application-e623e3a3217d10fc6820.js",
+  "editor_for_react.css": "/packs/css/editor_for_react-8e653f3e.css",
+  "editor_for_react.js": "/packs/js/editor_for_react-dace94a49b986aa1f983.js",
+  "entrypoints": {
+    "admin": {
+      "css": [
+        "/packs/css/admin-6ccb8191.css"
+      ],
+      "js": [
+        "/packs/js/admin-1c6a70d78cb43d69cab1.js"
+      ]
+    },
+    "application": {
+      "css": [
+        "/packs/css/application-438c3ff5.css"
+      ],
+      "js": [
+        "/packs/js/application-e623e3a3217d10fc6820.js"
+      ]
+    },
+    "editor_for_react": {
+      "css": [
+        "/packs/css/editor_for_react-8e653f3e.css"
+      ],
+      "js": [
+        "/packs/js/editor_for_react-dace94a49b986aa1f983.js"
+      ]
+    },
+    "stimulus": {
+      "js": [
+        "/packs/js/stimulus-c5db5d5f26d0aa785800.js"
+      ]
+    }
+  },
+  "media/assets/fonts/UbuntuMono-Regular.ttf": "/packs/media/assets/fonts/UbuntuMono-Regular-953a0d1630c7a53f12e138516c6d28bf.ttf",
+  "media/assets/fonts/VarelaRound-Regular.ttf": "/packs/media/assets/fonts/VarelaRound-Regular-76a375db11af007b1c77a85016ed304c.ttf",
+  "media/assets/images/blog_cover_default.png": "/packs/media/assets/images/blog_cover_default-698c98c925640f98c821bf0722fa1f64.png",
+  "media/assets/images/default1.png": "/packs/media/assets/images/default1-02849bd23e4c8e13fab845c3def33fde.png",
+  "media/assets/images/default2.png": "/packs/media/assets/images/default2-c3c66cbce3fcc986e7da28b5fe93b556.png",
+  "media/assets/images/test.jpg": "/packs/media/assets/images/test-4ea53ea5ee01693a2e000791019c4166.jpg",
+  "stimulus.js": "/packs/js/stimulus-c5db5d5f26d0aa785800.js"
+}
