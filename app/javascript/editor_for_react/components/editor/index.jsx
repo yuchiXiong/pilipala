@@ -89,6 +89,9 @@ class AppEditor extends React.Component {
         if (prevProps.currentId !== this.props.currentId) {
             this.fetchBlog(this.props.currentId);
         }
+        if (prevState.current.released !== this.state.current.released) {
+            document.querySelector(".editor_toggle_released_state p").innerText = this.state.current.released ? '取消发布' : '发布博客';
+        }
     }
 
     componentWillUnmount() {
