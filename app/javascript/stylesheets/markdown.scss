@@ -71,6 +71,10 @@
     margin: 0 10%;
   }
 
+  a {
+    color: $theme_color;
+  }
+
   a,
   .a:hover {
     text-decoration: none;
