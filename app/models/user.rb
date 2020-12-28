@@ -19,9 +19,11 @@ class User < ApplicationRecord
 
   def oss_avatar
     if avatar.file.nil?
-      'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com/avatars/dog.jpg'
+      # 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com/avatars/dog.jpg'
+      'https://assets.bubuyu.top/avatars/dog.jpg'
     else
-      "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{avatar.url}"
+      # "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{avatar.url}"
+      "https://assets.bubuyu.top#{avatar.url}"
     end
   end
 

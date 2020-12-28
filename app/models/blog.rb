@@ -24,7 +24,8 @@ class Blog < ApplicationRecord
   end
 
   def oss_cover
-    "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{cover.url}"
+    # "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{cover.url}"
+    "https://assets.bubuyu.top#{cover.url}"
   end
 
   private

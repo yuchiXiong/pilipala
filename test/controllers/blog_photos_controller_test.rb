@@ -5,7 +5,8 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @photo_domain = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com'.freeze
+    # @photo_domain = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com'.freeze
+    @photo_domain = 'https://assets.bubuyu.top'.freeze
   end
 
   # * [JSON] Post /blog_photos

@@ -15,7 +15,8 @@ import './editor.scss';
 
 const {Title} = Typography;
 
-const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
+// const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
+const ALI_OSS_DOMAIN = 'https://assets.bubuyu.top';
 
 // * 创建一个用户切换发布状态的按钮
 function createToggleReleasedStateBtn(releasedState) {
