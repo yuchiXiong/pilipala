@@ -25,8 +25,8 @@ set :rails_env, 'production'
 # * file settings
 set :puma_config, -> { "#{fetch(:current_path)}/config/puma.rb" }
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/master.key', 'config/credentials.yml.enc')
-set :compiled_asset_path, 'public/assets'
-set :packs_path, 'public/packs'
+# set :compiled_asset_path, 'public/assets'
+# set :packs_path, 'public/packs'
 set :node_modules_path, 'node_modules'
 set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path), fetch(:packs_path), fetch(:node_modules_path))
 
