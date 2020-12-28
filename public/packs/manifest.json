@@ -1,25 +1,25 @@
 {
   "admin.css": "/packs/css/admin-6ccb8191.css",
-  "admin.js": "/packs/js/admin-1c6a70d78cb43d69cab1.js",
-  "application.css": "/packs/css/application-438c3ff5.css",
-  "application.js": "/packs/js/application-e623e3a3217d10fc6820.js",
+  "admin.js": "/packs/js/admin-7f67fdedaa4e166839a5.js",
+  "application.css": "/packs/css/application-1b209eb9.css",
+  "application.js": "/packs/js/application-c20d9e7bb9606e033784.js",
   "editor_for_react.css": "/packs/css/editor_for_react-8e653f3e.css",
-  "editor_for_react.js": "/packs/js/editor_for_react-dace94a49b986aa1f983.js",
+  "editor_for_react.js": "/packs/js/editor_for_react-e0fe55f1c8e0cb67e942.js",
   "entrypoints": {
     "admin": {
       "css": [
         "/packs/css/admin-6ccb8191.css"
       ],
       "js": [
-        "/packs/js/admin-1c6a70d78cb43d69cab1.js"
+        "/packs/js/admin-7f67fdedaa4e166839a5.js"
       ]
     },
     "application": {
       "css": [
-        "/packs/css/application-438c3ff5.css"
+        "/packs/css/application-1b209eb9.css"
       ],
       "js": [
-        "/packs/js/application-e623e3a3217d10fc6820.js"
+        "/packs/js/application-c20d9e7bb9606e033784.js"
       ]
     },
     "editor_for_react": {
@@ -27,12 +27,12 @@
         "/packs/css/editor_for_react-8e653f3e.css"
       ],
       "js": [
-        "/packs/js/editor_for_react-dace94a49b986aa1f983.js"
+        "/packs/js/editor_for_react-e0fe55f1c8e0cb67e942.js"
       ]
     },
     "stimulus": {
       "js": [
-        "/packs/js/stimulus-c5db5d5f26d0aa785800.js"
+        "/packs/js/stimulus-65fefee58e9b6eb31a31.js"
       ]
     }
   },
@@ -42,5 +42,5 @@
   "media/assets/images/default1.png": "/packs/media/assets/images/default1-02849bd23e4c8e13fab845c3def33fde.png",
   "media/assets/images/default2.png": "/packs/media/assets/images/default2-c3c66cbce3fcc986e7da28b5fe93b556.png",
   "media/assets/images/test.jpg": "/packs/media/assets/images/test-4ea53ea5ee01693a2e000791019c4166.jpg",
-  "stimulus.js": "/packs/js/stimulus-c5db5d5f26d0aa785800.js"
+  "stimulus.js": "/packs/js/stimulus-65fefee58e9b6eb31a31.js"
 }
