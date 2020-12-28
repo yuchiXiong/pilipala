@@ -28,7 +28,8 @@ set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/
 # set :compiled_asset_path, 'public/assets'
 # set :packs_path, 'public/packs'
 set :node_modules_path, 'node_modules'
-set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path), fetch(:packs_path), fetch(:node_modules_path))
+# set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:compiled_asset_path), fetch(:packs_path), fetch(:node_modules_path))
+set :shared_dirs, fetch(:shared_dirs, []).push('log', 'tmp/cache', fetch(:node_modules_path))
 
 task :remote_environment do
   invoke :'rvm:use', 'ruby-2.5.7'
