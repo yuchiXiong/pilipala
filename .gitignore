@@ -28,7 +28,7 @@
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-#/config/master.key
+/config/master.key
 /config/credentials.yml.enc
 .keep
 .idea
