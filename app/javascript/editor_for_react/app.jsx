@@ -1,7 +1,7 @@
 import React, {Suspense} from 'react';
 import Cropper from 'react-cropper';
-import {Layout, Modal, Upload, Button} from 'antd';
-import {UploadOutlined} from '@ant-design/icons';
+import {Layout, Modal, Upload, Button, Drawer, Typography} from 'antd';
+import {UploadOutlined, MenuOutlined} from '@ant-design/icons';
 
 const AppSider = React.lazy(() => import('./components/sider'));
 const AppEditor = React.lazy(() => import('./components/editor'));
@@ -16,6 +16,7 @@ import './app.scss';
 import styles from './app.module.scss';
 
 const {Sider, Content} = Layout;
+const {Title} = Typography
 
 class App extends React.Component {
     constructor(props) {
@@ -27,7 +28,8 @@ class App extends React.Component {
             blogs: [],
             visible: false,
             fileList: [],
-            image: null
+            image: null,
+            showMenu: false
         };
         this.cropperRef = React.createRef();
         this.onToggle = this.onToggle.bind(this);
@@ -158,18 +160,44 @@ class App extends React.Component {
                         ref={this.cropperRef}
                     />
                 </Modal>
-                <Sider
-                    className={styles['sider']}
-                    theme="light">
-                    <AppSider
-                        defaultSelect={this.state.currentId}
-                        dataSource={this.state.blogs}
-                        onDelete={this.onDelete}
-                        onToggle={this.onToggle}
-                        createNewBlog={this.createNewBlog}
-                        onUpdateCover={this.openModal}
-                    />
-                </Sider>
+                <Drawer
+                    title="我的文章列表"
+                    width={360}
+                    placement={'left'}
+                    onClose={() => this.setState({showMenu: false})}
+                    visible={this.state.showMenu}
+                    // bodyStyle={{paddingBottom: 80}}
+                    footer={
+                        <Title className={styles['return_home_btn']}
+                               level={4}
+                               onClick={() => this.returnHome()}>
+                            {/*<LeftOutlined/>*/}
+                            <img src='/website.svg' alt='website logo' style={{height: '20px'}}/>
+                            Small Book
+                        </Title>
+                    }
+                >
+                    <Sider
+                        className={styles['sider']}
+                        theme="light">
+                        <AppSider
+                            defaultSelect={this.state.currentId}
+                            dataSource={this.state.blogs}
+                            onDelete={this.onDelete}
+                            onToggle={this.onToggle}
+                            createNewBlog={this.createNewBlog}
+                            onUpdateCover={this.openModal}
+                        />
+                    </Sider>
+                </Drawer>
+                <Button
+                    type="primary"
+                    onClick={() => this.setState({showMenu: !this.state.showMenu})}
+                    className={styles['menu_btn']}
+                    style={{left: this.state.showMenu ? 360 : 0}}
+                >
+                    <MenuOutlined style={{fontSize: '20px'}}/>
+                </Button>
                 <Content className={styles['content']}>
                     <AppEditor
                         currentId={this.state.currentId}

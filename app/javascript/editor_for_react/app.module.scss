@@ -1,3 +1,5 @@
+@import '../stylesheets/vars';
+
 :global(.tui-editor-defaultUI-toolbar) {
   display: flex;
 }
@@ -11,15 +13,52 @@
   display: none !important;
 }
 
+:global(.ant-drawer-body) {
+  padding: 0 !important;
+}
+
 .sider {
-  $width: 300px;
-  flex: 0 0 $width !important;
-  max-width: $width !important;
-  min-width: $width !important;
-  width: $width !important;
+  //$width: 300px;
+  //flex: 0 0 $width !important;
+  //max-width: $width !important;
+  //min-width: $width !important;
+  //width: $width !important;
+  max-width: unset !important;
+  min-width: unset !important;
+  width: 100% !important;
+}
+
+.return_home_btn {
+  width: 30%;
+  min-width: 180px;
+  cursor: pointer;
+  user-select: unset;
+  text-align: right;
+  height: 48px !important;
+  line-height: 48px !important;
+  color: $theme_color !important;
+  margin-bottom: 0 !important;
+  margin-left: auto;
+  padding: 0 24px;
+  font-weight: bold;
 }
 
 .content {
   display: flex;
+  height: 100vh;
   flex-direction: column;
+}
+
+.menu_btn {
+  height: 48px !important;
+  width: 48px !important;
+  position: fixed !important;
+  padding: 0 !important;
+  left: 0;
+  top: 50%;
+  margin-top: -24px;
+  z-index: 1080;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
 }

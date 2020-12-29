@@ -1,11 +1,6 @@
 @import '../../../stylesheets/vars';
 @import '../../../stylesheets/mixins';
 
-:global(.ant-layout-sider-children) {
-  height: 100vh !important;
-  overflow-y: scroll !important;
-}
-
 .sider-menu {
   border-bottom: 1px solid #eee;
 }
@@ -19,9 +14,9 @@
   border-bottom: 1px solid #eee;
   margin: 0 !important;
 
-  &:last-child {
-    margin-bottom: 48px !important;
-  }
+  //&:last-child {
+  //  margin-bottom: 48px !important;
+  //}
 
   .sider-item-title {
     font-size: 18px;
@@ -80,6 +75,7 @@
 
 .blogs_set {
   padding-left: 0;
+  margin-bottom: 0;
 
   li {
     user-select: none;

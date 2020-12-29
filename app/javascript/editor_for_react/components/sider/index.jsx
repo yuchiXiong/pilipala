@@ -72,13 +72,6 @@ class AppSider extends React.Component {
     render() {
         return (
             <aside className={styles['sider']}>
-                <Title className={styles['return_home_btn']}
-                       level={4}
-                       onClick={() => this.returnHome()}>
-                    {/*<LeftOutlined/>*/}
-                    <img src='/website.svg' alt='website logo' style={{height: '20px'}}/>
-                    Small Book
-                </Title>
                 <ul className={styles['blogs_set']}>
                     {
                         this.props.dataSource.map((item, index) => {
