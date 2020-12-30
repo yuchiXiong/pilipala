@@ -1,37 +1,41 @@
 .blog-post.shadow-sm.mt-3.mb-3
   .card.mb-3
     = link_to blog_url(blog.id) do
-      - unless blog.cover.file.nil?
-        .blog-image[style="background-image: url('#{blog.oss_cover}')"]
       .card-body
-        h4.card-title.blog-title
-          = blog.title
-        p.card-text.blog-content
-          = sanitize render_strip_down(blog.content).truncate(200)
-        p.card-text.mt-2.blog-data
-          small.text-muted
-            / span.comment
-            /   = comment_icon
-            /   | &nbsp;--&nbsp;
-            / span.star
-            /   = star_icon
-            /   | &nbsp;--&nbsp;
-            - if show_author
-              = link_to blog.user.nick_name, user_url(blog.user.id), class: 'mr-2'
-            span.mr-2
-              = read_icon
-              | &nbsp;
-              = blog.reads_count
-            span.mr-2
-              = (current_user && (@current_user_like_blog_ids.include? blog.id)) ? like_icon_selected : like_icon
-              | &nbsp;
-              = blog.likes_count
-            span.mr-2
-              = comment_icon
-              | &nbsp;
-              = blog.comments_count
-            span.publiced_at.ml-auto
-              | 发布于
-              span.format_date[data-toggle="tooltip" data-controller='format-date' data-placement="top" title="Tooltip on top"]
-                = blog.created_at
+        .row
+          - @class_name = blog.cover.file.nil? ? 'col-12' : 'col-9'
+          div[class==@class_name]
+            h4.card-title.blog-title
+              = blog.title
+            p.card-text.blog-content
+              = sanitize render_strip_down(blog.content).truncate(200)
+            p.card-text.mt-2.blog-data
+              small.text-muted
+                / span.comment
+                /   = comment_icon
+                /   | &nbsp;--&nbsp;
+                / span.star
+                /   = star_icon
+                /   | &nbsp;--&nbsp;
+                - if show_author
+                  = link_to blog.user.nick_name, user_url(blog.user.id), class: 'mr-2'
+                span.mr-2
+                  = read_icon
+                  | &nbsp;
+                  = blog.reads_count
+                span.mr-2
+                  = (current_user && (@current_user_like_blog_ids.include? blog.id)) ? like_icon_selected : like_icon
+                  | &nbsp;
+                  = blog.likes_count
+                span.mr-2
+                  = comment_icon
+                  | &nbsp;
+                  = blog.comments_count
+                span.publiced_at.ml-auto
+                  | 发布于
+                  span.format_date[data-toggle="tooltip" data-controller='format-date' data-placement="top" title="Tooltip on top"]
+                    = blog.created_at
 
+          .col-3
+            - unless blog.cover.file.nil?
+              .blog-image[style="background-image: url('#{blog.oss_cover}')"]
