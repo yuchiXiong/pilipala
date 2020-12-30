@@ -4,7 +4,7 @@
 // * common user's info block styles
 .user_info_block {
   @include flex-row;
-  @include block;
+  @include container;
   align-items: center;
   margin-bottom: 24px;
   background-color: #fff;
@@ -69,11 +69,11 @@
   background-color: $gray_bg_color;
 
   .blog-main {
-    @include block;
+    @include container;
 
     .list_container {
       margin-top: -12px;
-      @include block;
+      @include container;
 
       & .blog-post:first-child {
         margin-top: 0 !important;
@@ -126,7 +126,7 @@
       background-color: #fff;
       padding: 24px;
       width: 100%;
-      @include block;
+      @include container;
 
       #user_introduce, #blog_sets {
         margin-bottom: 32px;

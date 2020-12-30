@@ -7,7 +7,7 @@
 .blog-post {
 
   .card {
-    border-radius: 8px;
+    @include container;
   }
 
   .blog-title:hover {
@@ -73,7 +73,7 @@
 
     .carousel-inner {
       img {
-        border-radius: 8px;
+        @include container;
       }
     }
   }
@@ -86,7 +86,7 @@
       top: 96px;
 
       .hot_authors {
-        border-radius: 8px;
+        @include container;
         background-color: #fff;
         padding: 1.25rem;
 
@@ -115,7 +115,7 @@
       }
 
       .hot_blogs {
-        border-radius: 8px;
+        @include container;
         margin-top: 16px;
         background-color: #fff;
         padding: 1.25rem;
@@ -150,16 +150,16 @@
 }
 
 #blogs__show {
-  @include block;
+  @include container;
   background-color: $gray_bg_color;
 
   .left {
     padding-right: 0.5rem;
 
     .blog_detail {
-      @include block;
+      @include container;
       background-color: #fff;
-      border-radius: 8px;
+      @include container;
 
       .blog_title {
         padding: 24px;
@@ -232,7 +232,7 @@
     .comments {
       background-color: #fff;
       padding: 24px;
-      border-radius: 8px;
+      @include container;
 
       .avatar {
         height: 48px;
@@ -274,7 +274,7 @@
       top: 96px;
 
       #toc_sider {
-        @include block;
+        @include container;
         background-color: #fff;
         padding: 24px;
 
