@@ -10,7 +10,7 @@
 
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'stimulus', 'data-turbolinks-track': 'reload' %>
+  <%#= javascript_pack_tag 'stimulus', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">
@@ -36,6 +36,7 @@
   <%- end %>
 
 </div>
+
 <script>
     $('.page').css({marginRight: '-10%', opacity: 0});
 </script>

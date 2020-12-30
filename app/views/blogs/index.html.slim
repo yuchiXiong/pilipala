@@ -26,7 +26,22 @@ main.container[role="main"]
           data-scroll-fetch-page="2"
           data-scroll-fetch-none='false']
           = render @blogs, show_author: true
-          = paginate @blogs
+          nav aria-label="Page navigation example"
+            ul.pagination
+              - if @page - 1 > 0
+                li.page-item
+                  = link_to '上一页', root_url(page: @page - 1), class: 'page-link'
+              - if @page - 1 > 0
+                li.page-item
+                  = link_to @page - 1, root_url(page: @page - 1), class: 'page-link'
+              li.page-item.active
+                = link_to @page, root_url(page: @page), class: 'page-link'
+              - if @page * 10 <= Blog.visible.count
+                li.page-item
+                  = link_to @page + 1, root_url(page: @page + 1), class: 'page-link'
+              - if @page * 10 <= Blog.visible.count
+                li.page-item
+                  = link_to '下一页', root_url(page: @page + 1), class: 'page-link'
 
     aside.right.col-3.d-none.d-lg-block.blog-sidebar
       .notice
