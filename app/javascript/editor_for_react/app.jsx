@@ -46,6 +46,7 @@ class App extends React.Component {
         this.onChangeImgFile = this.onChangeImgFile.bind(this);
         this.onFinish = this.onFinish.bind(this);
         this.onEditorUpload = this.onEditorUpload.bind(this);
+        this.onChangeImgFileClose = this.onChangeImgFileClose.bind(this);
     }
 
     // * 组件挂载后拉取当前用户的博客列表
@@ -121,6 +122,14 @@ class App extends React.Component {
         });
     };
 
+    // * 关闭上传文件模态框
+    onChangeImgFileClose() {
+        this.setState({
+            visible: false,
+            image: null
+        })
+    }
+
     onEditorUpload(blog) {
         let index = -1;
         this.state.blogs.map((item, _index) => {
@@ -138,6 +147,7 @@ class App extends React.Component {
         Turbolinks.visit('/');
     }
 
+
     render() {
         return <Suspense fallback={<Loading/>}>
             <Layout>
@@ -147,7 +157,7 @@ class App extends React.Component {
                     footer={this.state.image ? <Button type="primary" onClick={this.onFinish}>完成</Button> : null}
                     destroyOnClose={true}
                     maskClosable={false}
-                    onCancel={() => this.setState({visible: false})}
+                    onCancel={this.onChangeImgFileClose}
                 >
                     {
                         this.state.image ?
