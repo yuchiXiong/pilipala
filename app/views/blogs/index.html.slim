@@ -69,6 +69,7 @@ main.container[role="main"]
               li.hot_item
                 = link_to blog_url(blog.id) do
                   = blog.title.truncate(20)
+                br
                 small.text-muted
                   = blog.reads_count
                   | 人阅读&nbsp;

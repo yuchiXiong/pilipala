@@ -142,7 +142,7 @@
       }
 
       .hot_item {
-        @include flex-row;
+        //@include flex-row;
         line-height: 24px;
         font-weight: 500;
       }
