@@ -20,7 +20,6 @@ const ALI_OSS_DOMAIN = 'https://assets.bubuyu.top';
 
 // * 创建一个用户切换发布状态的按钮
 function createToggleReleasedStateBtn(releasedState) {
-    console.log(releasedState)
     const button = document.createElement('button');
     button.className = 'last editor_toggle_released_state';
     button.innerHTML = `<p>${releasedState ? '取消发布' : '发布博客'}</p>`;

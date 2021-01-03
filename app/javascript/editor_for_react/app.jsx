@@ -1,7 +1,8 @@
 import React, {Suspense} from 'react';
+import Turbolinks from 'turbolinks';
 import Cropper from 'react-cropper';
-import {Layout, Modal, Upload, Button, Drawer, Typography} from 'antd';
-import {UploadOutlined, MenuOutlined} from '@ant-design/icons';
+import {Layout, Modal, Upload, Button, Drawer, Typography, message} from 'antd';
+import {UploadOutlined, MenuOutlined, InboxOutlined} from '@ant-design/icons';
 
 const AppSider = React.lazy(() => import('./components/sider'));
 const AppEditor = React.lazy(() => import('./components/editor'));
@@ -14,11 +15,16 @@ import request from "./utils/request";
 
 import './app.scss';
 import styles from './app.module.scss';
+import './antd_reset.less';
 
 const {Sider, Content} = Layout;
 const {Title} = Typography
+const {Dragger} = Upload;
+
+Turbolinks.start();
 
 class App extends React.Component {
+
     constructor(props) {
         super(props);
         this.userInfo = gon.currentUser;
@@ -29,7 +35,8 @@ class App extends React.Component {
             visible: false,
             fileList: [],
             image: null,
-            showMenu: false
+            showMenu: false,
+            currentStep: 0
         };
         this.cropperRef = React.createRef();
         this.onToggle = this.onToggle.bind(this);
@@ -87,12 +94,11 @@ class App extends React.Component {
 
     // * 更新文件
     onChangeImgFile(e) {
-        const files = e.target.files;
         const reader = new FileReader();
         reader.onload = () => {
             this.setState({image: reader.result})
         }
-        reader.readAsDataURL(files[0]);
+        reader.readAsDataURL(e.file.originFileObj);
     }
 
     // * 上传封面
@@ -103,9 +109,13 @@ class App extends React.Component {
             const formData = new FormData();
             formData.append('_method', 'put');
             formData.append("blog[cover]", file, 'cover.png');
-            request.post(`/api/blogs/${this.state.current.id}`, formData).then(res => {
+            request.post(`/api/blogs/${this.state.currentId}`, formData).then(res => {
                 if (res.code === 8888) {
-                    this.setState({visible: false});
+                    this.setState({
+                        visible: false,
+                        image: null
+                    });
+                    message.success('设置成功!');
                 }
             });
         });
@@ -124,41 +134,54 @@ class App extends React.Component {
         })
     }
 
+    returnHome() {
+        Turbolinks.visit('/');
+    }
+
     render() {
         return <Suspense fallback={<Loading/>}>
             <Layout>
                 <Modal
-                    title="为博客挑选一张封面"
+                    title="为博文选择一张封面"
                     visible={this.state.visible}
-                    footer={null}
+                    footer={this.state.image ? <Button type="primary" onClick={this.onFinish}>完成</Button> : null}
                     destroyOnClose={true}
                     maskClosable={false}
-
                     onCancel={() => this.setState({visible: false})}
                 >
-                    {/*<input type="file" onChange={this.onChangeImgFile}/>*/}
-                    <Upload onChange={this.onChangeImgFile}>
-                        <Button icon={<UploadOutlined/>}>Click to Upload</Button>
-                    </Upload>
-                    <Button type="primary" onClick={this.onFinish}>确认</Button>
-                    <Cropper
-                        style={{height: 400, width: "100%"}}
-                        initialAspectRatio={1}
-                        preview=".img-preview"
-                        src={this.state.image}
-                        viewMode={1}
-                        guides={true}
-                        minCropBoxHeight={10}
-                        minCropBoxWidth={10}
-                        background={false}
-                        responsive={true}
-                        autoCropArea={1}
-                        checkOrientation={false}
-                        // onInitialized={(instance) => {
-                        //     setCropper(instance);
-                        // }}
-                        ref={this.cropperRef}
-                    />
+                    {
+                        this.state.image ?
+                            <Cropper
+                                style={{height: 400, width: "100%"}}
+                                initialAspectRatio={1}
+                                preview=".img-preview"
+                                src={this.state.image}
+                                viewMode={1}
+                                guides={true}
+                                minCropBoxHeight={10}
+                                minCropBoxWidth={10}
+                                background={false}
+                                responsive={true}
+                                autoCropArea={1}
+                                checkOrientation={false}
+                                ref={this.cropperRef}
+                            /> :
+                            <Dragger
+                                name={'file'}
+                                multiple={false}
+                                customRequest={null}
+                                onChange={this.onChangeImgFile}
+                            >
+                                <p className="ant-upload-drag-icon">
+                                    <InboxOutlined/>
+                                </p>
+                                <p className="ant-upload-text">为博文选择一张封面</p>
+                                <p className="ant-upload-hint">
+                                    点击或拖拽文件到此处进行上传。
+                                </p>
+                            </Dragger>
+
+                    }
                 </Modal>
                 <Drawer
                     title="我的文章列表"

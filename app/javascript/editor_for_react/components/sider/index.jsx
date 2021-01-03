@@ -1,5 +1,4 @@
 import React from 'react';
-import Turbolinks from 'turbolinks';
 import {Menu, Typography, Button, Dropdown} from 'antd';
 import {SettingOutlined, MinusCircleOutlined, CheckCircleOutlined, LeftOutlined} from '@ant-design/icons';
 import {Blog} from '../../utils/api';
@@ -7,9 +6,7 @@ import dayjs from "dayjs";
 
 import styles from './index.module.scss';
 
-const {Title, Text} = Typography;
-
-Turbolinks.start();
+const {Text} = Typography;
 
 class AppSider extends React.Component {
 
@@ -46,10 +43,6 @@ class AppSider extends React.Component {
         Blog.destroy(id).then(() => {
             this.props.onDelete(id);
         });
-    }
-
-    returnHome() {
-        Turbolinks.visit('/');
     }
 
     toggleBlog(id, index) {

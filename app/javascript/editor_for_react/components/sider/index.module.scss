@@ -90,7 +90,7 @@
       top: 0;
       left: 0;
       bottom: 0;
-      background-color: #0084ff80;
+      background-color: #ffffff80;
       height: inherit;
       width: 100%;
       transform: scaleX(0);
@@ -100,7 +100,7 @@
 }
 
 li.active {
-  background-color: $dim_theme_color;
+  background-color: $theme_color;
   color: #fff;
 
   span {
