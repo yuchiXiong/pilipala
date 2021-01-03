@@ -54,6 +54,10 @@
       line-height: 21px;
     }
 
+    svg {
+      vertical-align: middle;
+    }
+
   }
 
 
@@ -102,6 +106,7 @@
 
         .tag {
           margin-bottom: 16px;
+          line-height: 1.5;
         }
 
         .avatar {
@@ -126,7 +131,6 @@
 
       .hot_blogs {
         @include container;
-        margin-top: 16px;
         background-color: #fff;
         padding: 1.25rem;
       }
@@ -142,6 +146,7 @@
       .hot_item {
         @include flex-row;
         line-height: 24px;
+        font-weight: 500;
       }
 
       ul {
@@ -220,7 +225,7 @@
               width: 103px;
               display: inline-block;
               content: "";
-              background-color: #0084ff88;
+              background-color: #13c2c288;
               margin-left: -101px;
               transition: height 150ms;
               vertical-align: text-bottom;

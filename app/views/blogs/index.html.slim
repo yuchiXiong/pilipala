@@ -26,7 +26,7 @@ main.container[role="main"]
           data-scroll-fetch-page="2"
           data-scroll-fetch-none='false']
           = render @blogs, show_author: true
-          nav aria-label="Page navigation example"
+          nav.mt-3 aria-label="Page navigation example"
             ul.pagination
               - if @page - 1 > 0
                 li.page-item
@@ -49,7 +49,7 @@ main.container[role="main"]
           h4.tag
             | 热门作者
           ul
-            - User.all.take(3).each do |user|
+            - User.order(blogs_count: :desc).limit(3).each do |user|
               li
                 = link_to user_url(user.id) do
                   = image_tag user.oss_avatar, class: 'avatar'
@@ -61,17 +61,18 @@ main.container[role="main"]
                           | 这个人很懒……什么都没留下
                         - else
                           = user.description
-                          / | 收获 --- 赞
         .hot_blogs
-          h4.tag.mt-2
-            | 热门博客
+          h4.tag
+            | 大家都在看
           ul
             - @hots.each_with_index do |blog, index|
               li.hot_item
                 = link_to blog_url(blog.id) do
                   = blog.title.truncate(20)
-              / small.ml-auto
-              /   = star_icon
-              /   = rand(0..100)
-              hr
+              small.text-muted
+                = blog.reads_count
+                | 人阅读&nbsp;
+                = blog.likes_count
+                | 人喜欢&nbsp;
+              hr.mb-1.mt-1
         = render 'shared/footer'
