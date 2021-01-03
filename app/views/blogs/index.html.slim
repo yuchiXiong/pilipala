@@ -69,10 +69,10 @@ main.container[role="main"]
               li.hot_item
                 = link_to blog_url(blog.id) do
                   = blog.title.truncate(20)
-              small.text-muted
-                = blog.reads_count
-                | 人阅读&nbsp;
-                = blog.likes_count
-                | 人喜欢&nbsp;
-              hr.mb-1.mt-1
+                small.text-muted
+                  = blog.reads_count
+                  | 人阅读&nbsp;
+                  = blog.likes_count
+                  | 人喜欢&nbsp;
+                hr.mb-1.mt-1
         = render 'shared/footer'

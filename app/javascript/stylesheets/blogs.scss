@@ -64,8 +64,6 @@
 }
 
 #blogs__index {
-  //background-color: $gray_bg_color;
-  background-color: #fff;
 
   #load_more {
     text-align: center;
@@ -166,7 +164,6 @@
 
 #blogs__show {
   @include container;
-  background-color: $gray_bg_color;
 
   .left {
     padding-right: 0.5rem;
@@ -178,7 +175,6 @@
 
       .blog_title {
         padding: 24px;
-        border: 1px solid $gray_bg_color;
 
         .count {
           margin-bottom: 0;
@@ -289,6 +285,21 @@
       top: 96px;
 
       #toc_sider {
+        @include container;
+        background-color: #fff;
+        padding: 24px;
+
+        a {
+          color: $normal_font_color;
+        }
+
+        a:hover {
+          text-decoration: none;
+          color: $theme_color;
+        }
+      }
+
+      #author_other_blogs {
         @include container;
         background-color: #fff;
         padding: 24px;

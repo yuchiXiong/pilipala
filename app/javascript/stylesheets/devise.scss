@@ -92,14 +92,13 @@
 }
 
 #registrations__edit {
-  background: $gray_bg_color;
+  margin-top: 104px;
 
   #user_update_sider,
   #user_update_content {
     @include container;
     background-color: #fff;
-    padding: 24px;
-
+    //padding: 24px;
   }
 
   #user_update_sider {

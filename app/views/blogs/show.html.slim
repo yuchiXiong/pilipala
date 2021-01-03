@@ -52,7 +52,22 @@
 
     .col-3.d-none.d-lg-block.right
       .blog_show_right
-        #toc_sider
-          h4
-            | 目录
+        / #toc_sider
+          / h4
+          /   | 目录
           #toc[data-controller='toc' data-action='click->toc#scrollTo']
+        #author_other_blogs
+          h4.tag
+            | 作者的其他博客
+          ul.mb-0
+            - @blog.user.blogs.visible.limit(5).each do |blog|
+              li.hot_item
+                = link_to blog_url(blog.id) do
+                  = blog.title.truncate(20)
+                br
+                small.text-muted
+                  = blog.reads_count
+                  | 人阅读&nbsp;
+                  = blog.likes_count
+                  | 人喜欢&nbsp;
+                hr.mb-1.mt-1
