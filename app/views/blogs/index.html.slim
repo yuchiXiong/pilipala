@@ -2,78 +2,78 @@
 
 = render 'shared/to_top_btn'
 
-main.container[role="main"]
-  .row
-    .left.col-12.col-lg-9
-      #homeCarousel.carousel.slide.mb-3 data-ride="carousel"
-        .carousel-inner
-          .carousel-item.active
-            = image_pack_tag 'media/assets/images/default1.png', class: 'w-100'
-          .carousel-item
-            = image_pack_tag 'media/assets/images/default2.png', class: 'w-100'
-        a.carousel-control-prev href="#homeCarousel" role="button" data-slide="prev"
-          span.carousel-control-prev-icon aria-hidden="true"
-          span.sr-only
-            | Previous
-        a.carousel-control-next href="#homeCarousel" role="button" data-slide="next"
-          span.carousel-control-next-icon aria-hidden="true"
-          span.sr-only
-            | Next
-      .blog-main
-        .blogs[data-controller='scroll-fetch'
-          data-action="scroll@document->scroll-fetch#fetch"
-          data-scroll-fetch-loading='false'
-          data-scroll-fetch-page="2"
-          data-scroll-fetch-none='false']
-          = render @blogs, show_author: true
-          nav.mt-3 aria-label="Page navigation example"
-            ul.pagination
-              - if @page - 1 > 0
-                li.page-item
-                  = link_to '上一页', root_url(page: @page - 1), class: 'page-link'
-              - if @page - 1 > 0
-                li.page-item
-                  = link_to @page - 1, root_url(page: @page - 1), class: 'page-link'
-              li.page-item.active
-                = link_to @page, root_url(page: @page), class: 'page-link'
-              - if @page * 10 <= Blog.visible.count
-                li.page-item
-                  = link_to @page + 1, root_url(page: @page + 1), class: 'page-link'
-              - if @page * 10 <= Blog.visible.count
-                li.page-item
-                  = link_to '下一页', root_url(page: @page + 1), class: 'page-link'
+= provide :left_slot do
+  #homeCarousel.carousel.slide.mb-3 data-ride="carousel"
+    .carousel-inner
+      .carousel-item.active
+        = image_pack_tag 'media/assets/images/default1.png', class: 'w-100'
+      .carousel-item
+        = image_pack_tag 'media/assets/images/default2.png', class: 'w-100'
+    a.carousel-control-prev href="#homeCarousel" role="button" data-slide="prev"
+      span.carousel-control-prev-icon aria-hidden="true"
+      span.sr-only
+        | Previous
+    a.carousel-control-next href="#homeCarousel" role="button" data-slide="next"
+      span.carousel-control-next-icon aria-hidden="true"
+      span.sr-only
+        | Next
 
-    aside.right.col-3.d-none.d-lg-block.blog-sidebar
-      .notice
-        .hot_authors
-          h4.tag
-            | 热门作者
-          ul
-            - User.order(blogs_count: :desc).limit(3).each do |user|
-              li
-                = link_to user_url(user.id) do
-                  = image_tag user.oss_avatar, class: 'avatar'
-                  .hot_author_info
-                    = user.nick_name.truncate(18)
-                    p
-                      small
-                        - if user.description.blank?
-                          | 这个人很懒……什么都没留下
-                        - else
-                          = user.description
-        .hot_blogs
-          h4.tag
-            | 大家都在看
-          ul
-            - @hots.each_with_index do |blog, index|
-              li.hot_item
-                = link_to blog_url(blog.id) do
-                  = blog.title.truncate(20)
-                br
-                small.text-muted
-                  = blog.reads_count
-                  | 人阅读&nbsp;
-                  = blog.likes_count
-                  | 人喜欢&nbsp;
-                hr.mb-1.mt-1
-        = render 'shared/footer'
+  .blog-main
+    .blogs[data-controller='scroll-fetch'
+      data-action="scroll@document->scroll-fetch#fetch"
+      data-scroll-fetch-loading='false'
+      data-scroll-fetch-page="2"
+      data-scroll-fetch-none='false']
+      = render @blogs, show_author: true
+      nav.mt-3 aria-label="Page navigation example"
+        ul.pagination
+          - if @page - 1 > 0
+            li.page-item
+              = link_to '上一页', root_url(page: @page - 1), class: 'page-link'
+          - if @page - 1 > 0
+            li.page-item
+              = link_to @page - 1, root_url(page: @page - 1), class: 'page-link'
+          li.page-item.active
+            = link_to @page, root_url(page: @page), class: 'page-link'
+          - if @page * 10 <= Blog.visible.count
+            li.page-item
+              = link_to @page + 1, root_url(page: @page + 1), class: 'page-link'
+          - if @page * 10 <= Blog.visible.count
+            li.page-item
+              = link_to '下一页', root_url(page: @page + 1), class: 'page-link'
+
+= provide :right_slot do
+  .blog-sidebar
+    .notice
+      .hot_authors
+        h4.tag
+          | 热门作者
+        ul
+          - User.order(blogs_count: :desc).limit(3).each do |user|
+            li
+              = link_to user_url(user.id) do
+                = image_tag user.oss_avatar, class: 'avatar'
+                .hot_author_info
+                  = user.nick_name.truncate(18)
+                  p
+                    small
+                      - if user.description.blank?
+                        | 这个人很懒……什么都没留下
+                      - else
+                        = user.description
+      .hot_blogs.mt-3.mb-3
+        h4.tag
+          | 大家都在看
+        ul
+          - @hots.each_with_index do |blog, index|
+            li.hot_item
+              = link_to blog_url(blog.id) do
+                = blog.title.truncate(20)
+              br
+              small.text-muted
+                = blog.reads_count
+                | 人阅读&nbsp;
+                = blog.likes_count
+                | 人喜欢&nbsp;
+              hr.mb-1.mt-1
+      = render 'shared/footer'

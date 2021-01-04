@@ -19,6 +19,10 @@ a,
 }
 
 ul {
-  list-style: none;
-  padding-left: unset;
+  padding-left: 0;
+  margin-bottom: 0;
+
+  li {
+    list-style: none;
+  }
 }

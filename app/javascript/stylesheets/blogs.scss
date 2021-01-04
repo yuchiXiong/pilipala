@@ -65,6 +65,11 @@
 
 #blogs__index {
 
+  .carousel,
+  .carousel img {
+    border-radius: 8px;
+  }
+
   #load_more {
     text-align: center;
     @include flex-row;
@@ -78,19 +83,7 @@
     color: $gray_font_color;
   }
 
-  .left {
-    padding-right: 6px;
-
-    .carousel-inner {
-      @include container;
-
-      img {
-        @include container;
-      }
-    }
-  }
-
-  .right {
+  .blog-sidebar {
     padding-left: 6px;
 
     .notice {
@@ -100,7 +93,6 @@
       .hot_authors {
         @include container;
         background-color: #fff;
-        padding: 1.25rem;
 
         .tag {
           margin-bottom: 16px;
@@ -130,7 +122,6 @@
       .hot_blogs {
         @include container;
         background-color: #fff;
-        padding: 1.25rem;
       }
 
       .website_info {
@@ -142,18 +133,8 @@
       }
 
       .hot_item {
-        //@include flex-row;
         line-height: 24px;
         font-weight: 500;
-      }
-
-      ul {
-        padding-left: 0;
-        margin-bottom: 0;
-
-        li {
-          list-style: none;
-        }
       }
 
     }

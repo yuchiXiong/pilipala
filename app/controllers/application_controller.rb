@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  # layout :devise_layout
+
   class ResourcesNotFound < StandardError; end
 
   class AccessDeniedError < StandardError; end
@@ -33,6 +35,12 @@ class ApplicationController < ActionController::Base
 
   def render_notice(title)
     render js: "notice('#{title}', [])", status: :ok
+  end
+
+  private
+
+  def devise_layout
+    devise_controller? ? 'devise' : 'application'
   end
 
   protected
