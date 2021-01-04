@@ -117,27 +117,23 @@
 
   }
 
-  .blog-sidebar {
+  .user_other_info {
+    position: sticky;
+    top: 96px;
+    background-color: #fff;
+    width: 100%;
+    @include container;
 
-    .user_other_info {
-      position: sticky;
-      top: 96px;
-      background-color: #fff;
-      padding: 24px;
-      width: 100%;
-      @include container;
+    #user_introduce, #blog_sets {
+      margin-bottom: 32px;
 
-      #user_introduce, #blog_sets {
-        margin-bottom: 32px;
-
-        p {
-          font-size: 14px;
-          margin-top: 6px;
-        }
+      p {
+        font-size: 14px;
+        margin-top: 6px;
       }
     }
-
   }
+
 
 }
 
