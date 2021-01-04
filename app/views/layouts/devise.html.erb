@@ -23,22 +23,19 @@
 <!--  </div>-->
 <%# end %>
 
-<%#= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
-<%#= yield :slot %>
+<div class="w-100 h-100 flex-grow-1 row">
+  <div class="col-4 devise_left">
+    <%= yield %>
+  </div>
+  <div class="col-8 devise_right">
+    <div class="propaganda">
+      <h1>学就完事！</h1>
+      <p class="mb-4">学习人，学习魂，学习都是人上人。</p>
+      <small>我现在没心情谈什么狗屁浪漫爱情故事，我现在只想学习。</small>
+    </div>
+  </div>
+</div>
 
-<!--<div class="app">-->
-<%#- if devise_controller? %>
-<%#= yield %>
-<%#- else %>
-<!--    <div class="container body">-->
-<%#= yield %>
-<!--    </div>-->
-<%#- end %>
 
-<!--</div>-->
-
-<script>
-    // $('.page').css({marginRight: '-10%', opacity: 0});
-</script>
 </body>
 </html>

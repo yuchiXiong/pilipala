@@ -1,40 +1,28 @@
 = provide :title, "找回密码 - Small Book"
 
-.row.h-100
-  .col-4.devise_left
-    section
-      h4.mb-1
-        | 欢迎使用&nbsp;
-        span.logo
-          = link_to 'Small Book', root_url
-      small.text-muted
-        | 简简单单创作
+section
+  h4.mb-1
+    | 欢迎使用&nbsp;
+    span.logo
+      = link_to 'Small Book', root_url
+  small.text-muted
+    | 简简单单创作
 
-      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, remote: true, class: 'mt-4' }) do |f|
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, remote: true, class: 'mt-4' }) do |f|
 
-        .form-group.mb-3
-          = f.label :email, class: 'form-text form_label' do
-            | 邮箱
-          = f.email_field :email, autofocus: true, autocomplete: "请输入您的邮箱", class: 'form-control'
+    .form-group.mb-3
+      = f.label :email, class: 'form-text form_label' do
+        | 邮箱
+      = f.email_field :email, autofocus: true, autocomplete: "请输入您的邮箱", class: 'form-control'
 
-        .actions.mb-3
-          = f.submit "发送重置邮件到我的邮箱", class: 'btn btn-success btn-block'
+    .actions.mb-3
+      = f.submit "发送重置邮件到我的邮箱", class: 'btn btn-success btn-block'
 
-      small.form-text.text-muted.text-center
-        | 没有帐号？
-        = link_to "立即注册", new_registration_path(resource_name)
-      small.form-text.text-muted.text-center
-        | 已有帐号？
-        = link_to "立即登录", new_session_path(resource_name)
-      small.form-text.text-muted.text-center
-        = link_to "忘记密码?", new_password_path(resource_name)
-
-
-  .col-8.devise_right
-    / .propaganda
-    /   h1
-    /     | 分享学习生活
-    /   p.mb-4
-    /     | 一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话一堆没卵用的废话
-    /   small
-    /     | 小声逼逼小声逼逼小声逼逼小声逼逼
+  small.form-text.text-muted.text-center
+    | 没有帐号？
+    = link_to "立即注册", new_registration_path(resource_name)
+  small.form-text.text-muted.text-center
+    | 已有帐号？
+    = link_to "立即登录", new_session_path(resource_name)
+  small.form-text.text-muted.text-center
+    = link_to "忘记密码?", new_password_path(resource_name)
