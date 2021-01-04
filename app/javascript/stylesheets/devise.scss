@@ -91,13 +91,12 @@
 }
 
 #registrations__edit {
-  margin-top: 104px;
 
   #user_update_sider,
   #user_update_content {
     @include container;
     background-color: #fff;
-    //padding: 24px;
+
   }
 
   #user_update_sider {
