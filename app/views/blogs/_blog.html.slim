@@ -5,7 +5,7 @@
         .row
           - @class_name = blog.cover.file.nil? ? 'col-12' : 'col-9'
           div[class==@class_name]
-            h4.card-title.blog-title
+            h5.card-title.blog-title
               = blog.title
             p.card-text.blog-content
               = sanitize render_strip_down(blog.content).truncate(200)

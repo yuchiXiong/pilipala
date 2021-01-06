@@ -70,8 +70,8 @@
           - if @user_blogs.count.zero?
             p.text-center
               | 没有找到任何内容
-                  / #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
-                  /   = render @user_blogs, show_author: false
+            / #hot.tab-pane.fade[role="tabpanel" aria-labelledby="contact-tab"]
+            /   = render @user_blogs, show_author: false
 
 = provide :right_slot do
   .user_other_info
