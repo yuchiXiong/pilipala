@@ -7,9 +7,9 @@ li.media.mt-3.mb-3.comment data-id==comment.id
     p.mt-2.mb-2
       = comment.content
     small.d-flex.flex-row.w-100.user_operation
-      span.format_date[data-controller='format-date']
+      span.mr-2.d-none.d-md-block.format_date[data-controller='format-date']
         = comment.created_at
-      span.ml-2.reply
+      span.reply
         = link_to '回复', comment_blog_comment_path(comment.blog.id, comment.id), remote: true
 
       - if current_user && current_user.id == comment.user.id

@@ -3,8 +3,8 @@
     = link_to blog_url(blog.id) do
       .card-body
         .row
-          - @class_name = blog.cover.file.nil? ? 'col-12' : 'col-9'
-          div[class==@class_name]
+          - @class_name = blog.cover.file.nil? ? 'col-lg-12' : 'col-lg-9'
+          .col-sm-12[class==@class_name]
             h5.card-title.blog-title
               = blog.title
             p.card-text.blog-content
@@ -26,6 +26,6 @@
                   span
                     = blog.comments_count
 
-          .col-3
+          .col-3.d-none.d-lg-block
             - unless blog.cover.file.nil?
               .blog-image[style="background-image: url('#{blog.oss_cover}')"]

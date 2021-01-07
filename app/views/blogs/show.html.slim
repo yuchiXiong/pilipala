@@ -11,7 +11,9 @@
 = provide :left_slot do
   .blog_detail
     .blog_title
-      h1
+      h1.d-none.d-md-block
+        = @blog.title
+      h3.d-md-none
         = @blog.title
       p.count
         small.create_at.mr-2
@@ -60,7 +62,7 @@
         | 作者的其他博客
       ul.mb-0
         - @blog.user.blogs.visible.limit(5).each do |blog|
-          li.hot_item
+          li.hot_item.mt-2.mb-2
             = link_to blog_url(blog.id) do
               = blog.title.truncate(20)
             br
@@ -69,4 +71,4 @@
               | 人阅读&nbsp;
               = blog.likes_count
               | 人喜欢&nbsp;
-            hr.mb-1.mt-1
+                / hr.mb-1.mt-1

@@ -5,9 +5,12 @@
   = render "devise/shared/error_messages", resource: resource
 
   .user_basic_info.mb-2
-    .left
+    .left.d-none.d-md-block
       = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
       = image_tag current_user.oss_avatar
+    .left.d-md-none[style="width: 30%"]
+      = f.file_field :avatar, autocomplete: "avatar", class: 'form-control'
+      = image_tag current_user.oss_avatar, style: "width: 72px; transform: translate(-36px, -36px);"
     .right
       .field.input-group
         = f.email_field :email, autofocus: true, autocomplete: "email", placeholder: '邮箱', disabled: true, class: 'form-control'

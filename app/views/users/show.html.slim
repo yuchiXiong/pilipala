@@ -78,7 +78,7 @@
     .rounded#user_introduce
       span.tag
         | 个人介绍
-      p
+      p.mt-3
         - if @be_visited_user.description.blank?
           | 这个人很懒……什么都没留下
         - else
@@ -86,5 +86,5 @@
     .rounded#blog_sets
       span.tag
         | 我的文集
-      p
+      p.mt-3
         | 敬请期待

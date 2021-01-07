@@ -8,12 +8,11 @@
   align-items: center;
   margin-bottom: 24px;
   background-color: #fff;
-  padding: 24px;
 
   .avatar {
     @include flex-row;
     align-items: center;
-    margin-right: 12px;
+    margin-right: 20px;
 
     img {
       height: 72px;
@@ -62,7 +61,7 @@
 .tag {
   font-size: $tag_font_size;
   border-bottom: 2px solid $theme_color;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
 }
 
 #users__show {
