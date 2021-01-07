@@ -10,7 +10,7 @@ const AppEditor = React.lazy(() => import('./components/editor'));
 import 'cropperjs/dist/cropper.css';
 import Loading from './components/loading';
 
-import {User, Blog} from './utils/api';
+import {User} from './utils/api';
 import request from "./utils/request";
 
 import './app.scss';

@@ -20,10 +20,38 @@
   }
 }
 
+:global(.te-toolbar-section) {
+  display: none;
+}
+
 .input_title {
-  font-size: 24px !important;
-  padding: 12px !important;
-  font-weight: bold;
+  @include flex-row;
+  align-items: center;
+  background: #fff;
+  transition: border-bottom 450ms;
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    border-bottom: 2px solid $theme_color;
+  }
+
+  input {
+    font-size: 24px !important;
+    padding: 12px !important;
+    font-weight: bold;
+    width: 90%;
+    outline: none;
+    border: none;
+    flex: 1;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  :global(.ant-avatar) {
+    margin: 0 12px;
+  }
 }
 
 .loading {

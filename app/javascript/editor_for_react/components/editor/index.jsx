@@ -1,5 +1,6 @@
 import React from 'react';
-import {Input, Spin, Typography} from 'antd';
+import {Input, Spin, Typography, Avatar, Button} from 'antd';
+import {UserOutlined} from '@ant-design/icons';
 import {Editor} from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
 
@@ -15,7 +16,6 @@ import './editor.scss';
 
 const {Title} = Typography;
 
-// const ALI_OSS_DOMAIN = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com';
 const ALI_OSS_DOMAIN = 'https://assets.bubuyu.top';
 
 // * 创建一个用户切换发布状态的按钮
@@ -24,44 +24,6 @@ function createToggleReleasedStateBtn(releasedState) {
     button.className = 'last editor_toggle_released_state';
     button.innerHTML = `<p>${releasedState ? '取消发布' : '发布博客'}</p>`;
     return button;
-}
-
-// * 自定义编辑器工具栏
-const toolbar = released => {
-    return ([
-        'heading',
-        'bold',
-        'italic',
-        'strike',
-        'divider',
-        'hr',
-        'quote',
-        'divider',
-        'ul',
-        'ol',
-        'task',
-        'indent',
-        'outdent',
-        'divider',
-        'table',
-        'image',
-        'link',
-        'divider',
-        'code',
-        'codeblock',
-        'divider',
-        {
-            type: 'button',
-            options: {
-                el: createToggleReleasedStateBtn(released),
-                tooltip: '发布更新',
-                className: 'last',
-                event: 'onToggleReleasedState',
-                style: 'color: #333; width: auto; margin-left: auto;',
-                // text: '保存',
-            }
-        }
-    ]);
 }
 
 class AppEditor extends React.Component {
@@ -79,6 +41,7 @@ class AppEditor extends React.Component {
         this.fetchBlog = this.fetchBlog.bind(this);
         this.addImageBlobHook = this.addImageBlobHook.bind(this);
         this.handleEditorChange = this.handleEditorChange.bind(this);
+        this.handleToggleReleasedState = this.handleToggleReleasedState.bind(this);
     }
 
     componentDidMount() {
@@ -89,15 +52,9 @@ class AppEditor extends React.Component {
         if (prevProps.currentId !== this.props.currentId) {
             this.fetchBlog(this.props.currentId);
         }
-        if (prevState.current.released !== this.state.current.released) {
-            document.querySelector(".editor_toggle_released_state p").innerText = this.state.current.released ? '取消发布' : '发布博客';
-        }
     }
 
     componentWillUnmount() {
-        const mdInstance = this.editorRef.current.getInstance();
-        mdInstance.eventManager.removeEventHandler('onRelease');
-        mdInstance.eventManager.removeEventHandler('onToggleReleasedState');
         clearTimeout(this.timer);
     }
 
@@ -106,8 +63,6 @@ class AppEditor extends React.Component {
         this.editorRef.current.getInstance().setMarkdown(this.state.current.content);
         this.editorRef.current.getInstance().moveCursorToStart();
         this.inputRef.current.setValue(this.state.current.title);
-        const toggle_released_state_tips = this.state.current.released ? '取消发布' : '发布博客'
-        document.querySelector(".editor_toggle_released_state p").textContent = toggle_released_state_tips;
     }
 
     addImageBlobHook(file, callback) {
@@ -120,29 +75,21 @@ class AppEditor extends React.Component {
         });
     }
 
-    // * 为md编辑器绑定自定义菜单事件
-    // ! toast-ui/react-editor 未提供 removeEventType 方法
-    registToggleReleasedSTateEvent() {
-        const mdInstanceEventManager = this.editorRef.current.getInstance().eventManager;
-        if (!mdInstanceEventManager._hasEventType('onToggleReleasedState')) {
-            mdInstanceEventManager.addEventType('onToggleReleasedState');
-            mdInstanceEventManager.listen('onToggleReleasedState', () => {
-                Blog.update(this.props.currentId, {
-                    title: this.inputRef.current.state.value,
-                    content: this.editorRef.current.getInstance().getMarkdown(),
-                    released: !this.state.current.released
-                }).then(res => {
-                    if (res.code === 8888) {
-                        this.setState({
-                            current: {
-                                ...this.state.current,
-                                released: res.data.blog.released
-                            }
-                        })
+    handleToggleReleasedState() {
+        Blog.update(this.props.currentId, {
+            title: this.inputRef.current.state.value,
+            content: this.editorRef.current.getInstance().getMarkdown(),
+            released: !this.state.current.released
+        }).then(res => {
+            if (res.code === 8888) {
+                this.setState({
+                    current: {
+                        ...this.state.current,
+                        released: res.data.blog.released
                     }
-                });
-            });
-        }
+                })
+            }
+        });
     }
 
     handleEditorChange(e) {
@@ -175,7 +122,6 @@ class AppEditor extends React.Component {
                     loading: false
                 });
                 this.updateBlogView();
-                this.registToggleReleasedSTateEvent();
             });
         }
     }
@@ -188,10 +134,15 @@ class AppEditor extends React.Component {
                           spinning={this.state.loading}
                           size={'large'}
                           tip={'精彩内容即将呈现'}>
-                        <Input
-                            className={styles['input_title']}
-                            ref={this.inputRef}
-                            placeholder='博客标题'/>
+                        <section className={styles['input_title']}>
+                            <Input
+                                ref={this.inputRef}
+                                placeholder='为博客取个标题……'/>
+                            <Button type={"link"}
+                                    onClick={this.handleToggleReleasedState}>{this.state.current.released ? '取消发布' : '发布文章'}</Button>
+                            <Avatar size={36} icon={<UserOutlined/>}
+                                    src={ALI_OSS_DOMAIN + window.gon.currentUser.avatar.url}/>
+                        </section>
                         <Editor
                             ref={this.editorRef}
                             onChange={this.handleEditorChange}
@@ -201,7 +152,7 @@ class AppEditor extends React.Component {
                             useCommandShortcut={true}
                             previewHighlight={true}
                             hooks={{addImageBlobHook: this.addImageBlobHook}}
-                            toolbarItems={toolbar(this.state.current.released)}
+                            toolbarItems={[]}
                             plugins={[[codeSyntaxHighlight, {hljs}]]}
                         />
                     </Spin> : <section className={styles['website_place_holder']}>
