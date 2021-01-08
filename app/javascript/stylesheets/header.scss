@@ -17,10 +17,17 @@
 
   #nav_item_group {
     @include flex-row;
-    margin-right: 24px;
 
-    & > .nav-item > a {
-      font-size: $header_title_font_size;
+    a {
+      margin: 0 6px;
+      height: 62px;
+      line-height: 62px;
+      width: 60px;
+      text-align: center;
+    }
+
+    a.active {
+      border-bottom: 2px solid $theme_color;
     }
   }
 
@@ -65,15 +72,6 @@
     height: 42px;
     width: 42px;
     border-radius: 21px;
-    //margin-right: 12px;
-  }
-
-  a {
-    color: $normal_font_color;
-
-    &:hover {
-      text-decoration: none;
-    }
   }
 
   .navbar-collapse {
