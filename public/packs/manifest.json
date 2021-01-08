@@ -1,22 +1,22 @@
 {
-  "admin.css": "/packs/css/admin-cb6fa9d4.css",
-  "admin.js": "/packs/js/admin-6494b55d85305d24bd56.js",
-  "application.css": "/packs/css/application-0d919303.css",
+  "admin.css": "/packs/css/admin-fd8332a4.css",
+  "admin.js": "/packs/js/admin-279b7f3165e4583a8a6e.js",
+  "application.css": "/packs/css/application-1a92bc73.css",
   "application.js": "/packs/js/application-877174832c51db1b29ab.js",
-  "editor_for_react.css": "/packs/css/editor_for_react-e9955936.css",
-  "editor_for_react.js": "/packs/js/editor_for_react-761a68ca63e0756d0857.js",
+  "editor_for_react.css": "/packs/css/editor_for_react-3a4d82d2.css",
+  "editor_for_react.js": "/packs/js/editor_for_react-ab83d4ff15ada2f69434.js",
   "entrypoints": {
     "admin": {
       "css": [
-        "/packs/css/admin-cb6fa9d4.css"
+        "/packs/css/admin-fd8332a4.css"
       ],
       "js": [
-        "/packs/js/admin-6494b55d85305d24bd56.js"
+        "/packs/js/admin-279b7f3165e4583a8a6e.js"
       ]
     },
     "application": {
       "css": [
-        "/packs/css/application-0d919303.css"
+        "/packs/css/application-1a92bc73.css"
       ],
       "js": [
         "/packs/js/application-877174832c51db1b29ab.js"
@@ -24,10 +24,10 @@
     },
     "editor_for_react": {
       "css": [
-        "/packs/css/editor_for_react-e9955936.css"
+        "/packs/css/editor_for_react-3a4d82d2.css"
       ],
       "js": [
-        "/packs/js/editor_for_react-761a68ca63e0756d0857.js"
+        "/packs/js/editor_for_react-ab83d4ff15ada2f69434.js"
       ]
     },
     "stimulus": {
