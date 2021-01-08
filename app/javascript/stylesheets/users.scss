@@ -86,9 +86,7 @@
       #tab {
         background-color: #fff;
         margin-bottom: 0;
-        //border: 1px solid rgba(0, 0, 0, 0.125);
         border-bottom: none;
-        //box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
 
@@ -118,7 +116,7 @@
 
   .user_other_info {
     position: sticky;
-    top: 96px;
+    top: 86px;
     background-color: #fff;
     width: 100%;
     @include container;

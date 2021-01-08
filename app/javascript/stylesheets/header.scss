@@ -33,6 +33,19 @@
 
   #nav_icon_group {
     line-height: 40px;
+
+    .new_blog_btn {
+      background-color: $theme_color;
+      border-radius: 20px;
+      color: #fff;
+      line-height: 26px;
+      width: 98px;
+      margin-left: 16px;
+
+      svg {
+        margin-right: 6px;
+      }
+    }
   }
 
   #header_home_nav {

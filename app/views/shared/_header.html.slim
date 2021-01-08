@@ -11,12 +11,11 @@ nav#website_nav.website_nav.navbar.navbar-expand-lg.navbar-light.fixed-top.borde
       ul.navbar-nav.ml-auto
         #nav_icon_group
           .btn-group
-            button.dropdown-toggle.user_info_btn type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-              = user_icon
-            .dropdown-menu
-              = link_to '写文章', editor_url, class: 'dropdown-item', target: '_blank'
-              - if current_user
-                .dropdown-divider
+            - if current_user
+              button.dropdown-toggle.user_info_btn type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                = image_tag current_user.oss_avatar, class: 'avatar dropdown-toggle'
+              .dropdown-menu
+
                 = link_to '我的主页', user_url(current_user.id), class: 'dropdown-item'
                 = link_to '修改个人信息', edit_user_registration_url, class: 'dropdown-item'
                 - if current_user.is_admin
@@ -24,7 +23,9 @@ nav#website_nav.website_nav.navbar.navbar-expand-lg.navbar-light.fixed-top.borde
                   = link_to '后台管理', admin_root_url, class: 'dropdown-item'
                 .dropdown-divider
                 = link_to '注销', destroy_user_session_url, class: 'dropdown-item', method: :delete
-
+            = link_to editor_url, class: 'new_blog_btn btn', target: '_blank' do
+              = pen_icon
+              | 写文章
       ul.navbar-nav
         / * 移动端
         nav#mobile_user_nav.d-lg-none.col-12

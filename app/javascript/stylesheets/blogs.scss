@@ -89,7 +89,7 @@
 
     .notice {
       position: sticky;
-      top: 96px;
+      top: 86px;
 
       .hot_authors {
         @include container;
@@ -256,7 +256,7 @@
 
   .blog_show_right {
     position: sticky;
-    top: 96px;
+    top: 86px;
 
     #toc_sider {
       @include container;
