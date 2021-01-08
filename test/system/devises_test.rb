@@ -6,7 +6,7 @@ class DevisesTest < ApplicationSystemTestCase
     ActionController::Base.stub_any_instance(:verify_rucaptcha?, true) do
       visit new_user_session_url
 
-      assert_title '登录 - Small Book'
+      assert_title '登录 - Burogu'
 
       assert_selector ".user_card > h4", text: "登录"
 

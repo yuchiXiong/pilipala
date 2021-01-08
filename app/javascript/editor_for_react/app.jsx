@@ -206,7 +206,7 @@ class App extends React.Component {
                                onClick={() => this.returnHome()}>
                             {/*<LeftOutlined/>*/}
                             <img src='/website.svg' alt='website logo' style={{height: '20px'}}/>
-                            Small Book
+                            Burogu
                         </Title>
                     }
                 >

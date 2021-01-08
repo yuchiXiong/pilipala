@@ -156,7 +156,7 @@ class AppEditor extends React.Component {
                             plugins={[[codeSyntaxHighlight, {hljs}]]}
                         />
                     </Spin> : <section className={styles['website_place_holder']}>
-                        <Title level={2}>Small Book</Title>
+                        <Title level={2}>Burogu</Title>
                     </section>
             }
 
