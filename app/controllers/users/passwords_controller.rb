@@ -13,12 +13,12 @@ class Users::PasswordsController < Devise::PasswordsController
 
     if successfully_sent?(resource)
       respond_with(resource) do |format|
-        format.js { render_notice('邮件已发送，请前往邮箱检查！') }
+        return notice('邮件已发送，请前往邮箱检查！')
       end
       # respond_with({}, location: after_sending_reset_password_instructions_path_for(resource_name))
     else
       respond_with(resource) do |format|
-        format.js { render_notice_danger('邮件发送失败', resource.resource_errors, { status: :bad_request }) }
+        return notice('邮件发送失败！', { messages: [], type: :alert })
       end
     end
   end

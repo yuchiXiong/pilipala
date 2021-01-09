@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :comments
   action_store :read, :blog, counter_cache: true
   action_store :like, :blog, counter_cache: true
+  action_store :follow, :user, counter_cache: 'followers_count', user_counter_cache: 'following_count'
 
   enum sex: %i[保密 男 女]
 

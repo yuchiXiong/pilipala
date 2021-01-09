@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_122551) do
+ActiveRecord::Schema.define(version: 2021_01_09_031338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_122551) do
   end
 
   create_table "users", comment: "用户表", force: :cascade do |t|
-    t.string "nick_name", default: "SmallBook4a3e8123", comment: "昵称"
-    t.string "email", comment: "邮箱"
+    t.string "nick_name", default: "SmallBook96ef1b93", comment: "昵称"
+    t.string "email", comment: "[废弃]邮箱"
     t.string "avatar", comment: "头像"
     t.integer "sex", default: 0, comment: "性别"
     t.text "description", default: "", comment: "简介"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 2021_01_03_122551) do
     t.datetime "remember_created_at"
     t.boolean "is_admin", default: false, null: false, comment: "是否是管理员"
     t.integer "blogs_count", default: 0, comment: "用户博客数量"
+    t.integer "followers_count", default: 0, comment: "被关注数"
+    t.integer "following_count", default: 0, comment: "关注数"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -35,7 +35,6 @@ global.$ = $;
 global.dayjs = dayjs;
 Turbolinks.start();
 
-
 $(document).on('ajax:error', e => {
     if (e.detail[e.detail.length - 1].status === 401) {
         Turbolinks.visit('/users/sign_in');

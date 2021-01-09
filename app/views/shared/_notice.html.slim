@@ -1,0 +1,36 @@
+ruby:
+  if flash[:notice]
+    @content = flash[:notice]
+    @color = 'alert-primary'
+  elsif flash[:alert]
+    @content = flash[:alert]
+    @color = 'alert-danger'
+  end
+
+  if @content.class.eql? Hash
+    @messages = @content['messages'] || []
+    @content = @content['content']
+  else
+    @messages = []
+  end
+
+- if devise_controller?
+  - @style = 'margin: 12px 0 -16px 0;'
+- else
+  - @style = ''
+
+- if @content
+  #notice.alert.alert-dismissible[role="alert" class==@color style==@style]
+    strong
+      = @content
+    - if @messages.count > 0
+      ul
+        - @messages.map do |msg|
+          li
+            = msg
+    button.close type="button"
+      span aria-hidden="true"
+        | &times;
+- else
+  - if !devise_controller? || (devise_controller? && ("#{controller_name}__#{action_name}".eql? 'registrations__edit'))
+    div[style="height: 60px"]

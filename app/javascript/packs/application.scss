@@ -2,11 +2,11 @@
 @import "../stylesheets/bootstrap_custom";
 @import "~bootstrap/scss/bootstrap";
 @import "../stylesheets/reset";
-@import "../stylesheets/common";
 
 @import "../stylesheets/header";
 @import "../stylesheets/footer";
 @import "../stylesheets/ugc";
+@import '../stylesheets/notice';
 
 @import "../stylesheets/home";
 @import "../stylesheets/blogs";
@@ -37,7 +37,7 @@ body {
   .app {
     min-height: 100%;
     width: 100%;
-    margin-top: 86px;
+    margin-top: 24px;
     margin-bottom: 24px;
 
     @include flex-row;

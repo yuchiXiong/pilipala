@@ -32,7 +32,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       set_minimum_password_length
       respond_with resource do |format|
-        format.js { render_notice_danger('注册失败', resource.resource_errors, { status: :bad_request }) }
+        return notice('注册失败！', {
+          messages: resource.resource_errors,
+          type: :alert,
+          status: :bad_request,
+          url: new_user_registration_path
+        })
       end
     end
 
@@ -65,7 +70,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
 
   def verify_captcha
-    render_notice_danger('注册失败', '验证码错误', {
+    return notice('注册失败', {
+      messages: ['验证码错误'],
+      type: :alert,
       status: :unauthorized
     }) unless verify_rucaptcha?
   end

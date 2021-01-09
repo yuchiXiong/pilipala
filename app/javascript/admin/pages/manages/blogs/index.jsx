@@ -109,17 +109,17 @@ class Blogs extends React.Component {
     }
 
     render() {
-        const {blogs, pagination, loading} = this.state;
+        const {blogs, pagination, loading, currentBlog, showBlogContent} = this.state;
         return (
             <>
                 <Drawer
-                    title={this.state.blogs.filter(item => item.id === this.state.currentBlog)[0].title}
+                    title={currentBlog !== -1 && blogs.filter(item => item.id === currentBlog)[0].title}
                     width={720}
                     closable={false}
                     onClose={() => this.setState({showBlogContent: false})}
-                    visible={this.state.showBlogContent}
+                    visible={showBlogContent}
                 >
-                    {this.state.currentBlog}
+                    {currentBlog.content}
                 </Drawer>
                 <Table
                     columns={this.columns}

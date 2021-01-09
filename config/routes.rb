@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       # * 更新用户信息
       match :update_info, to: redirect('users/edit'), via: :get
       match :update_info, via: [:put, :patch]
+      post :follow
     end
   end
 
@@ -44,6 +45,6 @@ Rails.application.routes.draw do
     get '*path', to: 'dashboard#index'
   end
 
-  get '*path', to: 'welcome#not_found'
+  get '*path', to: 'blogs#index'
 
 end

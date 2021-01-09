@@ -10,21 +10,26 @@
 
   <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%#= javascript_pack_tag 'stimulus', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">
-<%# if flash[:notice] %>
-<!--  <div id="alert" class="alert alert-primary alert-dismissible fade show fixed-top" role="alert">-->
-<!--    <strong><%#= flash[:notice] %></strong>-->
-<!--    <button type="button" class="close">-->
-<!--      <span aria-hidden="true">&times;</span>-->
-<!--    </button>-->
-<!--  </div>-->
-<%# end %>
 
 <div class="w-100 h-100 flex-grow-1 row">
   <div class="col-4 devise_left">
+
+    <section class="p-0">
+      <h4 class="mb-1">
+        欢迎使用&nbsp;
+        <span class="logo">
+          <%= link_to 'Burogu', root_url %>
+        </span>
+      </h4>
+      <small class="text-muted">
+        简简单单创作
+      </small>
+      <%= render 'shared/notice' %>
+    </section>
+
     <%= yield %>
   </div>
   <div class="col-8 devise_right">

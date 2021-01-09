@@ -14,15 +14,17 @@
       span
         | 博客&nbsp;
         = be_visited_user.blogs.kept.count
-        / | &nbsp;|&nbsp;
-          /   span
-          /     | 关注&nbsp;--&nbsp;
-          /   | &nbsp;|&nbsp;
-          /   span
-          /     | 粉丝&nbsp;--&nbsp;
-          /   | &nbsp;|&nbsp;
-          /   span
-          /     | 收获赞&nbsp;--&nbsp;
-
-          / button.fork
-          /   | 关注
+        | &nbsp;|&nbsp;
+      span
+        | 关注&nbsp;
+        = be_visited_user.following_count
+        | &nbsp;|&nbsp;
+      span
+        | 粉丝&nbsp;
+        = be_visited_user.followers_count
+        | &nbsp;|&nbsp;
+  - if !current_user || (current_user && (current_user.id != be_visited_user.id))
+    - if current_user && (current_user.follow_user? be_visited_user)
+      = link_to '', follow_user_path, class: 'btn followed', method: :post, remote: true
+    - else
+      = link_to '关注', follow_user_path, class: 'btn follow', method: :post, remote: true

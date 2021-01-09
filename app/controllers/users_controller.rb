@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show update_info]
+  before_action :set_user, only: %i[show update_info follow]
   skip_before_action :authenticate_user!, only: %i[show]
   before_action :current_user?, only: %i[update_info]
 
@@ -11,11 +11,21 @@ class UsersController < ApplicationController
 
   def update_info
     @be_visited_user.update(user_params)
-    if user_params[:avatar]
-      redirect_to update_info_user_url @be_visited_user
+    redirect_to update_info_user_url(@be_visited_user), notice: {
+      content: '修改成功'
+    }
+    notice('修改成功')
+  end
+
+  def follow
+    if current_user.follow_user? @be_visited_user
+      current_user.unfollow_user @be_visited_user
+      tips = "您取消关注了 #{@be_visited_user.nick_name} !"
     else
-      render_notice("修改成功！")
+      current_user.follow_user @be_visited_user
+      tips = "您关注了 #{@be_visited_user.nick_name} !"
     end
+    notice(tips)
   end
 
   private

@@ -14,28 +14,26 @@
 </head>
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">
-<%# if flash[:notice] %>
-<!--  <div id="alert" class="alert alert-primary alert-dismissible fade show fixed-top" role="alert">-->
-<!--    <strong><%#= flash[:notice] %></strong>-->
-<!--    <button type="button" class="close">-->
-<!--      <span aria-hidden="true">&times;</span>-->
-<!--    </button>-->
-<!--  </div>-->
-<%# end %>
 
 <%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
 <%= yield :slot %>
 
-<div class="container app">
+<div class="container">
 
-  <div id="app_left" class="col-12 col-lg-9">
-    <%= yield :left_slot %>
-  </div>
-  <div id="app_right" class="col-3 d-none d-lg-block">
-    <%= yield :right_slot %>
+  <%= render 'shared/notice' %>
+  <div class="app">
+
+    <div id="app_left" class="col-12 col-lg-9">
+      <%= yield :left_slot %>
+    </div>
+    <div id="app_right" class="col-3 d-none d-lg-block">
+      <%= yield :right_slot %>
+    </div>
   </div>
 
 </div>
+
+<%= yield :custom_slot %>
 
 <footer class="mastfoot mt-auto border-top">
   <div class="inner">

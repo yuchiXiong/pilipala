@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # layout :devise_layout
-
   class ResourcesNotFound < StandardError; end
 
   class AccessDeniedError < StandardError; end
@@ -14,27 +12,37 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from(AccessDeniedError) do
-    respond_to do |format|
-      format.html { render template: 'access_denied/show' }
-      format.js { render_notice_danger('您没有权限进行当前操作！', []) }
-    end
+    notice('您没有权限进行当前操作！', {
+      messages: [],
+      type: :alert,
+      status: :bad_request,
+      url: root_path
+    })
   end
 
   rescue_from(ActionController::ParameterMissing) do
-    render_notice_danger('服务端异常！请检测参数的完整性！', [])
+    notice('服务端异常！请检测参数的完整性！', {
+      messages: [],
+      type: :alert,
+      status: :bad_request,
+      url: root_path
+    })
   end
 
   def default_url_options(options = {})
     { protocol: Rails.env.production? ? 'https' : 'http' }
   end
 
-  def render_notice_danger(title, messages = [], options = {})
-    messages = [messages] unless messages.class.eql? Array
-    render js: "notice('#{title}', #{messages}, {type: 'danger'})", status: options[:status] || :bad_request
-  end
+  def notice(content, options = {})
+    url = options[:url] || request.headers['Referer']
+    type = options[:type] || :notice
+    messages = options[:messages] || []
+    status = options[:status] || :ok
 
-  def render_notice(title)
-    render js: "notice('#{title}', [])", status: :ok
+    redirect_to url, type => {
+      content: content,
+      messages: messages
+    }, status: status
   end
 
   private
