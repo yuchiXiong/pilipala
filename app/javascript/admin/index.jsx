@@ -14,7 +14,7 @@ const {SubMenu} = Menu;
 
 import Blog from './pages/manages/blogs';
 
-import 'antd/dist/antd.css';
+// import 'antd/dist/antd.css';
 import './index.scss';
 
 class App extends React.Component {

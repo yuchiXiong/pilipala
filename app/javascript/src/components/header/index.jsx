@@ -1,19 +1,37 @@
 import React from 'react';
-import {Layout, Menu} from 'antd';
+import {NavLink} from 'react-router-dom';
+import {Button, Col, Layout, Menu, Row} from 'antd';
+import {PenIcon} from '../icon/index';
 
-import headerStyles from './index.scss';
+import styles from './index.module.scss';
 
 const {Header: AntdHeader} = Layout;
 
 class Header extends React.Component {
     render() {
-        return <AntdHeader>
-            <div className="logo"/>
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                <Menu.Item key="1">nav 1</Menu.Item>
-                <Menu.Item key="2">nav 2</Menu.Item>
-                <Menu.Item key="3">nav 3</Menu.Item>
-            </Menu>
+        return <AntdHeader className={styles.header}>
+            <Row justify={'start'}>
+                <Col span={18} offset={3} className={styles.header_container}>
+                    <div className={styles.logo}>Burogu</div>
+                    <Menu
+                        theme="light"
+                        mode="horizontal"
+                        defaultSelectedKeys={['home']}
+                        className={styles.menu}>
+                        <Menu.Item key="home">
+                            <NavLink to='/'>主页</NavLink>
+                        </Menu.Item>
+                    </Menu>
+                    <Button
+                        type='primary'
+                        className={styles.new_blog}
+                    >
+                        <PenIcon width={'18px'} height={'18px'}/>
+                        &nbsp;
+                        写文章
+                    </Button>
+                </Col>
+            </Row>
         </AntdHeader>
     }
 }

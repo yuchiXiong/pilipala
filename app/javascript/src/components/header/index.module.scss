@@ -1,0 +1,43 @@
+@import "../../vars";
+
+.header {
+  background-color: #fff;
+  padding: 0;
+  border-bottom: 1px solid #eee;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+}
+
+.header_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.logo {
+  float: left;
+  text-align: center;
+  height: 31px;
+  line-height: 31px;
+  margin: 16px 12px 16px 0;
+  background: rgba(255, 255, 255, 0.3);
+  color: $theme_color;
+  font-size: 24px;
+}
+
+.menu {
+  height: 63px;
+  border: none;
+  font-size: 16px;
+  display: inline-block;
+  margin-right: auto;
+}
+
+.new_blog {
+  border-radius: 20px;
+  line-height: 30px;
+  width: 108px;
+  font-size: 16px;
+  height: 40px;
+}

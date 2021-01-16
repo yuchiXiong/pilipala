@@ -15,7 +15,7 @@ import request from "./utils/request";
 
 import './app.scss';
 import styles from './app.module.scss';
-import './antd_reset.less';
+// import './antd_reset.less.backup';
 
 const {Sider, Content} = Layout;
 const {Title} = Typography

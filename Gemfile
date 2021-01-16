@@ -35,6 +35,7 @@ gem 'discard', '~> 1.2'
 # * font end
 gem 'gon'
 gem 'kaminari'
+gem 'mini_racer', platform: 'ruby'
 gem 'react-rails'
 gem 'react-rails-ssr', github: 'yuchiXiong/react-rails-ssr'
 gem 'redcarpet'
