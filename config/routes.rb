@@ -1,15 +1,7 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  root 'react_ssr#index'
 
-  # * 主页
-  root 'blogs#index'
   get :editor, to: 'editor#index'
-
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords'
-  }
 
   # * API
   namespace :api do
@@ -19,6 +11,24 @@ Rails.application.routes.draw do
       get :blogs
     end
   end
+
+  namespace :admin do
+    root to: 'dashboard#index'
+    resources :blogs
+    get '*path', to: 'dashboard#index'
+  end
+
+  get '/*other', to: 'react_ssr#index'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  # * 主页
+  root 'blogs#index'
+
+  devise_for :users, controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  }
 
   resources :blogs, only: [:index, :show] do
     member do
@@ -37,12 +47,6 @@ Rails.application.routes.draw do
       match :update_info, via: [:put, :patch]
       post :follow
     end
-  end
-
-  namespace :admin do
-    root to: 'dashboard#index'
-    resources :blogs
-    get '*path', to: 'dashboard#index'
   end
 
   get '*path', to: 'blogs#index'

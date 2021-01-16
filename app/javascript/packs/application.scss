@@ -1,102 +1,102 @@
-@import "../stylesheets/mixins";
-@import "../stylesheets/bootstrap_custom";
-@import "~bootstrap/scss/bootstrap";
-@import "../stylesheets/reset";
-
-@import "../stylesheets/header";
-@import "../stylesheets/footer";
-@import "../stylesheets/ugc";
-@import '../stylesheets/notice';
-
-@import "../stylesheets/home";
-@import "../stylesheets/blogs";
-@import "../stylesheets/users";
-@import "../stylesheets/devise";
-
-@import "~highlight.js/styles/atom-one-dark";
-//@import "~highlight.js/styles/github-gists";
-
-@font-face {
-  font-family: UbuntuMono;
-  src: url("../assets/fonts/UbuntuMono-Regular.ttf");
-}
-
-@font-face {
-  font-family: "Varela Round";
-  src: url("../assets/fonts/VarelaRound-Regular.ttf");
-}
-
-body {
-  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
-  font-weight: 500;
-  @include flex-col;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-
-  .app {
-    min-height: 100%;
-    width: 100%;
-    margin-top: 24px;
-    margin-bottom: 24px;
-
-    @include flex-row;
-
-    #app_right {
-      padding-left: 6px;
-      padding-right: unset;
-      width: 85%;
-      @include flex-col;
-      justify-content: space-evenly;
-    }
-
-  }
-
-  footer {
-    .inner {
-      @include flex-col;
-      align-items: center;
-    }
-
-    padding: 24px;
-  }
-}
-
-.show_to_top {
-  bottom: 32px !important;
-}
-
-.to_top_btn {
-  position: fixed;
-  right: 5%;
-  z-index: 100;
-  border-radius: 50%;
-  padding: 0;
-  margin: 0;
-  transition: all 450ms;
-  bottom: -100px;
-  outline: none;
-
-  svg {
-    height: 50px;
-    width: 50px;
-    vertical-align: middle;
-
-    path {
-      fill: $theme_color;
-      vertical-align: middle;
-      transition: fill 450ms;
-    }
-
-  }
-
-  &:hover {
-
-    svg > path {
-      fill: #fff;
-    }
-
-  }
-
-}
-
+//@import "../stylesheets/mixins";
+//@import "../stylesheets/bootstrap_custom";
+//@import "~bootstrap/scss/bootstrap";
+//@import "../stylesheets/reset";
+//
+//@import "../stylesheets/header";
+//@import "../stylesheets/footer";
+//@import "../stylesheets/ugc";
+//@import '../stylesheets/notice';
+//
+//@import "../stylesheets/home";
+//@import "../stylesheets/blogs";
+//@import "../stylesheets/users";
+//@import "../stylesheets/devise";
+//
+//@import "~highlight.js/styles/atom-one-dark";
+////@import "~highlight.js/styles/github-gists";
+//
+//@font-face {
+//  font-family: UbuntuMono;
+//  src: url("../assets/fonts/UbuntuMono-Regular.ttf");
+//}
+//
+//@font-face {
+//  font-family: "Varela Round";
+//  src: url("../assets/fonts/VarelaRound-Regular.ttf");
+//}
+//
+//body {
+//  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+//  font-weight: 500;
+//  @include flex-col;
+//  min-height: 100vh;
+//  overflow-x: hidden;
+//  overflow-y: scroll;
+//
+//  .app {
+//    min-height: 100%;
+//    width: 100%;
+//    margin-top: 24px;
+//    margin-bottom: 24px;
+//
+//    @include flex-row;
+//
+//    #app_right {
+//      padding-left: 6px;
+//      padding-right: unset;
+//      width: 85%;
+//      @include flex-col;
+//      justify-content: space-evenly;
+//    }
+//
+//  }
+//
+//  footer {
+//    .inner {
+//      @include flex-col;
+//      align-items: center;
+//    }
+//
+//    padding: 24px;
+//  }
+//}
+//
+//.show_to_top {
+//  bottom: 32px !important;
+//}
+//
+//.to_top_btn {
+//  position: fixed;
+//  right: 5%;
+//  z-index: 100;
+//  border-radius: 50%;
+//  padding: 0;
+//  margin: 0;
+//  transition: all 450ms;
+//  bottom: -100px;
+//  outline: none;
+//
+//  svg {
+//    height: 50px;
+//    width: 50px;
+//    vertical-align: middle;
+//
+//    path {
+//      fill: $theme_color;
+//      vertical-align: middle;
+//      transition: fill 450ms;
+//    }
+//
+//  }
+//
+//  &:hover {
+//
+//    svg > path {
+//      fill: #fff;
+//    }
+//
+//  }
+//
+//}
+//

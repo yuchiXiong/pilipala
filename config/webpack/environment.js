@@ -1,10 +1,11 @@
 const {environment} = require('@rails/webpacker')
-const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const webpack = require('webpack')
 
 const lessLoader = {
     test: /\.less$/,
     use: [{
-        loader: "style-loader"
+        loader: MiniCssExtractPlugin.loader,
     }, {
         loader: "css-loader"
     }, {
@@ -17,16 +18,16 @@ const lessLoader = {
     }]
 }
 
-environment.plugins.append(
-    'Provide',
-    new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'window.jQuery': 'jquery',
-        Popper: ['popper.js', 'default']
-    })
-)
+// environment.plugins.append(
+//     'Provide',
+//     new webpack.ProvidePlugin({
+//         $: 'jquery',
+//         jQuery: 'jquery',
+//         'window.jQuery': 'jquery',
+//         Popper: ['popper.js', 'default']
+//     })
+// )
 
-environment.loaders.prepend('style', lessLoader)
+environment.loaders.prepend('less', lessLoader)
 
-module.exports = environment
+module.exports = environment;

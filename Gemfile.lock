@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/yuchiXiong/react-rails-ssr.git
+  revision: 1e0578a780e3dc6ecb23640742bb6e129434a3b6
+  specs:
+    react-rails-ssr (0.1.0)
+      rails (>= 5.2.4.3)
+      react-rails
+      webpacker
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -55,6 +64,10 @@ GEM
     archive-zip (0.7.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     bcrypt (3.1.15)
     bindex (0.8.1)
     bootsnap (1.4.8)
@@ -88,6 +101,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
+    connection_pool (2.2.3)
     crass (1.0.6)
     devise (4.7.2)
       bcrypt (~> 3.0)
@@ -219,6 +233,12 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    react-rails (2.6.1)
+      babel-transpiler (>= 0.7.0)
+      connection_pool
+      execjs
+      railties (>= 3.2)
+      tilt
     redcarpet (3.5.0)
     redis (4.2.2)
     redis-actionpack (5.2.0)
@@ -345,6 +365,8 @@ DEPENDENCIES
   rack-cors
   rack-mini-profiler (~> 2.0)
   rails (~> 5.2.4, >= 5.2.4.3)
+  react-rails
+  react-rails-ssr!
   redcarpet
   redis
   redis-rails

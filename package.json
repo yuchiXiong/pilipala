@@ -14,7 +14,7 @@
     "@rails/webpacker": "5.2.1",
     "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
     "@toast-ui/react-editor": "^2.5.0",
-    "antd": "^4.7.2",
+    "antd": "^4.10.2",
     "axios": "^0.20.0",
     "babel-plugin-import": "^1.13.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
@@ -29,11 +29,14 @@
     "react": "^17.0.1",
     "react-cropper": "^2.1.4",
     "react-dom": "^17.0.1",
+    "react-helmet": "^6.1.0",
     "react-router-dom": "^5.2.0",
+    "react_ujs": "^2.6.1",
     "stimulus": "^1.1.1",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
+    "isomorphic-style-loader": "^5.1.0",
     "webpack-dev-server": "^3.11.0"
   }
 }

@@ -8,39 +8,41 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_pack_tag 'react_ssr', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <%#= javascript_pack_tag 'stimulus', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">
 
-<%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
-<%= yield :slot %>
+<%#= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
+<%#= yield :slot %>
 
-<div class="container">
+<!--<div class="container">-->
 
-  <%= render 'shared/notice' %>
-  <div class="app">
+<%#= render 'shared/notice' %>
+<!--  <div class="app">-->
 
-    <div id="app_left" class="col-12 col-lg-9">
-      <%= yield :left_slot %>
-    </div>
-    <div id="app_right" class="col-3 d-none d-lg-block">
-      <%= yield :right_slot %>
-    </div>
-  </div>
+<!--    <div id="app_left" class="col-12 col-lg-9">-->
+<%#= yield :left_slot %>
+<!--    </div>-->
+<!--    <div id="app_right" class="col-3 d-none d-lg-block">-->
+<%#= yield :right_slot %>
+<!--    </div>-->
+<!--  </div>-->
 
-</div>
+<!--</div>-->
 
-<%= yield :custom_slot %>
+<%#= yield :custom_slot %>
 
-<footer class="mastfoot mt-auto border-top">
-  <div class="inner">
-    <p class="mb-0"><a href="https://beian.miit.gov.cn/">鄂ICP备18022630号-2</a></p>
-    <p class="mb-0">Design By <a href="https://github.com/yuchiXiong">@yuchiXiong</a>.</p>
-  </div>
-</footer>
+<!--<footer class="mastfoot mt-auto border-top">-->
+<!--  <div class="inner">-->
+<!--    <p class="mb-0"><a href="https://beian.miit.gov.cn/">鄂ICP备18022630号-2</a></p>-->
+<!--    <p class="mb-0">Design By <a href="https://github.com/yuchiXiong">@yuchiXiong</a>.</p>-->
+<!--  </div>-->
+<!--</footer>-->
 
+<%= react_component 'app', { path: request.path, react_props: {} }, { prerender: true } %>
+<%= javascript_pack_tag 'react_ssr', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>
