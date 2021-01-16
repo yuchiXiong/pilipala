@@ -1,38 +1,38 @@
 {
-  "admin.css": "/packs/css/admin-fd8332a4.css",
-  "admin.js": "/packs/js/admin-279b7f3165e4583a8a6e.js",
-  "application.css": "/packs/css/application-1a92bc73.css",
-  "application.js": "/packs/js/application-877174832c51db1b29ab.js",
-  "editor_for_react.css": "/packs/css/editor_for_react-3a4d82d2.css",
-  "editor_for_react.js": "/packs/js/editor_for_react-ab83d4ff15ada2f69434.js",
+  "admin.css": "/packs/css/admin-42c40de9.css",
+  "admin.js": "/packs/js/admin-991b98031d3c20dfe99c.js",
+  "application.css": "/packs/css/application-38fc1578.css",
+  "application.js": "/packs/js/application-d1933b7ab575924add66.js",
+  "editor_for_react.css": "/packs/css/editor_for_react-e3357722.css",
+  "editor_for_react.js": "/packs/js/editor_for_react-d07fd2a8be72ecb2dac7.js",
   "entrypoints": {
     "admin": {
       "css": [
-        "/packs/css/admin-fd8332a4.css"
+        "/packs/css/admin-42c40de9.css"
       ],
       "js": [
-        "/packs/js/admin-279b7f3165e4583a8a6e.js"
+        "/packs/js/admin-991b98031d3c20dfe99c.js"
       ]
     },
     "application": {
       "css": [
-        "/packs/css/application-1a92bc73.css"
+        "/packs/css/application-38fc1578.css"
       ],
       "js": [
-        "/packs/js/application-877174832c51db1b29ab.js"
+        "/packs/js/application-d1933b7ab575924add66.js"
       ]
     },
     "editor_for_react": {
       "css": [
-        "/packs/css/editor_for_react-3a4d82d2.css"
+        "/packs/css/editor_for_react-e3357722.css"
       ],
       "js": [
-        "/packs/js/editor_for_react-ab83d4ff15ada2f69434.js"
+        "/packs/js/editor_for_react-d07fd2a8be72ecb2dac7.js"
       ]
     },
     "stimulus": {
       "js": [
-        "/packs/js/stimulus-f9ac41fca6879a07fa9d.js"
+        "/packs/js/stimulus-ae87a847762ae7d95e9b.js"
       ]
     }
   },
@@ -42,5 +42,5 @@
   "media/assets/images/default1.png": "/packs/media/assets/images/default1-02849bd23e4c8e13fab845c3def33fde.png",
   "media/assets/images/default2.png": "/packs/media/assets/images/default2-c3c66cbce3fcc986e7da28b5fe93b556.png",
   "media/assets/images/test.jpg": "/packs/media/assets/images/test-4ea53ea5ee01693a2e000791019c4166.jpg",
-  "stimulus.js": "/packs/js/stimulus-f9ac41fca6879a07fa9d.js"
+  "stimulus.js": "/packs/js/stimulus-ae87a847762ae7d95e9b.js"
 }
