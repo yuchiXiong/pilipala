@@ -25,14 +25,25 @@ class Blog < ApplicationRecord
 
   def oss_cover
     # "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{cover.url}"
-    "https://assets.bubuyu.top#{cover.url}"
+    cover.url && "https://assets.bubuyu.top#{cover.url}"
+  end
+
+  # * 用户首页博客列表的schema
+  def to_blog_index_builder
+    Jbuilder.new do |blog|
+      blog.key_format! camelize: :lower
+      blog.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count)
+      blog.content content.truncate(288)
+      blog.cover oss_cover
+      blog.user user.to_user_info_builder
+    end
   end
 
   private
 
   # * 内容审核
   def content_scan
-    text = title + content
+    text   = title + content
     result = []
     (1..((text.size / 9000) + 1)).map do |i|
       result.push(Ali::ContentScan.new.scan_text(text[(i - 1) * 9000...i * 9000]))

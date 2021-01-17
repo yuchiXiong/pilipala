@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root 'react_ssr#index'
+  get '/', to: 'react_ssr#index'
 
-  get :editor, to: 'editor#index'
+  # get :editor, to: 'editor#index'
 
   # * API
   namespace :api do

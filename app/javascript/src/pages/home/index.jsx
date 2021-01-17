@@ -7,11 +7,10 @@ import default2 from '../../assets/images/default2.png';
 import styles from './index.module.scss';
 import BlogList from "../../components/blog-list";
 
-class Home extends React.Component {
-
+class Home extends React.PureComponent {
     render() {
         return <Row>
-            <Col span={18} offset={3}>
+            <Col span={14} offset={5}>
                 <Row>
                     <Col span={18}>
                         <Carousel autoplay>

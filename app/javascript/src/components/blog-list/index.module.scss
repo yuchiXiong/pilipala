@@ -1,14 +1,50 @@
-.demo-infinite-container {
-  border: 1px solid #e8e8e8;
-  border-radius: 4px;
-  overflow: auto;
-  padding: 8px 24px;
-  height: 300px;
+@import '../../vars';
+
+:global(.ant-list-item) {
+  &:last-child {
+    border-bottom: 1px solid #f0f0f0 !important;
+  }
 }
 
-.demo-loading-container {
-  position: absolute;
-  bottom: 40px;
-  width: 100%;
-  text-align: center;
+:global(.ant-list-item-action) {
+  li:first-child {
+    padding-left: 0 !important;
+  }
+
+  li {
+    padding: 0 8px !important;
+  }
+}
+
+:global(.ant-list-item-meta-title) {
+  font-size: 20px !important;
+  margin-bottom: 0 !important;
+  font-weight: 600;
+  transition: color 300ms;
+
+  &:hover {
+    color: $theme_color;
+  }
+}
+
+.list {
+  padding: 24px 0;
+}
+
+.cover {
+  height: 100%;
+  background-size: 100%;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  transition: background-size .45s, opacity .45s;
+  border-radius: 8px;
+}
+
+.content {
+  color: #999;
+  font-size: 14px;
+}
+
+.loadingMore {
+  border-radius: 16px;
 }

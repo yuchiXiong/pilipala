@@ -10,7 +10,7 @@ import styles from './app.module.scss';
 
 const {Content} = Layout;
 
-export default props => <IsomorphicRouter path={props.path} context={props.react_props}>
+export default props => <IsomorphicRouter path={props.path} context={{react_props: props.react_props}}>
     <Layout>
         <Header/>
         <Content className={styles.content}>

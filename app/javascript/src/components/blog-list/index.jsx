@@ -1,22 +1,11 @@
 import React from 'react';
-import {List, Avatar, Button, Skeleton, Space} from 'antd';
-import {MessageOutlined, LikeOutlined, StarOutlined} from '@ant-design/icons';
+import {Link} from 'react-router-dom';
+import {List, Button, Space, Typography} from 'antd';
+import {MessageOutlined, LikeOutlined, ReadOutlined, UserOutlined} from '@ant-design/icons';
 
-const count = 3;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat&noinfo`;
+import {Blog} from '../../utils/api';
 
-const listData = [];
-for (let i = 0; i < 23; i++) {
-    listData.push({
-        href: 'https://ant.design',
-        title: `ant design part ${i}`,
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-        description:
-            'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-        content:
-            'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-    });
-}
+import styles from './index.module.scss';
 
 const IconText = ({icon, text}) => (
     <Space>
@@ -25,62 +14,46 @@ const IconText = ({icon, text}) => (
     </Space>
 );
 
+const {Paragraph} = Typography;
+
 class BlogList extends React.Component {
     state = {
-        initLoading: true,
+        initLoading: false,
         loading: false,
-        data: [],
-        list: [],
+        blogList: [],
+        page: 1
     };
 
     componentDidMount() {
-        this.getData(res => {
-            this.setState({
-                initLoading: false,
-                data: res.results,
-                list: res.results,
-            });
-        });
-    }
-
-    getData = callback => {
-        // reqwest({
-        //     url: fakeDataUrl,
-        //     type: 'json',
-        //     method: 'get',
-        //     contentType: 'application/json',
-        //     success: res => {
-        //         callback(res);
-        //     },
-        // });
-        callback({results: listData})
-    };
-
-    onLoadMore = () => {
         this.setState({
             loading: true,
-            list: this.state.data.concat([...new Array(count)].map(() => ({loading: true, name: {}}))),
+            initLoading: true
+        })
+        Blog.index(this.state.page).then(res => {
+            this.setState({
+                initLoading: res.blogs.length === 0,
+                loading: false,
+                blogList: res.blogs,
+                page: this.state.page + 1
+            })
+        })
+    }
+    onLoadMore = () => {
+        this.setState({
+            loading: true
         });
-        this.getData(res => {
-            const data = this.state.data.concat(res.results);
-            this.setState(
-                {
-                    data,
-                    list: data,
-                    loading: false,
-                },
-                () => {
-                    // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                    // In real scene, you can using public method of react-virtualized:
-                    // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                    window.dispatchEvent(new Event('resize'));
-                },
-            );
-        });
+        Blog.index(this.state.page).then(res => {
+            this.setState({
+                initLoading: res.blogs.length === 0,
+                loading: false,
+                blogList: [...this.state.blogList, ...res.blogs],
+                page: this.state.page + 1
+            }, () => window.dispatchEvent(new Event('resize')))
+        })
     };
 
     render() {
-        const {initLoading, loading, list} = this.state;
+        const {initLoading, loading} = this.state;
         const loadMore =
             !initLoading && !loading ? (
                 <div
@@ -91,43 +64,72 @@ class BlogList extends React.Component {
                         lineHeight: '32px',
                     }}
                 >
-                    <Button onClick={this.onLoadMore}>loading more</Button>
+                    <Button
+                        onClick={this.onLoadMore}
+                        className={styles.loadingMore}
+                        type={'primary'}
+                        block>
+                        加载更多
+                    </Button>
                 </div>
-            ) : null;
+            ) : <div
+                style={{
+                    textAlign: 'center',
+                    marginTop: 12,
+                    height: 32,
+                    lineHeight: '32px',
+                }}
+            >
+                <Button
+                    onClick={this.onLoadMore}
+                    className={styles.loadingMore}
+                    type={'primary'}
+                    disabled
+                    block>
+                    已无更多内容
+                </Button>
+            </div>;
 
         return (
             <List
-                loading={initLoading}
+                loading={loading}
                 itemLayout="vertical"
                 loadMore={loadMore}
-                dataSource={list}
+                dataSource={this.state.blogList}
+                className={styles.list}
                 renderItem={item => (
-                    <List.Item
-                        key={item.title}
-                        actions={[
-                            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o"/>,
-                            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o"/>,
-                            <IconText icon={MessageOutlined} text="2" key="list-vertical-message"/>,
-                        ]}
-                        extra={
-                            <img
-                                width={272}
-                                alt="logo"
-                                src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    <Link to={`/blogs/${item.id}`}>
+                        <List.Item
+                            key={item.id}
+                            actions={[
+                                <IconText icon={ReadOutlined} text={item.readsCount} key="list-vertical-read-o"/>,
+                                <IconText icon={LikeOutlined} text={item.likesCount} key="list-vertical-like-o"/>,
+                                <IconText icon={MessageOutlined} text={item.commentsCount}
+                                          key="list-vertical-comment"/>,
+                                <IconText icon={UserOutlined} text={item.user.nickName}
+                                          key="list-vertical-user-nick-name"/>,
+                            ]}
+                            extra={
+                                item.cover && <img
+                                    width={'200px'}
+                                    alt="logo"
+                                    src={item.cover}
+                                    className={styles.cover}
+                                />
+                            }
+                        >
+                            <List.Item.Meta
+                                title={item.title}
                             />
-                        }
-                    >
-                        <List.Item.Meta
-                            avatar={<Avatar src={item.avatar}/>}
-                            title={<a href={item.href}>{item.title}</a>}
-                            description={item.description}
-                        />
-                        {item.content}
-                    </List.Item>
+                            <Paragraph ellipsis={{rows: 4}} className={styles.content}>
+                                {item.content}
+                            </Paragraph>
+                        </List.Item>
+                    </Link>
                 )}
             />
         );
     }
 }
 
-export default BlogList
+export default BlogList;
