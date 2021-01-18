@@ -9,6 +9,7 @@ import BlogList from "../../components/blog-list";
 
 class Home extends React.PureComponent {
     render() {
+        const dataSource = typeof window === "undefined" ? this.props.staticContext.blogs : []
         return <Row>
             <Col span={14} offset={5}>
                 <Row>
@@ -22,7 +23,7 @@ class Home extends React.PureComponent {
                             }
                         </Carousel>
 
-                        <BlogList/>
+                        <BlogList dataSource={dataSource}/>
                     </Col>
                     <Col span={5} offset={1}>
                         right

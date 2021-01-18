@@ -17,39 +17,36 @@ const IconText = ({icon, text}) => (
 const {Paragraph} = Typography;
 
 class BlogList extends React.Component {
-    state = {
-        initLoading: false,
-        loading: false,
-        blogList: [],
-        page: 1
-    };
+    constructor(props) {
+        super(props);
+        const dataSource = typeof window === "undefined" ?
+            this.props.dataSource :
+            window.__REACT_STORE__.blogs
+        this.state = {
+            initLoading: false,
+            loading: false,
+            blogList: dataSource,
+            page: 1
+        };
+
+    }
 
     componentDidMount() {
-        this.setState({
-            loading: true,
-            initLoading: true
-        })
-        Blog.index(this.state.page).then(res => {
-            this.setState({
-                initLoading: res.blogs.length === 0,
-                loading: false,
-                blogList: res.blogs,
-                page: this.state.page + 1
-            })
-        })
+        console.log('client render')
     }
+
     onLoadMore = () => {
-        this.setState({
-            loading: true
-        });
-        Blog.index(this.state.page).then(res => {
-            this.setState({
-                initLoading: res.blogs.length === 0,
-                loading: false,
-                blogList: [...this.state.blogList, ...res.blogs],
-                page: this.state.page + 1
-            }, () => window.dispatchEvent(new Event('resize')))
-        })
+        // this.setState({
+        //     loading: true
+        // });
+        // Blog.index(this.state.page).then(res => {
+        //     this.setState({
+        //         initLoading: res.blogs.length === 0,
+        //         loading: false,
+        //         blogList: [...this.state.blogList, ...res.blogs],
+        //         page: this.state.page + 1
+        //     }, () => window.dispatchEvent(new Event('resize')))
+        // })
     };
 
     render() {
