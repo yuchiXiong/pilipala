@@ -16,7 +16,7 @@
 <%= react_component 'app', { path: request.path, react_props: @react_props }, { prerender: true } %>
 <%= javascript_pack_tag 'react_ssr', 'data-turbolinks-track': 'reload' %>
 <script>
-    window.__REACT_STORE__ =
+    window.__REACT_RAILS_SSR__ =
     <%= @react_props.to_json.html_safe %>
 </script>
 </body>

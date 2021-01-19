@@ -46,6 +46,7 @@ module.exports = function (api) {
             ]
         ].filter(Boolean),
         plugins: [
+            ["@babel/plugin-proposal-decorators", {"legacy": true}],
             ["import", {"libraryName": "antd", "style": true}],
             'babel-plugin-macros',
             '@babel/plugin-syntax-dynamic-import',

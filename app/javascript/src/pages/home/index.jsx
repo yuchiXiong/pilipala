@@ -1,5 +1,6 @@
 import React from 'react';
 import {Row, Col, Carousel} from 'antd';
+import isomorphicProps from "../../containers/isomorphicProps";
 
 import default1 from '../../assets/images/default1.png';
 import default2 from '../../assets/images/default2.png';
@@ -7,9 +8,9 @@ import default2 from '../../assets/images/default2.png';
 import styles from './index.module.scss';
 import BlogList from "../../components/blog-list";
 
+@isomorphicProps('blogs')
 class Home extends React.PureComponent {
     render() {
-        const dataSource = typeof window === "undefined" ? this.props.staticContext.blogs : []
         return <Row>
             <Col span={14} offset={5}>
                 <Row>
@@ -23,7 +24,7 @@ class Home extends React.PureComponent {
                             }
                         </Carousel>
 
-                        <BlogList dataSource={dataSource}/>
+                        <BlogList dataSource={this.props.blogs}/>
                     </Col>
                     <Col span={5} offset={1}>
                         right

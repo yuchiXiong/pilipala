@@ -36,6 +36,7 @@
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.12.12",
     "webpack-dev-server": "^3.11.2"
   }
 }

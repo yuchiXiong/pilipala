@@ -6,6 +6,7 @@ import {MessageOutlined, LikeOutlined, ReadOutlined, UserOutlined} from '@ant-de
 import {Blog} from '../../utils/api';
 
 import styles from './index.module.scss';
+import IsomorphicRouter from "../../routes";
 
 const IconText = ({icon, text}) => (
     <Space>
@@ -17,17 +18,16 @@ const IconText = ({icon, text}) => (
 const {Paragraph} = Typography;
 
 class BlogList extends React.Component {
+
     constructor(props) {
         super(props);
-        const dataSource = typeof window === "undefined" ?
-            this.props.dataSource :
-            window.__REACT_STORE__.blogs
         this.state = {
             initLoading: false,
             loading: false,
-            blogList: dataSource,
+            blogList: props.dataSource,
             page: 1
         };
+
 
     }
 
