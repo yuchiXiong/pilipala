@@ -5,6 +5,7 @@ import IsomorphicRouter from './routes';
 
 import Header from "./components/header";
 import Home from './pages/home';
+import Footer from './components/footer';
 
 import styles from './app.module.scss';
 
@@ -18,5 +19,6 @@ export default props => <IsomorphicRouter path={props.path} context={props.react
                 <Route exact path='/' component={Home}/>
             </Switch>
         </Content>
+        <Footer/>
     </Layout>
 </IsomorphicRouter>
