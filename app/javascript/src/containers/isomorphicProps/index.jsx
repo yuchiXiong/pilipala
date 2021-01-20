@@ -1,16 +1,19 @@
 import React from 'react';
 
-function isomorphicProps(propsName) {
+function isomorphicProps(propsNames) {
     return function (Component) {
         return class extends React.Component {
 
             constructor(props) {
                 super(props);
                 this.constomProps = {};
+                if (!Array.isArray(propsNames)) {
+                    propsNames = [propsNames];
+                }
                 if (typeof window === "undefined") {
-                    this.constomProps[propsName] = props.staticContext[propsName];
+                    propsNames.map(propsName => this.constomProps[propsName] = props.staticContext[propsName])
                 } else {
-                    this.constomProps[propsName] = window.__REACT_RAILS_SSR__[propsName]
+                    propsNames.map(propsName => this.constomProps[propsName] = window.__REACT_RAILS_SSR__[propsName])
                 }
             }
 

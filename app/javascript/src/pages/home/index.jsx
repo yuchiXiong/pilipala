@@ -8,7 +8,9 @@ import default2 from '../../assets/images/default2.png';
 import styles from './index.module.scss';
 import BlogList from "../../components/blog-list";
 
-@isomorphicProps('blogs')
+const {Title} = Typography;
+
+@isomorphicProps(['blogs', 'hots'])
 class Home extends React.PureComponent {
     render() {
         return <Row>
