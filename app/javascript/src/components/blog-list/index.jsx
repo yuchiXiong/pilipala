@@ -6,7 +6,6 @@ import {MessageOutlined, LikeOutlined, ReadOutlined, UserOutlined} from '@ant-de
 import {Blog} from '../../utils/api';
 
 import styles from './index.module.scss';
-import IsomorphicRouter from "../../routes";
 
 const IconText = ({icon, text}) => (
     <Space>
@@ -25,10 +24,8 @@ class BlogList extends React.Component {
             initLoading: false,
             loading: false,
             blogList: props.dataSource,
-            page: 1
+            page: 2
         };
-
-
     }
 
     componentDidMount() {
@@ -36,17 +33,17 @@ class BlogList extends React.Component {
     }
 
     onLoadMore = () => {
-        // this.setState({
-        //     loading: true
-        // });
-        // Blog.index(this.state.page).then(res => {
-        //     this.setState({
-        //         initLoading: res.blogs.length === 0,
-        //         loading: false,
-        //         blogList: [...this.state.blogList, ...res.blogs],
-        //         page: this.state.page + 1
-        //     }, () => window.dispatchEvent(new Event('resize')))
-        // })
+        this.setState({
+            loading: true
+        });
+        Blog.index(this.state.page).then(res => {
+            this.setState({
+                initLoading: res.blogs.length === 0,
+                loading: false,
+                blogList: [...this.state.blogList, ...res.blogs],
+                page: this.state.page + 1
+            }, () => window.dispatchEvent(new Event('resize')))
+        })
     };
 
     render() {
