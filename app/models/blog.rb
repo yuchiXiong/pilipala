@@ -39,6 +39,13 @@ class Blog < ApplicationRecord
     end
   end
 
+  def to_hots_builder
+    Jbuilder.new do |blog|
+      blog.key_format! camelize: :lower
+      blog.(self, :id, :title, :reads_count, :likes_count, :comments_count)
+    end
+  end
+
   private
 
   # * 内容审核
