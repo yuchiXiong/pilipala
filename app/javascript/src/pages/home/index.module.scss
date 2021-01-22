@@ -41,7 +41,7 @@
   line-height: 36px !important;
 }
 
-.hotsAuthor {
+.hotsModule {
   margin-bottom: 24px;
 
   :global(.ant-list-item-action) {
@@ -64,4 +64,14 @@
       color: $theme_color;
     }
   }
+}
+
+.hotsAuthor {
+  align-items: center;
+}
+
+.nickName {
+  font-weight: unset;
+  font-size: 16px;
+  margin-bottom: 0;
 }

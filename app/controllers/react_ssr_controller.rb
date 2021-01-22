@@ -9,7 +9,8 @@ class ReactSsrController < ApplicationController
     @react_props = {
       blogs:                      blogs.map { |blog| blog.to_blog_index_builder.attributes! },
       current_user_like_blog_ids: current_user_like_blog_ids,
-      hots: hots.map { |blog| blog.to_hots_builder.attributes! }
+      hot_blogs:                  hots.map { |blog| blog.to_hots_builder.attributes! },
+      hot_authors:                User.order(followers_count: :desc).limit(5).map { |user| user.to_user_info_builder.attributes! }
     }
 
     respond_to do |format|
