@@ -19,16 +19,6 @@ const lessLoader = {
         }],
 }
 
-// environment.plugins.append(
-//     'Provide',
-//     new webpack.ProvidePlugin({
-//         $: 'jquery',
-//         jQuery: 'jquery',
-//         'window.jQuery': 'jquery',
-//         Popper: ['popper.js', 'default']
-//     })
-// )
-
 environment.loaders.prepend('less', lessLoader)
 
 module.exports = environment;
