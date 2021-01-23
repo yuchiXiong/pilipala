@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  root 'react_ssr#index'
-  get '/', to: 'react_ssr#index'
+  root 'blogs#index'
+  get '/', to: 'blogs#index'
+
+  resources :blogs, only: [:index, :show]
 
   # get :editor, to: 'editor#index'
 
@@ -26,9 +28,9 @@ Rails.application.routes.draw do
   root 'blogs#index'
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions',
+    sessions:      'users/sessions',
     registrations: 'users/registrations',
-    passwords: 'users/passwords'
+    passwords:     'users/passwords'
   }
 
   resources :blogs, only: [:index, :show] do

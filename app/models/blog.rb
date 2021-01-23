@@ -39,6 +39,16 @@ class Blog < ApplicationRecord
     end
   end
 
+  def to_blog_show_builder
+    Jbuilder.new do |blog|
+      blog.key_format! camelize: :lower
+      blog.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count)
+      blog.content content
+      blog.cover oss_cover
+      blog.user user.to_user_info_builder
+    end
+  end
+
   def to_hots_builder
     Jbuilder.new do |blog|
       blog.key_format! camelize: :lower

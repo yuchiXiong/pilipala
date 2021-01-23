@@ -1,8 +1,0 @@
-(function () {
-    $('.sub_comment_input').map((index, item) => $(item).remove());
-    $('.comment').map((index, item) => {
-        if (parseInt($(item).data('id')) === <%= @comment_id %>) {
-            $("<%= escape_javascript(render 'comments/comment_input', blog: @blog, comment: Comment.new, sub_comment: true)%>").appendTo($(item).find('.sub_comments'))
-        }
-    });
-})();

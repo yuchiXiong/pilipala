@@ -5,7 +5,7 @@ const index = page => {
 }
 
 const show = id => {
-    return request.get(`/api/blogs/${id}`);
+    return request.get(`/blogs/${id}`);
 }
 
 // const create = params => {

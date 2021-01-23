@@ -14,8 +14,6 @@
 //
 const images = require.context('../assets/images', true)
 // const imagePath = (name) => images(name, true)
-import $ from 'jquery';
-import 'bootstrap';
 import dayjs from "dayjs";
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/zh-cn';

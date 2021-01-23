@@ -28,8 +28,16 @@ class BlogList extends React.Component {
         };
     }
 
-    componentDidMount() {
-        console.log('client render')
+    static getDerivedStateFromProps(props, state) {
+        console.log('getDerivedStateFromProps')
+        if ((props.dataSource.toString() !== props.dataSource.toString()) &&
+            (props.dataSource.toString() !== state.blogList.toString())) {
+            return {
+                ...state,
+                blogList: props.dataSource
+            }
+        }
+        return null;
     }
 
     onLoadMore = () => {
@@ -37,13 +45,15 @@ class BlogList extends React.Component {
             loading: true
         });
         Blog.index(this.state.page).then(res => {
+            this.state.blogList = this.state.blogList.concat(res.blogs);
+            console.log(this.state.blogList)
             this.setState({
-                initLoading: res.blogs.length === 0,
+                initLoading: res.blogs.length < 10,
                 loading: false,
-                blogList: [...this.state.blogList, ...res.blogs],
+                blogList: [...this.state.blogList],
                 page: this.state.page + 1
             }, () => window.dispatchEvent(new Event('resize')))
-        })
+        });
     };
 
     render() {
@@ -86,25 +96,30 @@ class BlogList extends React.Component {
 
         return (
             <List
-                loading={loading}
                 itemLayout="vertical"
                 loadMore={loadMore}
+                loading={this.state.loading}
                 dataSource={this.state.blogList}
                 className={styles.list}
                 renderItem={item => (
-                    <Link to={`/blogs/${item.id}`}>
+                    <Link
+                        to={`/blogs/${item.id}`}
+                        target={'_blank'}>
                         <List.Item
                             key={item.id}
-                            actions={[
-                                <IconText icon={ReadOutlined} text={item.readsCount} key="list-vertical-read-o"/>,
-                                <IconText icon={LikeOutlined} text={item.likesCount} key="list-vertical-like-o"/>,
-                                <IconText icon={MessageOutlined} text={item.commentsCount}
-                                          key="list-vertical-comment"/>,
-                                <IconText icon={UserOutlined} text={item.user.nickName}
-                                          key="list-vertical-user-nick-name"/>,
-                            ]}
+                            actions={
+                                !loading && [
+                                    <IconText icon={ReadOutlined} text={item.readsCount}
+                                              key="list-vertical-read-o"/>,
+                                    <IconText icon={LikeOutlined} text={item.likesCount}
+                                              key="list-vertical-like-o"/>,
+                                    <IconText icon={MessageOutlined} text={item.commentsCount}
+                                              key="list-vertical-comment"/>,
+                                    <IconText icon={UserOutlined} text={item.user.nickName}
+                                              key="list-vertical-user-nick-name"/>,
+                                ]}
                             extra={
-                                item.cover && <img
+                                !loading && item.cover && <img
                                     width={'200px'}
                                     alt="logo"
                                     src={item.cover}
@@ -120,6 +135,7 @@ class BlogList extends React.Component {
                             </Paragraph>
                         </List.Item>
                     </Link>
+
                 )}
             />
         );
