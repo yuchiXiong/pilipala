@@ -29,7 +29,6 @@ class BlogList extends React.Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        console.log('getDerivedStateFromProps')
         if ((props.dataSource.toString() !== props.dataSource.toString()) &&
             (props.dataSource.toString() !== state.blogList.toString())) {
             return {

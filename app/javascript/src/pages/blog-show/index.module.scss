@@ -1,5 +1,17 @@
 @import "../../vars";
 
+:global(.ant-card-body) {
+  padding: 6px 0;
+
+  :global(.ant-typography) {
+    margin-bottom: 0;
+  }
+}
+
+.divider {
+  margin: 12px 0;
+}
+
 .blogData {
   margin: 0 6px;
 
