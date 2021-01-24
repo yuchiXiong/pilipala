@@ -2,6 +2,7 @@ import React from 'react';
 import marked from 'marked';
 import insane from 'insane';
 import dayjs from 'dayjs';
+import hljs from 'highlight.js';
 import {Avatar, BackTop, Col, Row, Space, Typography, Card, Divider, List, Skeleton} from "antd";
 import {
     LikeOutlined,
@@ -13,7 +14,6 @@ import IsomorphicProps from '../../containers/isomorphicProps';
 import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
 import markdownStyle from './markdown.module.scss';
-import styles from "../home/index.module.scss";
 import {Link} from "react-router-dom";
 
 const {Title} = Typography;
@@ -57,11 +57,14 @@ class BlogShow extends React.Component {
         }
     }
 
+    componentDidMount() {
+        document.querySelectorAll('article pre>code').forEach(item => hljs.highlightBlock(item));
+    }
+
     render() {
         marked.setOptions({
             renderer: new marked.Renderer(),
             highlight: function (code, language) {
-                const hljs = require('highlight.js');
                 const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
                 return hljs.highlight(validLanguage, code).value;
             }
