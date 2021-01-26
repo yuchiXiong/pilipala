@@ -19,6 +19,7 @@ export default props => <IsomorphicRouter path={props.path} context={props.react
             <Switch>
                 <Route exact path='/' component={Home}/>
                 <Route exact path='/blogs/:id' component={BlogShow}/>
+                {/*<Route exact path='/users/:username' component={}/>*/}
             </Switch>
         </Content>
         <Footer/>
