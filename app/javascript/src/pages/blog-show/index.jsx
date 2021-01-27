@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, NavLink} from "react-router-dom";
 import marked from 'marked';
 import insane from 'insane';
 import dayjs from 'dayjs';
@@ -9,12 +10,11 @@ import {
     MessageOutlined,
     ReadOutlined
 } from "@ant-design/icons";
-import IsomorphicProps from '../../containers/isomorphicProps';
 
+import IsomorphicProps from '../../containers/isomorphicProps';
 import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
 import markdownStyle from './markdown.module.scss';
-import {Link} from "react-router-dom";
 
 const {Title} = Typography;
 const {Meta} = Card;
@@ -26,7 +26,7 @@ const IconText = ({icon, text}) => (
     </Space>
 );
 
-@IsomorphicProps('blog')
+@IsomorphicProps(['blog', 'other_blogs'])
 class BlogShow extends React.Component {
 
     constructor(props) {
@@ -43,6 +43,7 @@ class BlogShow extends React.Component {
                 createdAt: this.props.blog?.createdAt || '',
                 user: {
                     id: this.props.blog?.user.id || 0,
+                    spaceName: this.props.blog?.user.spaceName,
                     nickName: this.props.blog?.user.nickName || '',
                     email: this.props.blog?.user.email || '',
                     sex: this.props.blog?.user.sex || '',
@@ -53,7 +54,8 @@ class BlogShow extends React.Component {
                     followingCount: this.props.blog?.user.followingCount || 0,
                     avatar: this.props.blog?.user.avatar || '',
                 }
-            }
+            },
+            otherBlogs: props.other_blogs
         }
     }
 
@@ -99,7 +101,10 @@ class BlogShow extends React.Component {
                                 avatar={
                                     <Avatar size={'large'} src={blog.user.avatar}/>
                                 }
-                                title={<Title level={4}>{blog.user.nickName}</Title>}
+                                title={<Title level={4}>
+                                    <NavLink
+                                        to={`/u/${blog.user.spaceName}`}>{blog.user.nickName}</NavLink>
+                                </Title>}
                                 description={<Space split={<Divider type={"vertical"}/>}>
                                     <Space>
                                         博客
@@ -126,22 +131,23 @@ class BlogShow extends React.Component {
                             }}/>
                     </Col>
                     <Col span={5} offset={1}>
-                        {/*<Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>*/}
-                        {/*    <List*/}
-                        {/*        size="large"*/}
-                        {/*        itemLayout="vertical"*/}
-                        {/*        bordered={false}*/}
-                        {/*        loading={this.state.loading}*/}
-                        {/*        dataSource={this.state.hotBlogs}*/}
-                        {/*        className={styles.hotsModule}*/}
-                        {/*        renderItem={item => <List.Item actions={[*/}
-                        {/*            <p className={styles.action}>阅读 {item.readsCount}</p>,*/}
-                        {/*            <p className={styles.action}>喜欢 {item.likesCount}</p>*/}
-                        {/*        ]}>*/}
-                        {/*            <Link to={`/blogs/${item.id}`}>{item.title}</Link>*/}
-                        {/*        </List.Item>}*/}
-                        {/*    />*/}
-                        {/*</Skeleton>*/}
+                        <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
+                            <Title level={5} className={style.tag}>该作者的其它文章</Title>
+                            <List
+                                size="large"
+                                itemLayout="vertical"
+                                bordered={false}
+                                loading={this.state.loading}
+                                dataSource={this.state.otherBlogs}
+                                className={style.hotsModule}
+                                renderItem={item => <List.Item actions={[
+                                    <p className={style.action}>阅读 {item.readsCount}</p>,
+                                    <p className={style.action}>喜欢 {item.likesCount}</p>
+                                ]}>
+                                    <NavLink to={`/blogs/${item.id}`} target={'_blank'}>{item.title}</NavLink>
+                                </List.Item>}
+                            />
+                        </Skeleton>
                     </Col>
                     <BackTop/>
                 </Row>

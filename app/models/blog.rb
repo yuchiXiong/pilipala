@@ -35,7 +35,7 @@ class Blog < ApplicationRecord
       blog.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count)
       blog.content content.truncate(288)
       blog.cover oss_cover
-      blog.user user.to_user_info_builder
+      blog.user user.to_user_info_builder.attributes!
     end
   end
 
@@ -45,7 +45,7 @@ class Blog < ApplicationRecord
       blog.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count, :created_at)
       blog.content content
       blog.cover oss_cover
-      blog.user user.to_user_info_builder
+      blog.user user.to_user_info_builder.attributes!
     end
   end
 

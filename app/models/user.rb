@@ -31,7 +31,7 @@ class User < ApplicationRecord
   def to_user_info_builder
     Jbuilder.new do |user|
       user.key_format! camelize: :lower
-      user.(self, :id, :nick_name, :email, :sex, :description, :is_admin, :blogs_count, :followers_count, :following_count)
+      user.(self, :id, :nick_name, :email, :sex, :description, :is_admin, :blogs_count, :followers_count, :following_count, :space_name)
       user.avatar oss_avatar
     end
   end

@@ -30,7 +30,8 @@ class BlogsController < ApplicationController
     # comment = Comment.new
     raise ActiveRecord::RecordNotFound unless blog.readable?
     @react_props = {
-      blog: blog.to_blog_show_builder.attributes!
+      blog:        blog.to_blog_show_builder.attributes!,
+      other_blogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |b| b.to_blog_index_builder.attributes! }
     }
     respond_to do |format|
       format.html

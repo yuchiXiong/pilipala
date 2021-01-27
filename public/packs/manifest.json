@@ -56,30 +56,30 @@
     },
     "react_ssr": {
       "css": [
-        "/packs/css/react_ssr-1c2d28e7.css"
+        "/packs/css/react_ssr-85cffdf2.css"
       ],
       "js": [
-        "/packs/js/react_ssr-ed8a15b2b5e41628def0.js"
+        "/packs/js/react_ssr-d9d8a7471a9be7a841ac.js"
       ],
       "css.map": [
-        "/packs/css/react_ssr-1c2d28e7.css.map"
+        "/packs/css/react_ssr-85cffdf2.css.map"
       ],
       "js.map": [
-        "/packs/js/react_ssr-ed8a15b2b5e41628def0.js.map"
+        "/packs/js/react_ssr-d9d8a7471a9be7a841ac.js.map"
       ]
     },
     "server_rendering": {
       "css": [
-        "/packs/css/server_rendering-1c2d28e7.css"
+        "/packs/css/server_rendering-85cffdf2.css"
       ],
       "js": [
-        "/packs/js/server_rendering-bae38c3c9033f7befd0e.js"
+        "/packs/js/server_rendering-6dbac73648329c1e9b2d.js"
       ],
       "css.map": [
-        "/packs/css/server_rendering-1c2d28e7.css.map"
+        "/packs/css/server_rendering-85cffdf2.css.map"
       ],
       "js.map": [
-        "/packs/js/server_rendering-bae38c3c9033f7befd0e.js.map"
+        "/packs/js/server_rendering-6dbac73648329c1e9b2d.js.map"
       ]
     }
   },
@@ -87,12 +87,12 @@
   "media/assets/images/test.jpg": "/packs/media/assets/images/test-4ea53ea5ee01693a2e000791019c4166.jpg",
   "media/src/assets/images/default1.png": "/packs/media/src/assets/images/default1-02849bd23e4c8e13fab845c3def33fde.png",
   "media/src/assets/images/default2.png": "/packs/media/src/assets/images/default2-c3c66cbce3fcc986e7da28b5fe93b556.png",
-  "react_ssr.css": "/packs/css/react_ssr-1c2d28e7.css",
-  "react_ssr.css.map": "/packs/css/react_ssr-1c2d28e7.css.map",
-  "react_ssr.js": "/packs/js/react_ssr-ed8a15b2b5e41628def0.js",
-  "react_ssr.js.map": "/packs/js/react_ssr-ed8a15b2b5e41628def0.js.map",
-  "server_rendering.css": "/packs/css/server_rendering-1c2d28e7.css",
-  "server_rendering.css.map": "/packs/css/server_rendering-1c2d28e7.css.map",
-  "server_rendering.js": "/packs/js/server_rendering-bae38c3c9033f7befd0e.js",
-  "server_rendering.js.map": "/packs/js/server_rendering-bae38c3c9033f7befd0e.js.map"
+  "react_ssr.css": "/packs/css/react_ssr-85cffdf2.css",
+  "react_ssr.css.map": "/packs/css/react_ssr-85cffdf2.css.map",
+  "react_ssr.js": "/packs/js/react_ssr-d9d8a7471a9be7a841ac.js",
+  "react_ssr.js.map": "/packs/js/react_ssr-d9d8a7471a9be7a841ac.js.map",
+  "server_rendering.css": "/packs/css/server_rendering-85cffdf2.css",
+  "server_rendering.css.map": "/packs/css/server_rendering-85cffdf2.css.map",
+  "server_rendering.js": "/packs/js/server_rendering-6dbac73648329c1e9b2d.js",
+  "server_rendering.js.map": "/packs/js/server_rendering-6dbac73648329c1e9b2d.js.map"
 }

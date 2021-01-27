@@ -5,8 +5,17 @@ class UsersController < ApplicationController
 
   # * Get /users/:id
   def show
-    @user_blogs                 = @be_visited_user.blogs.visible
-    @current_user_like_blog_ids = current_user.like_blogs.ids if current_user
+    user_blogs                 = @be_visited_user.blogs.visible
+    current_user_like_blog_ids = current_user.like_blogs.ids if current_user
+    @react_props               = {
+      be_visited_user:            @be_visited_user.to_user_info_builder.attributes!,
+      user_blogs:                 user_blogs.map { |b| b.to_blog_index_builder.attributes! },
+      current_user_like_blog_ids: current_user_like_blog_ids
+    }
+    respond_to do |format|
+      format.html
+      format.json { render json: @react_props }
+    end
   end
 
   # def update_info

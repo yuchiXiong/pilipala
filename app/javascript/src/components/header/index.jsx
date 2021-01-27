@@ -12,7 +12,9 @@ class Header extends React.Component {
         return <AntdHeader className={styles.header}>
             <Row justify={'start'}>
                 <Col span={14} offset={5} className={styles.header_container}>
-                    <div className={styles.logo}>Burogu</div>
+                    <div className={styles.logo}>
+                        <NavLink to='/'>Burogu</NavLink>
+                    </div>
                     <Menu
                         theme="light"
                         mode="horizontal"

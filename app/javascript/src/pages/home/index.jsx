@@ -8,7 +8,7 @@ import {Blog} from '../../utils/api';
 import default1 from '../../assets/images/default1.png';
 import default2 from '../../assets/images/default2.png';
 
-import styles from './index.module.scss';
+import style from './index.module.scss';
 import BlogList from "../../components/blog-list";
 
 const {Title} = Typography;
@@ -48,7 +48,7 @@ class Home extends React.Component {
                     <Col span={18}>
                         <Carousel autoplay>
                             {
-                                [default1, default2].map(item => <div className={styles.carousel_item}
+                                [default1, default2].map(item => <div className={style.carousel_item}
                                                                       key={default1.toString()}>
                                     <img src={item} alt='default1.png'/>
                                 </div>)
@@ -60,7 +60,7 @@ class Home extends React.Component {
                         </Skeleton>
                     </Col>
                     <Col span={5} offset={1}>
-                        <Title level={5} className={styles.tag}>大家都在看</Title>
+                        <Title level={5} className={style.tag}>热门作者</Title>
                         <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
                             <List
                                 size="large"
@@ -68,14 +68,14 @@ class Home extends React.Component {
                                 // loading={this.state.loading}
                                 itemLayout="horizontal"
                                 dataSource={this.state.hotAuthors}
-                                className={styles.hotsModule}
+                                className={style.hotsModule}
                                 renderItem={item => <List.Item>
                                     <List.Item.Meta
-                                        className={styles.hotsAuthor}
+                                        className={style.hotsAuthor}
                                         avatar={<Avatar src={item.avatar}/>}
-                                        title={<p className={styles.nickName}>
+                                        title={<p className={style.nickName}>
                                             <Link
-                                                to={`/users/${item.id}`}>
+                                                to={`/u/${item.spaceName}`}>
                                                 {item.nickName}
                                             </Link>
                                         </p>}
@@ -85,7 +85,7 @@ class Home extends React.Component {
                             />
                         </Skeleton>
 
-                        <Title level={5} className={styles.tag}>大家都在看</Title>
+                        <Title level={5} className={style.tag}>大家都在看</Title>
                         <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
                             <List
                                 size="large"
@@ -93,12 +93,12 @@ class Home extends React.Component {
                                 bordered={false}
                                 loading={this.state.loading}
                                 dataSource={this.state.hotBlogs}
-                                className={styles.hotsModule}
+                                className={style.hotsModule}
                                 renderItem={item => <List.Item actions={[
-                                    <p className={styles.action}>阅读 {item.readsCount}</p>,
-                                    <p className={styles.action}>喜欢 {item.likesCount}</p>
+                                    <p className={style.action}>阅读 {item.readsCount}</p>,
+                                    <p className={style.action}>喜欢 {item.likesCount}</p>
                                 ]}>
-                                    <Link to={`/blogs/${item.id}`}>{item.title}</Link>
+                                    <Link to={`/blogs/${item.id}`} target={'_blank'}>{item.title}</Link>
                                 </List.Item>}
                             />
                         </Skeleton>
