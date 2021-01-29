@@ -11,6 +11,7 @@ import {
     ReadOutlined
 } from "@ant-design/icons";
 
+import IconText from '../../components/icon-text';
 import IsomorphicProps from '../../containers/isomorphicProps';
 import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
@@ -18,13 +19,6 @@ import markdownStyle from './markdown.module.scss';
 
 const {Title} = Typography;
 const {Meta} = Card;
-
-const IconText = ({icon, text}) => (
-    <Space className={style.blogData}>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
 
 @IsomorphicProps(['blog', 'other_blogs'])
 class BlogShow extends React.Component {

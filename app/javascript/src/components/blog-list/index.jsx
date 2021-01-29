@@ -1,18 +1,13 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {List, Button, Space, Typography} from 'antd';
+import {List, Button, Typography} from 'antd';
 import {MessageOutlined, LikeOutlined, ReadOutlined, UserOutlined} from '@ant-design/icons';
+
+import IconText from '../icon-text';
 
 import {Blog} from '../../utils/api';
 
 import styles from './index.module.scss';
-
-const IconText = ({icon, text}) => (
-    <Space>
-        {React.createElement(icon)}
-        {text}
-    </Space>
-);
 
 const {Paragraph} = Typography;
 

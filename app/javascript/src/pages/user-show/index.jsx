@@ -4,7 +4,6 @@ import IsomorphicProps from '../../containers/isomorphicProps';
 import style from "../blog-show/index.module.scss";
 import {ReadOutlined} from "@ant-design/icons";
 import BlogList from "../../components/blog-list";
-import {Link} from "react-router-dom";
 
 const {TabPane} = Tabs;
 const {Title, Paragraph} = Typography;

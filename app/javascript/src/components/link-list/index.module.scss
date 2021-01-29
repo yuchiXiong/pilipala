@@ -1,0 +1,32 @@
+@import "../../vars";
+
+.tag {
+  margin-top: 0 !important;
+  border-bottom: 2px solid $theme_color;
+  line-height: 36px !important;
+}
+
+.list {
+  margin-bottom: 24px;
+
+  :global(.ant-list-item-action) {
+    margin-top: 4px;
+  }
+
+  .action {
+    margin-bottom: 0;
+  }
+
+  li {
+    padding: 4px 0 !important;
+
+    a {
+      color: unset;
+
+    }
+
+    a:hover {
+      color: $theme_color;
+    }
+  }
+}

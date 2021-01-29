@@ -1,6 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {Row, Col, Carousel, BackTop, List, Typography, Avatar, Skeleton} from 'antd';
+import {Link, NavLink} from 'react-router-dom';
+import {Row, Col, Carousel, BackTop, List, Avatar, Skeleton} from 'antd';
+import LinkList from '../../components/link-list';
 import isomorphicProps from "../../containers/isomorphicProps";
 
 import {Blog} from '../../utils/api';
@@ -10,8 +11,6 @@ import default2 from '../../assets/images/default2.png';
 
 import style from './index.module.scss';
 import BlogList from "../../components/blog-list";
-
-const {Title} = Typography;
 
 @isomorphicProps(['blogs', 'hot_blogs', 'hot_authors'])
 class Home extends React.Component {
@@ -60,48 +59,36 @@ class Home extends React.Component {
                         </Skeleton>
                     </Col>
                     <Col span={5} offset={1}>
-                        <Title level={5} className={style.tag}>热门作者</Title>
-                        <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
-                            <List
-                                size="large"
-                                bordered={false}
-                                // loading={this.state.loading}
-                                itemLayout="horizontal"
-                                dataSource={this.state.hotAuthors}
-                                className={style.hotsModule}
-                                renderItem={item => <List.Item>
-                                    <List.Item.Meta
-                                        className={style.hotsAuthor}
-                                        avatar={<Avatar src={item.avatar}/>}
-                                        title={<p className={style.nickName}>
-                                            <Link
-                                                to={`/u/${item.spaceName}`}>
-                                                {item.nickName}
-                                            </Link>
-                                        </p>}
-                                        description={<small>{item.description || '这个人很懒，什么都没有留下……'}</small>}
-                                    />
-                                </List.Item>}
-                            />
-                        </Skeleton>
+                        <LinkList
+                            title={'热门作者'}
+                            dataSource={this.state.hotAuthors}
+                            renderItem={item => <List.Item>
+                                <List.Item.Meta
+                                    className={style.hotsAuthor}
+                                    avatar={<Avatar src={item.avatar}/>}
+                                    title={<p className={style.nickName}>
+                                        <Link
+                                            to={`/u/${item.spaceName}`}>
+                                            {item.nickName}
+                                        </Link>
+                                    </p>}
+                                    description={<small>{item.description || '这个人很懒，什么都没有留下……'}</small>}
+                                />
+                            </List.Item>}
+                        />
 
-                        <Title level={5} className={style.tag}>大家都在看</Title>
-                        <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
-                            <List
-                                size="large"
-                                itemLayout="vertical"
-                                bordered={false}
-                                loading={this.state.loading}
-                                dataSource={this.state.hotBlogs}
-                                className={style.hotsModule}
-                                renderItem={item => <List.Item actions={[
-                                    <p className={style.action}>阅读 {item.readsCount}</p>,
-                                    <p className={style.action}>喜欢 {item.likesCount}</p>
-                                ]}>
-                                    <Link to={`/blogs/${item.id}`} target={'_blank'}>{item.title}</Link>
-                                </List.Item>}
-                            />
-                        </Skeleton>
+                        <LinkList
+                            title={'大家都在看'}
+                            dataSource={this.state.hotBlogs}
+                            renderItem={item => <List.Item>
+                                <NavLink
+                                    to={`/blogs/${item.id}`}
+                                    target={"_blank"}
+                                >
+                                    {item.title}
+                                </NavLink>
+                            </List.Item>}
+                        />
                     </Col>
                     <BackTop/>
                 </Row>
