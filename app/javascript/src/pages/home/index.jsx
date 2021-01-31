@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link, NavLink} from 'react-router-dom';
 import {Row, Col, Carousel, BackTop, List, Avatar, Skeleton} from 'antd';
 import LinkList from '../../components/link-list';
@@ -19,25 +20,24 @@ class Home extends React.Component {
         super(props);
         this.state = {
             loading: false,
-            blogs: this.props.blogs || [],
-            hotAuthors: this.props.hot_authors || [],
-            hotBlogs: this.props.hot_blogs || []
+            blogs: this.props.blogs,
+            hotAuthors: this.props.hotAuthors,
+            hotBlogs: this.props.hotBlogs
         }
     }
 
     componentDidMount() {
-        if (this.state.blogs.length === 0) {
+        if (window.__REACT_RAILS_SSR__ === null) {
             this.setState({loading: true})
             Blog.index(1).then(res => {
                 this.setState({
                     loading: false,
-                    blogs: [...res.blogs],
-                    hotAuthors: [...res.hot_authors],
-                    hotBlogs: [...res.hot_blogs]
+                    blogs: res.blogs,
+                    hotAuthors: res.hot_authors,
+                    hotBlogs: res.hot_blogs
                 })
             })
         }
-
     }
 
     render() {
@@ -96,5 +96,12 @@ class Home extends React.Component {
         </Row>
     }
 }
+
+Home.defaultProps = {
+    loading: false,
+    blogs: [],
+    hotAuthors: [],
+    hotBlogs: []
+};
 
 export default Home;

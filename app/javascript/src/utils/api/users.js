@@ -1,9 +1,9 @@
 import request from '../request';
 
-const userBlog = user_id => {
-    return request.get(`/api/users/${user_id}/blogs`);
+const show = spaceName => {
+    return request.get(`/u/${spaceName}`);
 };
 
 export {
-    userBlog
+    show
 };

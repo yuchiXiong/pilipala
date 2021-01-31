@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link, NavLink} from "react-router-dom";
 import marked from 'marked';
 import insane from 'insane';
@@ -13,6 +14,7 @@ import {
 
 import IconText from '../../components/icon-text';
 import IsomorphicProps from '../../containers/isomorphicProps';
+import {Blog} from '../../utils/api';
 import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
 import markdownStyle from './markdown.module.scss';
@@ -26,30 +28,8 @@ class BlogShow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            blog: {
-                title: this.props.blog?.title || '',
-                content: this.props.blog?.content || '',
-                commentsCount: this.props.blog?.commentsCount || 0,
-                readsCount: this.props.blog?.readsCount || 0,
-                likesCount: this.props.blog?.likesCount || 0,
-                cover: this.props.blog?.cover || '',
-                description: this.props.blog?.description || '',
-                createdAt: this.props.blog?.createdAt || '',
-                user: {
-                    id: this.props.blog?.user.id || 0,
-                    spaceName: this.props.blog?.user.spaceName,
-                    nickName: this.props.blog?.user.nickName || '',
-                    email: this.props.blog?.user.email || '',
-                    sex: this.props.blog?.user.sex || '',
-                    description: this.props.blog?.user.description || '',
-                    isAdmin: this.props.blog?.user.isAdmin || false,
-                    blogsCount: this.props.blog?.user.blogsCount || 0,
-                    followersCount: this.props.blog?.user.followersCount || 0,
-                    followingCount: this.props.blog?.user.followingCount || 0,
-                    avatar: this.props.blog?.user.avatar || '',
-                }
-            },
-            otherBlogs: props.other_blogs
+            blog: props.blog,
+            otherBlogs: props.otherBlogs
         }
     }
 
@@ -149,5 +129,32 @@ class BlogShow extends React.Component {
         </Row>
     }
 }
+
+BlogShow.defaultProp = {
+    blog: {
+        title: '',
+        content: '',
+        commentsCount: 0,
+        readsCount: 0,
+        likesCount: 0,
+        cover: '',
+        description: '',
+        createdAt: '',
+        user: {
+            id: 0,
+            spaceName: '',
+            nickName: '',
+            email: '',
+            sex: '',
+            description: '',
+            isAdmin: false,
+            blogsCount: 0,
+            followersCount: 0,
+            followingCount: 0,
+            avatar: '',
+        }
+    },
+    otherBlogs: []
+};
 
 export default BlogShow;

@@ -23,12 +23,11 @@ class BlogList extends React.Component {
         };
     }
 
-    static getDerivedStateFromProps(props, state) {
-        if ((props.dataSource.toString() !== props.dataSource.toString()) &&
-            (props.dataSource.toString() !== state.blogList.toString())) {
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.dataSource.toString() !== prevState.blogList.toString()) {
             return {
-                ...state,
-                blogList: props.dataSource
+                ...prevState,
+                blogList: nextProps.dataSource
             }
         }
         return null;
