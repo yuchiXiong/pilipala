@@ -1,5 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import insane from 'insane';
+import marked from 'marked';
+import PlainTextRenderer from 'marked-plaintext';
 import {List, Button, Typography} from 'antd';
 import {MessageOutlined, LikeOutlined, ReadOutlined, UserOutlined} from '@ant-design/icons';
 
@@ -10,7 +13,7 @@ import {Blog} from '../../utils/api';
 import styles from './index.module.scss';
 
 const {Paragraph} = Typography;
-
+const renderer = new PlainTextRenderer();
 class BlogList extends React.Component {
 
     constructor(props) {
@@ -124,7 +127,9 @@ class BlogList extends React.Component {
                                 title={item.title}
                             />
                             <Paragraph ellipsis={{rows: 4}} className={styles.content}>
-                                {item.content}
+                                {insane(marked(item.content, {
+                                    renderer: renderer
+                                }))}
                             </Paragraph>
                         </List.Item>
                     </Link>

@@ -10,6 +10,7 @@ import UserShow from './pages/user-show';
 import Footer from './components/footer';
 
 import style from './app.module.scss';
+import './App.scss';
 
 const {Content} = Layout;
 
