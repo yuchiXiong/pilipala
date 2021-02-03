@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link, NavLink} from 'react-router-dom';
-import {Row, Col, Carousel, BackTop, List, Avatar, Skeleton} from 'antd';
+import {Avatar, BackTop, Carousel, Col, List, Row, Skeleton} from 'antd';
 import LinkList from '../../components/link-list';
 import isomorphicProps from "../../containers/isomorphicProps";
 
@@ -23,20 +22,20 @@ class Home extends React.Component {
             blogs: this.props.blogs,
             hotAuthors: this.props.hotAuthors,
             hotBlogs: this.props.hotBlogs
-        }
+        };
     }
 
     componentDidMount() {
         if (window.__REACT_RAILS_SSR__ === null) {
-            this.setState({loading: true})
+            this.setState({loading: true});
             Blog.index(1).then(res => {
                 this.setState({
                     loading: false,
                     blogs: res.blogs,
                     hotAuthors: res.hot_authors,
                     hotBlogs: res.hot_blogs
-                })
-            })
+                });
+            });
         }
     }
 

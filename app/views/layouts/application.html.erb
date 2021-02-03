@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
 <%= react_component 'app', { path: request.path, react_props: @react_props }, { prerender: true } %>
 <%= javascript_pack_tag 'react_ssr', 'data-turbolinks-track': 'reload' %>
 <script>

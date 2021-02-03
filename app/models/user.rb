@@ -28,12 +28,12 @@ class User < ApplicationRecord
     end
   end
 
-  def to_user_info_builder
+  def b_json
     Jbuilder.new do |user|
       user.key_format! camelize: :lower
       user.(self, :id, :nick_name, :email, :sex, :description, :is_admin, :blogs_count, :followers_count, :following_count, :space_name)
       user.avatar oss_avatar
-    end
+    end.attributes!
   end
 
 end

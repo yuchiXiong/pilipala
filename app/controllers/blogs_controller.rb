@@ -5,38 +5,26 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    page                       = params[:page].to_i <= 0 ? 1 : params[:page].to_i
-    blogs                      = Blog.visible.includes(:user).page(page).per(10)
-    hots                       = Blog.visible.first(5)
-    current_user_like_blog_ids = current_user.like_blogs.ids if current_user
+    blogs = Blog.visible.includes(:user).page(params[:page]).per(10)
+    hots  = Blog.visible.first(5)
 
     @react_props = {
-      blogs:                      blogs.map { |blog| blog.to_blog_index_builder.attributes! },
-      current_user_like_blog_ids: current_user_like_blog_ids,
-      hot_blogs:                  hots.map { |blog| blog.to_hots_builder.attributes! },
-      hot_authors:                User.order(followers_count: :desc).limit(5).map { |user| user.to_user_info_builder.attributes! }
+      blogs:                  Blog.to_jsons(blogs),
+      currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
+      hotBlogs:               Blog.to_jsons(hots),
+      hotAuthors:             User.order(followers_count: :desc).limit(5).map { |user| user.b_json }
     }
-
-    respond_to do |format|
-      format.html
-      format.json { render json: @react_props }
-    end
   end
 
   # * GET /blogs/:id
   def show
     blog = Blog.find(params[:id])
     current_user.read_blog(blog) if current_user
-    # comment = Comment.new
     raise ActiveRecord::RecordNotFound unless blog.readable?
     @react_props = {
       blog:        blog.to_blog_show_builder.attributes!,
       other_blogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |b| b.to_blog_index_builder.attributes! }
     }
-    respond_to do |format|
-      format.html
-      format.json { render json: @react_props }
-    end
   end
 
   # * POST /blogs/:id/like

@@ -11,7 +11,7 @@ class Blog < ApplicationRecord
   enum scan_result: { pass: 0, review: 1, block: 2 }
 
   # * 所有处于发布状态的文章
-  scope :visible, -> { where({ released: true, discarded_at: nil }) }
+  scope :visible, -> { where(released: true).kept }
   default_scope { order(created_at: :desc) }
   # default_scope { order(likes_count: :desc, id: :desc) }
 
@@ -28,31 +28,15 @@ class Blog < ApplicationRecord
     cover.url && "https://assets.bubuyu.top#{cover.url}"
   end
 
-  # * 用户首页博客列表的schema
-  def to_blog_index_builder
-    Jbuilder.new do |blog|
-      blog.key_format! camelize: :lower
-      blog.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count)
-      blog.content content.truncate(288)
-      blog.cover oss_cover
-      blog.user user.to_user_info_builder.attributes!
-    end
-  end
-
-  def to_blog_show_builder
-    Jbuilder.new do |blog|
-      blog.key_format! camelize: :lower
-      blog.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count, :created_at)
-      blog.content content
-      blog.cover oss_cover
-      blog.user user.to_user_info_builder.attributes!
-    end
-  end
-
-  def to_hots_builder
-    Jbuilder.new do |blog|
-      blog.key_format! camelize: :lower
-      blog.(self, :id, :title, :reads_count, :likes_count, :comments_count)
+  def self.to_jsons(blogs, with_content = false)
+    blogs.map do |blog|
+      Jbuilder.new do |json|
+        json.key_format! camelize: :lower
+        json.(blog, :id, :title, :description, :reads_count, :likes_count, :comments_count, :created_at)
+        json.content with_content ? blog.content : blog.content.truncate(288)
+        json.cover blog.oss_cover
+        json.user blog.user.b_json
+      end.attributes!
     end
   end
 
