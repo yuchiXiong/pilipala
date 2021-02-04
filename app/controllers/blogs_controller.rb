@@ -5,7 +5,8 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    blogs = Blog.visible.includes(:user).page(params[:page]).per(10)
+    blogs = Blog.visible.includes(:user)
+    # ! 没有推荐算法
     hots = Blog.visible.includes(:user).first(5)
 
     @react_props = {
@@ -22,8 +23,8 @@ class BlogsController < ApplicationController
     current_user.read_blog(blog) if current_user
     raise ActiveRecord::RecordNotFound unless blog.readable?
     @react_props = {
-      blog:        blog.to_blog_show_builder.attributes!,
-      other_blogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |b| b.to_blog_index_builder.attributes! }
+      blog:        blog.to_json,
+      other_blogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |_| _.to_json }
     }
   end
 

@@ -1,6 +1,12 @@
 class Api::BlogsController < ApiController
+  skip_before_action :authenticate_user!, only: [:index, :hots]
   before_action :set_blog, only: %i[delete update destroy]
   before_action :current_user?, only: %i[update destroy]
+
+  # * GET /blogs
+  def index
+    @blogs = Blog.visible.includes(:user).page(params[:page]).per(10)
+  end
 
   # * GET /blogs/:id
   def show
@@ -9,9 +15,9 @@ class Api::BlogsController < ApiController
 
   # * POST /blogs
   def create
-    @blog = Blog.new(blog_params)
+    @blog         = Blog.new(blog_params)
     @blog.user_id = current_user.id
-    @errors = @blog.errors unless @blog.save
+    @errors       = @blog.errors unless @blog.save
   end
 
   # * PUT/PATCH /blogs/:id
@@ -22,6 +28,13 @@ class Api::BlogsController < ApiController
   # * DELETE /blogs/:id
   def destroy
     @errors = @blog.errors unless @blog.discard
+  end
+
+  # * GET /blogs/hots
+  def hots
+    # ! 没有推荐算法
+    @blogs = Blog.visible.includes(:user).first(5)
+    render 'api/blogs/index'
   end
 
   private

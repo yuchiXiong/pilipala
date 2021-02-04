@@ -20,6 +20,9 @@ Rails.application.routes.draw do
       post :photo
       post :like
       resources :comments, only: [:index, :create, :destroy]
+      collection do
+        get :hots
+      end
     end
     resources :users, only: [:destroy] do
       get :blogs

@@ -18,22 +18,33 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,
+            blogsLoading: false,
             blogs: this.props.blogs,
+            hotAuthorsLoading: false,
             hotAuthors: this.props.hotAuthors,
-            hotBlogs: this.props.hotBlogs
+            hotBlogsLoading: false,
+            hotBlogs: this.props.hotBlogs,
+            pageNo: 1
         };
     }
 
     componentDidMount() {
         if (window.__REACT_RAILS_SSR__ === null) {
-            this.setState({loading: true});
-            Blog.index(1).then(res => {
+            this.setState({
+                blogsLoading: true,
+                hotAuthorsLoading: true,
+                hotBlogsLoading: true
+            });
+            Blog.index(this.state.pageNo).then(res => {
                 this.setState({
-                    loading: false,
-                    blogs: res.blogs,
-                    hotAuthors: res.hot_authors,
-                    hotBlogs: res.hot_blogs
+                    blogsLoading: false,
+                    blogs: res.data.blogs
+                });
+            });
+            Blog.hots().then(res => {
+                this.setState({
+                    hotBlogsLoading: false,
+                    hotBlogs: res.data.blogs
                 });
             });
         }
@@ -53,7 +64,7 @@ class Home extends React.Component {
                             }
                         </Carousel>
 
-                        <Skeleton loading={this.state.loading} active avatar round={true}>
+                        <Skeleton loading={this.state.blogsLoading} active avatar round={true}>
                             <BlogList dataSource={this.state.blogs}/>
                         </Skeleton>
                     </Col>
@@ -61,6 +72,7 @@ class Home extends React.Component {
                         <LinkList
                             title={'热门作者'}
                             dataSource={this.state.hotAuthors}
+                            loading={this.state.hotAuthorsLoading}
                             renderItem={item => <List.Item>
                                 <List.Item.Meta
                                     className={style.hotsAuthor}
@@ -79,6 +91,7 @@ class Home extends React.Component {
                         <LinkList
                             title={'大家都在看'}
                             dataSource={this.state.hotBlogs}
+                            loading={this.state.hotBlogsLoading}
                             renderItem={item => <List.Item>
                                 <NavLink
                                     to={`/blogs/${item.id}`}

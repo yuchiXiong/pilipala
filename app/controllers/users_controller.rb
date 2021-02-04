@@ -8,8 +8,8 @@ class UsersController < ApplicationController
     user_blogs                 = @be_visited_user.blogs.visible
     current_user_like_blog_ids = current_user.like_blogs.ids if current_user
     @react_props               = {
-      be_visited_user:            @be_visited_user.to_user_info_builder.attributes!,
-      user_blogs:                 user_blogs.map { |b| b.to_blog_index_builder.attributes! },
+      be_visited_user:            @be_visited_user.to_json,
+      user_blogs:                 user_blogs.map { |_| _.to_json },
       current_user_like_blog_ids: current_user_like_blog_ids
     }
     respond_to do |format|

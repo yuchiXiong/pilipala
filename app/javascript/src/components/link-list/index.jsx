@@ -15,7 +15,6 @@ class LinkList extends React.Component {
                     size="large"
                     itemLayout="vertical"
                     bordered={false}
-                    loading={loading || false}
                     dataSource={dataSource}
                     className={style.list}
                     renderItem={item => renderItem(item)}

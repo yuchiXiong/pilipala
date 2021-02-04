@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import insane from 'insane';
 import marked from 'marked';
 import PlainTextRenderer from 'marked-plaintext';
-import {List, Button, Typography} from 'antd';
-import {MessageOutlined, LikeOutlined, ReadOutlined, UserOutlined} from '@ant-design/icons';
+import {Button, List, Typography} from 'antd';
+import {LikeOutlined, MessageOutlined, ReadOutlined, UserOutlined} from '@ant-design/icons';
 
 import IconText from '../icon-text';
 
@@ -14,6 +14,7 @@ import styles from './index.module.scss';
 
 const {Paragraph} = Typography;
 const renderer = new PlainTextRenderer();
+
 class BlogList extends React.Component {
 
     constructor(props) {
@@ -139,5 +140,9 @@ class BlogList extends React.Component {
         );
     }
 }
+
+BlogList.defaultProps = {
+    dataSource: []
+};
 
 export default BlogList;
