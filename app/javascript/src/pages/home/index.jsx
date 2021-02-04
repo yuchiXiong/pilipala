@@ -12,7 +12,7 @@ import default2 from '../../assets/images/default2.png';
 import style from './index.module.scss';
 import BlogList from "../../components/blog-list";
 
-@isomorphicProps(['blogs', 'hot_blogs', 'hot_authors'])
+@isomorphicProps(['blogs', 'hotBlogs', 'hotAuthors'])
 class Home extends React.Component {
 
     constructor(props) {

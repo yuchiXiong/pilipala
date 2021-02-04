@@ -6,13 +6,13 @@ class BlogsController < ApplicationController
   # * GET /blogs
   def index
     blogs = Blog.visible.includes(:user).page(params[:page]).per(10)
-    hots  = Blog.visible.first(5)
+    hots = Blog.visible.includes(:user).first(5)
 
     @react_props = {
-      blogs:                  Blog.to_jsons(blogs),
+      blogs:                  blogs.map { |_| _.to_json },
       currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
-      hotBlogs:               Blog.to_jsons(hots),
-      hotAuthors:             User.order(followers_count: :desc).limit(5).map { |user| user.b_json }
+      hotBlogs:               hots.map { |_| _.to_json },
+      hotAuthors:             User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
     }
   end
 

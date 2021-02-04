@@ -28,16 +28,14 @@ class Blog < ApplicationRecord
     cover.url && "https://assets.bubuyu.top#{cover.url}"
   end
 
-  def self.to_jsons(blogs, with_content = false)
-    blogs.map do |blog|
-      Jbuilder.new do |json|
-        json.key_format! camelize: :lower
-        json.(blog, :id, :title, :description, :reads_count, :likes_count, :comments_count, :created_at)
-        json.content with_content ? blog.content : blog.content.truncate(288)
-        json.cover blog.oss_cover
-        json.user blog.user.b_json
-      end.attributes!
-    end
+  def to_json(with_content = false)
+    Jbuilder.new do |json|
+      json.key_format! camelize: :lower
+      json.(self, :id, :title, :description, :reads_count, :likes_count, :comments_count, :created_at)
+      json.content with_content ? content : content.truncate(288)
+      json.cover oss_cover
+      json.user user.to_json
+    end.attributes!
   end
 
   private
