@@ -11,7 +11,7 @@ class Header extends React.Component {
     render() {
         return <AntdHeader className={styles.header}>
             <Row justify={'start'}>
-                <Col span={14} offset={5} className={styles.header_container}>
+                <Col span={16} offset={4} className={styles.header_container}>
                     <div className={styles.logo}>
                         <NavLink to='/'>Burogu</NavLink>
                     </div>

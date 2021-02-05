@@ -4,7 +4,7 @@ import {Avatar, BackTop, Carousel, Col, List, Row, Skeleton} from 'antd';
 import LinkList from '../../components/link-list';
 import isomorphicProps from "../../containers/isomorphicProps";
 
-import {Blog} from '../../utils/api';
+import {Blog, User} from '../../utils/api';
 
 import default1 from '../../assets/images/default1.png';
 import default2 from '../../assets/images/default2.png';
@@ -47,12 +47,18 @@ class Home extends React.Component {
                     hotBlogs: res.data.blogs
                 });
             });
+            User.hots().then(res => {
+                this.setState({
+                    hotAuthorsLoading: false,
+                    hotAuthors: res.data.users
+                });
+            });
         }
     }
 
     render() {
         return <Row>
-            <Col span={14} offset={5}>
+            <Col span={16} offset={4}>
                 <Row>
                     <Col span={18}>
                         <Carousel autoplay>

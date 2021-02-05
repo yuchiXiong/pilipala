@@ -30,6 +30,9 @@ Rails.application.routes.draw do
       post :follow
       match :info, via: [:put, :patch]
       match :password, via: [:put, :patch]
+      collection do
+        get :hots
+      end
     end
   end
 
