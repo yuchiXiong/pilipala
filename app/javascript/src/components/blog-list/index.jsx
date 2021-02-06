@@ -23,12 +23,12 @@ class BlogList extends React.Component {
             initLoading: false,
             loading: false,
             blogList: props.dataSource,
-            page: 2
+            pageNo: 2
         };
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.dataSource.toString() !== prevState.blogList.toString()) {
+        if (nextProps.dataSource.length > prevState.blogList.length) {
             return {
                 ...prevState,
                 blogList: nextProps.dataSource
@@ -41,14 +41,13 @@ class BlogList extends React.Component {
         this.setState({
             loading: true
         });
-        Blog.index(this.state.page).then(res => {
-            this.state.blogList = this.state.blogList.concat(res.blogs);
-            console.log(this.state.blogList)
+        Blog.index(this.state.pageNo).then(res => {
+            const blogList = this.state.blogList.concat(res.data.blogs);
             this.setState({
-                initLoading: res.blogs.length < 10,
+                initLoading: res.data.blogs.length < 10,
                 loading: false,
-                blogList: [...this.state.blogList],
-                page: this.state.page + 1
+                blogList: [...blogList],
+                pageNo: this.state.pageNo + 1
             }, () => window.dispatchEvent(new Event('resize')))
         });
     };
@@ -142,7 +141,8 @@ class BlogList extends React.Component {
 }
 
 BlogList.defaultProps = {
-    dataSource: []
+    dataSource: [],
+    pageNo: 1
 };
 
 export default BlogList;

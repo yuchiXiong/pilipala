@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
 
   # * GET /blogs
   def index
-    blogs = Blog.visible.includes(:user)
+    blogs = Blog.visible.includes(:user).limit(10)
     # ! 没有推荐算法
     hots = Blog.visible.includes(:user).first(5)
 

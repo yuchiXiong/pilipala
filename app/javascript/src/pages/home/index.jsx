@@ -23,8 +23,7 @@ class Home extends React.Component {
             hotAuthorsLoading: false,
             hotAuthors: this.props.hotAuthors,
             hotBlogsLoading: false,
-            hotBlogs: this.props.hotBlogs,
-            pageNo: 1
+            hotBlogs: this.props.hotBlogs
         };
     }
 
@@ -35,7 +34,7 @@ class Home extends React.Component {
                 hotAuthorsLoading: true,
                 hotBlogsLoading: true
             });
-            Blog.index(this.state.pageNo).then(res => {
+            Blog.index(1).then(res => {
                 this.setState({
                     blogsLoading: false,
                     blogs: res.data.blogs
