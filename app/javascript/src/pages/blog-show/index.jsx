@@ -1,35 +1,86 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {Link, NavLink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import marked from 'marked';
 import insane from 'insane';
 import dayjs from 'dayjs';
 import hljs from 'highlight.js';
-import {Avatar, BackTop, Col, Row, Space, Typography, Card, Divider, List, Skeleton} from "antd";
 import {
-    LikeOutlined,
-    MessageOutlined,
-    ReadOutlined
-} from "@ant-design/icons";
+    Avatar,
+    BackTop,
+    Button,
+    Card,
+    Col,
+    Comment,
+    Divider,
+    Form,
+    Input,
+    List,
+    Row,
+    Skeleton,
+    Space,
+    Typography
+} from "antd";
+import {LikeOutlined, MessageOutlined, ReadOutlined} from "@ant-design/icons";
 
 import IconText from '../../components/icon-text';
 import IsomorphicProps from '../../containers/isomorphicProps';
-import {Blog} from '../../utils/api';
 import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
 import markdownStyle from './markdown.module.scss';
 
 const {Title} = Typography;
 const {Meta} = Card;
+const {TextArea} = Input;
 
-@IsomorphicProps(['blog', 'other_blogs'])
+const BlogComment = props => <Comment
+    actions={[<span key="comment-nested-reply-to">回复</span>]}
+    author={<a>{props.author}</a>}
+    avatar={
+        <Avatar
+            src={props.avatar}
+            alt={props.author}
+        />
+    }
+    content={
+        <p>{props.content}</p>
+    }
+>
+    {props.children}
+</Comment>
+
+const Editor = ({onChange, onSubmit, submitting, value}) => (
+    <Comment
+        avatar={
+            <Avatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="Han Solo"
+            />
+        }
+        content={
+            <>
+                <Form.Item>
+                    <TextArea rows={4} onChange={onChange} value={value}/>
+                </Form.Item>
+                <Form.Item>
+                    <Button htmlType="submit" loading={submitting} onClick={onSubmit}
+                            type="primary">
+                        发布评论
+                    </Button>
+                </Form.Item>
+            </>
+        }
+    />
+);
+
+@IsomorphicProps(['blog', 'otherBlogs', 'comments'])
 class BlogShow extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             blog: props.blog,
-            otherBlogs: props.otherBlogs
+            otherBlogs: props.otherBlogs,
+            comments: props.comments
         }
     }
 
@@ -103,6 +154,27 @@ class BlogShow extends React.Component {
                             dangerouslySetInnerHTML={{
                                 __html: insane(marked(blog.content))
                             }}/>
+
+                        {
+                            this.props.comments.map(comment => {
+                                return comment.commentId === null && <BlogComment
+                                    author={comment.user.nickName}
+                                    avatar={comment.user.avatar}
+                                    content={comment.content}
+                                    key={comment.id}
+                                >
+                                    <Editor/>
+                                    {this.props.comments.filter(item => item.commentId === comment.id).map(subComment => {
+                                        return <BlogComment
+                                            author={subComment.author}
+                                            avatar={subComment.user.avatar}
+                                            content={subComment.content}
+                                            key={subComment.id}
+                                        />
+                                    })}
+                                </BlogComment>
+                            })
+                        }
                     </Col>
                     <Col span={5} offset={1}>
                         <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
