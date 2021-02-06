@@ -1,7 +1,7 @@
 import React from 'react';
-import {BackTop, Col, Row, Avatar, Space, Divider, List, Button, Tabs, Skeleton, Typography, Card} from "antd";
+import {Avatar, BackTop, Button, Col, Divider, List, Row, Space, Tabs, Typography} from "antd";
 import IsomorphicProps from '../../containers/isomorphicProps';
-import style from "../blog-show/index.module.scss";
+import blogShowStyle from "../blog-show/index.module.scss";
 import {ReadOutlined} from "@ant-design/icons";
 import BlogList from "../../components/blog-list";
 import {User} from '../../utils/api';
@@ -69,13 +69,15 @@ class UserShow extends React.Component {
                         <Tabs defaultActiveKey="blogs">
                             <TabPane tab={<span><ReadOutlined/>文章</span>} key="blogs">
                                 {/*<Skeleton loading={this.state.loading} active avatar round={true}>*/}
-                                <BlogList dataSource={userBlogs}/>
+                                <BlogList
+                                    dataSource={userBlogs}
+                                    user={beVisitedUser.spaceName}/>
                                 {/*</Skeleton>*/}
                             </TabPane>
                         </Tabs>
                     </Col>
                     <Col span={5} offset={1}>
-                        <Title level={5} className={style.tag}>个人介绍</Title>
+                        <Title level={5} className={blogShowStyle.tag}>个人介绍</Title>
                         <Paragraph>{beVisitedUser.description}</Paragraph>
                     </Col>
                     <BackTop/>

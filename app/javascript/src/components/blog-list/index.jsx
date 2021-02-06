@@ -8,7 +8,7 @@ import {LikeOutlined, MessageOutlined, ReadOutlined, UserOutlined} from '@ant-de
 
 import IconText from '../icon-text';
 
-import {Blog} from '../../utils/api';
+import {Blog, User} from '../../utils/api';
 
 import styles from './index.module.scss';
 
@@ -23,7 +23,8 @@ class BlogList extends React.Component {
             initLoading: false,
             loading: false,
             blogList: props.dataSource,
-            pageNo: 2
+            pageNo: 2,
+            user: props.user
         };
     }
 
@@ -41,15 +42,27 @@ class BlogList extends React.Component {
         this.setState({
             loading: true
         });
-        Blog.index(this.state.pageNo).then(res => {
-            const blogList = this.state.blogList.concat(res.data.blogs);
-            this.setState({
-                initLoading: res.data.blogs.length < 10,
-                loading: false,
-                blogList: [...blogList],
-                pageNo: this.state.pageNo + 1
-            }, () => window.dispatchEvent(new Event('resize')))
-        });
+        if (this.state.user !== null) {
+            User.blogs(this.state.user, this.state.pageNo).then(res => {
+                const blogList = this.state.blogList.concat(res.data.blogs);
+                this.setState({
+                    initLoading: res.data.blogs.length < 10,
+                    loading: false,
+                    blogList: [...blogList],
+                    pageNo: this.state.pageNo + 1
+                }, () => window.dispatchEvent(new Event('resize')));
+            });
+        } else {
+            Blog.index(this.state.pageNo).then(res => {
+                const blogList = this.state.blogList.concat(res.data.blogs);
+                this.setState({
+                    initLoading: res.data.blogs.length < 10,
+                    loading: false,
+                    blogList: [...blogList],
+                    pageNo: this.state.pageNo + 1
+                }, () => window.dispatchEvent(new Event('resize')));
+            });
+        }
     };
 
     render() {
@@ -142,7 +155,8 @@ class BlogList extends React.Component {
 
 BlogList.defaultProps = {
     dataSource: [],
-    pageNo: 1
+    pageNo: 1,
+    user: null
 };
 
 export default BlogList;

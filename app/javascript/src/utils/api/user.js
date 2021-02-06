@@ -5,10 +5,15 @@ const show = spaceName => {
 };
 
 const hots = () => {
-    return request.get('/api/users/hots');
+    return request.get('/api/u/hots');
 };
+
+const blogs = (spaceName, pageNo) => {
+    return request.get(`/api/u/${spaceName}/blogs?page=${pageNo}`)
+}
 
 export {
     show,
-    hots
+    hots,
+    blogs
 };
