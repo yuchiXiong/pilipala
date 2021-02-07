@@ -10,10 +10,15 @@ class BlogsController < ApplicationController
     hots = Blog.visible.includes(:user).first(5)
 
     @react_props = {
-      blogs:                  blogs.map { |_| _.to_json },
-      currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
-      hotBlogs:               hots.map { |_| _.to_json },
-      hotAuthors:             User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
+      blogPage: {
+        blogsLoading:           false,
+        hotBlogsLoading:        false,
+        hotAuthorsLoading:      false,
+        blogs:                  blogs.map { |_| _.to_json },
+        currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
+        hotBlogs:               hots.map { |_| _.to_json },
+        hotAuthors:             User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
+      }
     }
   end
 

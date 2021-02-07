@@ -7,7 +7,7 @@ const IsomorphicRouter = props => {
         return <BrowserRouter>{props.children}</BrowserRouter>;
     } else {
         return (
-            <StaticRouter location={props.path} context={props.context}>
+            <StaticRouter location={props.path}>
                 {props.children}
             </StaticRouter>
         );

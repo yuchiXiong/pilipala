@@ -8,8 +8,6 @@ import {LikeOutlined, MessageOutlined, ReadOutlined, UserOutlined} from '@ant-de
 
 import IconText from '../icon-text';
 
-import {Blog, User} from '../../utils/api';
-
 import styles from './index.module.scss';
 
 const {Paragraph} = Typography;
@@ -19,54 +17,54 @@ class BlogList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            initLoading: false,
-            loading: false,
-            blogList: props.dataSource,
-            pageNo: 2,
-            user: props.user
-        };
+        // this.state = {
+        //     initLoading: false,
+        //     loading: false,
+        //     blogList: props.dataSource,
+        //     pageNo: 2,
+        //     user: props.user
+        // };
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.dataSource.length > prevState.blogList.length) {
-            return {
-                ...prevState,
-                blogList: nextProps.dataSource
-            }
-        }
-        return null;
-    }
+    // static getDerivedStateFromProps(nextProps, prevState) {
+    //     if (nextProps.dataSource.length > prevState.blogList.length) {
+    //         return {
+    //             ...prevState,
+    //             blogList: nextProps.dataSource
+    //         }
+    //     }
+    //     return null;
+    // }
 
-    onLoadMore = () => {
-        this.setState({
-            loading: true
-        });
-        if (this.state.user !== null) {
-            User.blogs(this.state.user, this.state.pageNo).then(res => {
-                const blogList = this.state.blogList.concat(res.data.blogs);
-                this.setState({
-                    initLoading: res.data.blogs.length < 10,
-                    loading: false,
-                    blogList: [...blogList],
-                    pageNo: this.state.pageNo + 1
-                }, () => window.dispatchEvent(new Event('resize')));
-            });
-        } else {
-            Blog.index(this.state.pageNo).then(res => {
-                const blogList = this.state.blogList.concat(res.data.blogs);
-                this.setState({
-                    initLoading: res.data.blogs.length < 10,
-                    loading: false,
-                    blogList: [...blogList],
-                    pageNo: this.state.pageNo + 1
-                }, () => window.dispatchEvent(new Event('resize')));
-            });
-        }
-    };
+    // onLoadMore = () => {
+    //     this.setState({
+    //         loading: true
+    //     });
+    //     if (this.state.user !== null) {
+    //         User.blogs(this.state.user, this.state.pageNo).then(res => {
+    //             const blogList = this.state.blogList.concat(res.data.blogs);
+    //             this.setState({
+    //                 initLoading: res.data.blogs.length < 10,
+    //                 loading: false,
+    //                 blogList: [...blogList],
+    //                 pageNo: this.state.pageNo + 1
+    //             }, () => window.dispatchEvent(new Event('resize')));
+    //         });
+    //     } else {
+    //         Blog.index(this.state.pageNo).then(res => {
+    //             const blogList = this.state.blogList.concat(res.data.blogs);
+    //             this.setState({
+    //                 initLoading: res.data.blogs.length < 10,
+    //                 loading: false,
+    //                 blogList: [...blogList],
+    //                 pageNo: this.state.pageNo + 1
+    //             }, () => window.dispatchEvent(new Event('resize')));
+    //         });
+    //     }
+    // };
 
     render() {
-        const {initLoading, loading} = this.state;
+        const {dataSource, initLoading, loading} = this.props;
         const loadMore =
             !initLoading && !loading ? (
                 <div
@@ -78,7 +76,7 @@ class BlogList extends React.Component {
                     }}
                 >
                     <Button
-                        onClick={this.onLoadMore}
+                        // onClick={this.onLoadMore}
                         className={styles.loadingMore}
                         type={'primary'}
                         block>
@@ -94,7 +92,7 @@ class BlogList extends React.Component {
                 }}
             >
                 <Button
-                    onClick={this.onLoadMore}
+                    // onClick={this.onLoadMore}
                     className={styles.loadingMore}
                     type={'primary'}
                     disabled
@@ -107,8 +105,9 @@ class BlogList extends React.Component {
             <List
                 itemLayout="vertical"
                 loadMore={loadMore}
-                loading={this.state.loading}
-                dataSource={this.state.blogList}
+                // loading={this.state.loading}
+                loading={false}
+                dataSource={dataSource}
                 className={styles.list}
                 renderItem={item => (
                     <Link

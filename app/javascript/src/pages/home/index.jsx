@@ -1,61 +1,68 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {Avatar, BackTop, Carousel, Col, List, Row, Skeleton} from 'antd';
 import LinkList from '../../components/link-list';
-import isomorphicProps from "../../containers/isomorphicProps";
 
-import {Blog, User} from '../../utils/api';
+import {Blog} from '../../utils/api';
 
 import default1 from '../../assets/images/default1.png';
 import default2 from '../../assets/images/default2.png';
 
 import style from './index.module.scss';
 import BlogList from "../../components/blog-list";
+import {fetchBlogs} from "./store/actions";
 
-@isomorphicProps(['blogs', 'hotBlogs', 'hotAuthors'])
+@connect(state => state.blogPage,
+    dispatch => {
+        return {
+            fetchBlogs: blogs => dispatch(fetchBlogs(blogs))
+        }
+    })
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            blogsLoading: false,
-            blogs: this.props.blogs,
-            hotAuthorsLoading: false,
-            hotAuthors: this.props.hotAuthors,
-            hotBlogsLoading: false,
-            hotBlogs: this.props.hotBlogs
-        };
+        this.loadMore = this.loadMore.bind(this);
     }
 
     componentDidMount() {
         if (window.__REACT_RAILS_SSR__ === null) {
-            this.setState({
-                blogsLoading: true,
-                hotAuthorsLoading: true,
-                hotBlogsLoading: true
-            });
-            Blog.index(1).then(res => {
-                this.setState({
-                    blogsLoading: false,
-                    blogs: res.data.blogs
-                });
-            });
-            Blog.hots().then(res => {
-                this.setState({
-                    hotBlogsLoading: false,
-                    hotBlogs: res.data.blogs
-                });
-            });
-            User.hots().then(res => {
-                this.setState({
-                    hotAuthorsLoading: false,
-                    hotAuthors: res.data.users
-                });
-            });
+            //     this.setState({
+            //         blogsLoading: true,
+            //         hotAuthorsLoading: true,
+            //         hotBlogsLoading: true
+            //     });
+            // Blog.index(1).then(res => {
+            //     this.props.fetchBlogs(res.data.blogs);
+            //     // this.setState({
+            //     //     blogsLoading: false,
+            //     //     blogs: res.data.blogs
+            //     // });
+            // });
+            //     Blog.hots().then(res => {
+            //         this.setState({
+            //             hotBlogsLoading: false,
+            //             hotBlogs: res.data.blogs
+            //         });
+            //     });
+            //     User.hots().then(res => {
+            //         this.setState({
+            //             hotAuthorsLoading: false,
+            //             hotAuthors: res.data.users
+            //         });
+            //     });
         }
     }
 
+    loadMore(pageNo) {
+        Blog.index(pageNo).then(res => {
+            this.props.fetchBlogs(res.data.blogs);
+        });
+    }
+
     render() {
+        const {blogsLoading, hotAuthorsLoading, hotBlogsLoading, blogs, hotAuthors, hotBlogs} = this.props;
         return <Row>
             <Col span={16} offset={4}>
                 <Row>
@@ -69,15 +76,20 @@ class Home extends React.Component {
                             }
                         </Carousel>
 
-                        <Skeleton loading={this.state.blogsLoading} active avatar round={true}>
-                            <BlogList dataSource={this.state.blogs}/>
+                        <Skeleton loading={false} active avatar round={true}>
+                            <BlogList
+                                dataSource={blogs}
+                                initLoading={false}
+                                loading={blogsLoading}
+                                loadMore={this.loadMore}
+                            />
                         </Skeleton>
                     </Col>
                     <Col span={5} offset={1}>
                         <LinkList
                             title={'热门作者'}
-                            dataSource={this.state.hotAuthors}
-                            loading={this.state.hotAuthorsLoading}
+                            dataSource={hotAuthors}
+                            loading={hotAuthorsLoading}
                             renderItem={item => <List.Item>
                                 <List.Item.Meta
                                     className={style.hotsAuthor}
@@ -95,8 +107,8 @@ class Home extends React.Component {
 
                         <LinkList
                             title={'大家都在看'}
-                            dataSource={this.state.hotBlogs}
-                            loading={this.state.hotBlogsLoading}
+                            dataSource={hotBlogs}
+                            loading={hotBlogsLoading}
                             renderItem={item => <List.Item>
                                 <NavLink
                                     to={`/blogs/${item.id}`}
