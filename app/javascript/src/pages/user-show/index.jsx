@@ -1,38 +1,33 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Avatar, BackTop, Button, Col, Divider, List, Row, Space, Tabs, Typography} from "antd";
-import IsomorphicProps from '../../containers/isomorphicProps';
 import blogShowStyle from "../blog-show/index.module.scss";
 import {ReadOutlined} from "@ant-design/icons";
 import BlogList from "../../components/blog-list";
-import {User} from '../../utils/api';
 
 const {TabPane} = Tabs;
 const {Title, Paragraph} = Typography;
 
-@IsomorphicProps(['be_visited_user', 'user_blogs'])
+@connect(state => state.userPage)
 class UserShow extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            beVisitedUser: this.props.beVisitedUser,
-            userBlogs: this.props.userBlogs
-        };
     }
 
     componentDidMount() {
-        if (window.__REACT_RAILS_SSR__ === null) {
-            User.show(this.props.match.params.spaceName).then(res => {
-                this.setState({
-                    beVisitedUser: res.be_visited_user,
-                    userBlogs: res.user_blogs
-                })
-            });
-        }
+        // if (window.__REACT_RAILS_SSR__ === null) {
+        //     User.show(this.props.match.params.spaceName).then(res => {
+        //         this.setState({
+        //             beVisitedUser: res.be_visited_user,
+        //             userBlogs: res.user_blogs
+        //         })
+        //     });
+        // }
     }
 
     render() {
-        const {beVisitedUser, userBlogs} = this.state;
+        const {beVisitedUser, userBlogs} = this.props;
         return <Row>
             <Col span={14} offset={5}>
                 <Row>
@@ -85,18 +80,6 @@ class UserShow extends React.Component {
             </Col>
         </Row>
     }
-}
-
-UserShow.defaultProps = {
-    beVisitedUser: {
-        nickName: '',
-        avatar: '',
-        blogsCount: 0,
-        followersCount: 0,
-        followingCount: 0,
-        description: '',
-    },
-    userBlogs: []
 }
 
 export default UserShow;

@@ -13,48 +13,11 @@ import styles from './index.module.scss';
 const {Paragraph} = Typography;
 const renderer = new PlainTextRenderer();
 
-class BlogList extends React.Component {
+class BlogList extends React.PureComponent {
 
     constructor(props) {
         super(props);
     }
-
-    // static getDerivedStateFromProps(nextProps, prevState) {
-    //     if (nextProps.dataSource.length > prevState.blogList.length) {
-    //         return {
-    //             ...prevState,
-    //             blogList: nextProps.dataSource
-    //         }
-    //     }
-    //     return null;
-    // }
-
-    // onLoadMore = () => {
-    //     this.setState({
-    //         loading: true
-    //     });
-    //     if (this.state.user !== null) {
-    //         User.blogs(this.state.user, this.state.pageNo).then(res => {
-    //             const blogList = this.state.blogList.concat(res.data.blogs);
-    //             this.setState({
-    //                 initLoading: res.data.blogs.length < 10,
-    //                 loading: false,
-    //                 blogList: [...blogList],
-    //                 pageNo: this.state.pageNo + 1
-    //             }, () => window.dispatchEvent(new Event('resize')));
-    //         });
-    //     } else {
-    //         Blog.index(this.state.pageNo).then(res => {
-    //             const blogList = this.state.blogList.concat(res.data.blogs);
-    //             this.setState({
-    //                 initLoading: res.data.blogs.length < 10,
-    //                 loading: false,
-    //                 blogList: [...blogList],
-    //                 pageNo: this.state.pageNo + 1
-    //             }, () => window.dispatchEvent(new Event('resize')));
-    //         });
-    //     }
-    // };
 
     render() {
         const {
