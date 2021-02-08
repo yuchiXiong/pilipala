@@ -33,6 +33,7 @@
     "react-router-dom": "^5.2.0",
     "react_ujs": "^2.6.1",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "turbolinks": "^5.2.0"
   },
   "devDependencies": {

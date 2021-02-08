@@ -17,13 +17,6 @@ class BlogList extends React.Component {
 
     constructor(props) {
         super(props);
-        // this.state = {
-        //     initLoading: false,
-        //     loading: false,
-        //     blogList: props.dataSource,
-        //     pageNo: 2,
-        //     user: props.user
-        // };
     }
 
     // static getDerivedStateFromProps(nextProps, prevState) {
@@ -64,49 +57,37 @@ class BlogList extends React.Component {
     // };
 
     render() {
-        const {dataSource, initLoading, loading} = this.props;
-        const loadMore =
-            !initLoading && !loading ? (
-                <div
-                    style={{
-                        textAlign: 'center',
-                        marginTop: 12,
-                        height: 32,
-                        lineHeight: '32px',
-                    }}
-                >
-                    <Button
-                        // onClick={this.onLoadMore}
-                        className={styles.loadingMore}
-                        type={'primary'}
-                        block>
-                        加载更多
-                    </Button>
-                </div>
-            ) : <div
-                style={{
-                    textAlign: 'center',
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: '32px',
-                }}
-            >
-                <Button
-                    // onClick={this.onLoadMore}
-                    className={styles.loadingMore}
-                    type={'primary'}
-                    disabled
-                    block>
-                    已无更多内容
-                </Button>
-            </div>;
+        const {
+            dataSource,
+            noMore,
+            loading,
+            onLoad,
+            pageNo
+        } = this.props;
+        const enabled = noMore && !loading;
+        const loadMore = <div
+            style={{
+                textAlign: 'center',
+                marginTop: 12,
+                height: 32,
+                lineHeight: '32px',
+            }}
+        >
+            <Button
+                onClick={() => onLoad(pageNo)}
+                className={styles.loadingMore}
+                type={'primary'}
+                disabled={!enabled}
+                block>
+                {enabled ? '加载更多' : '已无更多内容'}
+            </Button>
+        </div>;
 
         return (
             <List
                 itemLayout="vertical"
                 loadMore={loadMore}
-                // loading={this.state.loading}
-                loading={false}
+                loading={loading}
                 dataSource={dataSource}
                 className={styles.list}
                 renderItem={item => (

@@ -11,6 +11,8 @@ class BlogsController < ApplicationController
 
     @react_props = {
       blogPage: {
+        pageNo:                 2,
+        noMore:                 true,
         blogsLoading:           false,
         hotBlogsLoading:        false,
         hotAuthorsLoading:      false,

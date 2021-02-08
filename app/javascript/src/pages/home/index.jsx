@@ -1,10 +1,8 @@
 import React from 'react';
 import {Link, NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {Avatar, BackTop, Carousel, Col, List, Row, Skeleton} from 'antd';
+import {Avatar, BackTop, Carousel, Col, List, Row} from 'antd';
 import LinkList from '../../components/link-list';
-
-import {Blog} from '../../utils/api';
 
 import default1 from '../../assets/images/default1.png';
 import default2 from '../../assets/images/default2.png';
@@ -16,7 +14,7 @@ import {fetchBlogs} from "./store/actions";
 @connect(state => state.blogPage,
     dispatch => {
         return {
-            fetchBlogs: blogs => dispatch(fetchBlogs(blogs))
+            fetchBlogs: pageNo => dispatch(fetchBlogs(pageNo))
         }
     })
 class Home extends React.Component {
@@ -56,13 +54,20 @@ class Home extends React.Component {
     }
 
     loadMore(pageNo) {
-        Blog.index(pageNo).then(res => {
-            this.props.fetchBlogs(res.data.blogs);
-        });
+        this.props.fetchBlogs(pageNo);
     }
 
     render() {
-        const {blogsLoading, hotAuthorsLoading, hotBlogsLoading, blogs, hotAuthors, hotBlogs} = this.props;
+        const {
+            pageNo,
+            noMore,
+            blogsLoading,
+            blogs,
+            hotAuthorsLoading,
+            hotAuthors,
+            hotBlogsLoading,
+            hotBlogs
+        } = this.props;
         return <Row>
             <Col span={16} offset={4}>
                 <Row>
@@ -76,14 +81,13 @@ class Home extends React.Component {
                             }
                         </Carousel>
 
-                        <Skeleton loading={false} active avatar round={true}>
-                            <BlogList
-                                dataSource={blogs}
-                                initLoading={false}
-                                loading={blogsLoading}
-                                loadMore={this.loadMore}
-                            />
-                        </Skeleton>
+                        <BlogList
+                            pageNo={pageNo}
+                            dataSource={blogs}
+                            noMore={noMore}
+                            loading={blogsLoading}
+                            onLoad={this.loadMore}
+                        />
                     </Col>
                     <Col span={5} offset={1}>
                         <LinkList
