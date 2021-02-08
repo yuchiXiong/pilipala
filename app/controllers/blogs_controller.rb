@@ -30,9 +30,11 @@ class BlogsController < ApplicationController
     current_user.read_blog(blog) if current_user
     raise ActiveRecord::RecordNotFound unless blog.readable?
     @react_props = {
-      blog:       blog.to_json(true),
-      otherBlogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |_| _.to_json },
-      comments:   blog.comments.map { |_| _.to_json }
+      blogShowPage: {
+        blog:       blog.to_json(true),
+        otherBlogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |_| _.to_json },
+        comments:   blog.comments.map { |_| _.to_json }
+      }
     }
   end
 

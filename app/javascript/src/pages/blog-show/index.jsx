@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {NavLink} from "react-router-dom";
 import marked from 'marked';
 import insane from 'insane';
@@ -23,7 +24,6 @@ import {
 import {LikeOutlined, MessageOutlined, ReadOutlined} from "@ant-design/icons";
 
 import IconText from '../../components/icon-text';
-import IsomorphicProps from '../../containers/isomorphicProps';
 import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
 import markdownStyle from './markdown.module.scss';
@@ -72,31 +72,15 @@ const Editor = ({onChange, onSubmit, submitting, value}) => (
     />
 );
 
-@IsomorphicProps(['blog', 'otherBlogs', 'comments'])
+@connect(state => state.blogShowPage)
 class BlogShow extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            blog: props.blog,
-            otherBlogs: props.otherBlogs,
-            comments: props.comments
-        }
-    }
 
     componentDidMount() {
         document.querySelectorAll('article pre>code').forEach(item => hljs.highlightBlock(item));
     }
 
     render() {
-        marked.setOptions({
-            renderer: new marked.Renderer(),
-            highlight: function (code, language) {
-                const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
-                return hljs.highlight(validLanguage, code).value;
-            }
-        });
-        const {blog} = this.state;
+        const {blog, otherBlogs, comments} = this.props;
 
         return <Row>
             <Col span={14} offset={5}>
@@ -156,7 +140,7 @@ class BlogShow extends React.Component {
                             }}/>
 
                         {
-                            this.props.comments.map(comment => {
+                            comments.map(comment => {
                                 return comment.commentId === null && <BlogComment
                                     author={comment.user.nickName}
                                     avatar={comment.user.avatar}
@@ -177,20 +161,20 @@ class BlogShow extends React.Component {
                         }
                     </Col>
                     <Col span={5} offset={1}>
-                        <Skeleton loading={this.state.loading} active avatar paragraph={false} round={true}>
+                        <Skeleton loading={false} active avatar paragraph={false} round={true}>
                             <Title level={5} className={style.tag}>该作者的其它文章</Title>
                             <List
                                 size="large"
                                 itemLayout="vertical"
                                 bordered={false}
-                                loading={this.state.loading}
-                                dataSource={this.state.otherBlogs}
+                                loading={false}
+                                dataSource={otherBlogs}
                                 className={style.hotsModule}
                                 renderItem={item => <List.Item actions={[
                                     <p className={style.action}>阅读 {item.readsCount}</p>,
                                     <p className={style.action}>喜欢 {item.likesCount}</p>
                                 ]}>
-                                    <NavLink to={`/blogs/${item.id}`} target={'_blank'}>{item.title}</NavLink>
+                                    <NavLink to={`/blogs/${item.id}`}>{item.title}</NavLink>
                                 </List.Item>}
                             />
                         </Skeleton>
