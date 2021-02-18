@@ -25,7 +25,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        if (window.__REACT_RAILS_SSR__ === null) {
+        if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
             //     this.setState({
             //         blogsLoading: true,
             //         hotAuthorsLoading: true,
@@ -86,7 +86,7 @@ class Home extends React.Component {
                             dataSource={blogs}
                             noMore={noMore}
                             loading={blogsLoading}
-                            onLoad={this.loadMore}
+                            onLoad={() => this.loadMore(pageNo)}
                         />
                     </Col>
                     <Col span={5} offset={1}>
