@@ -13,9 +13,6 @@ class BlogsController < ApplicationController
       blogPage: {
         pageNo:                 2,
         noMore:                 true,
-        blogsLoading:           false,
-        hotBlogsLoading:        false,
-        hotAuthorsLoading:      false,
         blogs:                  blogs.map { |_| _.to_json },
         currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
         hotBlogs:               hots.map { |_| _.to_json },

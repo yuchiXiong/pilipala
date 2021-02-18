@@ -1,14 +1,16 @@
-import {FETCH_BLOGS, TOGGLE_FETCH_BLOGS} from '../pages/home/store/types';
+import {FETCH_BLOGS} from '../pages/home/store/types';
 
-const defaultState = {};
+const defaultState = {
+    pageNo: 1,
+    noMore: true,
+    blogs: [],
+    currentUserLikeBlogIds: [],
+    hotBlogs: [],
+    hotAuthors: []
+};
 
 const blogReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case TOGGLE_FETCH_BLOGS:
-            return {
-                ...state,
-                blogsLoading: action.blogsLoading
-            }
         case FETCH_BLOGS:
             return {
                 ...state,

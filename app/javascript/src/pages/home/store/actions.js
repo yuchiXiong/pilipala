@@ -1,12 +1,8 @@
-import {FETCH_BLOGS, TOGGLE_FETCH_BLOGS} from './types';
+import {FETCH_BLOGS} from './types';
 import {Blog} from "../../../utils/api";
 
-const fetchBlogs = pageNo => {
+const fetchBlogs = (pageNo, callback) => {
     return dispatch => {
-        dispatch({
-            type: TOGGLE_FETCH_BLOGS,
-            blogsLoading: true
-        });
         Blog.index(pageNo).then(res => {
             dispatch({
                 type: FETCH_BLOGS,
@@ -14,10 +10,7 @@ const fetchBlogs = pageNo => {
                 pageNo: pageNo + 1,
                 noMore: res.data.blogs.length > 0
             });
-            dispatch({
-                type: TOGGLE_FETCH_BLOGS,
-                blogsLoading: false
-            });
+            callback();
         });
     }
 };

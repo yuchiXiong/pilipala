@@ -14,18 +14,25 @@ import {fetchBlogs} from "./store/actions";
 @connect(state => state.blogPage,
     dispatch => {
         return {
-            fetchBlogs: pageNo => dispatch(fetchBlogs(pageNo))
+            fetchBlogs: (pageNo, callback) => dispatch(fetchBlogs(pageNo, callback))
         }
     })
 class Home extends React.Component {
 
     constructor(props) {
         super(props);
-        this.loadMore = this.loadMore.bind(this);
+        this.state = {
+            fetchBlogsLoading: false
+        };
+
     }
 
     componentDidMount() {
         if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
+            this.setState({
+                fetchBlogsLoading: true
+            });
+            this.props.fetchBlogs(this.props.pageNo, () => this.setState({fetchBlogsLoading: false}));
             //     this.setState({
             //         blogsLoading: true,
             //         hotAuthorsLoading: true,
@@ -53,10 +60,6 @@ class Home extends React.Component {
         }
     }
 
-    loadMore(pageNo) {
-        this.props.fetchBlogs(pageNo);
-    }
-
     render() {
         const {
             pageNo,
@@ -66,7 +69,8 @@ class Home extends React.Component {
             hotAuthorsLoading,
             hotAuthors,
             hotBlogsLoading,
-            hotBlogs
+            hotBlogs,
+            fetchBlogs
         } = this.props;
         return <Row>
             <Col span={16} offset={4}>
@@ -86,7 +90,8 @@ class Home extends React.Component {
                             dataSource={blogs}
                             noMore={noMore}
                             loading={blogsLoading}
-                            onLoad={() => this.loadMore(pageNo)}
+                            onLoad={() => fetchBlogs(pageNo, () => {
+                            })}
                         />
                     </Col>
                     <Col span={5} offset={1}>
