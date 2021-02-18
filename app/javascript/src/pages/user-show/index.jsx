@@ -4,7 +4,7 @@ import {Avatar, BackTop, Button, Col, Divider, List, Row, Skeleton, Space, Tabs,
 import blogShowStyle from "../blog-show/index.module.scss";
 import {ReadOutlined} from "@ant-design/icons";
 import BlogList from "../../components/blog-list";
-import {fetchBeVisitedUser} from './store/actions';
+import {fetchBeVisitedUser, fetchBeVisitedUserBlogs} from './store/actions';
 
 const {TabPane} = Tabs;
 const {Title, Paragraph} = Typography;
@@ -12,7 +12,8 @@ const {Title, Paragraph} = Typography;
 @connect(state => state.userPage,
     dispatch => {
         return {
-            fetchBeVisitedUser: (spaceName, callback) => dispatch(fetchBeVisitedUser(spaceName, callback))
+            fetchBeVisitedUser: (spaceName, callback) => dispatch(fetchBeVisitedUser(spaceName, callback)),
+            fetchBeVisitedUserBlogs: (spaceName, pageNo, callback) => dispatch(fetchBeVisitedUserBlogs(spaceName, pageNo, callback))
         }
     })
 class UserShow extends React.Component {
@@ -20,17 +21,26 @@ class UserShow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fetchBeVisitedUserLoading: false
+            fetchBeVisitedUserLoading: false,
+            fetchBeVisitedUserBlogsLoading: false
         };
     }
 
     componentDidMount() {
         if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
+            const spaceName = this.props.match.params.spaceName;
             this.setState({
                 fetchBeVisitedUserLoading: true
             });
-            this.props.fetchBeVisitedUser(this.props.match.params.spaceName, () => this.setState({
+            this.props.fetchBeVisitedUser(spaceName, () => this.setState({
                 fetchBeVisitedUserLoading: false
+            }));
+
+            this.setState({
+                fetchBeVisitedUserBlogsLoading: true
+            });
+            this.props.fetchBeVisitedUserBlogs(spaceName, this.props.userBlogsPageNo, () => this.setState({
+                fetchBeVisitedUserBlogsLoading: false
             }));
         }
     }
@@ -38,10 +48,14 @@ class UserShow extends React.Component {
     render() {
         const {
             beVisitedUser,
-            userBlogs
+            userBlogs,
+            userBlogsPageNo,
+            userBlogsNoMore,
+            fetchBeVisitedUserBlogs
         } = this.props;
         const {
-            fetchBeVisitedUserLoading
+            fetchBeVisitedUserLoading,
+            fetchBeVisitedUserBlogsLoading
         } = this.state;
         return <Row>
             <Col span={14} offset={5}>
@@ -81,11 +95,17 @@ class UserShow extends React.Component {
 
                         <Tabs defaultActiveKey="blogs">
                             <TabPane tab={<span><ReadOutlined/>文章</span>} key="blogs">
-                                {/*<Skeleton loading={this.state.loading} active avatar round={true}>*/}
-                                <BlogList
-                                    dataSource={userBlogs}
-                                    user={beVisitedUser.spaceName}/>
-                                {/*</Skeleton>*/}
+                                <Skeleton loading={fetchBeVisitedUserBlogsLoading} active avatar round={true}>
+                                    <BlogList
+                                        pageNo={userBlogsPageNo}
+                                        loading={fetchBeVisitedUserBlogsLoading}
+                                        noMore={userBlogsNoMore}
+                                        onLoad={() => fetchBeVisitedUserBlogs(beVisitedUser.spaceName, userBlogsPageNo, () => {
+
+                                        })}
+                                        dataSource={userBlogs}
+                                        user={beVisitedUser.spaceName}/>
+                                </Skeleton>
                             </TabPane>
                         </Tabs>
                     </Col>

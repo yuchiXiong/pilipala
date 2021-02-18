@@ -3,11 +3,9 @@ json.message 'success'
 json.data do
   json.blogs do
     json.array! @blogs do |blog|
-      json.(blog, :id, :title, :content)
-      json.userId blog.user_id
-      json.released blog.released
-      json.createdAt blog.created_at
-      json.updatedAt blog.updated_at
+      json.key_format! camelize: :lower
+      json.(blog, :id, :title, :content, :created_at, :updated_at, :reads_count, :likes_count, :comments_count)
+      json.user blog.user.to_json
     end
 
   end

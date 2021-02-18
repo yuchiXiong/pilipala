@@ -4,7 +4,7 @@ class Api::UsersController < ApiController
   # skip_before_action :authenticate_user!, only: [:hots, :blogs, :show]
   skip_before_action :authenticate_user!
 
-  # * GET /u/:space_name/blogs
+  # * GET /api/u/:space_name/blogs
   def blogs
     @blogs = @be_visited_user.blogs.kept.page(params[:page]).per(10)
   end
@@ -15,15 +15,15 @@ class Api::UsersController < ApiController
     @users = User.order(followers_count: :desc).first(3)
   end
 
-  # * GET /u/:space_name
+  # * GET /api/u/:space_name
   def show
-
+    # before_action :set_user
   end
 
   private
 
   def set_user
-    @be_visited_user = User.find_by_space_name!(params[:space_name])
+    @be_visited_user = User.find_by_space_name!(params[:space_name] || params[:user_space_name])
   end
 
   def current_user?

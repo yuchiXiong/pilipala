@@ -15,10 +15,6 @@ const renderer = new PlainTextRenderer();
 
 class BlogList extends React.PureComponent {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const {
             dataSource,
@@ -37,7 +33,7 @@ class BlogList extends React.PureComponent {
             }}
         >
             <Button
-                onClick={() => onLoad(pageNo)}
+                onClick={onLoad}
                 className={styles.loadingMore}
                 type={'primary'}
                 disabled={!enabled}
