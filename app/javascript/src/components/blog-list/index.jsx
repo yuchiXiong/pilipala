@@ -56,7 +56,7 @@ class BlogList extends React.PureComponent {
                 renderItem={item => (
                     <Link
                         to={`/blogs/${item.id}`}
-                        target={'_blank'}>
+                    >
                         <List.Item
                             key={item.id}
                             actions={

@@ -1,7 +1,8 @@
 class Api::UsersController < ApiController
-  before_action :set_user, only: :blogs
+  before_action :set_user, only: [:blogs, :show]
   # before_action :current_user?, only: :blogs
-  skip_before_action :authenticate_user!, only: [:hots, :blogs]
+  # skip_before_action :authenticate_user!, only: [:hots, :blogs, :show]
+  skip_before_action :authenticate_user!
 
   # * GET /u/:space_name/blogs
   def blogs
@@ -12,6 +13,11 @@ class Api::UsersController < ApiController
   def hots
     # ! 需要一个确定的推荐算法
     @users = User.order(followers_count: :desc).first(3)
+  end
+
+  # * GET /u/:space_name
+  def show
+
   end
 
   private

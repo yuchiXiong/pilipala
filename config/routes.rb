@@ -24,7 +24,7 @@ Rails.application.routes.draw do
         get :hots
       end
     end
-    resources :users, path: :u, param: :space_name, only: [:destroy] do
+    resources :users, path: :u, param: :space_name, only: [:show, :destroy] do
       get :blogs
       get :publications
       post :follow

@@ -77,6 +77,7 @@ class BlogShow extends React.Component {
 
     componentDidMount() {
         document.querySelectorAll('article pre>code').forEach(item => hljs.highlightBlock(item));
+
     }
 
     render() {

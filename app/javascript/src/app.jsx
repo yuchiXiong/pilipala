@@ -22,7 +22,7 @@ export default props => {
         initState = props.react_props;
     } else {
         initState = window.__REACT_RAILS_SSR__;
-        window.__REACT_RAILS_SSR__ = null;
+        window.__REACT_RAILS_SSR__ = props.path;
     }
 
     const store = createStore(initState);

@@ -116,7 +116,6 @@ class Home extends React.Component {
                             renderItem={item => <List.Item>
                                 <NavLink
                                     to={`/blogs/${item.id}`}
-                                    target={"_blank"}
                                 >
                                     {item.title}
                                 </NavLink>
