@@ -9,12 +9,13 @@ import default2 from '../../assets/images/default2.png';
 
 import style from './index.module.scss';
 import BlogList from "../../components/blog-list";
-import {fetchBlogs} from "./store/actions";
+import {fetchBlogs, fetchPopularAuthors} from "./store/actions";
 
 @connect(state => state.blogPage,
     dispatch => {
         return {
-            fetchBlogs: (pageNo, callback) => dispatch(fetchBlogs(pageNo, callback))
+            fetchBlogs: (pageNo, callback) => dispatch(fetchBlogs(pageNo, callback)),
+            fetchPopularAuthors: callback => dispatch(fetchPopularAuthors(callback))
         }
     })
 class Home extends React.Component {
@@ -22,7 +23,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            fetchBlogsLoading: false
+            fetchBlogsLoading: false,
+            fetchPopularAuthorsLoading: false
         };
 
     }
@@ -33,30 +35,8 @@ class Home extends React.Component {
                 fetchBlogsLoading: true
             });
             this.props.fetchBlogs(this.props.pageNo, () => this.setState({fetchBlogsLoading: false}));
-            //     this.setState({
-            //         blogsLoading: true,
-            //         hotAuthorsLoading: true,
-            //         hotBlogsLoading: true
-            //     });
-            // Blog.index(1).then(res => {
-            //     this.props.fetchBlogs(res.data.blogs);
-            //     // this.setState({
-            //     //     blogsLoading: false,
-            //     //     blogs: res.data.blogs
-            //     // });
-            // });
-            //     Blog.hots().then(res => {
-            //         this.setState({
-            //             hotBlogsLoading: false,
-            //             hotBlogs: res.data.blogs
-            //         });
-            //     });
-            //     User.hots().then(res => {
-            //         this.setState({
-            //             hotAuthorsLoading: false,
-            //             hotAuthors: res.data.users
-            //         });
-            //     });
+            this.setState({fetchPopularAuthorsLoading: true});
+            this.props.fetchPopularAuthors(() => this.setState({fetchPopularAuthorsLoading: false}));
         }
     }
 
@@ -64,14 +44,14 @@ class Home extends React.Component {
         const {
             pageNo,
             noMore,
-            blogsLoading,
             blogs,
-            hotAuthorsLoading,
-            hotAuthors,
-            hotBlogsLoading,
+            popularAuthors,
             hotBlogs,
             fetchBlogs
         } = this.props;
+        const {
+            fetchBlogsLoading
+        } = this.state;
         return <Row>
             <Col span={16} offset={4}>
                 <Row>
@@ -89,7 +69,7 @@ class Home extends React.Component {
                             pageNo={pageNo}
                             dataSource={blogs}
                             noMore={noMore}
-                            loading={blogsLoading}
+                            loading={fetchBlogsLoading}
                             onLoad={() => fetchBlogs(pageNo, () => {
                             })}
                         />
@@ -97,8 +77,8 @@ class Home extends React.Component {
                     <Col span={5} offset={1}>
                         <LinkList
                             title={'热门作者'}
-                            dataSource={hotAuthors}
-                            loading={hotAuthorsLoading}
+                            dataSource={popularAuthors}
+                            loading={false}
                             renderItem={item => <List.Item>
                                 <List.Item.Meta
                                     className={style.hotsAuthor}
@@ -117,7 +97,7 @@ class Home extends React.Component {
                         <LinkList
                             title={'大家都在看'}
                             dataSource={hotBlogs}
-                            loading={hotBlogsLoading}
+                            loading={false}
                             renderItem={item => <List.Item>
                                 <NavLink
                                     to={`/blogs/${item.id}`}
@@ -133,12 +113,5 @@ class Home extends React.Component {
         </Row>
     }
 }
-
-Home.defaultProps = {
-    loading: false,
-    blogs: [],
-    hotAuthors: [],
-    hotBlogs: []
-};
 
 export default Home;

@@ -16,7 +16,7 @@ class BlogsController < ApplicationController
         blogs:                  blogs.map { |_| _.to_json },
         currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
         hotBlogs:               hots.map { |_| _.to_json },
-        hotAuthors:             User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
+        popularAuthors: User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
       }
     }
   end

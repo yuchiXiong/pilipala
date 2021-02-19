@@ -9,10 +9,10 @@ class Api::UsersController < ApiController
     @blogs = @be_visited_user.blogs.kept.page(params[:page]).per(10)
   end
 
-  # * GET /users/hots
-  def hots
+  # * GET /api/u/popular
+  def popular
     # ! 需要一个确定的推荐算法
-    @users = User.order(followers_count: :desc).first(3)
+    @authors = User.order(followers_count: :desc).first(3)
   end
 
   # * GET /api/u/:space_name

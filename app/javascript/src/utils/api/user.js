@@ -4,8 +4,8 @@ const show = spaceName => {
     return request.get(`/api/u/${spaceName}`);
 };
 
-const hots = () => {
-    return request.get('/api/u/hots');
+const popular = () => {
+    return request.get('/api/u/popular');
 };
 
 const blogs = (spaceName, pageNo) => {
@@ -14,6 +14,6 @@ const blogs = (spaceName, pageNo) => {
 
 export {
     show,
-    hots,
+    popular,
     blogs
 };

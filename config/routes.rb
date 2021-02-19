@@ -31,7 +31,7 @@ Rails.application.routes.draw do
       match :info, via: [:put, :patch]
       match :password, via: [:put, :patch]
       collection do
-        get :hots
+        get :popular
       end
     end
   end

@@ -1,4 +1,4 @@
-import {FETCH_BLOGS} from '../pages/home/store/types';
+import {FETCH_BLOGS, FETCH_POPULAR_AUTHORS} from '../pages/home/store/types';
 
 const defaultState = {
     pageNo: 1,
@@ -6,7 +6,7 @@ const defaultState = {
     blogs: [],
     currentUserLikeBlogIds: [],
     hotBlogs: [],
-    hotAuthors: []
+    popularAuthors: []
 };
 
 const blogReducer = (state = defaultState, action) => {
@@ -17,6 +17,11 @@ const blogReducer = (state = defaultState, action) => {
                 blogs: [...state.blogs, ...action.blogs],
                 pageNo: action.pageNo,
                 noMore: action.noMore
+            }
+        case FETCH_POPULAR_AUTHORS:
+            return {
+                ...state,
+                popularAuthors: action.popularAuthors
             }
         default:
             return state;
