@@ -4,11 +4,11 @@ const index = page => {
     return request.get(`/api/blogs?page=${page}`)
 };
 
-const hots = () => {
-    return request.get(`/api/blogs/hots`)
+const popular = () => {
+    return request.get(`/api/blogs/popular`)
 };
 
 export {
     index,
-    hots
+    popular
 };

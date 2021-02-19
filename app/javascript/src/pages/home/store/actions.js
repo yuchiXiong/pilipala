@@ -1,4 +1,4 @@
-import {FETCH_BLOGS, FETCH_POPULAR_AUTHORS} from './types';
+import {FETCH_BLOGS, FETCH_POPULAR_AUTHORS, FETCH_POPULAR_BLOGS} from './types';
 import {Blog, User} from "../../../utils/api";
 
 const fetchBlogs = (pageNo, callback) => {
@@ -15,7 +15,7 @@ const fetchBlogs = (pageNo, callback) => {
     }
 };
 
-const fetchPopularAuthors = () => {
+const fetchPopularAuthors = callback => {
     return dispatch => {
         User.popular().then(res => {
             dispatch({
@@ -23,10 +23,24 @@ const fetchPopularAuthors = () => {
                 popularAuthors: res.data.authors
             });
         });
+        callback();
     }
 };
 
+const fetchPopularBlogs = callback => {
+    return dispatch => {
+        Blog.popular().then(res => {
+            dispatch({
+                type: FETCH_POPULAR_BLOGS,
+                popularBlogs: res.data.blogs
+            });
+        });
+        callback();
+    }
+}
+
 export {
     fetchBlogs,
-    fetchPopularAuthors
+    fetchPopularAuthors,
+    fetchPopularBlogs
 };

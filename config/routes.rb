@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       post :like
       resources :comments, only: [:index, :create, :destroy]
       collection do
-        get :hots
+        get :popular
       end
     end
     resources :users, path: :u, param: :space_name, only: [:show, :destroy] do

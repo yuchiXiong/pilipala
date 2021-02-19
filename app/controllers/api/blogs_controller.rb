@@ -1,5 +1,5 @@
 class Api::BlogsController < ApiController
-  skip_before_action :authenticate_user!, only: [:index, :hots]
+  skip_before_action :authenticate_user!, only: [:index, :popular]
   before_action :set_blog, only: %i[delete update destroy]
   before_action :current_user?, only: %i[update destroy]
 
@@ -30,8 +30,8 @@ class Api::BlogsController < ApiController
     @errors = @blog.errors unless @blog.discard
   end
 
-  # * GET /blogs/hots
-  def hots
+  # * GET /api/blogs/popular
+  def popular
     # ! 没有推荐算法
     @blogs = Blog.visible.includes(:user).first(5)
     render 'api/blogs/index'

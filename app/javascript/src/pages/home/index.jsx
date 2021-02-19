@@ -9,13 +9,14 @@ import default2 from '../../assets/images/default2.png';
 
 import style from './index.module.scss';
 import BlogList from "../../components/blog-list";
-import {fetchBlogs, fetchPopularAuthors} from "./store/actions";
+import {fetchBlogs, fetchPopularAuthors, fetchPopularBlogs} from "./store/actions";
 
 @connect(state => state.blogPage,
     dispatch => {
         return {
             fetchBlogs: (pageNo, callback) => dispatch(fetchBlogs(pageNo, callback)),
-            fetchPopularAuthors: callback => dispatch(fetchPopularAuthors(callback))
+            fetchPopularAuthors: callback => dispatch(fetchPopularAuthors(callback)),
+            fetchPopularBlogs: callback => dispatch(fetchPopularBlogs(callback))
         }
     })
 class Home extends React.Component {
@@ -24,7 +25,8 @@ class Home extends React.Component {
         super(props);
         this.state = {
             fetchBlogsLoading: false,
-            fetchPopularAuthorsLoading: false
+            fetchPopularAuthorsLoading: false,
+            fetchPopularBlogsLoading: false
         };
 
     }
@@ -32,11 +34,13 @@ class Home extends React.Component {
     componentDidMount() {
         if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
             this.setState({
-                fetchBlogsLoading: true
+                fetchBlogsLoading: true,
+                fetchPopularAuthorsLoading: true,
+                fetchPopularBlogsLoading: true
             });
             this.props.fetchBlogs(this.props.pageNo, () => this.setState({fetchBlogsLoading: false}));
-            this.setState({fetchPopularAuthorsLoading: true});
             this.props.fetchPopularAuthors(() => this.setState({fetchPopularAuthorsLoading: false}));
+            this.props.fetchPopularBlogs(() => this.setState({fetchPopularBlogsLoading: false}));
         }
     }
 
@@ -46,7 +50,7 @@ class Home extends React.Component {
             noMore,
             blogs,
             popularAuthors,
-            hotBlogs,
+            popularBlogs,
             fetchBlogs
         } = this.props;
         const {
@@ -96,7 +100,7 @@ class Home extends React.Component {
 
                         <LinkList
                             title={'大家都在看'}
-                            dataSource={hotBlogs}
+                            dataSource={popularBlogs}
                             loading={false}
                             renderItem={item => <List.Item>
                                 <NavLink
