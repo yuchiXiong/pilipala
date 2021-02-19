@@ -22,6 +22,7 @@ import {
     Typography
 } from "antd";
 import {LikeOutlined, MessageOutlined, ReadOutlined} from "@ant-design/icons";
+import {fetchAuthorsOtherBlogs, fetchBlog} from './store/actions';
 
 import IconText from '../../components/icon-text';
 import 'highlight.js/styles/atom-one-dark';
@@ -72,12 +73,37 @@ const Editor = ({onChange, onSubmit, submitting, value}) => (
     />
 );
 
-@connect(state => state.blogShowPage)
+@connect(state => state.blogShowPage,
+    dispatch => {
+        return {
+            fetchBlog: (id, callback) => dispatch(fetchBlog(id, callback)),
+            fetchAuthorsOtherBlogs: (spaceName, callback) => dispatch(fetchAuthorsOtherBlogs(spaceName, callback))
+        }
+    })
 class BlogShow extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            fetchBlogLoading: false,
+            fetchBlogCommentsLoading: false,
+            fetchAuthorsOtherBlogs: false
+        }
+    }
 
     componentDidMount() {
         document.querySelectorAll('article pre>code').forEach(item => hljs.highlightBlock(item));
+        if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
+            this.setState({
+                fetchBlogLoading: true,
+                fetchAuthorsOtherBlogs: true
+            });
+            this.props.fetchBlog(this.props.match.params.id, () => {
+                this.setState({fetchBlogLoading: false});
+                this.props.fetchAuthorsOtherBlogs(this.props.blog.user.spaceName, () => this.setState({fetchAuthorsOtherBlogs: false}));
+            });
 
+        }
     }
 
     render() {

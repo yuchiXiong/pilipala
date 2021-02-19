@@ -1,3 +1,5 @@
+import {FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG} from '../pages/blog-show/store/types';
+
 const defaultState = {
     blog: {
         id: -1,
@@ -29,6 +31,16 @@ const defaultState = {
 
 const blogShowPage = (state = defaultState, action) => {
     switch (action.type) {
+        case FETCH_BLOG:
+            return {
+                ...state,
+                blog: action.blog
+            }
+        case FETCH_AUTHORS_OTHER_BLOGS:
+            return {
+                ...state,
+                otherBlogs: action.otherBlogs
+            }
         default:
             return state;
     }

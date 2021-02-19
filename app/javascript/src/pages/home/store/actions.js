@@ -22,8 +22,8 @@ const fetchPopularAuthors = callback => {
                 type: FETCH_POPULAR_AUTHORS,
                 popularAuthors: res.data.authors
             });
+            callback();
         });
-        callback();
     }
 };
 
@@ -34,8 +34,8 @@ const fetchPopularBlogs = callback => {
                 type: FETCH_POPULAR_BLOGS,
                 popularBlogs: res.data.blogs
             });
+            callback();
         });
-        callback();
     }
 }
 

@@ -54,7 +54,9 @@ class Home extends React.Component {
             fetchBlogs
         } = this.props;
         const {
-            fetchBlogsLoading
+            fetchBlogsLoading,
+            fetchPopularAuthorsLoading,
+            fetchPopularBlogsLoading
         } = this.state;
         return <Row>
             <Col span={16} offset={4}>
@@ -82,7 +84,7 @@ class Home extends React.Component {
                         <LinkList
                             title={'热门作者'}
                             dataSource={popularAuthors}
-                            loading={false}
+                            loading={fetchPopularAuthorsLoading}
                             renderItem={item => <List.Item>
                                 <List.Item.Meta
                                     className={style.hotsAuthor}
@@ -101,7 +103,7 @@ class Home extends React.Component {
                         <LinkList
                             title={'大家都在看'}
                             dataSource={popularBlogs}
-                            loading={false}
+                            loading={fetchPopularBlogsLoading}
                             renderItem={item => <List.Item>
                                 <NavLink
                                     to={`/blogs/${item.id}`}

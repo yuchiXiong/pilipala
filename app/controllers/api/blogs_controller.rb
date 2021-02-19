@@ -1,5 +1,5 @@
 class Api::BlogsController < ApiController
-  skip_before_action :authenticate_user!, only: [:index, :popular]
+  skip_before_action :authenticate_user!, only: [:index, :popular, :show]
   before_action :set_blog, only: %i[delete update destroy]
   before_action :current_user?, only: %i[update destroy]
 
@@ -8,7 +8,7 @@ class Api::BlogsController < ApiController
     @blogs = Blog.visible.includes(:user).page(params[:page]).per(10)
   end
 
-  # * GET /blogs/:id
+  # * GET api/blogs/:id
   def show
     @blog = Blog.find(params[:id])
   end

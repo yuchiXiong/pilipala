@@ -1,11 +1,15 @@
 class Api::UsersController < ApiController
-  before_action :set_user, only: [:blogs, :show]
+  before_action :set_user, only: [:popular_blogs, :show, :publications]
   # before_action :current_user?, only: :blogs
   # skip_before_action :authenticate_user!, only: [:hots, :blogs, :show]
   skip_before_action :authenticate_user!
 
-  # * GET /api/u/:space_name/blogs
-  def blogs
+  def popular_blogs
+    @blogs = @be_visited_user.blogs.order(likes_count: :desc).first(3)
+  end
+
+  # * GET /api/u/:space_name/publications
+  def publications
     @blogs = @be_visited_user.blogs.kept.page(params[:page]).per(10)
   end
 

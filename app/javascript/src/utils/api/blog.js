@@ -8,7 +8,12 @@ const popular = () => {
     return request.get(`/api/blogs/popular`)
 };
 
+const show = id => {
+    return request.get(`/api/blogs/${id}`)
+}
+
 export {
     index,
+    show,
     popular
 };

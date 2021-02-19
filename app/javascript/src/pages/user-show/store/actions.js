@@ -17,7 +17,7 @@ const fetchBeVisitedUser = (spaceName, callback) => {
 // * 从服务器拉取被访问用户的博客列表
 const fetchBeVisitedUserBlogs = (spaceName, pageNo, callback) => {
     return dispatch => {
-        User.blogs(spaceName, pageNo).then(res => {
+        User.publications(spaceName, pageNo).then(res => {
             dispatch({
                 type: FETCH_BE_VISITED_USER_BLOGS,
                 blogs: res.data.blogs,

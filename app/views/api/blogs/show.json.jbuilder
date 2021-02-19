@@ -2,8 +2,9 @@ json.code Code::Success
 json.message 'SUCCESS'
 json.data do
   json.blog do
-    json.(@blog, :id, :title, :description, :content, :cover, :released)
-    json.user @blog.user_id
-    json.createdAt @blog.created_at
+    json.key_format! camelize: :lower
+    json.(@blog, :id, :title, :description, :content, :cover, :released, :reads_count, :likes_count,
+      :comments_count, :created_at)
+    json.user @blog.user.to_json
   end
 end

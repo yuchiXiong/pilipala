@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   # * APIs
   namespace :api do
-    resources :blogs, only: [:index, :create, :update, :destroy] do
+    resources :blogs, only: [:index, :create, :update, :destroy, :show] do
       post :photo
       post :like
       resources :comments, only: [:index, :create, :destroy]
@@ -25,7 +25,12 @@ Rails.application.routes.draw do
       end
     end
     resources :users, path: :u, param: :space_name, only: [:show, :destroy] do
-      get :blogs
+      # get :blogs
+      resources :blogs, only: [:index], controller: :users do
+        collection do
+          get :popular, to: 'users#popular_blogs'
+        end
+      end
       get :publications
       post :follow
       match :info, via: [:put, :patch]
