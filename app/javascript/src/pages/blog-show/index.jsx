@@ -29,12 +29,12 @@ import 'highlight.js/styles/atom-one-dark';
 import style from './index.module.scss';
 import markdownStyle from './markdown.module.scss';
 
-const {Title} = Typography;
+const {Title, Text} = Typography;
 const {Meta} = Card;
 const {TextArea} = Input;
 
 const BlogComment = props => <Comment
-    actions={[<span key="comment-nested-reply-to">回复</span>]}
+    actions={[<span key="comment-nested-reply-to" onClick={props.onReply}>回复</span>]}
     author={<a>{props.author}</a>}
     avatar={
         <Avatar
@@ -87,7 +87,8 @@ class BlogShow extends React.Component {
         this.state = {
             fetchBlogLoading: false,
             fetchBlogCommentsLoading: false,
-            fetchAuthorsOtherBlogs: false
+            fetchAuthorsOtherBlogs: false,
+            replyTo: -1
         }
     }
 
@@ -166,26 +167,39 @@ class BlogShow extends React.Component {
                                 __html: insane(marked(blog.content))
                             }}/>
 
-                        {
-                            comments.map(comment => {
-                                return comment.commentId === null && <BlogComment
-                                    author={comment.user.nickName}
-                                    avatar={comment.user.avatar}
-                                    content={comment.content}
-                                    key={comment.id}
-                                >
-                                    <Editor/>
-                                    {this.props.comments.filter(item => item.commentId === comment.id).map(subComment => {
-                                        return <BlogComment
-                                            author={subComment.author}
-                                            avatar={subComment.user.avatar}
-                                            content={subComment.content}
-                                            key={subComment.id}
-                                        />
-                                    })}
-                                </BlogComment>
-                            })
-                        }
+                        <Card title={<Title level={4}>评论</Title>} bordered={false}>
+                            <Text>共有 {comments.length} 条评论</Text>
+
+                            <Editor/>
+
+                            {
+                                comments.map(comment => {
+                                    return comment.commentId === null && <BlogComment
+                                        author={comment.user.nickName}
+                                        avatar={comment.user.avatar}
+                                        content={comment.content}
+                                        key={comment.id}
+                                        onReply={() => this.setState({replyTo: comment.id})}
+                                    >
+                                        {this.props.comments.filter(item => item.commentId === comment.id).map(subComment => {
+                                            return <BlogComment
+                                                author={subComment.author}
+                                                avatar={subComment.user.avatar}
+                                                content={subComment.content}
+                                                key={subComment.id}
+                                                onReply={() => this.setState({replyTo: subComment.id})}
+                                            />
+                                        })}
+                                        {
+                                            (this.state.replyTo === comment.id ||
+                                                this.props.comments.filter(item => item.commentId === comment.id).map(item => item.id).includes(this.state.replyTo)) &&
+                                            <Editor key={'replyTo'}/>
+                                        }
+                                    </BlogComment>
+                                })
+                            }
+                        </Card>
+
                     </Col>
                     <Col span={5} offset={1}>
                         <Skeleton loading={false} active avatar paragraph={false} round={true}>
