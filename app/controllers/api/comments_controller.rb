@@ -1,13 +1,11 @@
-class CommentsController < ApplicationController
+class Api::CommentsController < ApiController
   before_action :set_blog
 
+  # * POST /api/blogs/:blog_id/comments
   def create
-    @comment = Comment.new(user_id: current_user.id, content: params[:comment][:content], blog_id: @blog.id)
-    if params[:comment][:comment_id]
-      @comment.comment_id = params[:comment][:comment_id]
-    end
-    @comment.save
-    render 'comments/create.js.erb'
+    @comment = @blog.comments.new(comment_params)
+    @comment.user = current_user
+    @comment.save!
   end
 
   def destroy
@@ -30,4 +28,7 @@ class CommentsController < ApplicationController
     @blog = Blog.find(params[:blog_id])
   end
 
+  def comment_params
+    params.require(:comment).permit(:content, :comment_id)
+  end
 end

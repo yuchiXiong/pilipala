@@ -5,10 +5,7 @@
 */
 
 import axios from 'axios';
-import {
-    message,
-    notification
-} from 'antd';
+import {message, notification} from 'antd';
 // import history from './history';
 
 const instance = axios.create({
@@ -55,7 +52,7 @@ instance.interceptors.response.use(config => {
         } else if (err.response.status === 401) {
             message.error(`${err.response.data.message}，请登录重试！`, 3).then(() => {
                 // localStorage.removeItem('user');
-                // history.push('/login');
+                history.push('/user/sign_in');
             });
             return false;
         } else if (err.response.status === 404) {

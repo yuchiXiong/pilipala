@@ -13,12 +13,6 @@ const fetchBlog = (id, callback) => {
     }
 };
 
-const fetchBlogComments = (id, callback) => {
-    return dispatch => {
-
-    }
-};
-
 const fetchAuthorsOtherBlogs = (spaceName, callback) => {
     return dispatch => {
         User.popularBlogs(spaceName).then(res => {
@@ -31,8 +25,21 @@ const fetchAuthorsOtherBlogs = (spaceName, callback) => {
     }
 }
 
+const fetchBlogComments = (id, callback) => {
+    return dispatch => {
+
+    }
+};
+
+const replyComments = (comments, callback) => {
+    return dispatch => {
+
+    }
+}
+
 export {
     fetchBlog,
+    fetchAuthorsOtherBlogs,
     fetchBlogComments,
-    fetchAuthorsOtherBlogs
+    replyComments
 };

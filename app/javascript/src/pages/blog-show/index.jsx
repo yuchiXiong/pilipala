@@ -107,6 +107,10 @@ class BlogShow extends React.Component {
         }
     }
 
+    subComments(comments, id) {
+        return comments.filter(item => item.commentId === id)
+    }
+
     render() {
         const {blog, otherBlogs, comments} = this.props;
 
@@ -170,7 +174,9 @@ class BlogShow extends React.Component {
                         <Card title={<Title level={4}>评论</Title>} bordered={false}>
                             <Text>共有 {comments.length} 条评论</Text>
 
-                            <Editor/>
+                            <Editor
+                                onSubmit={{}}
+                            />
 
                             {
                                 comments.map(comment => {
@@ -181,7 +187,7 @@ class BlogShow extends React.Component {
                                         key={comment.id}
                                         onReply={() => this.setState({replyTo: comment.id})}
                                     >
-                                        {this.props.comments.filter(item => item.commentId === comment.id).map(subComment => {
+                                        {this.subComments(comments, comment.id).map(subComment => {
                                             return <BlogComment
                                                 author={subComment.author}
                                                 avatar={subComment.user.avatar}
@@ -192,7 +198,7 @@ class BlogShow extends React.Component {
                                         })}
                                         {
                                             (this.state.replyTo === comment.id ||
-                                                this.props.comments.filter(item => item.commentId === comment.id).map(item => item.id).includes(this.state.replyTo)) &&
+                                                this.subComments(comments, comment.id).map(item => item.id).includes(this.state.replyTo)) &&
                                             <Editor key={'replyTo'}/>
                                         }
                                     </BlogComment>

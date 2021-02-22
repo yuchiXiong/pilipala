@@ -3,7 +3,7 @@ require 'ali/content_scan'
 class Blog < ApplicationRecord
   include Discard::Model
   belongs_to :user
-  has_many :comments
+  has_many :comments, dependent: :delete_all
 
   mount_uploader :cover, CoverUploader
 

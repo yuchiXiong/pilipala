@@ -1,6 +1,6 @@
 = provide :title, "注册 - Burogu"
 
-= form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true, html: { class: 'mt-4' }) do |f|
+= form_for(resource, as: resource_name, url: registration_path(resource_name), remote: true, authenticity_token: true, html: { class: 'mt-4' }) do |f|
 
   .form-group.mb-3
     = f.label :email, class: 'form-text form_label' do
