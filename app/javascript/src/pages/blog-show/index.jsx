@@ -22,7 +22,7 @@ import {
     Typography
 } from "antd";
 import {LikeOutlined, MessageOutlined, ReadOutlined} from "@ant-design/icons";
-import {fetchAuthorsOtherBlogs, fetchBlog} from './store/actions';
+import {fetchAuthorsOtherBlogs, fetchBlog, replyComments} from './store/actions';
 
 import IconText from '../../components/icon-text';
 import 'highlight.js/styles/atom-one-dark';
@@ -34,7 +34,8 @@ const {Meta} = Card;
 const {TextArea} = Input;
 
 const BlogComment = props => <Comment
-    actions={[<span key="comment-nested-reply-to" onClick={props.onReply}>回复</span>]}
+    actions={[props.canReply && <span key="comment-nested-reply-to" onClick={props.onReply}>回复</span>,
+        <span>发布于 {props.createdAt}</span>]}
     author={<a>{props.author}</a>}
     avatar={
         <Avatar
@@ -77,7 +78,8 @@ const Editor = ({onChange, onSubmit, submitting, value}) => (
     dispatch => {
         return {
             fetchBlog: (id, callback) => dispatch(fetchBlog(id, callback)),
-            fetchAuthorsOtherBlogs: (spaceName, callback) => dispatch(fetchAuthorsOtherBlogs(spaceName, callback))
+            fetchAuthorsOtherBlogs: (spaceName, callback) => dispatch(fetchAuthorsOtherBlogs(spaceName, callback)),
+            replyComments: (id, comment, callback) => dispatch(replyComments(id, comment, callback))
         }
     })
 class BlogShow extends React.Component {
@@ -88,7 +90,8 @@ class BlogShow extends React.Component {
             fetchBlogLoading: false,
             fetchBlogCommentsLoading: false,
             fetchAuthorsOtherBlogs: false,
-            commentText: '',
+            replyToBlogText: '',
+            replyToCommentText: '',
             replyTo: -1
         };
         this.reply = this.reply.bind(this);
@@ -113,10 +116,16 @@ class BlogShow extends React.Component {
         return comments.filter(item => item.commentId === id)
     }
 
-    reply() {
-        console.log(this.state.commentText);
-        console.log(this.props.blog.id);
-        console.log(this.state.replyTo);
+    reply(comment) {
+        if (comment.trim().length > 0) {
+            this.props.replyComments(this.props.blog.id,
+                {
+                    content: comment,
+                    comment_id: this.state.replyTo === -1 ? null : this.state.replyTo
+                }, () => {
+                    this.setState({replyToCommentText: '', replyToBlogText: ''});
+                });
+        }
     }
 
     render() {
@@ -183,9 +192,9 @@ class BlogShow extends React.Component {
                             <Text>共有 {comments.length} 条评论</Text>
 
                             <Editor
-                                value={this.state.commentText}
-                                onChange={e => this.setState({commentText: e.target.value})}
-                                onSubmit={this.reply}
+                                value={this.state.replyToBlogText}
+                                onChange={e => this.setState({replyToBlogText: e.target.value})}
+                                onSubmit={e => this.reply(this.state.replyToBlogText)}
                             />
 
                             {
@@ -196,14 +205,17 @@ class BlogShow extends React.Component {
                                         content={comment.content}
                                         key={comment.id}
                                         onReply={() => this.setState({replyTo: comment.id})}
+                                        createdAt={comment.createdAt}
                                     >
                                         {this.subComments(comments, comment.id).map(subComment => {
                                             return <BlogComment
-                                                author={subComment.author}
+                                                author={subComment.user.nickName}
                                                 avatar={subComment.user.avatar}
                                                 content={subComment.content}
                                                 key={subComment.id}
                                                 onReply={() => this.setState({replyTo: subComment.id})}
+                                                canReply={false}
+                                                createdAt={subComment.createdAt}
                                             />
                                         })}
                                         {
@@ -211,7 +223,9 @@ class BlogShow extends React.Component {
                                                 this.subComments(comments, comment.id).map(item => item.id).includes(this.state.replyTo)) &&
                                             <Editor
                                                 key={'replyTo'}
-                                                onSubmit={this.reply}
+                                                value={this.state.replyToCommentText}
+                                                onChange={e => this.setState({replyToCommentText: e.target.value})}
+                                                onSubmit={e => this.reply(this.state.replyToCommentText)}
                                             />
                                         }
                                     </BlogComment>

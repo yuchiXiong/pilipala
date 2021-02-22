@@ -1,4 +1,4 @@
-import {FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG} from '../pages/blog-show/store/types';
+import {FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG, REPLY_COMMENT} from '../pages/blog-show/store/types';
 
 const defaultState = {
     blog: {
@@ -40,6 +40,11 @@ const blogShowPage = (state = defaultState, action) => {
             return {
                 ...state,
                 otherBlogs: action.otherBlogs
+            }
+        case REPLY_COMMENT:
+            return {
+                ...state,
+                comments: action.comments
             }
         default:
             return state;
