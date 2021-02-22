@@ -1,4 +1,4 @@
-class Api::CommentsController < ApiController
+class Api::BlogCommentsController < ApiController
   before_action :set_blog
 
   # * POST /api/blogs/:blog_id/comments

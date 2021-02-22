@@ -2,51 +2,44 @@ Rails.application.routes.draw do
 
   root 'blogs#index'
   # * Pages
-  resources :blogs, only: [:index, :show]
+  resources :blogs, only: %i[index show]
   resources :users, path: :u, param: :space_name, only: [:show]
 
   devise_for :users, controllers: {
-    sessions:      'users/sessions',
+    sessions: 'users/sessions',
     registrations: 'users/registrations',
-    passwords:     'users/passwords'
+    passwords: 'users/passwords'
   }
 
   get :editor, to: 'editor#index'
-  resources :users, only: [:edit]
+  # resources :users, only: [:edit]
 
   # * APIs
   namespace :api do
-    resources :blogs, only: [:index, :create, :update, :destroy, :show] do
+    resources :blogs, except: %i[new edit] do
       post :photo
       post :like
-      resources :comments, only: [:index, :create, :destroy]
-      collection do
-        get :popular
-      end
+      get :popular, on: :collection
+      resources :comments, controller: :blog_comments, only: %i[index create destroy]
     end
-    resources :users, path: :u, param: :space_name, only: [:show, :destroy] do
-      # get :blogs
-      resources :blogs, only: [:index], controller: :users do
-        collection do
-          get :popular, to: 'users#popular_blogs'
-        end
+    resources :users, path: :u, param: :space_name, only: :show do
+      resources :blogs, only: :index, controller: :user_blogs do
+        get :popular, on: :collection # * author's other blogs
+        get :publications # * user's accessible blogs
       end
-      get :publications
       post :follow
-      match :info, via: [:put, :patch]
-      match :password, via: [:put, :patch]
-      collection do
-        get :popular
-      end
+      match :info, via: %i[put patch]
+      match :password, via: %i[put patch]
+      get :popular, on: :collection # * popular authors
     end
   end
 
   # * 后台管理
-  namespace :admin do
-    root to: 'dashboard#index'
-    resources :blogs
-    get '*path', to: 'dashboard#index'
-  end
+  # namespace :admin do
+  #   root to: 'dashboard#index'
+  #   resources :blogs
+  #   get '*path', to: 'dashboard#index'
+  # end
 
   # get '/*other', to: 'blogs#index'
 
