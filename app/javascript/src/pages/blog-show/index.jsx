@@ -88,8 +88,10 @@ class BlogShow extends React.Component {
             fetchBlogLoading: false,
             fetchBlogCommentsLoading: false,
             fetchAuthorsOtherBlogs: false,
+            commentText: '',
             replyTo: -1
-        }
+        };
+        this.reply = this.reply.bind(this);
     }
 
     componentDidMount() {
@@ -109,6 +111,12 @@ class BlogShow extends React.Component {
 
     subComments(comments, id) {
         return comments.filter(item => item.commentId === id)
+    }
+
+    reply() {
+        console.log(this.state.commentText);
+        console.log(this.props.blog.id);
+        console.log(this.state.replyTo);
     }
 
     render() {
@@ -175,7 +183,9 @@ class BlogShow extends React.Component {
                             <Text>共有 {comments.length} 条评论</Text>
 
                             <Editor
-                                onSubmit={{}}
+                                value={this.state.commentText}
+                                onChange={e => this.setState({commentText: e.target.value})}
+                                onSubmit={this.reply}
                             />
 
                             {
@@ -199,7 +209,10 @@ class BlogShow extends React.Component {
                                         {
                                             (this.state.replyTo === comment.id ||
                                                 this.subComments(comments, comment.id).map(item => item.id).includes(this.state.replyTo)) &&
-                                            <Editor key={'replyTo'}/>
+                                            <Editor
+                                                key={'replyTo'}
+                                                onSubmit={this.reply}
+                                            />
                                         }
                                     </BlogComment>
                                 })

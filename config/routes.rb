@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :users, path: :u, param: :space_name, only: :show do
       resources :blogs, only: :index, controller: :user_blogs do
         get :popular, on: :collection # * author's other blogs
-        get :publications # * user's accessible blogs
+        get :publications, on: :collection # * user's accessible blogs
       end
       post :follow
       match :info, via: %i[put patch]

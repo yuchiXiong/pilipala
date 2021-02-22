@@ -4,16 +4,6 @@ class Api::UsersController < ApiController
   # skip_before_action :authenticate_user!, only: [:hots, :blogs, :show]
   skip_before_action :authenticate_user!
 
-  def popular_blogs
-    @blogs = @be_visited_user.blogs.kept.order(likes_count: :desc).first(3)
-  end
-
-  # * GET /api/u/:space_name/publications
-  def publications
-    @blogs = @be_visited_user.blogs.kept.page(params[:page]).per(10)
-  end
-
-  # * GET /api/u/popular
   def popular
     # ! 需要一个确定的推荐算法
     @authors = User.order(followers_count: :desc).first(3)

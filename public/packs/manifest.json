@@ -1,29 +1,29 @@
 {
-  "admin.css": "/packs/css/admin-d14692db.css",
-  "admin.css.map": "/packs/css/admin-d14692db.css.map",
-  "admin.js": "/packs/js/admin-7b7a6eef04f857ee4b29.js",
-  "admin.js.map": "/packs/js/admin-7b7a6eef04f857ee4b29.js.map",
+  "admin.css": "/packs/css/admin-1b2bd886.css",
+  "admin.css.map": "/packs/css/admin-1b2bd886.css.map",
+  "admin.js": "/packs/js/admin-47c26948ca81bb24611a.js",
+  "admin.js.map": "/packs/js/admin-47c26948ca81bb24611a.js.map",
   "application.css": "/packs/css/application-488d1afc.css",
   "application.css.map": "/packs/css/application-488d1afc.css.map",
-  "application.js": "/packs/js/application-6f35714bdd67fcd6b355.js",
-  "application.js.map": "/packs/js/application-6f35714bdd67fcd6b355.js.map",
-  "editor_for_react.css": "/packs/css/editor_for_react-606ae38d.css",
-  "editor_for_react.css.map": "/packs/css/editor_for_react-606ae38d.css.map",
-  "editor_for_react.js": "/packs/js/editor_for_react-f373ab5e62f2b338e5ed.js",
-  "editor_for_react.js.map": "/packs/js/editor_for_react-f373ab5e62f2b338e5ed.js.map",
+  "application.js": "/packs/js/application-cc3644d68df3a1086bd6.js",
+  "application.js.map": "/packs/js/application-cc3644d68df3a1086bd6.js.map",
+  "editor_for_react.css": "/packs/css/editor_for_react-b7cd2ff0.css",
+  "editor_for_react.css.map": "/packs/css/editor_for_react-b7cd2ff0.css.map",
+  "editor_for_react.js": "/packs/js/editor_for_react-9c1e7a48ef457d1059f8.js",
+  "editor_for_react.js.map": "/packs/js/editor_for_react-9c1e7a48ef457d1059f8.js.map",
   "entrypoints": {
     "admin": {
       "css": [
-        "/packs/css/admin-d14692db.css"
+        "/packs/css/admin-1b2bd886.css"
       ],
       "js": [
-        "/packs/js/admin-7b7a6eef04f857ee4b29.js"
+        "/packs/js/admin-47c26948ca81bb24611a.js"
       ],
       "css.map": [
-        "/packs/css/admin-d14692db.css.map"
+        "/packs/css/admin-1b2bd886.css.map"
       ],
       "js.map": [
-        "/packs/js/admin-7b7a6eef04f857ee4b29.js.map"
+        "/packs/js/admin-47c26948ca81bb24611a.js.map"
       ]
     },
     "application": {
@@ -31,55 +31,55 @@
         "/packs/css/application-488d1afc.css"
       ],
       "js": [
-        "/packs/js/application-6f35714bdd67fcd6b355.js"
+        "/packs/js/application-cc3644d68df3a1086bd6.js"
       ],
       "css.map": [
         "/packs/css/application-488d1afc.css.map"
       ],
       "js.map": [
-        "/packs/js/application-6f35714bdd67fcd6b355.js.map"
+        "/packs/js/application-cc3644d68df3a1086bd6.js.map"
       ]
     },
     "editor_for_react": {
       "css": [
-        "/packs/css/editor_for_react-606ae38d.css"
+        "/packs/css/editor_for_react-b7cd2ff0.css"
       ],
       "js": [
-        "/packs/js/editor_for_react-f373ab5e62f2b338e5ed.js"
+        "/packs/js/editor_for_react-9c1e7a48ef457d1059f8.js"
       ],
       "css.map": [
-        "/packs/css/editor_for_react-606ae38d.css.map"
+        "/packs/css/editor_for_react-b7cd2ff0.css.map"
       ],
       "js.map": [
-        "/packs/js/editor_for_react-f373ab5e62f2b338e5ed.js.map"
+        "/packs/js/editor_for_react-9c1e7a48ef457d1059f8.js.map"
       ]
     },
     "react_ssr": {
       "css": [
-        "/packs/css/react_ssr-3b3fbcf0.css"
+        "/packs/css/react_ssr-9e1ec00f.css"
       ],
       "js": [
-        "/packs/js/react_ssr-fdb511257a7d63f7cb7e.js"
+        "/packs/js/react_ssr-33149a30cc4ba13189e1.js"
       ],
       "css.map": [
-        "/packs/css/react_ssr-3b3fbcf0.css.map"
+        "/packs/css/react_ssr-9e1ec00f.css.map"
       ],
       "js.map": [
-        "/packs/js/react_ssr-fdb511257a7d63f7cb7e.js.map"
+        "/packs/js/react_ssr-33149a30cc4ba13189e1.js.map"
       ]
     },
     "server_rendering": {
       "css": [
-        "/packs/css/server_rendering-3b3fbcf0.css"
+        "/packs/css/server_rendering-9e1ec00f.css"
       ],
       "js": [
-        "/packs/js/server_rendering-07dad8b9d5c4dea908c8.js"
+        "/packs/js/server_rendering-bafacca351a496314a0a.js"
       ],
       "css.map": [
-        "/packs/css/server_rendering-3b3fbcf0.css.map"
+        "/packs/css/server_rendering-9e1ec00f.css.map"
       ],
       "js.map": [
-        "/packs/js/server_rendering-07dad8b9d5c4dea908c8.js.map"
+        "/packs/js/server_rendering-bafacca351a496314a0a.js.map"
       ]
     }
   },
@@ -89,12 +89,12 @@
   "media/assets/images/test.jpg": "/packs/media/assets/images/test-4ea53ea5ee01693a2e000791019c4166.jpg",
   "media/src/assets/images/default1.png": "/packs/media/src/assets/images/default1-02849bd23e4c8e13fab845c3def33fde.png",
   "media/src/assets/images/default2.png": "/packs/media/src/assets/images/default2-c3c66cbce3fcc986e7da28b5fe93b556.png",
-  "react_ssr.css": "/packs/css/react_ssr-3b3fbcf0.css",
-  "react_ssr.css.map": "/packs/css/react_ssr-3b3fbcf0.css.map",
-  "react_ssr.js": "/packs/js/react_ssr-fdb511257a7d63f7cb7e.js",
-  "react_ssr.js.map": "/packs/js/react_ssr-fdb511257a7d63f7cb7e.js.map",
-  "server_rendering.css": "/packs/css/server_rendering-3b3fbcf0.css",
-  "server_rendering.css.map": "/packs/css/server_rendering-3b3fbcf0.css.map",
-  "server_rendering.js": "/packs/js/server_rendering-07dad8b9d5c4dea908c8.js",
-  "server_rendering.js.map": "/packs/js/server_rendering-07dad8b9d5c4dea908c8.js.map"
+  "react_ssr.css": "/packs/css/react_ssr-9e1ec00f.css",
+  "react_ssr.css.map": "/packs/css/react_ssr-9e1ec00f.css.map",
+  "react_ssr.js": "/packs/js/react_ssr-33149a30cc4ba13189e1.js",
+  "react_ssr.js.map": "/packs/js/react_ssr-33149a30cc4ba13189e1.js.map",
+  "server_rendering.css": "/packs/css/server_rendering-9e1ec00f.css",
+  "server_rendering.css.map": "/packs/css/server_rendering-9e1ec00f.css.map",
+  "server_rendering.js": "/packs/js/server_rendering-bafacca351a496314a0a.js",
+  "server_rendering.js.map": "/packs/js/server_rendering-bafacca351a496314a0a.js.map"
 }

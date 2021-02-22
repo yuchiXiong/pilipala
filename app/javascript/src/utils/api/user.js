@@ -13,7 +13,7 @@ const popular = () => {
 };
 
 const publications = (spaceName, pageNo) => {
-    return request.get(`/api/u/${spaceName}/publications?page=${pageNo}`)
+    return request.get(`/api/u/${spaceName}/blogs/publications?page=${pageNo}`)
 }
 
 export {
