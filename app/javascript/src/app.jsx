@@ -35,6 +35,9 @@ export default props => {
                         <Route exact path='/' component={Home}/>
                         <Route exact path='/blogs/:id' component={BlogShow}/>
                         <Route exact path='/u/:spaceName' component={UserShow}/>
+                        {typeof window !== 'undefined' && <>
+                            {/*<Route exact path '' />*/}
+                        </>}
                     </Switch>
                 </Content>
                 <Footer/>

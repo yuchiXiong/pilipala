@@ -11,7 +11,7 @@ class BlogsController < ApplicationController
 
     @react_props = {
       blogPage: {
-        currentUser: current_user,
+        currentUser: current_user.to_json,
         pageNo: 2,
         noMore: true,
         blogs: blogs.map { |_| _.to_json },
