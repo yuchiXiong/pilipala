@@ -6,7 +6,8 @@ const defaultState = {
     blogs: [],
     currentUserLikeBlogIds: [],
     popularBlogs: [],
-    popularAuthors: []
+    popularAuthors: [],
+    currentUser: null
 };
 
 const blogReducer = (state = defaultState, action) => {

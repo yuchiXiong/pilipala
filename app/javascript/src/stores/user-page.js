@@ -5,7 +5,8 @@ const defaultState = {
     userBlogs: [],
     userBlogsPageNo: 1,
     userBlogsNoMore: true,
-    currentUserLikeBlogIds: []
+    currentUserLikeBlogIds: [],
+    currentUser: null
 };
 const userReducer = (state = defaultState, action) => {
     switch (action.type) {

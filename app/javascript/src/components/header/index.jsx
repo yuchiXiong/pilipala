@@ -1,22 +1,29 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {Button, Col, Layout, Menu, Row} from 'antd';
+import {Avatar, Button, Col, Dropdown, Layout, Menu, Row} from 'antd';
 import {PenIcon} from '../icon/index';
 
 import styles from './index.module.scss';
 
 const {Header: AntdHeader} = Layout;
 
+
 @connect(state => state)
 class Header extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.getCurrentUser = this.getCurrentUser.bind(this);
+    }
 
     getCurrentUser() {
         return this.props.blogShowPage.currentUser ||
             this.props.blogPage.currentUser ||
             this.props.userPage.currentUser ||
-            (typeof window !== 'undefined' && window.gon.currentUser) || null;
+            (typeof window !== 'undefined' && window.gon?.currentUser) || null;
     }
+
 
     render() {
         return <AntdHeader className={styles.header}>
@@ -35,6 +42,27 @@ class Header extends React.Component {
                         </Menu.Item>
                     </Menu>
                     {/*<Button>{this.getCurrentUser().nickName}</Button>*/}
+
+                    <Dropdown
+                        overlay={<Menu onClick={null}>
+                            <Menu.Item key="1">
+                                1st menu item
+                            </Menu.Item>
+                        </Menu>}
+                        placement="bottomCenter" icon={null}
+                        trigger={['click']}>
+                        {
+                            this.getCurrentUser() && <>
+                                <Avatar
+                                    src={this.getCurrentUser().avatar}
+                                    alt={this.getCurrentUser().nickName}
+                                />
+                                <span>{this.getCurrentUser().nickName}</span>
+                            </>
+                        }
+                    </Dropdown>
+
+
                     <Button
                         type='primary'
                         className={styles.new_blog}

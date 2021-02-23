@@ -26,7 +26,8 @@ const defaultState = {
         }
     },
     otherBlogs: [],
-    comments: []
+    comments: [],
+    currentUser: null
 };
 
 const blogShowPage = (state = defaultState, action) => {
