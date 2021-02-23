@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
 import {Button, Col, Layout, Menu, Row} from 'antd';
 import {PenIcon} from '../icon/index';
@@ -7,7 +8,16 @@ import styles from './index.module.scss';
 
 const {Header: AntdHeader} = Layout;
 
+@connect(state => state)
 class Header extends React.Component {
+
+    getCurrentUser() {
+        return this.props.blogShowPage.currentUser ||
+            this.props.blogPage.currentUser ||
+            this.props.userPage.currentUser ||
+            window.gon.currentUser;
+    }
+
     render() {
         return <AntdHeader className={styles.header}>
             <Row justify={'start'}>
@@ -24,6 +34,7 @@ class Header extends React.Component {
                             <NavLink to='/'>主页</NavLink>
                         </Menu.Item>
                     </Menu>
+                    <Button>{this.getCurrentUser().nickName}</Button>
                     <Button
                         type='primary'
                         className={styles.new_blog}
