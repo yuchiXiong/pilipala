@@ -3,7 +3,7 @@ class Api::BlogCommentsController < ApiController
   skip_before_action :authenticate_user!, only: %i[index]
 
   def index
-    @comments = @blog.comments
+    @comments = @blog.comments.includes(:user)
   end
 
   # * POST /api/blogs/:blog_id/comments

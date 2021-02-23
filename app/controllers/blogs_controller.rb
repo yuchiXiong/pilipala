@@ -30,7 +30,7 @@ class BlogsController < ApplicationController
       blogShowPage: {
         blog:       blog.to_json(true),
         otherBlogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |_| _.to_json },
-        comments:   blog.comments.map { |_| _.to_json }
+        comments: blog.comments.includes(:user).map { |_| _.to_json }
       }
     }
   end
