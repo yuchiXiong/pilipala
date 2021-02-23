@@ -13,15 +13,17 @@ import {
     Col,
     Comment,
     Divider,
+    Dropdown,
     Form,
     Input,
     List,
+    Menu,
     Row,
     Skeleton,
     Space,
     Typography
 } from "antd";
-import {LikeOutlined, MessageOutlined, ReadOutlined} from "@ant-design/icons";
+import {LikeOutlined, MessageOutlined, MoreOutlined, ReadOutlined} from "@ant-design/icons";
 import {fetchAuthorsOtherBlogs, fetchBlog, fetchBlogComments, replyComments} from './store/actions';
 
 import IconText from '../../components/icon-text';
@@ -35,8 +37,18 @@ const {TextArea} = Input;
 
 const BlogComment = props => <Comment
     actions={[props.canReply && <span key="comment-nested-reply-to" onClick={props.onReply}>回复</span>,
-        <span>发布于 {props.createdAt}</span>]}
-    author={<a>{props.author}</a>}
+        <span>发布于 {props.createdAt}</span>,
+        <Dropdown overlay={<Menu>
+            <Menu.Item key="0">
+                <a href="http://www.alipay.com/">删除</a>
+            </Menu.Item>
+        </Menu>} trigger={['click']}>
+            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                <MoreOutlined/>
+            </a>
+        </Dropdown>]
+    }
+    author={<Text>{props.author}</Text>}
     avatar={
         <Avatar
             src={props.avatar}
@@ -44,18 +56,18 @@ const BlogComment = props => <Comment
         />
     }
     content={
-        <p>{props.content}</p>
+        <Typography.Paragraph>{props.content}</Typography.Paragraph>
     }
 >
     {props.children}
 </Comment>
 
-const Editor = ({onChange, onSubmit, submitting, value}) => (
+const Editor = ({onChange, onSubmit, submitting, value, avatar, nickName}) => (
     <Comment
         avatar={
             <Avatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                alt="Han Solo"
+                src={avatar}
+                alt={nickName}
             />
         }
         content={
@@ -133,7 +145,7 @@ class BlogShow extends React.Component {
     }
 
     render() {
-        const {blog, otherBlogs, comments} = this.props;
+        const {blog, otherBlogs, comments, currentUser} = this.props;
 
         return <Row>
             <Col span={14} offset={5}>
@@ -199,6 +211,8 @@ class BlogShow extends React.Component {
                                 value={this.state.replyToBlogText}
                                 onChange={e => this.setState({replyToBlogText: e.target.value})}
                                 onSubmit={e => this.reply(this.state.replyToBlogText)}
+                                avatar={currentUser.avatar}
+                                nickName={currentUser.nickName}
                             />
 
                             {
@@ -208,9 +222,9 @@ class BlogShow extends React.Component {
                                         avatar={comment.user.avatar}
                                         content={comment.content}
                                         key={comment.id}
+                                        canReply={true}
                                         onReply={() => this.setState({replyTo: comment.id})}
                                         createdAt={comment.createdAt}
-                                        canReply={true}
                                     >
                                         {this.subComments(comments, comment.id).map(subComment => {
                                             return <BlogComment
@@ -218,8 +232,8 @@ class BlogShow extends React.Component {
                                                 avatar={subComment.user.avatar}
                                                 content={subComment.content}
                                                 key={subComment.id}
-                                                onReply={() => this.setState({replyTo: subComment.id})}
                                                 canReply={false}
+                                                onReply={() => this.setState({replyTo: subComment.id})}
                                                 createdAt={subComment.createdAt}
                                             />
                                         })}
@@ -231,7 +245,8 @@ class BlogShow extends React.Component {
                                                 value={this.state.replyToCommentText}
                                                 onChange={e => this.setState({replyToCommentText: e.target.value})}
                                                 onSubmit={() => this.reply(this.state.replyToCommentText)}
-                                                canReply={false}
+                                                avatar={currentUser.avatar}
+                                                nickName={currentUser.nickName}
                                             />
                                         }
                                     </BlogComment>

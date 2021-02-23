@@ -28,10 +28,10 @@ class User < ApplicationRecord
     end
   end
 
-  def to_json
+  def to_json(*_args)
     Jbuilder.new do |json|
       json.key_format! camelize: :lower
-      json.(self, :id, :nick_name, :email, :sex, :description, :is_admin, :blogs_count, :followers_count, :following_count, :space_name)
+      json.call(self, :id, :nick_name, :email, :sex, :description, :is_admin, :blogs_count, :followers_count, :following_count, :space_name)
       json.avatar oss_avatar
     end.attributes!
   end
