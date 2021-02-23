@@ -22,7 +22,7 @@ import {
     Typography
 } from "antd";
 import {LikeOutlined, MessageOutlined, ReadOutlined} from "@ant-design/icons";
-import {fetchAuthorsOtherBlogs, fetchBlog, replyComments} from './store/actions';
+import {fetchAuthorsOtherBlogs, fetchBlog, fetchBlogComments, replyComments} from './store/actions';
 
 import IconText from '../../components/icon-text';
 import 'highlight.js/styles/atom-one-dark';
@@ -79,6 +79,7 @@ const Editor = ({onChange, onSubmit, submitting, value}) => (
         return {
             fetchBlog: (id, callback) => dispatch(fetchBlog(id, callback)),
             fetchAuthorsOtherBlogs: (spaceName, callback) => dispatch(fetchAuthorsOtherBlogs(spaceName, callback)),
+            fetchBlogComments: (id, callback) => dispatch(fetchBlogComments(id, callback)),
             replyComments: (id, comment, callback) => dispatch(replyComments(id, comment, callback))
         }
     })
@@ -102,13 +103,16 @@ class BlogShow extends React.Component {
         if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
             this.setState({
                 fetchBlogLoading: true,
-                fetchAuthorsOtherBlogs: true
+                fetchAuthorsOtherBlogs: true,
+                fetchBlogCommentsLoading: true
             });
             this.props.fetchBlog(this.props.match.params.id, () => {
                 this.setState({fetchBlogLoading: false});
                 this.props.fetchAuthorsOtherBlogs(this.props.blog.user.spaceName, () => this.setState({fetchAuthorsOtherBlogs: false}));
             });
-
+            this.props.fetchBlogComments(this.props.match.params.id, () => {
+                this.setState({fetchBlogCommentsLoading: false});
+            })
         }
     }
 
@@ -206,6 +210,7 @@ class BlogShow extends React.Component {
                                         key={comment.id}
                                         onReply={() => this.setState({replyTo: comment.id})}
                                         createdAt={comment.createdAt}
+                                        canReply={true}
                                     >
                                         {this.subComments(comments, comment.id).map(subComment => {
                                             return <BlogComment
@@ -225,7 +230,8 @@ class BlogShow extends React.Component {
                                                 key={'replyTo'}
                                                 value={this.state.replyToCommentText}
                                                 onChange={e => this.setState({replyToCommentText: e.target.value})}
-                                                onSubmit={e => this.reply(this.state.replyToCommentText)}
+                                                onSubmit={() => this.reply(this.state.replyToCommentText)}
+                                                canReply={false}
                                             />
                                         }
                                     </BlogComment>

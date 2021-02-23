@@ -28,7 +28,13 @@ const fetchAuthorsOtherBlogs = (spaceName, callback) => {
 
 const fetchBlogComments = (id, callback) => {
     return dispatch => {
-
+        BlogComment.index(id).then(res => {
+            dispatch({
+                type: REPLY_COMMENT,
+                comments: [...res.data.comments]
+            });
+            callback();
+        })
     }
 };
 

@@ -1,9 +1,14 @@
 import request from '../request';
 
-const create = (id, comment) => {
-    return request.post(`/api/blogs/${id}/comments`, {comment: comment});
+const index = blogId => {
+    return request.get(`/api/blogs/${blogId}/comments`);
+}
+
+const create = (blogId, comment) => {
+    return request.post(`/api/blogs/${blogId}/comments`, {comment: comment});
 };
 
 export {
+    index,
     create
 };

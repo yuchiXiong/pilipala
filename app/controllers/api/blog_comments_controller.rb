@@ -1,5 +1,10 @@
 class Api::BlogCommentsController < ApiController
   before_action :set_blog
+  skip_before_action :authenticate_user!, only: %i[index]
+
+  def index
+    @comments = @blog.comments
+  end
 
   # * POST /api/blogs/:blog_id/comments
   def create
