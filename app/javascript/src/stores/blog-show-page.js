@@ -1,4 +1,4 @@
-import {FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG, REPLY_COMMENT} from '../pages/blog-show/store/types';
+import {DELETE_COMMENT, FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG, REPLY_COMMENT} from '../pages/blog-show/store/types';
 
 const defaultState = {
     blog: {
@@ -45,6 +45,11 @@ const blogShowPage = (state = defaultState, action) => {
             return {
                 ...state,
                 comments: action.comments
+            }
+        case DELETE_COMMENT:
+            return {
+                ...state,
+                comments: [...state.comments.filter(item => item.id !== action.id)]
             }
         default:
             return state;

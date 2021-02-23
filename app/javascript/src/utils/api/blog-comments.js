@@ -8,7 +8,12 @@ const create = (blogId, comment) => {
     return request.post(`/api/blogs/${blogId}/comments`, {comment: comment});
 };
 
+const destroy = (blogId, commentId) => {
+    return request.delete(`/api/blogs/${blogId}/comments/${commentId}`);
+};
+
 export {
     index,
-    create
+    create,
+    destroy
 };

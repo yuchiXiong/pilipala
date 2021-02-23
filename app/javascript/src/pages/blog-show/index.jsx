@@ -24,7 +24,7 @@ import {
     Typography
 } from "antd";
 import {LikeOutlined, MessageOutlined, MoreOutlined, ReadOutlined} from "@ant-design/icons";
-import {fetchAuthorsOtherBlogs, fetchBlog, fetchBlogComments, replyComments} from './store/actions';
+import {deleteComment, fetchAuthorsOtherBlogs, fetchBlog, fetchBlogComments, replyComments} from './store/actions';
 
 import IconText from '../../components/icon-text';
 import 'highlight.js/styles/atom-one-dark';
@@ -40,7 +40,7 @@ const BlogComment = props => <Comment
         <span>发布于 {props.createdAt}</span>,
         <Dropdown overlay={<Menu>
             <Menu.Item key="0">
-                <a href="http://www.alipay.com/">删除</a>
+                <a onClick={props.onDelete}>删除</a>
             </Menu.Item>
         </Menu>} trigger={['click']}>
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
@@ -92,7 +92,8 @@ const Editor = ({onChange, onSubmit, submitting, value, avatar, nickName}) => (
             fetchBlog: (id, callback) => dispatch(fetchBlog(id, callback)),
             fetchAuthorsOtherBlogs: (spaceName, callback) => dispatch(fetchAuthorsOtherBlogs(spaceName, callback)),
             fetchBlogComments: (id, callback) => dispatch(fetchBlogComments(id, callback)),
-            replyComments: (id, comment, callback) => dispatch(replyComments(id, comment, callback))
+            replyComments: (id, comment, callback) => dispatch(replyComments(id, comment, callback)),
+            deleteComment: (blogId, commentId, callback) => dispatch(deleteComment(blogId, commentId, callback))
         }
     })
 class BlogShow extends React.Component {
@@ -124,7 +125,7 @@ class BlogShow extends React.Component {
             });
             this.props.fetchBlogComments(this.props.match.params.id, () => {
                 this.setState({fetchBlogCommentsLoading: false});
-            })
+            });
         }
     }
 
@@ -139,7 +140,11 @@ class BlogShow extends React.Component {
                     content: comment,
                     comment_id: this.state.replyTo === -1 ? null : this.state.replyTo
                 }, () => {
-                    this.setState({replyToCommentText: '', replyToBlogText: ''});
+                    this.setState({
+                        replyToCommentText: '',
+                        replyToBlogText: '',
+                        replyTo: -1
+                    });
                 });
         }
     }
@@ -225,6 +230,8 @@ class BlogShow extends React.Component {
                                         canReply={true}
                                         onReply={() => this.setState({replyTo: comment.id})}
                                         createdAt={comment.createdAt}
+                                        onDelete={() => this.props.deleteComment(blog.id, comment.id, () => {
+                                        })}
                                     >
                                         {this.subComments(comments, comment.id).map(subComment => {
                                             return <BlogComment
@@ -235,6 +242,8 @@ class BlogShow extends React.Component {
                                                 canReply={false}
                                                 onReply={() => this.setState({replyTo: subComment.id})}
                                                 createdAt={subComment.createdAt}
+                                                onDelete={() => this.props.deleteComment(blog.id, comment.id, () => {
+                                                })}
                                             />
                                         })}
                                         {

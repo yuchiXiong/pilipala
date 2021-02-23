@@ -1,4 +1,4 @@
-import {FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG, REPLY_COMMENT} from './types';
+import {DELETE_COMMENT, FETCH_AUTHORS_OTHER_BLOGS, FETCH_BLOG, REPLY_COMMENT} from './types';
 import {Blog, BlogComment, User} from '../../../utils/api';
 import ReturnCode from '../../../utils/return-code';
 
@@ -50,11 +50,26 @@ const replyComments = (id, comments, callback) => {
             }
         })
     }
-}
+};
+
+const deleteComment = (blogId, id, callback) => {
+    return dispatch => {
+        BlogComment.destroy(blogId, id).then(res => {
+            if (res.code === ReturnCode.Success) {
+                dispatch({
+                    type: DELETE_COMMENT,
+                    id
+                });
+                callback();
+            }
+        });
+    }
+};
 
 export {
     fetchBlog,
     fetchAuthorsOtherBlogs,
     fetchBlogComments,
-    replyComments
+    replyComments,
+    deleteComment
 };

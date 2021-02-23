@@ -2,6 +2,7 @@ class Api::BlogCommentsController < ApiController
   before_action :set_blog
   skip_before_action :authenticate_user!, only: %i[index]
 
+  # * GET /api/blogs/:blog_id/comments
   def index
     @comments = @blog.comments.includes(:user)
   end
@@ -13,14 +14,12 @@ class Api::BlogCommentsController < ApiController
     @comment.save!
   end
 
+  # * DELETE /api/blogs/:blog_id/comments/:id
   def destroy
     @comment = Comment.find(params[:id])
     raise AccessDeniedError unless current_user.id == @comment.user_id
-    if @comment.comment_id.nil?
-      @comment.sub_comments.destroy_all
-    end
-    @comment.delete
-    redirect_to @blog
+
+    @comment.destroy
   end
 
   def comment
