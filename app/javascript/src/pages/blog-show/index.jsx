@@ -62,13 +62,14 @@ const BlogComment = props => <Comment
     {props.children}
 </Comment>
 
-const Editor = ({onChange, onSubmit, submitting, value, avatar, nickName}) => (
+const Editor = ({onChange, onSubmit, submitting, value, currentUser}) => (
     <Comment
         avatar={
-            <Avatar
-                src={avatar}
-                alt={nickName}
-            />
+            currentUser ?
+                <Avatar
+                    src={currentUser.avatar}
+                    alt={currentUser.nickName}
+                /> : null
         }
         content={
             <>
@@ -216,8 +217,7 @@ class BlogShow extends React.Component {
                                 value={this.state.replyToBlogText}
                                 onChange={e => this.setState({replyToBlogText: e.target.value})}
                                 onSubmit={e => this.reply(this.state.replyToBlogText)}
-                                avatar={currentUser.avatar}
-                                nickName={currentUser.nickName}
+                                currentUser={currentUser}
                             />
 
                             {
@@ -233,6 +233,17 @@ class BlogShow extends React.Component {
                                         onDelete={() => this.props.deleteComment(blog.id, comment.id, () => {
                                         })}
                                     >
+                                        {
+                                            (this.state.replyTo === comment.id ||
+                                                this.subComments(comments, comment.id).map(item => item.id).includes(this.state.replyTo)) &&
+                                            <Editor
+                                                key={'replyTo'}
+                                                value={this.state.replyToCommentText}
+                                                onChange={e => this.setState({replyToCommentText: e.target.value})}
+                                                onSubmit={() => this.reply(this.state.replyToCommentText)}
+                                                currentUser={currentUser}
+                                            />
+                                        }
                                         {this.subComments(comments, comment.id).map(subComment => {
                                             return <BlogComment
                                                 author={subComment.user.nickName}
@@ -246,18 +257,6 @@ class BlogShow extends React.Component {
                                                 })}
                                             />
                                         })}
-                                        {
-                                            (this.state.replyTo === comment.id ||
-                                                this.subComments(comments, comment.id).map(item => item.id).includes(this.state.replyTo)) &&
-                                            <Editor
-                                                key={'replyTo'}
-                                                value={this.state.replyToCommentText}
-                                                onChange={e => this.setState({replyToCommentText: e.target.value})}
-                                                onSubmit={() => this.reply(this.state.replyToCommentText)}
-                                                avatar={currentUser.avatar}
-                                                nickName={currentUser.nickName}
-                                            />
-                                        }
                                     </BlogComment>
                                 })
                             }

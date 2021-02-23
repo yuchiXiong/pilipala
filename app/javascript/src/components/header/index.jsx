@@ -15,7 +15,7 @@ class Header extends React.Component {
         return this.props.blogShowPage.currentUser ||
             this.props.blogPage.currentUser ||
             this.props.userPage.currentUser ||
-            window.gon.currentUser;
+            (typeof window !== 'undefined' && window.gon.currentUser) || null;
     }
 
     render() {
@@ -34,7 +34,7 @@ class Header extends React.Component {
                             <NavLink to='/'>主页</NavLink>
                         </Menu.Item>
                     </Menu>
-                    <Button>{this.getCurrentUser().nickName}</Button>
+                    {/*<Button>{this.getCurrentUser().nickName}</Button>*/}
                     <Button
                         type='primary'
                         className={styles.new_blog}

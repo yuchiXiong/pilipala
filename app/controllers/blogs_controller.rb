@@ -11,13 +11,13 @@ class BlogsController < ApplicationController
 
     @react_props = {
       blogPage: {
-        currentUser: current_user.to_json,
-        pageNo: 2,
-        noMore: true,
-        blogs: blogs.map { |_| _.to_json },
+        currentUser:            current_user ? current_user.to_json : nil,
+        pageNo:                 2,
+        noMore:                 true,
+        blogs:                  blogs.map { |_| _.to_json },
         currentUserLikeBlogIds: current_user ? current_user.like_blogs.ids : [],
-        popularBlogs: hots.map { |_| _.to_json },
-        popularAuthors: User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
+        popularBlogs:           hots.map { |_| _.to_json },
+        popularAuthors:         User.order(followers_count: :desc).limit(5).map { |_| _.to_json }
       }
     }
   end
@@ -29,10 +29,10 @@ class BlogsController < ApplicationController
     raise ActiveRecord::RecordNotFound unless blog.readable?
     @react_props = {
       blogShowPage: {
-        currentUser: current_user.to_json,
-        blog: blog.to_json(true),
-        otherBlogs: blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |_| _.to_json },
-        comments: blog.comments.includes(:user).map { |_| _.to_json }
+        currentUser: current_user ? current_user.to_json : nil,
+        blog:        blog.to_json(true),
+        otherBlogs:  blog.user.blogs.visible.take(6).reject { |b| b.id == blog.id }.map { |_| _.to_json },
+        comments:    blog.comments.includes(:user).map { |_| _.to_json }
       }
     }
   end
