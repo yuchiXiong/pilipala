@@ -113,7 +113,6 @@ class BlogShow extends React.Component {
     }
 
     componentDidMount() {
-        document.querySelectorAll('article pre>code').forEach(item => hljs.highlightBlock(item));
         if (window.__REACT_RAILS_SSR__ !== this.props.match.url) {
             this.setState({
                 fetchBlogLoading: true,
@@ -128,6 +127,7 @@ class BlogShow extends React.Component {
                 this.setState({fetchBlogCommentsLoading: false});
             });
         }
+        document.querySelectorAll('article pre>code').forEach(item => hljs.highlightBlock(item));
     }
 
     subComments(comments, id) {
