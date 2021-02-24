@@ -3,6 +3,6 @@ class OthersController < ApplicationController
   layout 'other'
 
   def index
-    gon.currentUser = current_user.to_json
+    gon.currentUser = current_user ? current_user.to_json : nil
   end
 end
