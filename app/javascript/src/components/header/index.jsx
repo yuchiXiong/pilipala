@@ -50,9 +50,13 @@ const Header = props => {
                 </Menu>
                 {
                     getCurrentUser() && <Dropdown
-                        overlay={<Menu onClick={onMenuClick}>
+                        overlay={<Menu
+                            onClick={onMenuClick}
+                            className={styles.navDropdown}
+                        >
                             <Menu.Item key="navProfile"> 我的主页 </Menu.Item>
                             <Menu.Item key="navSetting"> 设置 </Menu.Item>
+                            <Menu.Item key="signOut"> 注销 </Menu.Item>
                         </Menu>}
                         placement="bottomCenter"
                         icon={null}
