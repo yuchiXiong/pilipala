@@ -9,16 +9,12 @@ class UsersController < ApplicationController
     current_user_like_blog_ids = current_user.like_blogs.ids if current_user
     @react_props = {
       userPage: {
-        current_user:           current_user ? current_user.to_json : nil,
-        beVisitedUser:          @be_visited_user.to_json,
-        userBlogs:              user_blogs.map { |_| _.to_json },
+        currentUser: current_user ? current_user.to_json : nil,
+        beVisitedUser: @be_visited_user.to_json,
+        userBlogs: user_blogs.map { |_| _.to_json },
         currentUserLikeBlogIds: current_user_like_blog_ids
       }
     }
-    respond_to do |format|
-      format.html
-      format.json { render json: @react_props }
-    end
   end
 
   # def update_info
