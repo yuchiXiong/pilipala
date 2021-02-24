@@ -26,7 +26,7 @@ const Header = props => {
                 history.push(`/u/${getCurrentUser().spaceName}`);
                 return;
             case 'navSetting':
-                history.push('/u/settings');
+                history.push('/u/setting');
                 return;
             default:
                 return;

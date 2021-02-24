@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title><%= yield :title %></title>
+  <link rel="icon" href="/website.svg"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no"/>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= Gon::Base.render_data %>
+
+  <%= stylesheet_pack_tag 'react_ssr', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'react_ssr', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<%= react_component 'app' %>
+</body>
+</html>

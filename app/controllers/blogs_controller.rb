@@ -3,7 +3,7 @@ require 'ali/content_scan'
 class BlogsController < ApplicationController
   skip_before_action :authenticate_user!, except: %i[like]
 
-  # * GET /blogs
+  # * GET /
   def index
     blogs = Blog.visible.includes(:user).limit(10)
     # ! 没有推荐算法

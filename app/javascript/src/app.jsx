@@ -9,6 +9,7 @@ import Header from "./components/header";
 import Home from './pages/home';
 import BlogShow from './pages/blog-show';
 import UserShow from './pages/user-show';
+import UserSetting from './pages/user-setting';
 import Footer from './components/footer';
 
 import style from './app.module.scss';
@@ -32,12 +33,10 @@ export default props => {
                 <Header/>
                 <Content className={style.content}>
                     <Switch>
+                        <Route exact path='/u/setting' component={UserSetting} suppressHydrationWarning={true}/>
                         <Route exact path='/' component={Home}/>
                         <Route exact path='/blogs/:id' component={BlogShow}/>
                         <Route exact path='/u/:spaceName' component={UserShow}/>
-                        {typeof window !== 'undefined' && <>
-                            {/*<Route exact path '/u/:spaceName' />*/}
-                        </>}
                     </Switch>
                 </Content>
                 <Footer/>

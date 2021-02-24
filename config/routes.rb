@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   root 'blogs#index'
   # * Pages
   resources :blogs, only: %i[index show]
-  resources :users, path: :u, param: :space_name, only: [:show]
+  resources :users, path: :u, param: :space_name, only: [:show] do
+    get :setting, to: 'others#index', on: :collection
+  end
 
   devise_for :users, controllers: {
-    sessions: 'users/sessions',
+    sessions:      'users/sessions',
     registrations: 'users/registrations',
-    passwords: 'users/passwords'
+    passwords:     'users/passwords'
   }
 
   get :editor, to: 'editor#index'
@@ -41,6 +43,6 @@ Rails.application.routes.draw do
   #   get '*path', to: 'dashboard#index'
   # end
 
-  # get '/*other', to: 'blogs#index'
+  get '/*other', to: 'others#index'
 
 end
