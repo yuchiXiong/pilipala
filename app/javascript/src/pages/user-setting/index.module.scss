@@ -1,0 +1,10 @@
+:global(#time_related_controls) {
+  :global(.ant-form-item):first-child > :global(.ant-col) {
+    :global(label) {
+      height: 64px;
+    }
+
+    justify-content: center;
+    height: 64px;
+  }
+}

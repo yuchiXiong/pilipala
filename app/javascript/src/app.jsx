@@ -29,7 +29,7 @@ export default props => {
     const store = createStore(initState);
     return <Provider store={store}>
         <IsomorphicRouter path={props.path}>
-            <Layout>
+            <Layout className={style.app}>
                 <Header/>
                 <Content className={style.content}>
                     <Switch>
