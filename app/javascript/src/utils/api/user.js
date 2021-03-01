@@ -16,9 +16,15 @@ const publications = (spaceName, pageNo) => {
     return request.get(`/api/u/${spaceName}/blogs/publications?page=${pageNo}`)
 }
 
+// * PUT/PATCH /api/u/:spaceName/avatar
+const updateAvatar = (spaceName, formData) => {
+    return request.put(`/api/u/${spaceName}/avatar`, formData);
+}
+
 export {
     popularBlogs,
     show,
     popular,
-    publications
+    publications,
+    updateAvatar
 };

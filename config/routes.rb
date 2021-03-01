@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       end
       post :follow
       match :info, via: %i[put patch]
+      match :avatar, via: %i[put patch]
       match :password, via: %i[put patch]
       get :popular, on: :collection # * popular authors
     end

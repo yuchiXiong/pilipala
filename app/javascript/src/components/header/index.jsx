@@ -14,9 +14,7 @@ const Header = props => {
     const history = useHistory();
 
     const getCurrentUser = () => {
-        return props.blogShowPage.currentUser ||
-            props.blogPage.currentUser ||
-            props.userPage.currentUser ||
+        return props.currentUser ||
             (typeof window !== 'undefined' && window.gon?.currentUser) || null;
     }
 
@@ -30,6 +28,14 @@ const Header = props => {
                 return;
             default:
                 return;
+        }
+    }
+
+    const handleNewBlogBtn = () => {
+        if (getCurrentUser()) {
+            history.push('/editor');
+        } else {
+            window.location = '/users/sign_in';
         }
     }
 
@@ -74,6 +80,7 @@ const Header = props => {
                 <Button
                     type='primary'
                     className={styles.new_blog}
+                    onClick={handleNewBlogBtn}
                 >
                     <PenIcon width={'18px'} height={'18px'}/>
                     &nbsp;

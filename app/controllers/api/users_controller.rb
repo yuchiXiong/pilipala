@@ -1,9 +1,10 @@
 class Api::UsersController < ApiController
-  before_action :set_user, only: [:popular_blogs, :show, :publications]
-  # before_action :current_user?, only: :blogs
+  before_action :set_user, only: [:popular, :show, :avatar]
+  before_action :current_user?, only: :avatar
   # skip_before_action :authenticate_user!, only: [:hots, :blogs, :show]
   skip_before_action :authenticate_user!
 
+  # * GET /api/u/popular
   def popular
     # ! 需要一个确定的推荐算法
     @authors = User.order(followers_count: :desc).first(3)
@@ -14,6 +15,11 @@ class Api::UsersController < ApiController
     # before_action :set_user
   end
 
+  # * PUT/PATCH /api/u/:space_name/avatar
+  def avatar
+    current_user.update!(avatar: user_avatar_params[:avatar])
+  end
+
   private
 
   def set_user
@@ -22,5 +28,9 @@ class Api::UsersController < ApiController
 
   def current_user?
     raise AccessDeniedError if @be_visited_user.id != current_user.id
+  end
+
+  def user_avatar_params
+    params.require(:user).permit(:avatar)
   end
 end

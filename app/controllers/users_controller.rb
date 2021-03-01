@@ -8,12 +8,12 @@ class UsersController < ApplicationController
     user_blogs = @be_visited_user.blogs.visible
     current_user_like_blog_ids = current_user.like_blogs.ids if current_user
     @react_props = {
-      userPage: {
-        currentUser: current_user ? current_user.to_json : nil,
-        beVisitedUser: @be_visited_user.to_json,
-        userBlogs: user_blogs.map { |_| _.to_json },
+      userPage:    {
+        beVisitedUser:          @be_visited_user.to_json,
+        userBlogs:              user_blogs.map { |_| _.to_json },
         currentUserLikeBlogIds: current_user_like_blog_ids
-      }
+      },
+      currentUser: current_user ? current_user.to_json : nil
     }
   end
 

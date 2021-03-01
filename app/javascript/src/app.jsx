@@ -22,7 +22,10 @@ export default props => {
     if (typeof window === 'undefined') {
         initState = props.react_props;
     } else {
-        initState = window.__REACT_RAILS_SSR__;
+        initState = {
+            ...window.__REACT_RAILS_SSR__,
+            ...window.gon?.currentUser
+        };
         window.__REACT_RAILS_SSR__ = props.path;
     }
 
