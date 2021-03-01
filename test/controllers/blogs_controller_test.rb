@@ -98,7 +98,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
       format: 'application/json',
     }
     assert_response :bad_request
-    assert_equal JSON.parse(@response.body)['code'], Code::Parameter_Missing
+    assert_equal JSON.parse(@response.body)['code'], Code::PARAMETER_MISSING
     assert_equal count, Blog.count
   end
 
@@ -110,7 +110,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
       blog:   @test_blog
     }
     assert_response :success
-    assert_equal JSON.parse(@response.body)['message'], 'success'
+    assert_equal JSON.parse(@response.body)['message'], 'SUCCESS'
     assert_not_nil JSON.parse(@response.body)['data']['blog']
     assert_equal blogs_count + 1, Blog.count
     assert_equal Blog.first.title, @test_blog[:title]
@@ -137,7 +137,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:success)
     delete api_blog_url('not exists')
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+    assert_equal JSON.parse(@response.body)['code'], Code::RESOURCE_NOT_FOUND
   end
 
   test 'can not delete because blog author is not current user' do
@@ -145,7 +145,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:success)
     delete api_blog_url(blogs(:other_blog))
     assert_response :forbidden
-    assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
+    assert_equal JSON.parse(@response.body)['code'], Code::ACCESS_DENIED
     assert_equal count, Blog.kept.count
   end
 
@@ -156,7 +156,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
       format: 'application/json'
     }
     assert_response :success
-    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_equal JSON.parse(@response.body)['code'], Code::SUCCESS
     assert_equal count - 1, Blog.kept.count
   end
 
@@ -179,14 +179,14 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:success)
     patch api_blog_url('not exists'), params: {}
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+    assert_equal JSON.parse(@response.body)['code'], Code::RESOURCE_NOT_FOUND
   end
 
   test 'can not update because blog author is not current user' do
     sign_in users(:success)
     patch api_blog_url(blogs(:other_blog).id), params: {}
     assert_response :forbidden
-    assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
+    assert_equal JSON.parse(@response.body)['code'], Code::ACCESS_DENIED
   end
 
   test 'can not update because params missing' do
@@ -194,7 +194,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
     sign_in users(:success)
     patch api_blog_url(blogs(:success).id), params: {}
     assert_response :bad_request
-    assert_equal JSON.parse(@response.body)['code'], Code::Parameter_Missing
+    assert_equal JSON.parse(@response.body)['code'], Code::PARAMETER_MISSING
     assert_equal blog.title, Blog.find(blogs(:success).id).title
     assert_equal blog.content, Blog.find(blogs(:success).id).content
     assert_equal blog.description, Blog.find(blogs(:success).id).description
@@ -209,7 +209,7 @@ class BlogsControllerTest < ActionDispatch::IntegrationTest
       blog:   @test_blog
     }
     assert_response :success
-    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_equal JSON.parse(@response.body)['code'], Code::SUCCESS
     assert_equal @test_blog[:title], Blog.find(blogs(:success).id).title
     assert_equal @test_blog[:content], Blog.find(blogs(:success).id).content
     assert_equal @test_blog[:description], Blog.find(blogs(:success).id).description

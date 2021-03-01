@@ -19,6 +19,7 @@ const UserSetting = props => {
     const [avatar, setAvatar] = useState(null);
     const cropperRef = useRef(null);
 
+    // * 调起裁剪
     const handleAvatarUpload = e => {
         setCropperVisible(true);
         const reader = new FileReader();
@@ -28,6 +29,7 @@ const UserSetting = props => {
         reader.readAsDataURL(e.file);
     }
 
+    // * 完成裁剪并上传
     const onFinish = e => {
         const imageElement = cropperRef?.current;
         const cropper = imageElement?.cropper;
@@ -37,7 +39,7 @@ const UserSetting = props => {
             formData.append("user[avatar]", file, 'avatar.png');
 
             User.updateAvatar(props.currentUser.spaceName, formData).then(res => {
-                if (res.code === ReturnCode.Success) {
+                if (res.code === ReturnCode.SUCCESS) {
                     props.updateAvatar(res.data.user.avatar);
                     setAvatar(null);
                     setCropperVisible(false);
@@ -48,6 +50,7 @@ const UserSetting = props => {
         });
     }
 
+    // * 更新用户信息
     const handleUserInfoUpdate = val => {
         setFormLoading(true);
         User.updateInfo(props.currentUser.spaceName, {
@@ -58,13 +61,35 @@ const UserSetting = props => {
                 spaceName: val.spaceName
             }
         }).then(res => {
-            if (res.code === ReturnCode.Success) {
+            if (res.code === ReturnCode.SUCCESS) {
                 props.updateInfo(res.data.user);
                 message.success('修改成功');
                 setFormLoading(false);
             }
         });
     }
+
+    const handlePasswordUpdate = val => {
+        if (val.newPassword !== val.confirmPassword) {
+            message.warn('两次密码不一致！');
+            return;
+        }
+        User.updatePassword(props.currentUser.spaceName, {user: val}).then(res => {
+            switch (res.code) {
+                case ReturnCode.SUCCESS:
+                    message.success('修改成功！请重新登录', 3, () => {
+                        window.location = '/users/sign_in';
+                    });
+                    break;
+                case ReturnCode.ACCOUNT_OR_PASSWORD_NOT_MATCH:
+                    message.error('账户与密码不匹配！');
+                    break;
+                case ReturnCode.TWICE_PASSWORD_NOT_MATCH:
+                    message.warn('两次密码不一致！');
+                    break;
+            }
+        })
+    };
 
     return props.currentUser ? <>
         <Modal
@@ -199,8 +224,63 @@ const UserSetting = props => {
                             </Form.Item>
                         </Form>
                     </TabPane>
-                    <TabPane tab="资产管理" key="2">
-                        资产管理
+                    <TabPane tab="修改密码" key="2">
+                        <Form
+                            name="update_password"
+                            labelCol={{span: 4}}
+                            wrapperCol={{span: 20}}
+                            onFinish={handlePasswordUpdate}
+                        >
+                            <Form.Item
+                                name="password"
+                                label="原密码"
+                                labelAlign='right'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password',
+                                    },
+                                ]}
+                            >
+                                <Input.Password placeholder="Please input your password"/>
+                            </Form.Item>
+                            <Form.Item
+                                name="newPassword"
+                                label="新密码"
+                                labelAlign='right'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your new password',
+                                    },
+                                ]}
+                            >
+                                <Input.Password placeholder="Please input your new password"/>
+                            </Form.Item>
+                            <Form.Item
+                                name="confirmPassword"
+                                label="确认新密码"
+                                labelAlign='right'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your confirm password',
+                                    },
+                                ]}
+                            >
+                                <Input.Password placeholder="Please input your confirm password"/>
+                            </Form.Item>
+                            <Form.Item
+                                wrapperCol={{
+                                    xs: {span: 24, offset: 0},
+                                    sm: {span: 16, offset: 8},
+                                }}
+                            >
+                                <Button type="primary" htmlType="submit" loading={formLoading}>
+                                    修改密码
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     </TabPane>
                     <TabPane tab="账号管理" key="3">
                         账号管理

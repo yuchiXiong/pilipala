@@ -1,5 +1,5 @@
-json.code Code::Success
-json.message 'Success'
+json.code Code::SUCCESS
+json.message 'SUCCESS'
 json.data do
   json.user do
     json.key_format! camelize: :lower

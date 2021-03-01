@@ -1,15 +1,16 @@
 module Code
-  Success = 8888
+  SUCCESS = 8888
 
-  Parameter_Missing             = 84000
-  Account_Or_Password_Not_Match = 84001
-  Photo_Format_Not_Support      = 84002
-  Unauthorized_Expired          = 8401
-  Unauthorized_Error            = 8402
-  Access_Denied                 = 8403
+  PARAMETER_MISSING             = 84000
+  ACCOUNT_OR_PASSWORD_NOT_MATCH = 84001
+  PHOTO_FORMAT_NOT_SUPPORT      = 84002
+  TWICE_PASSWORD_NOT_MATCH      = 84003
 
-  Resource_Not_Found = 8404
+  UNAUTHORIZED_EXPIRED = 8401
+  UNAUTHORIZED_ERROR   = 8402
+  ACCESS_DENIED        = 8403
 
+  RESOURCE_NOT_FOUND = 8404
 
-  Server_Error = 8500
+  SERVER_ERROR = 8500
 end

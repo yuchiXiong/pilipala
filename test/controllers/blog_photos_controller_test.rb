@@ -36,7 +36,7 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
       'Accept': 'application/json'
     }
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+    assert_equal JSON.parse(@response.body)['code'], Code::RESOURCE_NOT_FOUND
   end
 
   test 'blog not exists of current user' do
@@ -48,7 +48,7 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
       'Accept': 'application/json'
     }
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+    assert_equal JSON.parse(@response.body)['code'], Code::RESOURCE_NOT_FOUND
   end
 
   test 'file not support' do
@@ -60,10 +60,10 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
       'Accept': 'application/json'
     }
     assert_response :bad_request
-    assert_equal JSON.parse(@response.body)['code'], Code::Photo_Format_Not_Support
+    assert_equal JSON.parse(@response.body)['code'], Code::PHOTO_FORMAT_NOT_SUPPORT
   end
 
-  test 'success' do
+  test 'SUCCESS' do
     sign_in users(:success)
     post api_blog_photos_url, params: {
       blogId: blogs(:success).id,
@@ -72,7 +72,7 @@ class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
       'Accept': 'application/json'
     }
     assert_response :success
-    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_equal JSON.parse(@response.body)['code'], Code::SUCCESS
     assert_instance_of String, JSON.parse(@response.body)['data']['photoURL']
     assert_not_nil open(@photo_domain + JSON.parse(@response.body)['data']['photoURL'])
   end

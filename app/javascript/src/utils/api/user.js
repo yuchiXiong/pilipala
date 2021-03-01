@@ -21,8 +21,14 @@ const updateAvatar = (spaceName, formData) => {
     return request.put(`/api/u/${spaceName}/avatar`, formData);
 }
 
+// * PUT/PATCH /api/u/:spaceName/info
 const updateInfo = (spaceName, userInfo) => {
     return request.put(`/api/u/${spaceName}/info`, userInfo);
+}
+
+// * PUT/PATCH /api/u/:spaceName/password
+const updatePassword = (spaceName, passwordObj) => {
+    return request.put(`/api/u/${spaceName}/password`, passwordObj);
 }
 
 export {
@@ -31,5 +37,6 @@ export {
     popular,
     publications,
     updateAvatar,
-    updateInfo
+    updateInfo,
+    updatePassword
 };

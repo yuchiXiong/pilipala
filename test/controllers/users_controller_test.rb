@@ -25,7 +25,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :not_found
-    assert_equal JSON.parse(@response.body)['code'], Code::Resource_Not_Found
+    assert_equal JSON.parse(@response.body)['code'], Code::RESOURCE_NOT_FOUND
   end
 
   test 'can not fetch blogs because current user is not be visited user' do
@@ -36,7 +36,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :forbidden
-    assert_equal JSON.parse(@response.body)['code'], Code::Access_Denied
+    assert_equal JSON.parse(@response.body)['code'], Code::ACCESS_DENIED
   end
 
   test 'fetch user blogs' do
@@ -47,7 +47,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
       }
     }
     assert_response :success
-    assert_equal JSON.parse(@response.body)['code'], Code::Success
+    assert_equal JSON.parse(@response.body)['code'], Code::SUCCESS
     assert_instance_of Array, JSON.parse(@response.body)['data']['blogs']
   end
 

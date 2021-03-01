@@ -41,7 +41,7 @@ const fetchBlogComments = (id, callback) => {
 const replyComments = (id, comments, callback) => {
     return dispatch => {
         BlogComment.create(id, comments).then(res => {
-            if (res.code === ReturnCode.Success) {
+            if (res.code === ReturnCode.SUCCESS) {
                 dispatch({
                     type: REPLY_COMMENT,
                     comments: [...res.data.comments]
@@ -55,7 +55,7 @@ const replyComments = (id, comments, callback) => {
 const deleteComment = (blogId, id, callback) => {
     return dispatch => {
         BlogComment.destroy(blogId, id).then(res => {
-            if (res.code === ReturnCode.Success) {
+            if (res.code === ReturnCode.SUCCESS) {
                 dispatch({
                     type: DELETE_COMMENT,
                     id
