@@ -1,4 +1,4 @@
-import {UPDATE_USER_AVATAR} from './types';
+import {UPDATE_USER_AVATAR, UPDATE_USER_INFO} from './types';
 
 const updateAvatar = avatar => {
     return {
@@ -7,6 +7,14 @@ const updateAvatar = avatar => {
     };
 }
 
+const updateInfo = info => {
+    return {
+        type: UPDATE_USER_INFO,
+        info
+    };
+}
+
 export {
-    updateAvatar
+    updateAvatar,
+    updateInfo
 };

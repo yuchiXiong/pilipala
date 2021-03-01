@@ -1,8 +1,7 @@
 class Api::UsersController < ApiController
-  before_action :set_user, only: [:popular, :show, :avatar]
-  before_action :current_user?, only: :avatar
-  # skip_before_action :authenticate_user!, only: [:hots, :blogs, :show]
-  skip_before_action :authenticate_user!
+  before_action :set_user, only: [:popular, :show, :avatar, :info]
+  before_action :current_user?, only: [:avatar, :info]
+  skip_before_action :authenticate_user!, only: [:popular, :show]
 
   # * GET /api/u/popular
   def popular
@@ -17,7 +16,12 @@ class Api::UsersController < ApiController
 
   # * PUT/PATCH /api/u/:space_name/avatar
   def avatar
-    current_user.update!(avatar: user_avatar_params[:avatar])
+    current_user.update!(user_avatar_params)
+  end
+
+  # * PUT/PATCH /api/u/:space_name/info
+  def info
+    current_user.update!(user_info_params)
   end
 
   private
@@ -33,4 +37,11 @@ class Api::UsersController < ApiController
   def user_avatar_params
     params.require(:user).permit(:avatar)
   end
+
+  def user_info_params
+    params.require(:user)
+          .permit(:description, :email, :nickName, :spaceName)
+          .transform_keys { |k| k.to_s.underscore }
+  end
+
 end

@@ -24,7 +24,7 @@ export default props => {
     } else {
         initState = {
             ...window.__REACT_RAILS_SSR__,
-            ...window.gon?.currentUser
+            currentUser: window.__REACT_RAILS_SSR__?.currentUser || window.gon?.currentUser || null
         };
         window.__REACT_RAILS_SSR__ = props.path;
     }

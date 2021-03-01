@@ -6,7 +6,7 @@ import {UploadOutlined} from '@ant-design/icons';
 import Cropper from "react-cropper";
 import {User} from '../../utils/api';
 import ReturnCode from '../../utils/return-code';
-import {updateAvatar} from '../store/actions';
+import {updateAvatar, updateInfo} from '../store/actions';
 
 import 'cropperjs/dist/cropper.css';
 
@@ -15,13 +15,9 @@ const {TabPane} = Tabs;
 const UserSetting = props => {
 
     const [cropperVisible, setCropperVisible] = useState(false);
+    const [formLoading, setFormLoading] = useState(false);
     const [avatar, setAvatar] = useState(null);
     const cropperRef = useRef(null);
-
-    const getCurrentUser = () => {
-        return props.currentUser ||
-            (typeof window !== 'undefined' && window.gon?.currentUser) || null;
-    }
 
     const handleAvatarUpload = e => {
         setCropperVisible(true);
@@ -40,7 +36,7 @@ const UserSetting = props => {
             formData.append('_method', 'put');
             formData.append("user[avatar]", file, 'avatar.png');
 
-            User.updateAvatar(getCurrentUser().spaceName, formData).then(res => {
+            User.updateAvatar(props.currentUser.spaceName, formData).then(res => {
                 if (res.code === ReturnCode.Success) {
                     props.updateAvatar(res.data.user.avatar);
                     setAvatar(null);
@@ -52,7 +48,25 @@ const UserSetting = props => {
         });
     }
 
-    return getCurrentUser() ? <>
+    const handleUserInfoUpdate = val => {
+        setFormLoading(true);
+        User.updateInfo(props.currentUser.spaceName, {
+            user: {
+                description: val.description,
+                email: val.email,
+                nickName: val.nickName,
+                spaceName: val.spaceName
+            }
+        }).then(res => {
+            if (res.code === ReturnCode.Success) {
+                props.updateInfo(res.data.user);
+                message.success('修改成功');
+                setFormLoading(false);
+            }
+        });
+    }
+
+    return props.currentUser ? <>
         <Modal
             title="裁剪您的头像"
             cancelText='取消'
@@ -87,16 +101,13 @@ const UserSetting = props => {
                             name="time_related_controls"
                             labelCol={{span: 4}}
                             wrapperCol={{span: 20}}
-                            onFinish={(val) => {
-                                console.log(val);
-                            }}
+                            onFinish={handleUserInfoUpdate}
                         >
                             <Form.Item
                                 name="avatar"
                                 label={<Avatar
-                                    src={getCurrentUser().avatar}
-                                    // src={'https://assets.bubuyu.top/avatars/development/1/avatar.jpeg'}
-                                    alt={getCurrentUser().nickName}
+                                    src={props.currentUser.avatar}
+                                    alt={props.currentUser.nickName}
                                     size={48}
                                 />}
                                 colon={false}
@@ -130,7 +141,7 @@ const UserSetting = props => {
                                         message: 'Please input your name',
                                     }
                                 ]}
-                                initialValue={getCurrentUser().nickName}
+                                initialValue={props.currentUser.nickName}
                             >
                                 <Input placeholder="Please input your name"/>
                             </Form.Item>
@@ -144,7 +155,7 @@ const UserSetting = props => {
                                         message: 'Please input your name',
                                     },
                                 ]}
-                                initialValue={getCurrentUser().email}
+                                initialValue={props.currentUser.email}
                             >
                                 <Input placeholder="Please input your email"/>
                             </Form.Item>
@@ -158,7 +169,7 @@ const UserSetting = props => {
                                         message: 'Please input your name',
                                     },
                                 ]}
-                                initialValue={getCurrentUser().description}
+                                initialValue={props.currentUser.description}
                             >
                                 <Input placeholder="Please input your description"/>
                             </Form.Item>
@@ -172,7 +183,7 @@ const UserSetting = props => {
                                         message: 'Please input your name',
                                     },
                                 ]}
-                                initialValue={getCurrentUser().spaceName}
+                                initialValue={props.currentUser.spaceName}
                             >
                                 <Input placeholder="Please input your spaceName"/>
                             </Form.Item>
@@ -182,7 +193,7 @@ const UserSetting = props => {
                                     sm: {span: 16, offset: 8},
                                 }}
                             >
-                                <Button type="primary" htmlType="submit">
+                                <Button type="primary" htmlType="submit" loading={formLoading}>
                                     修改
                                 </Button>
                             </Form.Item>
@@ -204,6 +215,7 @@ export default connect(
     state => state,
     dispatch => {
         return {
-            updateAvatar: url => dispatch(updateAvatar(url))
+            updateAvatar: url => dispatch(updateAvatar(url)),
+            updateInfo: info => dispatch(updateInfo(info))
         }
     })(UserSetting);

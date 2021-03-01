@@ -21,10 +21,15 @@ const updateAvatar = (spaceName, formData) => {
     return request.put(`/api/u/${spaceName}/avatar`, formData);
 }
 
+const updateInfo = (spaceName, userInfo) => {
+    return request.put(`/api/u/${spaceName}/info`, userInfo);
+}
+
 export {
     popularBlogs,
     show,
     popular,
     publications,
-    updateAvatar
+    updateAvatar,
+    updateInfo
 };
