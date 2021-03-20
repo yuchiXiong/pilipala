@@ -1,3 +1,9 @@
+import Rails from '@rails/ujs';
+
+console.log(Rails);
+window.Rails = Rails;
+
+
 $(document).on("turbolinks:load", () => {
 
     if ($('#sessions__new, #registrations__new').length) {

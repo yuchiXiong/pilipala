@@ -14,7 +14,10 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+import Rails from '@rails/ujs';
 
+console.log(Rails);
+window.Rails = Rails;
 console.log('Hello World from React SSR')
 // Support component names relative to this directory:
 var componentRequireContext = require.context("src", true);

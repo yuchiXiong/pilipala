@@ -226,7 +226,7 @@ const UserSetting = props => {
                     </TabPane>
                     <TabPane tab="修改密码" key="2">
                         <Form
-                            name="update_password"
+                            name="updatePassword"
                             labelCol={{span: 4}}
                             wrapperCol={{span: 20}}
                             onFinish={handlePasswordUpdate}
@@ -283,7 +283,36 @@ const UserSetting = props => {
                         </Form>
                     </TabPane>
                     <TabPane tab="账号管理" key="3">
-                        账号管理
+                        <Form
+                            name="destroyAccount"
+                            labelCol={{span: 4}}
+                            wrapperCol={{span: 20}}
+                            onFinish={handlePasswordUpdate}
+                        >
+                            <Form.Item
+                                name="password"
+                                label="原密码"
+                                labelAlign='right'
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: 'Please input your password',
+                                    },
+                                ]}
+                            >
+                                <Input.Password placeholder="Please input your password"/>
+                            </Form.Item>
+                            <Form.Item
+                                wrapperCol={{
+                                    xs: {span: 24, offset: 0},
+                                    sm: {span: 16, offset: 8},
+                                }}
+                            >
+                                <Button type="primary" htmlType="submit" loading={formLoading}>
+                                    注销账户
+                                </Button>
+                            </Form.Item>
+                        </Form>
                     </TabPane>
                 </Tabs>
             </Col>
