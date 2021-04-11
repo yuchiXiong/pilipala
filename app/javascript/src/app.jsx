@@ -10,6 +10,7 @@ import Home from './pages/home';
 import BlogShow from './pages/blog-show';
 import UserShow from './pages/user-show';
 import UserSetting from './pages/user-setting';
+import Editor from './pages/editor';
 import Footer from './components/footer';
 
 import style from './app.module.scss';
@@ -33,16 +34,19 @@ export default props => {
     return <Provider store={store}>
         <IsomorphicRouter path={props.path}>
             <Layout className={style.app}>
-                <Header/>
-                <Content className={style.content}>
-                    <Switch>
-                        <Route exact path='/u/setting' component={UserSetting} suppressHydrationWarning={true}/>
-                        <Route exact path='/' component={Home}/>
-                        <Route exact path='/blogs/:id' component={BlogShow}/>
-                        <Route exact path='/u/:spaceName' component={UserShow}/>
-                    </Switch>
-                </Content>
-                <Footer/>
+                <Switch>
+                    <Route exact path='/editor' component={Editor}/>
+                    <Route path='/'>
+                        <Header/>
+                        <Content className={style.content}>
+                            <Route exact path='/u/setting' component={UserSetting} suppressHydrationWarning={true}/>
+                            <Route exact path='/' component={Home}/>
+                            <Route exact path='/blogs/:id' component={BlogShow}/>
+                            <Route exact path='/u/:spaceName' component={UserShow}/>
+                        </Content>
+                        <Footer/>
+                    </Route>
+                </Switch>
             </Layout>
         </IsomorphicRouter>
     </Provider>

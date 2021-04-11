@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     passwords:     'users/passwords'
   }
 
-  get :editor, to: 'editor#index'
+  # get :editor, to: 'editor#index'
   # resources :users, only: [:edit]
 
   # * APIs
@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       resources :comments, controller: :blog_comments, only: %i[index create destroy]
     end
     resources :users, path: :u, param: :space_name, only: :show do
-      resources :blogs, only: :index, controller: :user_blogs do
+      resources :blogs, only: %i[index show], controller: :user_blogs do
         get :popular, on: :collection # * author's other blogs
         get :publications, on: :collection # * user's accessible blogs
       end

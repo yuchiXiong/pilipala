@@ -2,7 +2,7 @@
   "name": "yuchi_xiong_top_rails",
   "private": true,
   "scripts": {
-    "dev": "./bin/webpack-dev-server",
+    "start": "./bin/webpack-dev-server",
     "build": "bundle exec rails assets:precompile"
   },
   "dependencies": {
@@ -35,7 +35,8 @@
     "react_ujs": "^2.6.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "vditor": "^3.8.4"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.12.12",

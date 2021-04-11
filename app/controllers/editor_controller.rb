@@ -1,5 +1,5 @@
 class EditorController < ApplicationController
-  layout 'application_react'
+  layout 'editor_for_react'
 
   def index
     gon.currentUser = current_user
