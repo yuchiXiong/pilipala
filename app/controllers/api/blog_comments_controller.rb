@@ -3,11 +3,13 @@ class Api::BlogCommentsController < ApiController
   skip_before_action :authenticate_user!, only: %i[index]
 
   # * GET /api/blogs/:blog_id/comments
+  # * 博客所有评论
   def index
     @comments = @blog.comments.includes(:user)
   end
 
   # * POST /api/blogs/:blog_id/comments
+  # * 创建评论
   def create
     @comment = @blog.comments.new(comment_params)
     @comment.user = current_user
@@ -15,6 +17,7 @@ class Api::BlogCommentsController < ApiController
   end
 
   # * DELETE /api/blogs/:blog_id/comments/:id
+  # * 删除评论
   def destroy
     @comment = Comment.find(params[:id])
     raise AccessDeniedError unless current_user.id == @comment.user_id
@@ -22,9 +25,9 @@ class Api::BlogCommentsController < ApiController
     @comment.destroy
   end
 
-  def comment
-    @comment_id = params[:id]
-  end
+  # def comment
+  #   @comment_id = params[:id]
+  # end
 
   private
 

@@ -2,6 +2,14 @@ class Api::UserBlogsController < ApiController
   skip_before_action :authenticate_user!
   before_action :set_user
 
+  # * GET /api/u/:space_name/blogs
+  def index
+    raise AccessDeniedError if current_user.id != @be_visited_user.id
+
+    @blogs = @be_visited_user.blogs
+    render 'api/user_blogs/publications'
+  end
+
   # * GET /api/u/:space_name/blogs/publications
   def publications
     @blogs = @be_visited_user.blogs.kept.page(params[:page]).per(10)

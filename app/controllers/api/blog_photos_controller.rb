@@ -1,10 +1,7 @@
-require 'ali/oss'
-
-
 class Api::BlogPhotosController < ApiController
 
-
-  # * POST /blog_photos
+  # * POST /api/u/:space_name/blogs/:id/photos
+  # * 上传图片至markdown
   def create
     @blog = Blog.find(params[:blogId])
     raise FormatNotSupport unless %w[image/gif image/jpeg image/png].include? params[:file].content_type

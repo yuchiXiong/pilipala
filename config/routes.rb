@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'blogs#index'
-  # * Pages
+  # * 落地页
   resources :blogs, only: %i[index show]
   resources :users, path: :u, param: :space_name, only: [:show] do
     get :setting, to: 'others#index', on: :collection
@@ -18,12 +18,15 @@ Rails.application.routes.draw do
 
   # * APIs
   namespace :api do
+
+    # * blog list/details/like
     resources :blogs, except: %i[new edit] do
       post :photo
       post :like
-      get :popular, on: :collection
+      get :popular, on: :collection # * popular blogs
       resources :comments, controller: :blog_comments, only: %i[index create destroy]
     end
+
     resources :users, path: :u, param: :space_name, only: :show do
       resources :blogs, only: %i[index show], controller: :user_blogs do
         get :popular, on: :collection # * author's other blogs

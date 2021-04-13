@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import Vditor from 'vditor';
-import {Button, Drawer, Input} from 'antd';
+import {Button, Drawer, Input, Tree} from 'antd';
 import {User} from '../../utils/api';
 
 import 'vditor/src/assets/scss/index';
 // import styles from "../../../editor_for_react/app.module.scss";
 import styles from './index.module.scss'
-import {MenuOutlined} from "@ant-design/icons";
+import {SettingOutlined} from "@ant-design/icons";
 
 // const {} = Layout;
 const test = `
@@ -96,7 +96,7 @@ const Editor = () => {
     // });
 
     useEffect(() => {
-        const vditor = new Vditor('vditor', {
+        new Vditor('vditor', {
             height: document.documentElement.clientHeight - 40,
             value: test,
             icon: 'ant',
@@ -137,25 +137,22 @@ const Editor = () => {
     }, []);
 
     useEffect(() => {
-        User.userBlogs(userInfo.spaceName).then(res => {
-            console.log(res)
-        });
-        // if (userInfo) {
-        //     User.userBlog(userInfo.spaceName, current.id).then(res => {
-        //         if (res.data.blogs.length > 0) {
-        //             console.log(res.data.blogs)
-        //             // this.setState({
-        //             //     blogs: res.data.blogs,
-        //             //     current: res.data.blogs[0]
-        //             // });
-        //         }
-        //     });
-        // }
+        if (userInfo) {
+            User.userBlogs(userInfo.spaceName).then(res => {
+                if (res.data.blogs.length > 0) {
+                    setBlogs(res.data.blogs);
+                }
+            });
+        }
     }, []);
 
     const saveBlog = function (blog) {
 
     };
+
+    const onTreeSelect = function (item) {
+        console.log(item);
+    }
 
     return <>
         <Drawer
@@ -169,15 +166,21 @@ const Editor = () => {
             }}
             visible={drawerVisible}
         >
-            {/*<Tree*/}
-            {/*    checkable*/}
-            {/*    defaultExpandedKeys={['0-0-0', '0-0-1']}*/}
-            {/*    defaultSelectedKeys={['0-0-0', '0-0-1']}*/}
-            {/*    defaultCheckedKeys={['0-0-0', '0-0-1']}*/}
-            {/*    onSelect={onSelect}*/}
-            {/*    onCheck={onCheck}*/}
-            {/*    treeData={treeData}*/}
-            {/*/>*/}
+            <Tree
+                // defaultExpandedKeys={['0-0-0', '0-0-1']}
+                // defaultSelectedKeys={['0-0-0', '0-0-1']}
+                // defaultCheckedKeys={['0-0-0', '0-0-1']}
+                onSelect={onTreeSelect}
+                // onCheck={onCheck}
+                showLine={true}
+                treeData={[
+                    {
+                        title: '默认文集',
+                        key: 'default',
+                        children: blogs
+                    }
+                ]}
+            />
         </Drawer>
 
         <Button
@@ -186,7 +189,7 @@ const Editor = () => {
             className={styles.drawerToggleBtn}
             style={{left: drawerVisible ? 256 : 0}}
         >
-            <MenuOutlined style={{fontSize: '20px'}}/>
+            <SettingOutlined style={{fontSize: '20px'}}/>
         </Button>
 
         <header>

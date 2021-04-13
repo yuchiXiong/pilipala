@@ -1,5 +1,10 @@
 import request from '../request';
 
+// * GET /api/u/:spaceName/blogs
+const userBlogs = spaceName => {
+    return request.get(`/api/u/${spaceName}/blogs`);
+}
+
 const popularBlogs = spaceName => {
     return request.get(`/api/u/${spaceName}/blogs/popular`);
 }
@@ -31,7 +36,9 @@ const updatePassword = (spaceName, passwordObj) => {
     return request.put(`/api/u/${spaceName}/password`, passwordObj);
 }
 
+
 export {
+    userBlogs,
     popularBlogs,
     show,
     popular,

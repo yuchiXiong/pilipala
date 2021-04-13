@@ -1,0 +1,15 @@
+.drawerToggleBtn {
+  position: absolute;
+  z-index: 1080;
+
+  height: 50px;
+  width: 50px;
+
+  left: 0;
+  top: 50%;
+  margin-top: -25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
