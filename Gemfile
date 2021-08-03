@@ -20,7 +20,7 @@ gem 'jbuilder', '~> 2.10'
 gem 'rack-cors'
 
 # * oss server
-gem 'aliyun-sdk', '~> 0.6.0'
+gem 'aliyun-sdk'
 gem 'aliyunsdkcore'
 
 # * file uploader
@@ -55,7 +55,7 @@ gem 'action-store'
 gem 'newrelic_rpm'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
+gem 'rails', '~> 6.0', '>= 6.0.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
