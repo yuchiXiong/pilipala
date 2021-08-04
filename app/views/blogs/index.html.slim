@@ -6,9 +6,9 @@
   #homeCarousel.carousel.slide.mb-3.col-12.d-none.d-lg-block data-ride="carousel"
     .carousel-inner
       .carousel-item.active
-        = image_pack_tag 'media/assets/images/default1.png', class: 'w-100'
+        img.w-100[src== vite_asset_path('assets/images/default1.png')]
       .carousel-item
-        = image_pack_tag 'media/assets/images/default2.png', class: 'w-100'
+        img.w-100[src== vite_asset_path('assets/images/default2.png')]
     a.carousel-control-prev href="#homeCarousel" role="button" data-slide="prev"
       span.carousel-control-prev-icon aria-hidden="true"
       span.sr-only

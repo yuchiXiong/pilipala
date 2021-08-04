@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input, Spin, Typography, Avatar, Button} from 'antd';
+import {Avatar, Button, Input, Spin, Typography} from 'antd';
 import {UserOutlined} from '@ant-design/icons';
 import {Editor} from '@toast-ui/react-editor';
 import dayjs from 'dayjs';
@@ -8,7 +8,7 @@ import {Blog, BlogPhoto} from '../../utils/api';
 import hljs from 'highlight.js';
 
 import 'highlight.js/styles/github.css';
-import 'highlight.js/styles/atom-one-dark';
+import 'highlight.js/styles/atom-one-dark.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
 import styles from './index.module.scss';

@@ -38,7 +38,8 @@ gem 'kaminari'
 gem 'redcarpet'
 gem 'rucaptcha'
 gem 'slim'
-gem 'webpacker'
+# gem 'webpacker'
+gem 'vite_rails'
 
 # * account system
 gem 'devise'

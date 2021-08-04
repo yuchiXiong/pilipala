@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 $(document).on("turbolinks:load", () => {
 
     if ($('#sessions__new, #registrations__new').length) {

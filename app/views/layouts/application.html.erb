@@ -8,9 +8,9 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%#= javascript_pack_tag 'stimulus', 'data-turbolinks-track': 'reload' %>
+  <%= vite_client_tag %>
+  <%= vite_javascript_tag 'application' %>
+  <%= vite_stylesheet_tag 'application.scss' %>
 </head>
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">

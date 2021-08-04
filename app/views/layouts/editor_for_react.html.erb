@@ -5,8 +5,9 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= include_gon %>
-  <%= stylesheet_pack_tag 'editor_for_react', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'editor_for_react', 'data-turbolinks-track': 'reload' %>
+
+  <%= vite_client_tag %>
+  <%= vite_javascript_tag 'editor_for_react.jsx' %>
 </head>
 
 <body id="editor_for_react">

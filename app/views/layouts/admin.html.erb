@@ -5,8 +5,15 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= include_gon %>
-  <%= stylesheet_pack_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'admin', 'data-turbolinks-track': 'reload' %>
+
+  <%= vite_client_tag %>
+
+  <%= vite_javascript_tag 'admin' %>
+  <%= vite_stylesheet_tag 'admin.scss' %>
+
+  <%#= stylesheet_pack_tag 'admin', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%#= javascript_pack_tag 'admin', 'data-turbolinks-track': 'reload' %>
+
 </head>
 
 <body>

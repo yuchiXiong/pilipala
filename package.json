@@ -36,6 +36,8 @@
     "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
+    "vite": "^2.3.8",
+    "vite-plugin-ruby": "^2.0.4",
     "webpack-dev-server": "^3.11.2"
   }
 }
