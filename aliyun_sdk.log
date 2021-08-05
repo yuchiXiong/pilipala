@@ -1,2 +1,0 @@
-# Logfile created on 2020-09-05 14:26:11 +0800 by logger.rb/61378
-E, [2020-10-25T11:50:18.737020 #13886] ERROR -- : RequestId: 5F94F5FADAD5753339AB2E6D, Code: NoSuchBucket, Message: The specified bucket does not exist., HostId: assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com, BucketName: assets-blog-xiongyuchi, HTTPCode: 404

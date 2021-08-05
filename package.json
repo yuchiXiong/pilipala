@@ -2,8 +2,8 @@
   "name": "yuchi_xiong_top_rails",
   "private": true,
   "scripts": {
-    "dev": "./bin/webpack-dev-server",
-    "build": "bundle exec rails assets:precompile"
+    "dev": "vite dev",
+    "build": "vite build"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
