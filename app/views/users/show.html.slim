@@ -2,11 +2,6 @@
 
 = render 'shared/to_top_btn'
 
-= provide :slot do
-  div[data-controller='navbar-toggle' data-action='scroll@document->navbar-toggle#toggleNavbar']
-    = render 'shared/header'
-    = render 'shared/user_header'
-
 = provide :left_slot do
   .blog-main
     = render @be_visited_user, be_visited_user: @be_visited_user

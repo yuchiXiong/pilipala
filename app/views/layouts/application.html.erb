@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cn">
+<html lang="cn" class="dark">
 <head>
   <title><%= yield :title %></title>
   <link rel="icon" href="/website.svg"/>
@@ -15,7 +15,8 @@
 
 <body id="<%= "#{controller_name}__#{action_name}" %>">
 
-<%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
+<%= render 'shared/global_header' %>
+<%# <%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
 <%= yield :slot %>
 
 <div class="container">

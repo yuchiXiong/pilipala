@@ -1,7 +1,7 @@
 = form_for(resource, as: resource_name,
         url: update_info_user_url(current_user.id),
-        html: { class: 'edit_user_info', id: 'edit_user_info', method: :put },
-        remote: true) do |f|
+        html: {class: 'edit_user_info', id: 'edit_user_info', method: :put},
+) do |f|
   = render "devise/shared/error_messages", resource: resource
 
   .user_basic_info.mb-2

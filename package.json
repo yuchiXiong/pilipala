@@ -2,8 +2,9 @@
   "name": "yuchi_xiong_top_rails",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build"
+    "dev": "./bin/vite dev",
+    "start": "./bin/vite dev",
+    "build": "./bin/vite build"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -11,33 +12,32 @@
     "@rails/actioncable": "^6.0.3-4",
     "@rails/activestorage": "^6.0.3-4",
     "@rails/ujs": "^6.0.3-4",
-    "@rails/webpacker": "5.4.0",
     "@toast-ui/editor-plugin-code-syntax-highlight": "^1.0.0",
     "@toast-ui/react-editor": "^2.5.0",
+    "alpinejs": "^3.2.3",
     "antd": "^4.7.2",
+    "autoprefixer": "^10.3.1",
     "axios": "^0.20.0",
     "babel-plugin-import": "^1.13.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "bootstrap": "^4.5.2",
     "dayjs": "^1.9.1",
     "highlight.js": "^10.2.1",
-    "jquery": "^3.5.1",
     "less": "^3.12.2",
     "less-loader": "^7.0.2",
-    "popper.js": "^1.16.1",
+    "postcss-import": "^14.0.2",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-cropper": "^2.1.4",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
+    "sass": "^1.37.5",
     "stimulus": "^1.1.1",
-    "turbolinks": "^5.2.0",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12"
+    "tailwindcss": "^2.2.7",
+    "turbolinks": "^5.2.0"
   },
   "devDependencies": {
     "vite": "^2.3.8",
-    "vite-plugin-ruby": "^2.0.4",
-    "webpack-dev-server": "^3.11.2"
+    "vite-plugin-full-reload": "^0.2.2",
+    "vite-plugin-ruby": "^2.0.4"
   }
 }
