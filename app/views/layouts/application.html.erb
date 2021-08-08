@@ -13,34 +13,25 @@
   <%= vite_stylesheet_tag 'application.scss' %>
 </head>
 
-<body id="<%= "#{controller_name}__#{action_name}" %>">
+<body class="flex flex-col h-screen">
 
 <%= render 'shared/global_header' %>
-<%# <%= render 'shared/header' unless %w(users__show blogs__show).include? "#{controller_name}__#{action_name}" %>
-<%= yield :slot %>
 
-<div class="container">
+<div class="container mx-auto flex-1">
 
-  <%= render 'shared/notice' %>
-  <div class="app">
+  <div class="col-12 col-lg-9">
+    <%= yield :left_slot %>
+  </div>
 
-    <div id="app_left" class="col-12 col-lg-9">
-      <%= yield :left_slot %>
-    </div>
-    <div id="app_right" class="col-3 d-none d-lg-block">
-      <%= yield :right_slot %>
-    </div>
+  <div class="col-3 d-none d-lg-block">
+    <%= yield :right_slot %>
   </div>
 
 </div>
 
-<%= yield :custom_slot %>
-
-<footer class="mastfoot mt-auto border-top">
-  <div class="inner">
-    <p class="mb-0"><a href="https://beian.miit.gov.cn/">鄂ICP备18022630号-2</a></p>
-    <p class="mb-0">Design By <a href="https://github.com/yuchiXiong">@yuchiXiong</a>.</p>
-  </div>
+<footer class="border-t p-4 text-base text-black">
+  <p class="text-center"><a href="https://beian.miit.gov.cn/">鄂ICP备18022630号-2</a></p>
+  <p class="text-center">Design By <a href="https://github.com/yuchiXiong" class="text-red-800">@yuchiXiong</a>.</p>
 </footer>
 
 </body>

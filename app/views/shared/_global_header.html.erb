@@ -4,14 +4,14 @@
       <%= image_tag 'https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg' %>
     </div>
     <ul class="flex flex-row justify-between ">
-      <li class="mx-4 hover:border-b-2 hover:border-solid border-b-2 border-fuchsia-600 border-red-800">
-        <%= link_to '首页', root_path, class: 'text-base text-black hover:text-red-800 transition' %>
+      <li class="mx-4 transition border-b-2 border-white text-black hover:text-red-800 hover:border-red-800 h-16 w-16 border-fuchsia-600 flex justify-center items-center">
+        <%= link_to '首页', root_path, class: 'text-base block w-full h-full text-center flex flex-col items-center justify-center' %>
       </li>
     </ul>
     <div x-data="{visible: false}" class="ml-auto flex flex-row items-center">
-      <button 
-        @mouseenter="visible = true" 
-        @mouseleave="visible = false" 
+      <button
+        @mouseenter="visible = true"
+        @mouseleave="visible = false"
         class="relative bg-white h-10 w-10 rounded-full text-sm text-red-800 font-semibold transition"
       >
         <%- if current_user %>
@@ -29,17 +29,17 @@
           </div>
         <%- else %>
           <%= link_to '登录', new_user_session_url, {
-              class: 'text-red-600',
+              class: 'text-red-800',
               html: {
                   '@mouseenter': "visible = true",
                   '@mouseleave': "visible = false"
               }
           }
           %>
-          <div 
+          <div
             x-show="visible"
             x-transition
-            class="absolute transition shadow w-max bg-white top-11 -left-32 text-left font-thin text-black p-4"
+            class="absolute transition shadow-md w-max bg-white top-11 -left-32 text-left font-thin text-black p-4"
           >
             <p class="mb-4">登录后你可以：</p>
             <ul class="flex flex-row my-1">

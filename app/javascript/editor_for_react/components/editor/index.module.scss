@@ -1,71 +1,71 @@
-@import "../../../stylesheets/mixins";
+// @import "../../../stylesheets/mixins";
 
-:global(.editor_container) {
-  height: 100vh;
-}
+// :global(.editor_container) {
+//   height: 100vh;
+// }
 
-:global(.ant-spin-container) {
-  height: 100vh !important;
-  @include flex-col();
+// :global(.ant-spin-container) {
+//   height: 100vh !important;
+//   @include flex-col();
 
-  & > div {
-    height: unset;
-    flex: 1;
-  }
-}
+//   & > div {
+//     height: unset;
+//     flex: 1;
+//   }
+// }
 
-:global(.editor_container) {
-  :global(.ant-spin) {
-    max-height: unset !important;
-  }
-}
+// :global(.editor_container) {
+//   :global(.ant-spin) {
+//     max-height: unset !important;
+//   }
+// }
 
-:global(.te-toolbar-section) {
-  display: none;
-}
+// :global(.te-toolbar-section) {
+//   display: none;
+// }
 
-.input_title {
-  @include flex-row;
-  align-items: center;
-  background: #fff;
-  transition: border-bottom 450ms;
-  border-bottom: 2px solid transparent;
+// .input_title {
+//   @include flex-row;
+//   align-items: center;
+//   background: #fff;
+//   transition: border-bottom 450ms;
+//   border-bottom: 2px solid transparent;
 
-  &:hover {
-    border-bottom: 2px solid $theme_color;
-  }
+//   &:hover {
+//     border-bottom: 2px solid $theme_color;
+//   }
 
-  input {
-    font-size: 24px !important;
-    padding: 12px !important;
-    font-weight: bold;
-    width: 90%;
-    outline: none;
-    border: none;
-    flex: 1;
+//   input {
+//     font-size: 24px !important;
+//     padding: 12px !important;
+//     font-weight: bold;
+//     width: 90%;
+//     outline: none;
+//     border: none;
+//     flex: 1;
 
-    &:focus {
-      box-shadow: none;
-    }
-  }
+//     &:focus {
+//       box-shadow: none;
+//     }
+//   }
 
-  :global(.ant-avatar) {
-    margin: 0 12px;
-  }
-}
+//   :global(.ant-avatar) {
+//     margin: 0 12px;
+//   }
+// }
 
-.loading {
-  position: relative;
-}
+// .loading {
+//   position: relative;
+// }
 
-.website_place_holder {
-  @include flex-col;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
+// .website_place_holder {
+//   @include flex-col;
+//   height: 100%;
+//   justify-content: center;
+//   align-items: center;
+//   user-select: none;
 
-  h2 {
-    color: #ccc !important;
-  }
-}
+//   h2 {
+//     color: #ccc !important;
+//   }
+// }

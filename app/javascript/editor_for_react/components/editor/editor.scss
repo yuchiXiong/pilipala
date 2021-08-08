@@ -1,4 +1,4 @@
-@import "../../../stylesheets/vars";
+// @import "../../../stylesheets/vars";
 
 .tui-md-heading1,
 .te-preview .tui-editor-contents h1 {
@@ -28,7 +28,7 @@
 .tui-editor-contents h4,
 .tui-editor-contents h5,
 .tui-editor-contents h6 {
-  border-bottom: 1px solid $gray_bg_color;
+  // border-bottom: 1px solid $gray_bg_color;
   padding-bottom: 12px;
   margin-top: 40px;
   margin-bottom: 12px;
@@ -41,11 +41,11 @@ pre span,
 
 .tui-editor-contents blockquote {
   padding: 24px 12px;
-  border-left: 4px solid $dim_theme_color;
+  // border-left: 4px solid $dim_theme_color;
   background-color: #f0f0f0;
 
   &:after {
-    border-left: 4px solid $dim_theme_color;
+    // border-left: 4px solid $dim_theme_color;
     background-color: #f0f0f0 !important;
   }
 }
