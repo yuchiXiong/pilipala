@@ -1,14 +1,14 @@
 <nav class=" shadow sticky top-0 bg-white">
-  <nav class="container mx-auto flex flex-row px-8 h-16 items-center">
-    <div class="h-8 w-8 mr-4">
+  <nav class="w-container relative mx-auto flex flex-row h-16 items-center justify-center">
+    <div class="h-8 w-8 mr-4 absolute -left-12">
       <%= image_tag 'https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg' %>
     </div>
-    <ul class="flex flex-row justify-between ">
-      <li class="mx-4 transition border-b-2 border-white text-black hover:text-red-800 hover:border-red-800 h-16 w-16 border-fuchsia-600 flex justify-center items-center">
+    <ul class="flex w-container flex-row justify-between ">
+      <li class="mx-2 transition border-b-2 border-white text-black hover:text-red-800 hover:border-red-800 h-16 w-16 border-fuchsia-600 flex justify-center items-center">
         <%= link_to '首页', root_path, class: 'text-base block w-full h-full text-center flex flex-col items-center justify-center' %>
       </li>
     </ul>
-    <div x-data="{visible: false}" class="ml-auto flex flex-row items-center">
+    <div x-data="{visible: false}" class="flex flex-row items-center">
       <button
         @mouseenter="visible = true"
         @mouseleave="visible = false"

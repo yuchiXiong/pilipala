@@ -1,12 +1,12 @@
 ul.blog_sider_ugc
   li.shadow-sm
-    = read_icon
+    / = read_icon
   p.text-center.small.mb-3
     = blog.reads_count
     | 阅读
   = link_to like_blog_url(blog.id), method: :post, remote: true do
     li.shadow-sm
-      = (current_user && current_user.like_blog?(blog)) ? like_icon_selected : like_icon
+    / = (current_user && current_user.like_blog?(blog)) ? like_icon_selected : like_icon
     p.text-center.small.mb-3
       = blog.likes_count
       | 喜欢

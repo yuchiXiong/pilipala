@@ -3,10 +3,10 @@
 = render 'shared/to_top_btn'
 = render 'ugc', blog: @blog
 
-= provide :slot do
-  nav[data-controller='navbar-toggle' data-action='scroll@document->navbar-toggle#toggleNavbar']
-    = render 'shared/header'
-    = render 'shared/user_blog_header'
+/ = provide :slot do
+/   nav[data-controller='navbar-toggle' data-action='scroll@document->navbar-toggle#toggleNavbar']
+/     = render 'shared/header'
+/     = render 'shared/user_blog_header'
 
 = provide :left_slot do
   .blog_detail
@@ -21,7 +21,7 @@
           small.format_date[data-controller='format-date']
             = @blog.created_at
         small
-          = read_icon
+          / = read_icon
           | &nbsp;&nbsp;
           = @blog.reads_count
 

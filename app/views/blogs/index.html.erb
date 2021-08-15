@@ -3,7 +3,22 @@
 // = render 'shared/to_top_btn'
 
 <%= provide :left_slot do %>
-  <section class="my-8">
+  <section class="my-4">
     <%= render @blogs, show_author: true %>
+  </section>
+<%- end %>
+
+<%= provide :right_slot do %>
+  <section class="h-32 border-2 border-red-800">
+    <p>热门标签</p>
+    <section>
+      <span>IT 技术</span>
+      <span>二次元</span>
+      <span>阅读</span>
+      <span>学习</span>
+      <span>考研</span>
+      <span>运动</span>
+      <span>理财</span>
+    </section>
   </section>
 <%- end %>

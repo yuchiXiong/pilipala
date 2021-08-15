@@ -1,7 +1,24 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+require 'nokogiri'
+require 'rest-client'
+
+BASE_URL = 'https://jianshu.com'
+
+body = RestClient.get(BASE_URL).body
+
+html = Nokogiri(body).css('li > .content')
+
+html.map do |content|
+  title = content.css('a')[0].children.text
+
+  address = content.css('a')[0]['href']
+
+  article_body = RestClient.get(BASE_URL + address).body
+
+  article = Nokogiri(article_body).css('article').children
+
+  unless Blog.find_by_title(title)
+    Blog.create!(user_id: User.first.id, title: title, content: article, released: true)
+    puts "已添加文章《#{title}》"
+  end
+
+end
