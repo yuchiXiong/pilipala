@@ -1,6 +1,4 @@
-<%= provide :title, 'Burogu - 简简单单创作' %>
-
-// = render 'shared/to_top_btn'
+<%= provide :title, WebSetting::APP_NAME %>
 
 <%= provide :left_slot do %>
   <section class="my-4">
@@ -9,16 +7,17 @@
 <%- end %>
 
 <%= provide :right_slot do %>
-  <section class="h-32 border-2 border-red-800">
-    <p>热门标签</p>
-    <section>
-      <span>IT 技术</span>
-      <span>二次元</span>
-      <span>阅读</span>
-      <span>学习</span>
-      <span>考研</span>
-      <span>运动</span>
-      <span>理财</span>
+  <section class="h-32 my-4">
+    <p class="text-sm text-gray-500">热门标签</p>
+    <section class="mt-2 h-40 leading-8">
+      <%- %w[
+        IT技术 学习 音乐 绘画 动漫 二次元 手工 情感 萌宠 生活 美妆 穿搭 考研 运动 历史 阅读 漫画 工作 日常
+        IT技术 学习 音乐 绘画 动漫 二次元 手工 情感 萌宠 生活 美妆 穿搭 考研 运动 历史 阅读 漫画 工作 日常
+      ].map do |tag| %>
+        <%= link_to '#', class: 'inline-block' do %>
+          <span class="text-xs bg-gray-400 px-2 py-1 rounded-full text-white"><%= tag %></span>
+        <%- end %>
+      <%- end %>
     </section>
   </section>
 <%- end %>

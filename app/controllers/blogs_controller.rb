@@ -7,7 +7,7 @@ class BlogsController < ApplicationController
   def index
     @page                       = params[:page].to_i <= 0 ? 1 : params[:page].to_i
     all_released_blogs          = Blog.visible.includes(:user)
-    @blogs                      = all_released_blogs.page(@page).per(10)
+    @blogs = all_released_blogs.page(@page).per(20)
     @hots                       = Blog.visible.first(5)
     @current_user_like_blog_ids = current_user.like_blogs.ids if current_user
     respond_to do |format|
