@@ -3,9 +3,12 @@
     <div class="h-8 w-8 mr-4 absolute -left-12">
       <%= image_tag 'https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg' %>
     </div>
-    <ul class="flex w-container flex-row justify-between ">
+    <ul class="flex w-container flex-row justify-start ">
       <li class="mx-2 transition border-b-2 border-white text-black hover:text-red-800 hover:border-red-800 h-16 w-16 border-fuchsia-600 flex justify-center items-center">
         <%= link_to '首页', root_path, class: 'text-base block w-full h-full text-center flex flex-col items-center justify-center' %>
+      </li>
+      <li class="mx-2 transition border-b-2 border-white text-black hover:text-red-800 hover:border-red-800 h-16 w-16 border-fuchsia-600 flex justify-center items-center">
+        <%= link_to '好友圈', root_path, class: 'text-base block w-full h-full text-center flex flex-col items-center justify-center' %>
       </li>
     </ul>
     <div x-data="{visible: false}" class="flex flex-row items-center">
