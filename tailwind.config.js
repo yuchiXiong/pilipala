@@ -8,6 +8,9 @@ module.exports = {
             maxWidth: {
                 'container': '1200px'
             }
+        },
+        rotate: {
+            '360': '360deg',
         }
     }
 }

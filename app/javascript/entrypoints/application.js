@@ -1,6 +1,7 @@
 console.log('Vite ⚡️ Rails');
 
 import Turbolinks from 'turbolinks';
+import TurbolinksPerfetch from 'turbolinks-prefetch';
 import Alpine from 'alpinejs';
 import '@rails/ujs';
 import dayjs from "dayjs";
@@ -12,6 +13,7 @@ import 'dayjs/locale/zh-cn';
 import.meta.globEager('./**/*_channel.js');
 
 Turbolinks.start();
+TurbolinksPerfetch.start();
 window.Alpine = Alpine;
 Alpine.start();
 // ActiveStorage.start();

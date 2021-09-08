@@ -13,26 +13,21 @@
   <%= vite_stylesheet_tag 'application.scss' %>
 </head>
 
-<body class="flex flex-col h-screen">
+<body class="flex flex-col">
 
 <%= render 'shared/global_header' %>
 
 <div class="max-w-container mx-auto flex flex-1 justify-between">
 
-  <div class="w-2/3 p-2">
+  <div class="w-2/3 p-5">
     <%= yield :left_slot %>
   </div>
 
-  <div class="w-1/3 p-2">
+  <div class="w-1/3 p-5">
     <%= yield :right_slot %>
   </div>
 
 </div>
-
-<footer class="border-t p-4 text-base text-black">
-  <p class="text-center"><a href="https://beian.miit.gov.cn/">鄂ICP备18022630号-2</a></p>
-  <p class="text-center">Design By <a href="https://github.com/yuchiXiong" class="text-red-800">@yuchiXiong</a>.</p>
-</footer>
 
 </body>
 </html>

@@ -32,7 +32,7 @@ gem 'pry-rails', '~> 0.3.9'
 # * soft delete
 gem 'discard', '~> 1.2'
 
-# * font end
+# * front end
 gem 'gon'
 gem 'kaminari'
 gem 'redcarpet'
@@ -40,6 +40,8 @@ gem 'rucaptcha'
 gem 'slim'
 # gem 'webpacker'
 gem 'vite_rails'
+gem 'browser_warrior', '~> 0.14.0'
+
 
 # * account system
 gem 'devise'

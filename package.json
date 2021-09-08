@@ -33,9 +33,11 @@
     "sass": "^1.37.5",
     "stimulus": "^1.1.1",
     "tailwindcss": "^2.2.7",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "turbolinks-prefetch": "^1.0.4"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^1.5.2",
     "vite": "^2.3.8",
     "vite-plugin-full-reload": "^0.2.2",
     "vite-plugin-ruby": "^2.0.4"

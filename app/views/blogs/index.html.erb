@@ -7,7 +7,7 @@
 <%- end %>
 
 <%= provide :right_slot do %>
-  <section class="my-4">
+  <section class="my-4 overflow-hidden">
     <p class="text-sm text-gray-500">热门标签</p>
     <section class="mt-2 h-40 leading-8">
       <%- %w[
@@ -21,18 +21,22 @@
     </section>
   </section>
 
-  <section class="my-6">
+  <section class="mt-8 mb-8">
     <p class="text-sm text-gray-500 flex">
       <span>您可能感兴趣的用户</span>
       <span
         class="ml-auto flex justify-center cursor-pointer"
         x-data="{ loading: false }"
-        @click="loading = !loading"
+        @click="
+          loading = true;
+          window.setTimeout(() => {loading = false}, 500);
+        "
       >
-        <svg t="1629122673468"
-             :class="loading ? 'icon transition transform rotate-180' : 'icon transition transform rotate-0'"
-             viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2094" width="16"
-             height="16">
+        <svg
+          t="1629122673468"
+          :class="loading ? 'icon transition duration-500 transform rotate-360' : 'icon transform rotate-0'"
+          viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2094" width="16"
+          height="16">
           <defs><style type="text/css"></style></defs>
           <path d="M981.448462 133.180788a35.367512 35.367512 0 0 0-35.367512 35.367512v85.103076a505.092283 505.092283 0 0 0-939.449541 221.046951 35.367512 35.367512 0 0 0 32.604425 38.130599 35.367512 35.367512 0 0 0 35.367512-32.604425 434.357258 434.357258 0 0 1 819.53157-165.785213h-93.944954a35.367512 35.367512 0 1 0 0 71.287641h181.2585a35.367512 35.367512 0 0 0 35.367512-35.367512V168.5483a35.367512 35.367512 0 0 0-35.367512-35.367512z m0 379.095521a35.367512 35.367512 0 0 0-38.130599 32.604425 434.357258 434.357258 0 0 1-819.531571 165.785213h100.023746a35.367512 35.367512 0 1 0 0-71.287642H42.551538a35.367512 35.367512 0 0 0-35.367512 35.367513v181.258499a35.367512 35.367512 0 1 0 71.287642 0v-85.655693a505.092283 505.092283 0 0 0 939.449541-221.046951 35.367512 35.367512 0 0 0-34.814895-37.025364z" fill="#5E5C5C" p-id="2095"></path>
         </svg>
@@ -43,9 +47,11 @@
       <ul>
         <%- User.take(3).map do |user| %>
           <li class="block flex flex-row items-center my-4 ">
-            <%= image_tag user.oss_avatar, class: "rounded-full h-9" %>
+            <%= image_tag user.oss_avatar, class: "rounded-full h-10" %>
             <span class="ml-2 h-9 flex flex-col justify-center">
-              <p class="text-sm"><%= user.nick_name %></p>
+              <p class="text-sm mb-1">
+                <%= link_to user.nick_name, user_url(user.id) %>
+              </p>
               <small class="text-xs text-gray-400">扯淡等话题下的优质作者</small>
             </span>
           </li>
@@ -56,7 +62,10 @@
 
   <section class="h-32 my-4 flex flex-col items-center border-t border-gray-200 pt-2">
     <p class="text-xs my-1">鄂ICP备18022630号-2</p>
-    <p class="text-xs my-1">Design
-      By <%= link_to '@yuchiXiong', 'https://github.com/yuchiXiong', target: "_blank", class: "text-red-800" %>.</p>
+    <p class="text-xs my-1">
+      <%= link_to 'Pilipala', 'https://github.com/yuchiXiong/burogu', target: "_blank", class: "text-red-800" %>
+      Design By
+      <%= link_to '@yuchiXiong', 'https://github.com/yuchiXiong', target: "_blank", class: "text-red-800" %>.
+    </p>
   </section>
 <%- end %>
