@@ -3,6 +3,7 @@ import Turbolinks from 'turbolinks';
 import Cropper from 'react-cropper';
 import {Layout, Modal, Upload, Button, Drawer, Typography, message} from 'antd';
 import {UploadOutlined, MenuOutlined, InboxOutlined} from '@ant-design/icons';
+import Test from './components/test';
 
 const AppSider = React.lazy(() => import('./components/sider'));
 const AppEditor = React.lazy(() => import('./components/editor'));
@@ -150,6 +151,8 @@ class App extends React.Component {
 
     render() {
         return <Suspense fallback={<Loading/>}>
+            <Test value='hello world'/>
+
             <Layout>
                 <Modal
                     title="为博文选择一张封面"

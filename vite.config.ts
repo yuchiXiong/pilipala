@@ -6,7 +6,7 @@ import FullReload from 'vite-plugin-full-reload';
 export default defineConfig({
     plugins: [
         RubyPlugin(),
-        FullReload(['config/routes.rb', 'app/views/**/*']),
+        FullReload(['config/routes.rb', 'app/views/**/*', 'app/javascript/stylesheets/*']),
         // legacy({
         //     targets: ['defaults', 'not IE 11']
         // })

@@ -32,7 +32,7 @@ module Pilipala
 
     config.load_defaults 5.2
     config.after_initialize do
-      %w(table th tr td).each do |tag|
+      %w(table th tr td article).each do |tag|
         ActionView::Base.sanitized_allowed_tags.add(tag)
       end
     end

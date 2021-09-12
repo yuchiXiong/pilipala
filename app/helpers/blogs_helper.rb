@@ -23,7 +23,7 @@ module BlogsHelper
 
   def render_markdown(content)
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, DEFAULT_OPTIONS)
-    "<div class='markdown-article'>#{markdown.render(content)}</div>"
+    "<article class='markdown-article'>#{markdown.render(content)}</article>"
   end
 
   def render_strip_down(content)

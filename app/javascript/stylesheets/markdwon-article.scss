@@ -1,0 +1,53 @@
+.markdown-article {
+  @apply py-2;
+  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, {
+    @apply my-2;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold mt-6;
+  }
+
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
+
+  h4 {
+    @apply text-base;
+  }
+
+  h5 {
+    @apply text-sm;
+  }
+
+  h6 {
+    @apply text-xs;
+  }
+
+  p {
+    @apply text-base;
+  }
+
+  blockquote {
+    @apply text-gray-400 bg-gray-100 px-2 py-1;
+  }
+
+  ul {
+    @apply pl-6;
+    li {
+      @apply list-disc;
+    }
+  }
+
+  code {
+    @apply bg-gray-100 rounded py-1 px-2 text-xs;
+  }
+}
