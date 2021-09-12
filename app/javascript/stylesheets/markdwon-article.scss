@@ -1,10 +1,24 @@
 .markdown-article {
   @apply py-2;
-  h1, h2, h3, h4, h5, h6, p, ul, ol, blockquote, {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ul,
+  ol,
+  blockquote {
     @apply my-2;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-semibold mt-6;
   }
 
@@ -49,5 +63,44 @@
 
   code {
     @apply bg-gray-100 rounded py-1 px-2 text-xs;
+  }
+
+  a {
+    @apply text-red-800 font-semibold text-xs;
+  }
+
+  img {
+    @apply mx-auto;
+  }
+
+  pre {
+    @apply bg-gray-100 p-2;
+    code {
+      @apply block;
+    }
+  }
+
+  ol {
+    @apply pl-6;
+    li {
+      @apply list-decimal;
+    }
+  }
+
+  table {
+    @apply w-full mx-auto text-center border-collapse border border-gray-200;
+
+    th {
+      @apply bg-gray-300;
+    }
+
+    tr:hover {
+      @apply bg-gray-100;
+    }
+
+    th,
+    td {
+      @apply border border-gray-200 p-2;
+    }
   }
 }
