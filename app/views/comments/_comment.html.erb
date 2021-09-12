@@ -1,0 +1,19 @@
+<li class="flex flex-row my-8">
+  <%= link_to user_url(comment.user.id) do %>
+    <img src=<%= comment.user.oss_avatar %> class="w-14 rounded-full" />
+  <%- end %>
+  <div class="ml-4 w-full">
+    <p class="text-xs font-bold text-gray-600"><%= link_to comment.user.nick_name, user_url(comment.user.id) %></p>
+    <p class="text-sm font-media my-3"><%= comment.content %></p>
+    <p class="flex">
+      <small class="text-gray-400 text-xs"><%= comment.created_at.to_s(:db) %></small>
+      <small class="text-gray-400 text-xs ml-3"><%= link_to '回复', comment_blog_comment_path(comment.blog.id, comment.id) %></small>
+      <small class="text-gray-400 text-xs ml-auto">
+        <%= link_to '删 除', blog_comment_path(comment.blog.id, comment.id), remote: true, method: :delete %>
+      </small>
+    </p>
+  </div>
+  <div>
+    <%= render partial: 'comments/sub_comment', collection: comment.sub_comments, locals: { blog: comment.blog }  %>
+  </div>
+</li>

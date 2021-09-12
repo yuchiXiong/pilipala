@@ -1,6 +1,0 @@
-- sub_comment ||= false
-= form_for [blog, comment], remote: true, html: { class: sub_comment ? 'sub_comment_input' : 'new_comment' } do |f|
-  - if sub_comment
-    input type="hidden" name="comment[comment_id]" value==@comment_id
-  = f.text_area 'content', class: 'form-control mt-3 mb-3', rows: '3', placeholder: '发条友善的评论吧'
-  = f.submit '发表', class: 'btn btn-primary'

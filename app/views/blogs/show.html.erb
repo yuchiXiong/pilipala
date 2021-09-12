@@ -6,7 +6,7 @@
 <%= render 'ugc', blog: @blog %>
 
 <%= provide :left_slot do %>
-  <h3 class="text-2xl"><%= @blog.title %></h3>
+  <h3 class="text-3xl"><%= @blog.title %></h3>
   <p class="flex flex-row my-1">
     <small class="text-gray-400 text-xs">发布于 <%= @blog.created_at.to_s(:db) %></small>
     <small class="ml-2 text-gray-400 flex flex-row justify-center text-xs">
@@ -19,11 +19,14 @@
   </p>
   <%= render @blog.user, be_visited_user: @blog.user %>
   <%= sanitize render_markdown(@blog.content) %>
-  <section>
-    <h4>评论</h4>
+
+  <hr class="my-6 border-gray-200" />
+
+  <section class="w-full">
+    <h4 class="text-lg font-semibold">评论</h4>
     <small>共有 <span><%= @blog.comments_count %></span> 条评论</small>
     <%= render 'comments/comment_input', blog: @blog, comment: @comment %>
-    <hr>
+    <hr class="my-6 border-gray-200" />
     <ul>
       <%= render @blog.comments.includes(:user, :sub_comments).where(comment_id: nil) %>
     </ul>
