@@ -1,10 +1,11 @@
-<li class="flex flex-row my-8">
+<li class="flex flex-row <%= !comment.comment_id.nil? && 'ml-16 mt-2' %>">
   <%= link_to user_url(comment.user.id) do %>
-    <img src=<%= comment.user.oss_avatar %> class="w-14 rounded-full" />
-  <%- end %>
-  <div class="ml-4 w-full">
+    <img src=<%= comment.user.oss_avatar %> class="<%= comment.comment_id.nil? ? 'w-14' : 'w-10' %> rounded-full" />
+<%- end %>
+<div class="ml-4 w-full">
+  <%- if comment.comment_id.nil? %>
     <p class="text-xs font-bold text-gray-600"><%= link_to comment.user.nick_name, user_url(comment.user.id) %></p>
-    <p class="text-sm font-media my-3"><%= comment.content %></p>
+    <p class="text-sm font-media my-2"><%= comment.content %></p>
     <p class="flex">
       <small class="text-gray-400 text-xs"><%= comment.created_at.to_s(:db) %></small>
       <small class="text-gray-400 text-xs ml-3"><%= link_to '回复', comment_blog_comment_path(comment.blog.id, comment.id) %></small>
@@ -12,8 +13,27 @@
         <%= link_to '删 除', blog_comment_path(comment.blog.id, comment.id), remote: true, method: :delete %>
       </small>
     </p>
-  </div>
-  <div>
-    <%= render partial: 'comments/sub_comment', collection: comment.sub_comments, locals: { blog: comment.blog }  %>
-  </div>
+  <%- else %>
+    <p>
+      <span class="text-xs font-bold text-gray-600"><%= link_to comment.user.nick_name, user_url(comment.user.id) %>:</span> 
+      <span class="text-sm font-media my-1 ml-1"><%= comment.content %></span>
+    </p>
+    
+    <p class="flex">
+      <small class="text-gray-400 text-xs"><%= comment.created_at.to_s(:db) %></small>
+      <small class="text-gray-400 text-xs ml-3"><%= link_to '回复', comment_blog_comment_path(comment.blog.id, comment.id) %></small>
+      <small class="text-gray-400 text-xs ml-auto">
+        <%= link_to '删 除', blog_comment_path(comment.blog.id, comment.id), remote: true, method: :delete %>
+      </small>
+    </p>
+  <%- end %>
+</div>
 </li>
+<%- if (!comment.comment_id.nil? && comment.id === Comment.find(comment.comment_id).sub_comments.last.id) || (comment.comment_id.nil? && comment.sub_comments.size === 0) %>
+  <hr class="my-4 border-gray-200 ml-16" />
+<%- end %>
+<%- comment.sub_comments.map do |sub_comment| %>
+  <div>
+    <%= render sub_comment %>
+  </div>
+<%- end %>
