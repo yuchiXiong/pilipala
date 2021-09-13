@@ -1,10 +1,8 @@
 <%= provide :title, "#{@blog.title} - #{WebSetting::APP_NAME}" %>
-
 <!-- 回到顶部 -->
 <%= render 'shared/to_top_btn' %>
 <!-- 左侧悬浮点赞评论 -->
 <%= render 'ugc', blog: @blog %>
-
 <%= provide :left_slot do %>
   <h3 class="text-3xl"><%= @blog.title %></h3>
   <p class="flex flex-row my-1">
@@ -19,9 +17,7 @@
   </p>
   <%= render @blog.user, be_visited_user: @blog.user %>
   <%= sanitize render_markdown(@blog.content) %>
-
   <hr class="my-6 border-gray-200" />
-
   <section class="w-full">
     <h4 class="text-lg font-semibold">评论</h4>
     <small>共有 <span><%= @blog.comments_count %></span> 条评论</small>
@@ -32,14 +28,27 @@
     </ul>
   </section>
 <% end %>
+
 <%= provide :right_slot do %>
-  <div>
-    <h4>目录</h4>
-  </div>
-  <section>
-    <h4>作者的其它博客</h4>
-    <ul>
-      <%= link_to @blog.title.truncate(20), blog_url(@blog.id) %>
+  <section class="sticky top-24">
+    <h4 class="text-xl">目录</h4>
+    <ul 
+      x-data="{
+        tocData: document.querySelectorAll('.markdown-article > h1, .markdown-article > h2, .markdown-article > h3')
+      }"
+      @click="console.log(tocData)"
+    >
+      <li>111111111</li>
+      <li>111111111</li>
+      <li>111111111</li>
+      <li>111111111</li>
+      <li>111111111</li>
+      <li>111111111</li>
+      <li>111111111</li>
     </ul>
   </section>
 <% end %>
+<script>
+  
+
+</script>
