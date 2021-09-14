@@ -28,27 +28,69 @@
     </ul>
   </section>
 <% end %>
-
 <%= provide :right_slot do %>
   <section class="sticky top-24">
-    <h4 class="text-xl">目录</h4>
-    <ul 
-      x-data="{
-        tocData: document.querySelectorAll('.markdown-article > h1, .markdown-article > h2, .markdown-article > h3')
-      }"
-      @click="console.log(tocData)"
+    <h4 class="text-sm">目录</h4>
+    <ul class="text-sm mt-2">
+      <template
+      x-data="tocComponent"
+      x-for="(toc, index) in tocData"
+      @scroll.window="onScroll"
     >
-      <li>111111111</li>
-      <li>111111111</li>
-      <li>111111111</li>
-      <li>111111111</li>
-      <li>111111111</li>
-      <li>111111111</li>
-      <li>111111111</li>
+        <li
+        @click="redirectToToc(index, currentSelect)"
+        class="hover:bg-red-100 hover:text-red-800 pl-2 pr-2 py-1 cursor-pointer" 
+        :class="(['font-semibold', 'pl-5', 'pl-8'][toc.level - 1]) + ' ' + (index === currentSelect ? 'font-semibold bg-red-100 text-red-800' : '')" 
+        x-text="toc.content"></li>
+      </template>
     </ul>
   </section>
 <% end %>
-<script>
-  
-
-</script>
+<%= provide :custom_script do %>
+  <script>
+    function tocComponent () {
+      return {
+        tocData: Rails.$(window.markdownTitleSelector).map((item, index) => {
+          item.setAttribute("id", `toc${index}`);
+          return {
+            level: item.tagName[1],
+            content: item.textContent
+          }
+        }),
+        currentSelect: 0,
+        autoScrolling: false,
+        handleScrollTimer: null,
+        onScroll(e) {
+          if (this.autoScrolling) {
+            return false;
+          }
+          if (this.handleScrollTimer) {
+            clearTimeout(this.handleScrollTimer);
+          }
+    
+          this.handleScrollTimer = setTimeout(() => {
+            const allToc = Rails.$(window.markdownTitleSelector);
+            for (let i = allToc.length - 1; i >= 0; i -= 1) {
+              if (allToc[i].getBoundingClientRect().top < 150) {
+                this.currentSelect = i;
+                return;
+              }
+            }
+            this.handleScrollTimer = null;
+          }, 500);
+        },
+        redirectToToc (index) {
+          this.autoScrolling = true;
+          Rails.$(`#toc${index}`)[0].scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+          this.currentSelect = index;
+          setTimeout(() => {
+            this.autoScrolling = false;
+          }, 1000);
+        }
+      }
+    };
+  </script>
+<%- end %>
