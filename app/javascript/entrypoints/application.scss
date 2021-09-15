@@ -6,3 +6,7 @@
 @import "../stylesheets/markdwon-article";
 //@import "~highlight.js/styles/github-gists";
 
+img {
+  max-width: unset;
+}
+

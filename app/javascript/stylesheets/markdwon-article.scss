@@ -76,7 +76,7 @@
   pre {
     @apply bg-gray-100 p-2;
     code {
-      @apply block;
+      @apply block overflow-x-auto;
     }
   }
 

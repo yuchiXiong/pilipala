@@ -5,8 +5,8 @@
         <h3 class="text-xl font-medium">
           <span class="border-b border-white hover:border-gray-800"><%= blog.title %></span>
         </h3>
-        <article class="text-xs my-2 text-gray-400 max-h-24 leading-6 overflow-hidden">
-          <%= sanitize render_strip_down(blog.content).truncate(200) %>
+        <article class="text-xs my-2 text-gray-400 h-24 leading-6 overflow-hidden">
+          <%= sanitize render_strip_down(blog.content).truncate(600) %>
         </article>
         <small class="flex flex-row">
           <%- if show_author %>
@@ -37,7 +37,7 @@
       </div>
       <%- unless blog.cover.file.nil? %>
         <div class="flex justify-center items-center ml-8">
-          <%= image_tag blog.oss_cover, class: 'w-54' %>
+          <%= image_tag blog.oss_cover, class: 'w-40 rounded' %>
         </div>
       <%- end %>
     </div>
