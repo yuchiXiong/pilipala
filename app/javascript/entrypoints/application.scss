@@ -4,9 +4,42 @@
 
 @import "highlight.js/styles/atom-one-dark";
 @import "../stylesheets/markdwon-article";
-//@import "~highlight.js/styles/github-gists";
 
 img {
   max-width: unset;
 }
 
+// 全局覆盖 Kaminari 分页组件的样式
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+
+  .page,
+  .first,
+  .prev,
+  .next,
+  .last {
+    @apply btn-sm border rounded;
+  }
+
+  & > .page:not(:last-child),
+  .next,
+  .prev,
+  .first {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  & > .page:not(:first-child),
+  .next,
+  .prev,
+  .last {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin-left: -1px;
+  }
+
+  .current {
+    @apply bg-red-400 text-white;
+  }
+}

@@ -4,6 +4,8 @@
   <section class="my-4">
     <%= render @blogs, show_author: true %>
   </section>
+
+  <%= paginate @blogs %>
 <%- end %>
 
 <%= provide :right_slot do %>

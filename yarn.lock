@@ -739,6 +739,11 @@ csstype@^3.0.2:
   resolved "https://registry.nlark.com/csstype/download/csstype-3.0.8.tgz?cache=0&sync_timestamp=1618818466657&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcsstype%2Fdownload%2Fcsstype-3.0.8.tgz#d2266a792729fb227cd216fb572f43728e1ad340"
   integrity sha1-0iZqeScp+yJ80hb7Vy9Dco4a00A=
 
+daisyui@^1.14.7:
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-1.14.7.tgz#a8492204713df45b032490fc2495548d0655c94b"
+  integrity sha512-ojZfuYUmY324lnAQou6JBMj1fXGKMZ/uxUWJaLClSCSXZ3r5nRleeEYPGBoXdjr71tVTZWZpHI8mny4qZzvOow==
+
 date-fns@^2.15.0:
   version "2.16.1"
   resolved "https://registry.npm.taobao.org/date-fns/download/date-fns-2.16.1.tgz?cache=0&sync_timestamp=1598884225872&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdate-fns%2Fdownload%2Fdate-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
