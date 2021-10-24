@@ -18,20 +18,20 @@
   <%= render @blog.user, be_visited_user: @blog.user %>
   <%= sanitize render_markdown(@blog.content) %>
   <hr class="my-6 border-gray-200"/>
-  <section class="w-full">
-    <h4 class="text-lg font-semibold">评论</h4>
-    <small>共有 <span><%= @blog.comments_count %></span> 条评论</small>
-    <%= render 'comments/comment_input', blog: @blog, comment: @comment %>
-    <hr class="my-6 border-gray-200"/>
-    <ul>
-      <%- @comments = @blog.comments.includes(:user, :sub_comments).where(comment_id: nil) %>
-      <%- if @comments.size > 0 %>
-        <%= render @blog.comments.includes(:user, :sub_comments).where(comment_id: nil) %>
-      <%- else %>
-        <p class="text-sm text-gray-400 text-center my-24">暂无更多评论~赶紧来发表评论吧</p>
-      <%- end %>
-    </ul>
-  </section>
+<!--  <section class="w-full">-->
+<!--    <h4 class="text-lg font-semibold">评论</h4>-->
+<!--    <small>共有 <span><%#= @blog.comments_count %></span> 条评论</small>-->
+    <%#= render 'comments/comment_input', blog: @blog, comment: @comment %>
+<!--    <hr class="my-6 border-gray-200"/>-->
+<!--    <ul>-->
+      <%#- @comments = @blog.comments.includes(:user, :sub_comments).where(comment_id: nil) %>
+      <%#- if @comments.size > 0 %>
+        <%#= render @blog.comments.includes(:user, :sub_comments).where(comment_id: nil) %>
+      <%#- else %>
+<!--        <p class="text-sm text-gray-400 text-center my-24">暂无更多评论~赶紧来发表评论吧</p>-->
+      <%#- end %>
+<!--    </ul>-->
+<!--  </section>-->
 <% end %>
 <%= provide :right_slot do %>
   <section class="sticky top-24">

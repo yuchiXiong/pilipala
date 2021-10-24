@@ -8,17 +8,9 @@ class BlogsController < ApplicationController
   # * GET /blogs
   def index
     @page                       = params[:page].to_i <= 0 ? 1 : params[:page].to_i
-    @all_released_blogs          = Blog.visible.includes(:user)
-    @blogs = @all_released_blogs.page(@page).per(PER_PAGE_SIZE)
-    @hots                       = Blog.visible.first(5)
+    @all_released_blogs         = Blog.visible.includes(:user)
+    @blogs                      = @all_released_blogs.page(@page).per(PER_PAGE_SIZE)
     @current_user_like_blog_ids = current_user.like_blogs.ids if current_user
-    respond_to do |format|
-      format.js {
-        return render json: nil if @blogs.size.zero?
-        render partial: 'blogs/blog', collection: @blogs, locals: { show_author: true }, content_type: 'text/html'
-      }
-      format.html
-    end
   end
 
   # * GET /blogs/:id

@@ -15,20 +15,20 @@
       </h4>
       <p>
         <small>博客 <%= be_visited_user.blogs.kept.count %></small>
-        <small class="mx-1 text-gray-300">|</small>
-        <small>关注 <%= be_visited_user.following_count %></small>
-        <small class="mx-1 text-gray-300">|</small>
-        <small>粉丝 <%= be_visited_user.followers_count %></small>
+<!--        <small class="mx-1 text-gray-300">|</small>-->
+<!--        <small>关注 <%#= be_visited_user.following_count %></small>-->
+<!--        <small class="mx-1 text-gray-300">|</small>-->
+<!--        <small>粉丝 <%#= be_visited_user.followers_count %></small>-->
       </p>
     </div>
-    <div class="ml-auto flex items-center">
-      <%- if !current_user || (current_user && (current_user.id != be_visited_user.id)) %>
-        <%- if current_user && (current_user.follow_user? be_visited_user) %>
-          <%= link_to '取消关注', follow_user_path, class: 'rounded-full border', method: :post %>
-        <%- else %>
-          <%= link_to '关 注', follow_user_path, class: 'border border-white rounded-full w-24 text-center p-2 bg-red-400 text-white hover:bg-white hover:text-red-800 hover:border-red-800 transition', method: :post %>
-        <%- end %>
-      <%- end %>
-    </div>
+<!--    <div class="ml-auto flex items-center">-->
+      <%#- if !current_user || (current_user && (current_user.id != be_visited_user.id)) %>
+        <%#- if current_user && (current_user.follow_user? be_visited_user) %>
+          <%#= link_to '取消关注', follow_user_path, class: 'rounded-full border', method: :post %>
+        <%#- else %>
+          <%#= link_to '关 注', follow_user_path, class: 'border border-white rounded-full w-24 text-center p-2 bg-red-400 text-white hover:bg-white hover:text-red-800 hover:border-red-800 transition', method: :post %>
+        <%#- end %>
+      <%#- end %>
+<!--    </div>-->
   </div>
 </section>
