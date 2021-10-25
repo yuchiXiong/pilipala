@@ -28,4 +28,12 @@ class User < ApplicationRecord
     end
   end
 
+  # def valid_password?(password)
+  #   BCrypt::Engine.hash_secret(password, encrypted_password[0, 29].to_str) == encrypted_password
+  # end
+  #
+  # def password= (password)
+  #   encrypted_password = BCrypt::Engine.hash_secret(password, BCrypt::Engine.generate_salt(BCrypt::Engine.cost))
+  # end
+
 end

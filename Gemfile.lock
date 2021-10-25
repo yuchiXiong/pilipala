@@ -371,6 +371,7 @@ DEPENDENCIES
   action-store
   aliyun-sdk
   aliyunsdkcore
+  bcrypt (~> 3.1, >= 3.1.16)
   bootsnap (>= 1.1.0)
   browser_warrior (~> 0.14.0)
   byebug
