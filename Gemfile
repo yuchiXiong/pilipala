@@ -44,7 +44,7 @@ gem 'browser_warrior', '~> 0.14.0'
 
 
 # * account system
-gem 'devise'
+# gem 'devise'
 gem 'bcrypt', '~> 3.1', '>= 3.1.16'
 
 # * memo cache

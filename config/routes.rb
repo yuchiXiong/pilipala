@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   root 'blogs#index'
   get :editor, to: 'editor#index'
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations',
-    passwords: 'users/passwords'
-  }
+  # devise_for :users, controllers: {
+  #   sessions: 'users/sessions',
+  #   registrations: 'users/registrations',
+  #   passwords: 'users/passwords'
+  # }
 
   # * API
   namespace :api do
