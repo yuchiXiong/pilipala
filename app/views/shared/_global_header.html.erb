@@ -19,7 +19,7 @@
         @mouseleave="visible = false"
         class="relative bg-white h-10 w-10 rounded-full text-sm text-red-800 font-semibold transition"
       >
-        <%- if current_user %>
+        <%- if false %>
           <%= image_tag current_user.oss_avatar, class: 'h-8 w-8 rounded-full' %>
           <div 
             x-show="visible"
@@ -33,9 +33,9 @@
             </ul>
           </div>
         <%- else %>
-          <%= link_to '登录', new_user_session_url, {
+          <%= link_to '登录', '#', {
               class: 'text-red-800',
-              html: {
+              html:  {
                   '@mouseenter': "visible = true",
                   '@mouseleave': "visible = false"
               }
@@ -55,10 +55,10 @@
               <li class="w-52">发布动态、评论、Anyway</li>
               <li class="w-52">更多精彩内容与最新特性</li>
             </ul>
-            <%= link_to '立即登录', new_user_session_url, class: 'block rounded bg-red-400 text-white text-center w-full p-2 my-4'  %>
+            <%= link_to '立即登录', '#', class: 'block rounded bg-red-400 text-white text-center w-full p-2 my-4' %>
             <p class="text-center">
               还没有账户？
-              <%= link_to '点我注册', new_user_registration_url, class: 'text-red-800' %>
+              <%= link_to '点我注册', '#', class: 'text-red-800' %>
             </p>
           </div>
         <%- end %>

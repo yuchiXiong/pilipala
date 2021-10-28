@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2021_01_09_031338) do
   end
 
   create_table "users", comment: "用户表", force: :cascade do |t|
-    t.string "nick_name", default: "SmallBook8380a483", comment: "昵称"
+    t.string "nick_name", default: "SmallBookd4e4b987", comment: "昵称"
     t.string "email", comment: "[废弃]邮箱"
     t.string "avatar", comment: "头像"
     t.integer "sex", default: 0, comment: "性别"

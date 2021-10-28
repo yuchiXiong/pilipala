@@ -2,7 +2,6 @@ require 'test_helper'
 require 'open-uri'
 
 class BlogPhotosControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
 
   setup do
     # @photo_domain = 'https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com'.freeze

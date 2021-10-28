@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   include Code
   before_action :authenticate_user!
-  before_action :configure_permitted_parameters, if: :devise_controller?
 
   class ResourcesNotFound < StandardError; end
 
@@ -43,18 +42,6 @@ class ApplicationController < ActionController::Base
       content: content,
       messages: messages
     }, status: status
-  end
-
-  private
-
-  def devise_layout
-    devise_controller? ? 'devise' : 'application'
-  end
-
-  protected
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:account_update, keys: [:nick_name, :description, :avatar])
   end
 
 end
