@@ -10,10 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_09_031338) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 2021_11_29_061302) do
 
   create_table "actions", force: :cascade do |t|
     t.string "action_type", null: false
@@ -29,20 +26,20 @@ ActiveRecord::Schema.define(version: 2021_01_09_031338) do
     t.index ["user_type", "user_id", "action_type"], name: "index_actions_on_user_type_and_user_id_and_action_type"
   end
 
-  create_table "blogs", comment: "博客表", force: :cascade do |t|
-    t.string "title", null: false, comment: "标题"
-    t.text "description", default: "", comment: "描述"
-    t.text "content", default: "", comment: "内容"
-    t.string "cover", comment: "封面"
-    t.integer "user_id", null: false, comment: "作者id"
+  create_table "blogs", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "description", default: ""
+    t.text "content", default: ""
+    t.string "cover"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "released", default: false, comment: "博客发布状态"
+    t.boolean "released", default: false
     t.datetime "discarded_at"
     t.integer "scan_result"
     t.integer "reads_count", default: 0
     t.integer "likes_count", default: 0
-    t.integer "comments_count", default: 0, comment: "评论总数缓存"
+    t.integer "comments_count", default: 0
     t.index ["discarded_at"], name: "index_blogs_on_discarded_at"
     t.index ["scan_result"], name: "index_blogs_on_scan_result"
     t.index ["title"], name: "index_blogs_on_title"
@@ -53,28 +50,29 @@ ActiveRecord::Schema.define(version: 2021_01_09_031338) do
     t.text "content"
     t.integer "user_id"
     t.integer "blog_id"
-    t.bigint "comment_id"
+    t.integer "comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["comment_id"], name: "index_comments_on_comment_id"
   end
 
-  create_table "users", comment: "用户表", force: :cascade do |t|
-    t.string "nick_name", default: "SmallBookd4e4b987", comment: "昵称"
-    t.string "email", comment: "[废弃]邮箱"
-    t.string "avatar", comment: "头像"
-    t.integer "sex", default: 0, comment: "性别"
-    t.text "description", default: "", comment: "简介"
+  create_table "users", force: :cascade do |t|
+    t.string "nick_name", default: "SmallBook5908a637"
+    t.string "email"
+    t.string "avatar"
+    t.integer "sex", default: 0
+    t.text "description", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.boolean "is_admin", default: false, null: false, comment: "是否是管理员"
-    t.integer "blogs_count", default: 0, comment: "用户博客数量"
-    t.integer "followers_count", default: 0, comment: "被关注数"
-    t.integer "following_count", default: 0, comment: "关注数"
+    t.boolean "is_admin", default: false, null: false
+    t.integer "blogs_count", default: 0
+    t.integer "followers_count", default: 0
+    t.integer "following_count", default: 0
+    t.string "password_digest"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

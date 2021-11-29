@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include Code
-  before_action :authenticate_user!
 
   class ResourcesNotFound < StandardError; end
 
@@ -42,6 +41,10 @@ class ApplicationController < ActionController::Base
       content: content,
       messages: messages
     }, status: status
+  end
+
+  def current_user
+    session[:current_user]
   end
 
 end

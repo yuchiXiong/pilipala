@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   root 'blogs#index'
   get :editor, to: 'editor#index'
 
+  get :sign_in, to: 'account/sessions#new'
+  post :sign_in, to: 'account/sessions#create'
+
   # * API
   namespace :api do
     resource :blog_photos, only: [:create]

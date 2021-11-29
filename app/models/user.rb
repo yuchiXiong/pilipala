@@ -11,11 +11,7 @@ class User < ApplicationRecord
 
   enum sex: %i[保密 男 女]
 
-  class NullPassWordError < StandardError; end
-
-  def resource_errors
-    errors.full_messages
-  end
+  has_secure_password
 
   def oss_avatar
     if avatar.file.nil?
@@ -25,42 +21,6 @@ class User < ApplicationRecord
       # "https://assets-blog-xiongyuchi.oss-cn-beijing.aliyuncs.com#{avatar.url}"
       "https://assets.bubuyu.top#{avatar.url}"
     end
-  end
-
-  def update(record)
-    self.password = record[:password] unless record[:password].nil?
-    record.except!(:password).merge!(encrypted_password: encrypted_password)
-    super
-  end
-
-  def update!(record)
-    self.password = record[:password] unless record[:password].nil?
-    record.except!(:password).merge!(encrypted_password: encrypted_password)
-    super
-  end
-
-  def valid_password?(password)
-    BCrypt::Engine.hash_secret(password, encrypted_password[0, 29].to_str) == encrypted_password
-  end
-
-  def password=(password)
-    self.encrypted_password = BCrypt::Engine.hash_secret(password, BCrypt::Engine.generate_salt(BCrypt::Engine.cost))
-  end
-
-  def password
-    encrypted_password
-  end
-
-  def self.create(record)
-    return if record[:password].nil?
-    record.except!(:password).merge!(encrypted_password: encrypted_password)
-    super
-  end
-
-  def self.create!(record)
-    raise NullPassWordError if record[:password].nil?
-    record.except!(:password).merge!(encrypted_password: encrypted_password)
-    super
   end
 
 end

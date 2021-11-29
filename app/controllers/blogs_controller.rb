@@ -1,7 +1,5 @@
-require 'ali/content_scan'
-
 class BlogsController < ApplicationController
-  skip_before_action :authenticate_user!, except: %i[like]
+  # skip_before_action :authenticate_user!, except: %i[like]
 
   PER_PAGE_SIZE = 20
 

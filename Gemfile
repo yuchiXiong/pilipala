@@ -41,7 +41,7 @@ gem 'browser_warrior', '~> 0.14.0'
 
 
 # * account system
-gem 'bcrypt', '~> 3.1', '>= 3.1.16'
+gem 'bcrypt', '~> 3.1.16', '>= 3.1.16'
 
 # * memo cache
 gem 'redis'
