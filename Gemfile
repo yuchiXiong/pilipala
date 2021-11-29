@@ -26,9 +26,6 @@ gem 'aliyunsdkcore'
 # * file uploader
 gem 'carrierwave', '~> 2.0'
 
-# * console
-gem 'pry-rails', '~> 0.3.9'
-
 # * soft delete
 gem 'discard', '~> 1.2'
 
