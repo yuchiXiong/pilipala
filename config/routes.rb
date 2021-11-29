@@ -33,12 +33,6 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admin do
-    root to: 'dashboard#index'
-    resources :blogs
-    get '*path', to: 'dashboard#index'
-  end
-
   get '*path', to: 'blogs#index'
 
 end
