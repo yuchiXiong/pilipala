@@ -17,7 +17,7 @@ set :forward_agent, true # SSH forward_agent.
 
 # * git settings
 set :repository, 'git@github.com:yuchiXiong/burogu.git'
-set :branch, 'master'
+set :branch, 'main'
 
 # * env settings
 set :rails_env, 'production'
